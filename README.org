@@ -1,0 +1,28 @@
+#+title: Readme
+#+author: librephoenix
+
+* My Nix Configuration
+While I still run =Arch btw=, I've been experimenting with NixOS and quite like it!  My configuration is not ready for daily use yet, but I'm learning inside a VM.  Once this config is ready, I can run =Nix btw= instead.
+
+* Notes for Myself
+To get this running on a NixOS system, I will start by cloning the repo:
+#+BEGIN_SRC sh :noeval
+git clone https://gitlab.com/librephoenix/nixos-config.git /path/to/my/config/folder
+#+END_SRC
+
+Then, I can switch into the system configuration by running:
+#+BEGIN_SRC sh :noeval
+sudo nixos-rebuild switch -I nixos-config=nixos-config=/dotfiles/path/system/configuration.nix
+#+END_SRC
+
+Home manager can be installed with:
+#+BEGIN_SRC sh :noeval
+nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
+nix-channel --update
+nix-shell '<home-manager>' -A install
+#+END_SRC
+
+Then, my home-manager configuration can be installed with:
+#+BEGIN_SRC sh :noeval
+home-manager switch -f /dotfiles/path/user/home.nix
+#+END_SRC
