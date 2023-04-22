@@ -10,6 +10,11 @@ To get this running on a NixOS system, I will start by cloning the repo:
 git clone https://gitlab.com/librephoenix/nixos-config.git /path/to/my/config/folder
 #+END_SRC
 
+To get the hardware configuration, I can other copy from =/etc/nixos/hardware-configuration.nix= or run:
+#+BEGIN_SRC sh :noeval
+sudo nixos-generate-config --dir /dotfiles/path/system
+#+END_SRC
+
 Then, I can switch into the system configuration by running:
 #+BEGIN_SRC sh :noeval
 sudo nixos-rebuild switch -I nixos-config=nixos-config=/dotfiles/path/system/configuration.nix
