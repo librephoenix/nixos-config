@@ -1,0 +1,1204 @@
+#+title: Xmonad Config
+#+author: librephoenix
+
+* XMonad
+The main configuration file for XMonad is [[./xmonad.hs][~/.xmonad/xmonad.hs]].
+** Imports
+First I import a bunch of libraries:
+#+BEGIN_SRC haskell :tangle xmonad.hs
+-- IMPORTS
+import qualified Data.Map as M
+import Control.Monad as C
+import Data.List
+import Data.Monoid
+import Data.Maybe (fromJust)
+import Graphics.X11.ExtraTypes.XF86
+import System.Exit
+import System.IO
+import XMonad
+import XMonad.Actions.Navigation2D
+import XMonad.Actions.SpawnOn
+import XMonad.Actions.TiledWindowDragging
+import XMonad.Actions.Warp
+import XMonad.Actions.WindowNavigation
+import XMonad.Actions.WithAll
+import XMonad.Hooks.DynamicLog
+import qualified XMonad.Hooks.EwmhDesktops as EWMHD
+import XMonad.Hooks.FadeWindows
+import XMonad.Hooks.ManageDocks
+import XMonad.Hooks.RefocusLast
+import XMonad.Hooks.ServerMode
+import XMonad.Hooks.StatusBar
+import XMonad.Hooks.StatusBar.PP
+import XMonad.Layout.DraggingVisualizer
+import XMonad.Layout.Dwindle
+import XMonad.Layout.Fullscreen
+import XMonad.Layout.Gaps
+import XMonad.Layout.LayoutHints
+import XMonad.Layout.LimitWindows
+import XMonad.Layout.MouseResizableTile
+import XMonad.Layout.Spacing
+import XMonad.ManageHook
+import qualified XMonad.StackSet as W
+--import qualified DBus as D
+--import qualified DBus.Client as D
+import XMonad.Util.NamedScratchpad
+import XMonad.Util.Run
+import XMonad.Util.SpawnOnce
+
+#+END_SRC
+** Theme Setup
+*** Color Variable Declarations
+Next, I declare some variables necessary to setup 16-bit color schemes.
+#+BEGIN_SRC haskell :tangle xmonad.hs
+-- CUSTOM COLORS
+colorSchemeList, colorSchemePrettyList :: [String]
+colorBgNormalList, colorFgNormalList :: [String]
+color01NormalList, color01BrightList, color02NormalList, color02BrightList :: [String]
+color03NormalList, color03BrightList, color04NormalList, color04BrightList :: [String]
+color05NormalList, color05BrightList, color06NormalList, color06BrightList :: [String]
+color07NormalList, color07BrightList, color08NormalList, color08BrightList :: [String]
+colorFocusList, colorSecondaryList :: [String]
+colorScheme, colorSchemePretty :: String
+colorBgNormal, colorFgNormal :: [Char]
+color01Normal, color01Bright, color02Normal, color02Bright :: String
+color03Normal, color03Bright, color04Normal, color04Bright :: String
+color05Normal, color05Bright, color06Normal, color06Bright :: String
+color07Normal, color07Bright, color08Normal, color08Bright :: String
+colorFocus, colorSecondary :: String
+gtkTheme :: String
+alacrittyTheme :: String
+doomEmacsTheme :: String
+
+#+END_SRC
+*** Color Scheme Enumerations
+Next, I enumerate each color scheme as an integer.
+#+BEGIN_SRC haskell :tangle xmonad.hs
+gruvboxIndex, solarizedIndex, draculaIndex, tomorrowNightIndex, tokyoNightIndex, oceanicNextIndex, ubuntuIndex :: Int
+gruvboxIndex = 0
+solarizedIndex = 1
+draculaIndex = 2
+tomorrowNightIndex = 3
+tokyoNightIndex = 4
+oceanicNextIndex = 5
+oldHopeIndex = 6
+ubuntuIndex = 7
+
+#+END_SRC
+*** Color Scheme Arrays
+Each enumerated color scheme from [[Color Scheme Enumerations][before]] corresponds to the index of the following arrays.  These arrays are then used as the basis to select a color scheme.
+#+BEGIN_SRC haskell :tangle xmonad.hs
+-- color scheme arrays
+colorSchemeList = ["gruvbox", "solarized", "dracula", "tomorrow-night", "tokyo-night", "oceanic-next", "old-hope"]
+colorSchemePrettyList = ["Gruvbox Dark", "Solarized Dark", "Dracula", "Tomorrow Night", "Tokyo Night", "Oceanic Next", "Old Hope"]
+gtkThemeList = ["MyGruvbox", "", "OfficialDracula", "MyGraphite", "", "MyOceanicNext", "SweetDark"] -- names of corresponding gtk themes
+alacrittyThemeList = ["gruvbox_dark", "solarized_dark", "dracula", "tomorrow_night", "tokyo_night", "oceanic_next", "old_hope"]
+doomEmacsThemeList = ["doom-gruvbox", "doom-solarized-dark", "doom-dracula", "doom-tomorrow-night", "doom-tokyo-night", "doom-oceanic-next", "doom-old-hope"]
+colorBgNormalList = ["#282828", "#002b36", "#282a36", "#1d1f21", "#1a1b26", "#1b2b34", "#1c1d21"] -- normal bg
+colorBgBrightList = ["#3b3838", "#113b3f", "#36343f", "#3d3f41", "#2a2b36", "#2b3b41", "#3c3d41"] -- lighter bg
+trayerBgNormalList = ["0x00282828", "0x00002b36", "0x00282a36", "0x1d1f21", "0x1a1b26", "0x1b2b34", "0x1c1d21"] -- trayer tint
+colorFgNormalList = ["#ebdbb2", "#839496", "#f8f8f2", "#c5c8c6", "#a9b1d6", "#d8dee9", "#cbcdd2"] -- normal fg
+color01NormalList = ["#343428", "#073642", "#000000", "#1d1f21", "#32344a", "#29414f", "#45474f"] -- black
+color01BrightList = ["#928374", "#002b36", "#555555", "#666666", "#444b6a", "#405860", "#65676f"] -- bright black
+color02NormalList = ["#cc241d", "#dc3ddf", "#ff5555", "#cc6666", "#f7768e", "#ec5f67", "#eb3d54"] -- red
+color02BrightList = ["#fb4934", "#cb4b16", "#ff1010", "#ff3334", "#ff7a93", "#ff3130", "#eb3d54"] -- bright red
+color03NormalList = ["#98971a", "#859900", "#50fa7b", "#b5bd68", "#9ece6a", "#99c794", "#78bd65"] -- green
+color03BrightList = ["#b8bb26", "#586e75", "#02fe03", "#9ec400", "#b9f27c", "#66fa56", "#78bd65"] -- bright green
+color04NormalList = ["#d79921", "#b58900", "#f1fa8c", "#e6c547", "#e0af68", "#fac863", "#e5cd52"] -- yellow
+color04BrightList = ["#fabd2f", "#657b83", "#ffff02", "#f0c674", "#ff9e64", "#ffca4f", "#e5cd52"] -- bright yellow
+color05NormalList = ["#458588", "#268bd2", "#bd93f9", "#81a2be", "#7aa2f7", "#6699cc", "#4fb4d8"] -- blue
+color05BrightList = ["#83a598", "#839496", "#4d31fd", "#81a2be", "#7da6ff", "#4477ee", "#4fb4d8"] -- bright blue
+color06NormalList = ["#b16286", "#d33682", "#ff79c6", "#b29fbb", "#ad8ee6", "#c594c5", "#ef7c2a"] -- magenta
+color06BrightList = ["#d3869b", "#6c71c4", "#ff20d8", "#b77ee0", "#bb9af7", "#d864d8", "#ef7c2a"] -- bright magenta
+color07NormalList = ["#689d6a", "#2aa198", "#8be9fd", "#70c0ba", "#449dab", "#5fb3b3", "#4fb4d8"] -- cyan
+color07BrightList = ["#8ec07c", "#93a1a1", "#03feff", "#54ced6", "#0db9d7", "#30d2d0", "#4fb4d8"] -- bright cyan
+color08NormalList = ["#a89984", "#eee8d5", "#bbbbbb", "#676b71", "#787c99", "#65737e", "#cbcdd2"] -- white
+color08BrightList = ["#ebdbb2", "#fdf6e3", "#ffffff", "#787a7e", "#acb0d0", "#d8dee9", "#cbcdd2"] -- bright white
+colorFocusList = ["#458588", "#859900", "#ff79c6", "#e6c547", "#ff9e64", "#c594c5", "#eb3d54"] -- focus and run launcher color
+colorSecondaryList = ["#d79921", "#dc3ddf", "#bbbbbb", "#70c0ba", "#0db9d7", "#fac863", "#4fb4d8"] -- secondary color
+
+#+END_SRC
+*** Choose Theme
+A theme is selected by setting the =myColorScheme= variable to one of the color schemes [[Color Scheme Enumerations][enumerated before]].
+#+BEGIN_SRC haskell :tangle xmonad.hs
+-- choose a color scheme
+myColorScheme = oldHopeIndex
+
+#+END_SRC
+*** Setup Color Variables
+#+BEGIN_SRC haskell :tangle xmonad.hs
+-- setup color variables
+colorScheme = colorSchemeList !! myColorScheme
+colorSchemePretty = colorSchemePrettyList !! myColorScheme
+gtkTheme = gtkThemeList !! myColorScheme
+alacrittyTheme = alacrittyThemeList !! myColorScheme
+doomEmacsTheme = doomEmacsThemeList !! myColorScheme
+colorBgNormal = colorBgNormalList !! myColorScheme -- normal bg
+colorBgBright = colorBgBrightList !! myColorScheme -- lighter bg
+trayerBgNormal = trayerBgNormalList !! myColorScheme -- trayer tint
+colorFgNormal = colorFgNormalList !! myColorScheme -- normal fg
+color01Normal = color01NormalList !! myColorScheme -- black
+color01Bright = color01BrightList !! myColorScheme -- bright black
+color02Normal = color02NormalList !! myColorScheme -- red
+color02Bright = color02BrightList !! myColorScheme -- bright red
+color03Normal = color03NormalList !! myColorScheme -- green
+color03Bright = color03BrightList !! myColorScheme -- bright green
+color04Normal = color04NormalList !! myColorScheme -- yellow
+color04Bright = color04BrightList !! myColorScheme -- bright yellow
+color05Normal = color05NormalList !! myColorScheme -- blue
+color05Bright = color05BrightList !! myColorScheme -- bright blue
+color06Normal = color06NormalList !! myColorScheme -- magenta
+color06Bright = color06BrightList !! myColorScheme -- bright magenta
+color07Normal = color07NormalList !! myColorScheme -- cyan
+color07Bright = color07BrightList !! myColorScheme -- bright cyan
+color08Normal = color08NormalList !! myColorScheme -- white
+color08Bright = color08BrightList !! myColorScheme -- bright white
+colorFocus = colorFocusList !! myColorScheme -- focus and run launcher color
+colorSecondary = colorSecondaryList !! myColorScheme
+
+#+END_SRC
+** Settings
+*** Border Color
+#+BEGIN_SRC haskell :tangle xmonad.hs
+-- Border colors for unfocused and focused windows, respectively.
+myNormalBorderColor, myFocusedBorderColor :: String
+myNormalBorderColor = colorBgNormal
+myFocusedBorderColor = colorFocus
+
+#+END_SRC
+*** Default Apps
+#+BEGIN_SRC haskell :tangle xmonad.hs
+-- Default apps
+myTerminal, myBrowser :: String
+myTerminal = "alacritty -o font.size=20"
+myBrowser = "librewolf"
+
+#+END_SRC
+*** Mouse Focus
+#+BEGIN_SRC haskell :tangle xmonad.hs
+-- Whether focus follows the mouse pointer.
+myFocusFollowsMouse :: Bool
+myFocusFollowsMouse = False
+
+-- Whether clicking on a window to focus also passes the click to the window
+myClickJustFocuses :: Bool
+myClickJustFocuses = False
+
+#+END_SRC
+*** Border Width
+#+BEGIN_SRC haskell :tangle xmonad.hs
+-- Width of the window border in pixels.
+myBorderWidth :: Dimension
+myBorderWidth = 3
+
+#+END_SRC
+*** Select Modkey
+The default modkey is =mod1Mask= which is bound to left alt.  =mod3Mask= can be used for right alt, but most people (including myself) simply use =mod4Mask= which is bound to the super key.
+#+BEGIN_SRC haskell :tangle xmonad.hs
+-- Modmask
+myModMask :: KeyMask
+myModMask = mod4Mask
+
+#+END_SRC
+*** Workspaces
+By default, workspaces are simply numeric strings ("1", "2", "3", etc..), but any strings can be used (i.e. "web", "irc", "code", etc..).  I set workspace names with <fn=1>\x____</fn> where the blank spaces represent a [[https://www.nerdfonts.com/][nerd font symbol code]].  This works nicely because I have a Nerd Font as fn=1 in my [[XMobar][xmobar]], which renders the nerd font glyphs in xmobar.
+#+BEGIN_SRC haskell :tangle xmonad.hs
+myWorkspaces :: [String]
+myWorkspaces =
+  [ "<fn=1>\xf15c</fn>¹", -- document icon for writing
+    "<fn=1>\xf059f</fn>²", -- globe icon for browsing
+    "<fn=1>\xf121</fn>³", -- dev icon for programming
+    "<fn=1>\xf001</fn>⁴", -- music file icon for composition
+    "<fn=1>\xf1fc</fn>⁵", -- paint icon for art
+    "<fn=1>\xead9</fn>⁶", -- video icon for recording/editing
+    "<fn=1>\xf0d6</fn>⁷", -- money icon for finances
+    "<fn=1>\xf19d</fn>⁸", -- cap icon for teaching
+    "<fn=1>\xf11b</fn>⁹" -- gamepad icon for gaming
+  ]
+--myWorkspaces =
+--  [ "doc", "www", "dev", "mus", "art", "vid", "fin", "edu", "game"]
+
+myWorkspaceIndices = M.fromList $ zipWith (,) myWorkspaces [1..] -- (,) == \x y -> (x,y)
+
+clickable ws = "<action=xdotool key super+"++show i++">"++ws++"</action>"
+    where i = fromJust $ M.lookup ws myWorkspaceIndices
+
+#+END_SRC
+*** Scratchpads
+Scratchpads are single applications that are normally not visible (in a workspace called "NSP"), but can be brought into the current workspace with a quick keybind.  I find that this works really well for applications I use frequently for quick tasks, such as my terminal, password manager, email, and music player.
+#+BEGIN_SRC haskell :tangle xmonad.hs
+-- Scratchpads
+myScratchPads :: [NamedScratchpad]
+myScratchPads =
+  [ NS "terminal" spawnTerm findTerm manageTerm,
+    NS "ranger" spawnRanger findRanger manageRanger,
+    NS "octave" spawnOctave findOctave manageOctave,
+    NS "btm" spawnBtm findBtm manageBtm,
+    NS "geary" spawnGeary findGeary manageGeary,
+    NS "helpmenu" spawnHelp findHelp manageHelp,
+    NS "cmus" spawnCmus findCmus manageCmus,
+    NS "cal" spawnCal findCal manageCal,
+    NS "pavucontrol" spawnPavucontrol findPavucontrol managePavucontrol,
+    NS "discord" spawnDiscord findDiscord manageDiscord
+  ]
+  where
+    spawnTerm = myTerminal ++ " --title scratchpad"
+    findTerm = title =? "scratchpad"
+    manageTerm = customFloating $ W.RationalRect l t w h
+      where
+        h = 0.9
+        w = 0.9
+        t = 0.95 - h
+        l = 0.95 - w
+    --spawnRanger = myTerminal ++ " --title ranger-scratchpad -e ranger"
+    spawnRanger = "kitty --title ranger-scratchpad -e ranger"
+    findRanger = title =? "ranger-scratchpad"
+    manageRanger = customFloating $ W.RationalRect l t w h
+      where
+        h = 0.9
+        w = 0.9
+        t = 0.95 - h
+        l = 0.95 - w
+    spawnOctave = myTerminal ++ " --title octave-scratchpad -e octave"
+    findOctave = title =? "octave-scratchpad"
+    manageOctave = customFloating $ W.RationalRect l t w h
+      where
+        h = 0.5
+        w = 0.4
+        t = 0.75 - h
+        l = 0.70 - w
+    spawnBtm = myTerminal ++ " -o font.size=12 --title btm-scratchpad -e btm"
+    findBtm = title =? "btm-scratchpad"
+    manageBtm = customFloating $ W.RationalRect l t w h
+      where
+        h = 0.5
+        w = 0.4
+        t = 0.75 - h
+        l = 0.70 - w
+    spawnDiscord = "flatpak run com.discordapp.Discord"
+    findDiscord = className =? "discord"
+    manageDiscord = customFloating $ W.RationalRect l t w h
+      where
+        h = 0.5
+        w = 0.4
+        t = 0.75 - h
+        l = 0.70 - w
+    spawnGeary = "geary"
+    findGeary = className =? "Geary"
+    manageGeary = customFloating $ W.RationalRect l t w h
+      where
+        h = 0.5
+        w = 0.4
+        t = 0.75 - h
+        l = 0.70 - w
+    spawnHelp = myTerminal ++ " --title xmonad_helpmenu -e w3m ~/.xmonad/helpmenu.txt"
+    findHelp = title =? "xmonad_helpmenu"
+    manageHelp = customFloating $ W.RationalRect l t w h
+      where
+        h = 0.9
+        w = 0.9
+        t = 0.95 - h
+        l = 0.95 - w
+    spawnCmus = myTerminal ++ " -o font.size=28 --title cmus-scratchpad -e cmus && cmus-remote -R && cmus-remote -S"
+    findCmus = title =? "cmus-scratchpad"
+    manageCmus = customFloating $ W.RationalRect l t w h
+      where
+        h = 0.9
+        w = 0.9
+        t = 0.95 - h
+        l = 0.95 - w
+    spawnCal = "alacritty -o font.size=18 --title cal-scratchpad -e calcurse"
+    findCal = title =? "cal-scratchpad"
+    manageCal = customFloating $ W.RationalRect l t w h
+      where
+        h = 0.6
+        w = 0.6
+        t = 0.65 - h
+        l = 1 - w
+    spawnPavucontrol = "pavucontrol"
+    findPavucontrol = className =? "Pavucontrol"
+    managePavucontrol = customFloating $ W.RationalRect l t w h
+      where
+        h = 0.5
+        w = 0.3
+        t = 0.9 - h
+        l = 0.65 - w
+
+#+END_SRC
+*** Keybindings
+Keybinds can be set with an array of values like: =(keybind, action)=.  The array is declared like so:
+#+BEGIN_SRC haskell :tangle xmonad.hs
+myKeys conf@(XConfig {XMonad.modMask = modm}) =
+  M.fromList $
+    [
+    -- insert keybinds with array values of ((keybind, action))
+
+#+END_SRC
+Then, keybindings are setup line by line as in the following sections:
+**** Quick App Keybindings
+The following binds the following:
+| Keybinding          | Action                                        |
+|---------------------+-----------------------------------------------|
+| S-Return            | New terminal                                  |
+| S-a                 | New emacs frame                               |
+| S-s                 | New browser window                            |
+| PrintScreen         | Snip a screenshot                             |
+| C-PrintScreen       | Snip a screenshot (to clipboard)              |
+| Shift-PrintScreen   | Screen capture current monitor                |
+| Shift-C-PrintScreen | Screen capture current monitor (to clipboard) |
+#+BEGIN_SRC haskell :tangle xmonad.hs
+      -- launch a terminal
+      ((modm, xK_Return), spawn $ XMonad.terminal conf),
+
+      -- launch emacsclient
+      ((modm, xK_a), spawn "emacsclient -c -a 'emacs'"),
+
+      -- launch browser
+      ((modm, xK_s), spawn myBrowser),
+
+      -- take screenshots
+      ((0, xK_Print), spawn "flameshot gui"), -- snip screenshot and save
+      ((controlMask, xK_Print), spawn "flameshot gui --clipboard"), -- snip screenshot to clipboard
+      ((shiftMask, xK_Print), spawn "flameshot screen"), -- screen capture current monitor and save
+      ((controlMask .|. shiftMask, xK_Print), spawn "flameshot screen -c"), -- screen capture current monitor to clipboard
+
+      -- launch game manager in gaming workspace
+      ((modm, xK_g), spawn "xdotool key Super+9 && gamehub"),
+
+#+END_SRC
+**** Generic Keybindings
+These setup standard bindings for brightness and audio control from the keyboard.
+#+BEGIN_SRC haskell :tangle xmonad.hs
+      -- control brightness from kbd
+      ((0, xF86XK_MonBrightnessUp), spawn "brightnessctl set +15"),
+      ((0, xF86XK_MonBrightnessDown), spawn "brightnessctl set 15-"),
+
+      -- control kbd brightness from kbd
+      ((0, xF86XK_KbdBrightnessUp), spawn "brightnessctl --device='asus::kbd_backlight' set +1 & xset r rate 350 100"),
+      ((0, xF86XK_KbdBrightnessDown), spawn "brightnessctl --device='asus::kbd_backlight' set 1- & xset r rate 350 100"),
+      ((shiftMask, xF86XK_MonBrightnessUp), spawn "brightnessctl --device='asus::kbd_backlight' set +1 & xset r rate 350 100"),
+      ((shiftMask, xF86XK_MonBrightnessDown), spawn "brightnessctl --device='asus::kbd_backlight' set 1- & xset r rate 350 100"),
+
+      -- control volume from kbd
+      ((0, xF86XK_AudioLowerVolume), spawn "pamixer -d 10"),
+      ((0, xF86XK_AudioRaiseVolume), spawn "pamixer -i 10"),
+      ((0, xF86XK_AudioMute), spawn "pamixer -t"),
+
+      -- control music from kbd
+      ((0, xF86XK_AudioPlay), spawn "cmus-remote -u"),
+      ((0, xF86XK_AudioStop), spawn "cmus-remote -s"),
+      ((0, xF86XK_AudioNext), spawn "cmus-remote -n && ~/.local/bin/cmus-current-song-notify.sh"),
+      ((0, xF86XK_AudioPrev), spawn "cmus-remote -r && ~/.local/bin/cmus-current-song-notify.sh"),
+
+      -- manage multiple monitors with kbd
+      -- ((0, xF86XK_Explorer), spawn "/home/librephoenix/.local/bin/setup_external_monitor.sh"),
+      -- ((0, xK_F8), spawn "/home/librephoenix/.local/bin/setup_external_monitor.sh"),
+
+#+END_SRC
+**** Dmenu Script Keybinds
+I have =dmenu_run= bound to =S-;= for quick app access.
+#+BEGIN_SRC haskell :tangle xmonad.hs
+      -- launch dmenu
+      --((modm, xK_semicolon), spawn ("dmenu_run -nb '" ++ colorBgNormal ++ "' -nf '" ++ color08Bright ++ "' -sb '" ++ colorFocus ++ "' -sf '" ++ color08Bright ++ "' -fn 'UbuntuMono-R:regular:pixelsize=28' -l 4 -p '➤'")),
+      ((modm, xK_semicolon), spawn ("rofi -show drun -show-icons")),
+      ((modm, xK_p), spawn ("keepmenu")),
+
+#+END_SRC
+I also have some dmenu scripts bound to keybinds for quick use.
+***** App Template Dmenu Script
+I created another dmenu script which allows me to quickly select from a set of scripts in =~/.xmonad/workspace-templates/=.  These templates simply launch multiple apps at once, and are useful for quickly opening all necessary programs for a given task.
+#+BEGIN_SRC sh :tangle template-select.sh
+#!/bin/sh
+
+nbColor=$1
+nfColor=$2
+sbColor=$3
+sfColor=$4
+
+choices=$(/usr/bin/ls ~/.xmonad/workspace-templates/)
+
+promptarray[0]="What to do?"
+promptarray[1]="Which template?"
+promptarray[2]="... What do you want?"
+promptarray[3]="What template?"
+promptarray[4]="Your template is my command:"
+promptarray[5]="What would you like to do?"
+promptarray[6]="Yeas, boss?"
+promptarray[7]="Which template again?"
+
+size=${#promptarray[@]}
+index=$(($RANDOM % $size))
+
+selectedprompt=${promptarray[$index]}
+
+choice=$(echo -e "$choices" | dmenu -i -nb ${nbColor} -nf ${nfColor} -sb ${sbColor} -sf ${sfColor} -fn 'UbuntuMono-R:regular:pixelsize=28' -p "$selectedprompt") && exec ~/.xmonad/workspace-templates/$choice
+
+#+END_SRC
+
+I have this dmenu script bound to =S-w=:
+#+BEGIN_SRC haskell :tangle xmonad.hs
+      -- launch app template dmenu script
+      ((modm, xK_w), spawn ("~/.xmonad/template-select.sh '" ++ colorBgNormal ++ "' '" ++ color08Bright ++ "' '" ++ colorFocus ++ "' '" ++ color08Bright ++ "'")),
+
+#+END_SRC
+***** VM Select Dmenu Script
+I have another dmenu script which allows me to quickly select a particular QEMU virtual machine and immediately open it inside of virt-manager:
+#+BEGIN_SRC sh :tangle vm-select.sh
+#!/bin/sh
+
+nbColor=$1
+nfColor=$2
+sbColor=$3
+sfColor=$4
+
+choices=$(/usr/bin/ls ~/.config/libvirt/qemu | grep .xml | cut -f 1 -d '.')
+
+promptarray[0]="What VM?"
+promptarray[1]="Which VM?"
+promptarray[2]="... What VM do you want?"
+promptarray[3]="What VM do you need?"
+promptarray[4]="I shall start the VM:"
+promptarray[5]="Virtual time?"
+promptarray[6]="VM, boss?"
+promptarray[7]="Which VM again?"
+
+size=${#promptarray[@]}
+index=$(($RANDOM % $size))
+
+selectedprompt=${promptarray[$index]}
+
+choice=$(echo -e "$choices" | dmenu -i -nb ${nbColor} -nf ${nfColor} -sb ${sbColor} -sf ${sfColor} -fn 'UbuntuMono-R:regular:pixelsize=28' -p "$selectedprompt") && exec virt-manager -c qemu:///session --show-domain-console $choice
+#+END_SRC
+
+This script is bound to =S-v=:
+#+BEGIN_SRC haskell :tangle xmonad.hs
+      -- launch virt-manager vm select dmenu script
+      ((modm, xK_v), spawn ("~/.xmonad/vm-select.sh '" ++ colorBgNormal ++ "' '" ++ color08Bright ++ "' '" ++ colorFocus ++ "' '" ++ color08Bright ++ "'")),
+      -- launch virt-manager vm select dmenu script
+      -- ((modm .|. shiftMask, xK_v), spawn ("~/.xmonad/vm-app-select.sh '" ++ colorBgNormal ++ "' '" ++ color08Bright ++ "' '" ++ colorFocus ++ "' '" ++ color08Bright ++ "'")),
+
+#+END_SRC
+**** Window Management Keybinds
+All of the following keybinds pertain to window management and layouts:
+| Keybinding        | Action                                                                                         |
+|-------------------+------------------------------------------------------------------------------------------------|
+| S-q               | Kill window                                                                                    |
+| S-Shift-c         | Kill all windows on current workspace                                                          |
+| S-Shift-q         | Exit xmonad                                                                                    |
+| S-Shift-Escape    | Lock xmonad                                                                                    |
+| S-Shift-s         | Lock xmonad and suspend                                                                        |
+| S-Shift-Escape    | Lock xmonad and suspend                                                                        |
+| S-Space           | Switch to next layout                                                                          |
+| S-Shift-Space     | Reset layout on current workspace                                                              |
+| S-r               | Resize windows to correct size                                                                 |
+| S-{←,↓,↑,→}       | Switch to screen visually {left,down,up,right} (requires a [[Window Rules and Hooks][Navigation2Dconfig]])          |
+| S-{h,j,k,l}       | Switch to window visually {left,down,up,right} (requires a [[Window Rules and Hooks][Navigation2Dconfig]])                 |
+| S-Shift-{h,j,k,l} | Swap window visually {left,down,up,right} on current workspace (requires a [[Window Rules and Hooks][Navigation2Dconfig]]) |
+| S-C-{h,l}         | Resize master window area                                                                      |
+| S-m               | Move current window into master window area                                                    |
+| S-t               | Toggle floating status of a window (this is a function defined [[Toggle Float Function Definition][here]])                           |
+| S-,               | Increase number of windows in the master window area                                           |
+| S-.               | Decrease number of windows in the master window area                                           |
+These keybindings are then set via:
+#+BEGIN_SRC haskell :tangle xmonad.hs
+      -- close focused window
+      ((modm, xK_q), kill),
+      -- close all windows on current workspace
+      ((modm .|. shiftMask, xK_c), killAll),
+      -- exit xmonad
+      ((modm .|. shiftMask, xK_q), spawn "killall xmonad-x86_64-linux"),
+      -- Lock with dm-tool
+      ((modm, xK_Escape), spawn "dm-tool switch-to-greeter"),
+      -- Lock with dm-tool and suspend
+      ((modm .|. shiftMask, xK_s), spawn "dm-tool switch-to-greeter & systemctl suspend"),
+      ((modm .|. shiftMask, xK_Escape), spawn "dm-tool switch-to-greeter & systemctl suspend"),
+
+      -- Rotate through the available layout algorithms
+      ((modm, xK_space), sendMessage NextLayout),
+      --  Reset the layouts on the current workspace to default
+      ((modm .|. shiftMask, xK_space), setLayout $ XMonad.layoutHook conf),
+
+      -- Resize viewed windows to the correct size
+      ((modm, xK_r), refresh),
+
+      -- Move focus to window below
+      ((modm, xK_j), C.sequence_ [windowGo D True, switchLayer, warpToWindow 0.5 0.5]),
+      -- Move focus to window above
+      ((modm, xK_k), C.sequence_ [windowGo U True, switchLayer, warpToWindow 0.5 0.5]),
+      -- Move focus to window left
+      ((modm, xK_h), C.sequence_ [windowGo L True, switchLayer, warpToWindow 0.5 0.5]),
+      -- Move focus to window right
+      ((modm, xK_l), C.sequence_ [windowGo R True, switchLayer, warpToWindow 0.5 0.5]),
+
+      -- Move focus to screen below
+      ((modm, xK_Down), C.sequence_ [screenGo D True, warpToCurrentScreen 0.5 0.5]),
+      -- Move focus to screen up
+      ((modm, xK_Up), C.sequence_ [screenGo U True, warpToCurrentScreen 0.5 0.5]),
+      -- Move focus to screen left
+      ((modm, xK_Left), C.sequence_ [screenGo L True, warpToCurrentScreen 0.5 0.5]),
+      -- Move focus to screen right
+      ((modm, xK_Right), C.sequence_ [screenGo R True, warpToCurrentScreen 0.5 0.5]),
+
+      -- Swap with window below
+      ((modm .|. shiftMask, xK_j), C.sequence_ [windowSwap D True, windowGo U True, switchLayer]),
+      -- Swap with window above
+      ((modm .|. shiftMask, xK_k), C.sequence_ [windowSwap U True, windowGo D True, switchLayer]),
+      -- Swap with window left
+      ((modm .|. shiftMask, xK_h), C.sequence_ [windowSwap L True, windowGo R True, switchLayer]),
+      -- Swap with window right
+      ((modm .|. shiftMask, xK_l), C.sequence_ [windowSwap R True, windowGo L True, switchLayer]),
+
+      -- Shrink the master area
+      ((modm .|. controlMask, xK_h), sendMessage Shrink),
+      -- Expand the master area
+      ((modm .|. controlMask, xK_l), sendMessage Expand),
+
+      -- Swap the focused window and the master window
+      ((modm, xK_m), windows W.swapMaster),
+
+      -- Toggle tiling/floating status of window
+      ((modm, xK_t), withFocused toggleFloat),
+
+      -- Increment the number of windows in the master area
+      ((modm, xK_comma), sendMessage (IncMasterN 1)),
+      -- Deincrement the number of windows in the master area
+      ((modm, xK_period), sendMessage (IncMasterN (-1))),
+
+#+END_SRC
+**** Scratchpad Keybinds
+I have each [[Scratchpads][scratchpad]] bound to a keybinding for quick access:
+| Keybinding | Associated Scratchpad      |
+|------------+----------------------------|
+| S-f        | Ranger file manager        |
+| S-x        | KeePassXC password manager |
+| S-z        | Terminal                   |
+| S-b        | Bottom control panel       |
+| S-d        | Discord                    |
+| S-o        | Octave (calculator)        |
+| S-e        | mu4e (email)               |
+| S-n        | Music player               |
+| S-c        | cfw (calendar)             |
+| S-y        | Pavucontrol (audio mixer)  |
+| S-/        | Keybinding help menu       |
+These are then bound:
+#+BEGIN_SRC haskell :tangle xmonad.hs
+      -- scratchpad keybindings
+      ((modm, xK_f), namedScratchpadAction myScratchPads "ranger"),
+      --((modm, xK_x), namedScratchpadAction myScratchPads "keepassxc"),
+      ((modm, xK_z), namedScratchpadAction myScratchPads "terminal"),
+      ((modm, xK_b), namedScratchpadAction myScratchPads "btm"),
+      ((modm, xK_d), namedScratchpadAction myScratchPads "discord"),
+      ((modm, xK_o), namedScratchpadAction myScratchPads "octave"),
+      ((modm, xK_e), namedScratchpadAction myScratchPads "geary"),
+      ((modm, xK_n), namedScratchpadAction myScratchPads "cmus"),
+      ((modm, xK_c), namedScratchpadAction myScratchPads "cal"),
+      ((modm, xK_y), namedScratchpadAction myScratchPads "pavucontrol"),
+      ((modm, xK_slash), namedScratchpadAction myScratchPads "helpmenu")
+
+#+END_SRC
+**** End of Standard Keybinds
+To finish the section of standard keybinds, we simply close the array [[Keybindings][started above]].
+#+BEGIN_SRC haskell :tangle xmonad.hs
+      ]
+#+END_SRC
+**** Workspace Management Keybinds
+Workspaces are generically managed via =mod-[1..9]= to shift to a workspace, and =mod-shift-[1..9]= to send a window to another workspace.  To generate this effect, the following code is added to the keybindings definition:
+#+BEGIN_SRC haskell :tangle xmonad.hs
+      ++
+      -- mod-[1..9], Switch to workspace N
+      -- mod-shift-[1..9], Move client to workspace N
+
+      [ ((m .|. modm, k), windows $ f i)
+        | (i, k) <- zip (XMonad.workspaces conf) [xK_1 .. xK_9],
+          (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask)]
+      ]
+
+#+END_SRC
+**** Custom Function Definitions
+To have =toggleFloat= and =warpToCurrentScreen=, I must define them after setting up the keybinds like so:
+#+BEGIN_SRC haskell :tangle xmonad.hs
+  where
+    -- toggle float/tiling status of current window
+    toggleFloat w =
+      windows
+        ( \s ->
+            if M.member w (W.floating s)
+              then W.sink w s
+              else (W.float w (W.RationalRect (1 / 8) (1 / 8) (3 / 4) (3 / 4)) s)
+        )
+    -- warp cursor to (x, y) coordinate of current screen
+    warpToCurrentScreen x y = do
+      sid <- withWindowSet $ return . W.screen . W.current
+      warpToScreen sid x y
+    -- TODO goto and warp (coords x, y) to window in DIRECTION, or goto and warp (coords x, y) to screen in DIRECTION if no window is available
+    windowOrScreenGoAndWarp direction x y =
+      do windowGo direction True
+
+#+END_SRC
+**** Mouse Bindings
+The following code sets up some convenient mouse bindings:
+| Mouse Binding | Action                                       |
+|---------------+----------------------------------------------|
+| S-Left click  | Make window floating and drag to move window |
+| S-Right click | Make window floating and resize window       |
+#+BEGIN_SRC haskell :tangle xmonad.hs
+-- Mouse bindings: default actions bound to mouse events
+myMouseBindings (XConfig {XMonad.modMask = modm}) =
+  M.fromList $
+    --    -- mod-button1, Set the window to floating mode and move by dragging
+    [ ( (modm,  button1),
+        ( \w ->
+            focus w
+              >> mouseMoveWindow w
+              >> windows W.shiftMaster
+        )
+      ),
+      -- mod-button3, Set the window to floating mode and resize by dragging
+      ( (modm, button3),
+        ( \w ->
+            focus w
+              >> mouseResizeWindow w
+              >> windows W.shiftMaster
+        )
+      )
+      -- you may also bind events to the mouse scroll wheel (button4 and button5)
+    ]
+
+#+END_SRC
+*** Layouts
+By default, I utilize three layouts:
+- =mouseResizable= which is a master/stack layout I have set up to have dwindling sizes
+- =mouseResizableMirrored=, same as above except mirrored
+- =Full= where only one window takes up the entire space of the screen
+
+I embellish these layouts with a few modifiers:
+- =fullscreenFocus= for fullscreen support (also requires a [[Window Rules][fullscreen manage hook]])
+- =draggingVisualizer= so that I can drag tiling windows about via my [[Mouse Bindings][mouse bindings]]
+- =avoidStruts= since I use [[XMobar][xmobar]]
+- =spacingRaw= to put a few pixels of space between windows since it looks nice
+
+This is all applied in the following code to set the =myLayout= variable, which gets used later in the [[Main][main function]]:
+#+BEGIN_SRC haskell :tangle xmonad.hs
+-- Layouts:
+
+spcPx = 5
+
+mySpacing = spacingRaw False (Border spcPx spcPx spcPx spcPx) True (Border spcPx spcPx spcPx spcPx) True
+
+myLayout = fullscreenFocus $ draggingVisualizer $ avoidStruts $ layoutHintsToCenter $ (mySpacing $ (Full ||| mouseResizable ||| mouseResizableMirrored))
+  where
+    -- default tiling algorithm partitions the screen into two panes
+    tiled = Tall 1 (5 / 100) (1 / 2)
+
+    dwindled = Dwindle R CW 1.1 1.1
+
+    mouseResizable =
+      mouseResizableTile
+        { masterFrac = 0.51,
+          slaveFrac = 0.51,
+          draggerType = BordersDragger
+        }
+
+    mouseResizableMirrored =
+      mouseResizableTile
+        { masterFrac = 0.51,
+          slaveFrac = 0.51,
+          draggerType = BordersDragger,
+          isMirrored = True
+        }
+
+#+END_SRC
+*** Window Rules and Hooks
+Window rules apply actions when a new window matching a specific query is apprehended by xmonad.  I mainly use these to control my scratchpads (to make them all floating) and for some apps that don't behave nicely inside of a tiling window manager.
+
+The easiest way to do a query is by either =className= or =title= which can both be found using =xprop=.
+
+The list of window rules must be made into a manage hook, which gets used in the [[Main][main function]] when starting xmonad.
+#+BEGIN_SRC haskell :tangle xmonad.hs
+-- Window rules:
+myManageHook =
+  composeAll
+    [ title =? "Myuzi" --> (customFloating $ W.RationalRect 0.05 0.05 0.9 0.9),
+      title =? "octave-scratchpad" --> (customFloating $ W.RationalRect 0.1 0.1 0.8 0.8),
+      title =? "scratchpad" --> (customFloating $ W.RationalRect 0.1 0.1 0.8 0.8),
+      className =? "discord" --> (customFloating $ W.RationalRect 0.1 0.1 0.8 0.8),
+      title =? "ranger-scratchpad" --> (customFloating $ W.RationalRect 0.05 0.05 0.9 0.9),
+      title =? "btm-scratchpad" --> (customFloating $ W.RationalRect 0.1 0.1 0.8 0.8),
+      className =? "Geary" --> (customFloating $ W.RationalRect 0.05 0.05 0.9 0.9),
+      title =? "scratch_cfw" --> (customFloating $ W.RationalRect 0.58 0.04 0.42 0.7),
+      title =? "xmonad_helpmenu" --> (customFloating $ W.RationalRect 0.05 0.05 0.9 0.9),
+      className =? "Pavucontrol" --> (customFloating $ W.RationalRect 0.05 0.04 0.5 0.35),
+      className =? "Syncthing GTK" --> (customFloating $ W.RationalRect 0.53 0.50 0.46 0.45),
+      className =? "Proton Mail Bridge" --> (customFloating $ W.RationalRect 0.59 0.66 0.40 0.30),
+      className =? "Zenity" --> (customFloating $ W.RationalRect 0.45 0.4 0.1 0.2),
+      resource =? "desktop_window" --> doIgnore,
+      -- this gimp snippet is from Kathryn Anderson (https://xmonad.haskell.narkive.com/bV34Aiw3/layout-for-gimp-how-to)
+      (className =? "Gimp" <&&> fmap ("color-selector" `isSuffixOf`) role) --> doFloat,
+      (className =? "Gimp" <&&> fmap ("layer-new" `isSuffixOf`) role) --> doFloat,
+      (className =? "Gimp" <&&> fmap ("-dialog" `isSuffixOf`) role) --> doFloat,
+      (className =? "Gimp" <&&> fmap ("-tool" `isSuffixOf`) role) --> doFloat,
+      -- end snippet
+      resource =? "kdesktop" --> doIgnore,
+      manageDocks
+    ]
+   where role = stringProperty "WM_WINDOW_ROLE"
+
+#+END_SRC
+
+I also must set my fullscreen manage hook and fullscreen event hook here to fully enable fullscreen support mentioned [[Layouts][earlier]]:
+#+BEGIN_SRC haskell :tangle xmonad.hs
+-- Apply fullscreen manage and event hooks
+myFullscreenManageHook = fullscreenManageHook
+myFullscreenEventHook = fullscreenEventHook
+
+#+END_SRC
+
+Next, I set up my event hook to put xmonad into server mode, which allows me to use [[https://github.com/xmonad/xmonad-contrib/blob/master/scripts/xmonadctl.hs][xmonadctl]] from [[https://github.com/xmonad/xmonad-contrib][xmonad-contrib]], which enables control of xmonad actions from the shell/scripts.
+#+BEGIN_SRC haskell :tangle xmonad.hs
+-- Server mode event hook
+myEventHook = serverModeEventHook
+
+#+END_SRC
+
+Next I set up a =navigation2DConfig= for use with [[Window Management Keybinds][visual window movement]]:
+#+BEGIN_SRC haskell :tangle xmonad.hs
+-- navigation 2d config required for visual window movement
+myNavigation2DConfig = def {layoutNavigation = [("Tall", hybridOf sideNavigation $ hybridOf centerNavigation lineNavigation), ("Full", hybridOf sideNavigation centerNavigation)]
+                          , floatNavigation = hybridOf lineNavigation centerNavigation
+                          , screenNavigation = hybridOf lineNavigation centerNavigation}
+
+#+END_SRC
+
+*** Startup Script
+I have a startup script at =~/.xmonad/startup.sh= which starts various apps and sets up a few things.  The script starts by taking some passed color values as strings from xmonad, which are set in the [[Theme Setup][beginning of the config]].
+#+BEGIN_SRC sh :tangle startup.sh :tangle-mode (identity #o755)
+#!/bin/sh
+
+trayertint=$1
+
+nbColor=$2
+nfColor=$3
+sbColor=$4
+sfColor=$5
+
+themeGTKName=$6
+themeAlacrittyName=$7
+themeDoomEmacsName=$8
+
+colorBgNormal=$2
+colorBgBright=${27}
+colorFgNormal=$3
+color01Normal=$9
+color01Bright=${10}
+color02Normal=${11}
+color02Bright=${12}
+color03Normal=${13}
+color03Bright=${14}
+color04Normal=${15}
+color04Bright=${16}
+color05Normal=${17}
+color05Bright=${18}
+color06Normal=${19}
+color06Bright=${20}
+color07Normal=${21}
+color07Bright=${22}
+color08Normal=${23}
+color08Bright=${24}
+colorFocus=${25}
+colorSecondary=${26}
+
+#+END_SRC
+
+In my xmonad config, it is then autostarted by setting a =startupHook=.  Inside my startup hook, I pass the colors of my currently selected theme to the script:
+#+BEGIN_SRC haskell :tangle xmonad.hs
+-- Startup hook
+myStartupHook = do
+  spawnOnce ("~/.xmonad/startup.sh '" ++ trayerBgNormal ++ "' '" ++ colorBgNormal ++ "' '" ++ color08Bright ++ "' '" ++ colorFocus ++ "' '" ++ color08Bright ++ "' '" ++ gtkTheme ++ "' '" ++ alacrittyTheme ++ "' '" ++ doomEmacsTheme ++ "' '" ++ color01Normal ++ "' '" ++ color01Bright ++ "' '" ++ color02Normal ++ "' '" ++ color02Bright ++ "' '" ++ color03Normal ++ "' '" ++ color03Bright ++ "' '" ++ color04Normal ++ "' '" ++ color04Bright ++ "' '" ++ color05Normal ++ "' '" ++ color05Bright ++ "' '" ++ color06Normal ++ "' '" ++ color06Bright ++ "' '" ++ color07Normal ++ "' '" ++ color07Bright ++ "' '" ++ color08Normal ++ "' '" ++ color08Bright ++ "' '" ++ colorFocus ++ "' '" ++ colorSecondary ++ "' '" ++ colorBgBright ++ "'")
+
+#+END_SRC
+
+The autostart script kills all applications I am autostarting, which prevents multiple instances of background applications when I restart xmonad:
+#+BEGIN_SRC sh :tangle startup.sh :tangle-mode (identity #o755)
+# Startup shell script called by xmonad to start necessary programs
+#
+## Kill previous instances of applications (Prevents multiple instances of the following if XMonad is restarted durin the X session)
+killall xmobar
+killall twmnd
+killall trayer
+killall nm-applet
+killall nextcloud
+killall nitrogen
+killall xautolock
+killall caffeine
+killall syncthing-gtk
+killall discord
+killall qjoypad
+
+#+END_SRC
+
+Then, a few things are set up before starting any applications, including the dpi, compositor, keyboard, and environment variables.
+#+BEGIN_SRC sh :tangle startup.sh :tangle-mode (identity #o755)
+# pre-launch configurations
+# dbus-update-activation-environment --all &
+gnome-keyring-daemon --daemonize --login &
+# ~/.local/bin/setup-external-monitor.sh &
+# picom --experimental-backends &
+picom --animations --animation-window-mass 1 --animation-for-open-window zoom --animation-stiffness 200 --experimental-backends && # requires picom-pijulius
+xset r rate 350 50 &
+setxkbmap -option caps:escape &
+# betterdiscordctl --d-install flatpak install &
+
+# setup necessary environment variables
+# export QT_QPA_PLATFORMTHEME="qt5ct" &
+# export GTK_THEME=$themeGTKName
+
+#+END_SRC
+
+Next, the color themes for various applications are set in configuration files using sed.
+#+BEGIN_SRC sh :tangle startup.sh :tangle-mode (identity #o755)
+sed -i 's/background_color=.*/background_color='$nbcolor'/' ~/.config/twmn/twmn.conf &
+sed -i 's/foreground_color=.*/foreground_color='$sbcolor'/' ~/.config/twmn/twmn.conf &
+
+sed -i 's/colors: .*/colors: *'$themeAlacrittyName'/' ~/.config/alacritty/alacritty.yml &
+sed -i 's/colors: .*/colors: *'$themeAlacrittyName'/' ~/.config/alacritty/alacritty.org &
+
+sed -i "s/(setq doom-theme .*/(setq doom-theme '"$themeDoomEmacsName")/" ~/.doom.d/config.el &
+sed -i "s/(setq doom-theme .*/(setq doom-theme '"$themeDoomEmacsName")/" ~/.doom.d/doom.org &
+sed -i "s/(setq doom-theme .*/(setq doom-theme '"$themeDoomEmacsName")/" ~/.doom.d/doom-pub.org &
+
+cp -f ~/.config/xmobar/base-t-xmobarrc ~/.config/xmobar/xmobarrc &&
+sed -i "s/colorBgNormal/"$colorBgNormal"/g" ~/.config/xmobar/xmobarrc # normal background
+sed -i "s/colorBgBright/"$colorBgBright"/g" ~/.config/xmobar/xmobarrc # bright background
+sed -i "s/colorFgNormal/"$colorFgNormal"/g" ~/.config/xmobar/xmobarrc # normal foreground
+sed -i "s/color01Normal/"$color01Normal"/g" ~/.config/xmobar/xmobarrc # normal black
+sed -i "s/color01Bright/"$color01Bright"/g" ~/.config/xmobar/xmobarrc # bright black
+sed -i "s/color02Normal/"$color02Normal"/g" ~/.config/xmobar/xmobarrc # normal red
+sed -i "s/color02Bright/"$color02Bright"/g" ~/.config/xmobar/xmobarrc # bright red
+sed -i "s/color03Normal/"$color03Normal"/g" ~/.config/xmobar/xmobarrc # normal green
+sed -i "s/color03Bright/"$color03Bright"/g" ~/.config/xmobar/xmobarrc # bright green
+sed -i "s/color04Normal/"$color04Normal"/g" ~/.config/xmobar/xmobarrc # normal yellow
+sed -i "s/color04Bright/"$color04Bright"/g" ~/.config/xmobar/xmobarrc # bright yellow
+sed -i "s/color05Normal/"$color05Normal"/g" ~/.config/xmobar/xmobarrc # normal blue
+sed -i "s/color05Bright/"$color05Bright"/g" ~/.config/xmobar/xmobarrc # bright blue
+sed -i "s/color06Normal/"$color06Normal"/g" ~/.config/xmobar/xmobarrc # normal magenta
+sed -i "s/color06Bright/"$color06Bright"/g" ~/.config/xmobar/xmobarrc # bright magenta
+sed -i "s/color07Normal/"$color07Normal"/g" ~/.config/xmobar/xmobarrc # normal cyan
+sed -i "s/color07Bright/"$color07Bright"/g" ~/.config/xmobar/xmobarrc # bright cyan
+sed -i "s/color08Normal/"$color08Normal"/g" ~/.config/xmobar/xmobarrc # normal white
+sed -i "s/color08Bright/"$color08Bright"/g" ~/.config/xmobar/xmobarrc # bright white
+sed -i "s/colorFocus/"$colorFocus"/g" ~/.config/xmobar/xmobarrc # wm focus color
+sed -i "s/colorSecondary/"$colorSecondary"/g" ~/.config/xmobar/xmobarrc & # xmobar highlight color
+
+cp -f ~/.config/xmobar/base-xmobarrc-trayer ~/.config/xmobar/xmobarrc-trayer &&
+sed -i "s/colorBgNormal/"$colorBgNormal"/g" ~/.config/xmobar/xmobarrc-trayer # normal background
+sed -i "s/colorBgBright/"$colorBgBright"/g" ~/.config/xmobar/xmobarrc-trayer # bright background
+sed -i "s/colorFgNormal/"$colorFgNormal"/g" ~/.config/xmobar/xmobarrc-trayer # normal foreground
+sed -i "s/color01Normal/"$color01Normal"/g" ~/.config/xmobar/xmobarrc-trayer # normal black
+sed -i "s/color01Bright/"$color01Bright"/g" ~/.config/xmobar/xmobarrc-trayer # bright black
+sed -i "s/color02Normal/"$color02Normal"/g" ~/.config/xmobar/xmobarrc-trayer # normal red
+sed -i "s/color02Bright/"$color02Bright"/g" ~/.config/xmobar/xmobarrc-trayer # bright red
+sed -i "s/color03Normal/"$color03Normal"/g" ~/.config/xmobar/xmobarrc-trayer # normal green
+sed -i "s/color03Bright/"$color03Bright"/g" ~/.config/xmobar/xmobarrc-trayer # bright green
+sed -i "s/color04Normal/"$color04Normal"/g" ~/.config/xmobar/xmobarrc-trayer # normal yellow
+sed -i "s/color04Bright/"$color04Bright"/g" ~/.config/xmobar/xmobarrc-trayer # bright yellow
+sed -i "s/color05Normal/"$color05Normal"/g" ~/.config/xmobar/xmobarrc-trayer # normal blue
+sed -i "s/color05Bright/"$color05Bright"/g" ~/.config/xmobar/xmobarrc-trayer # bright blue
+sed -i "s/color06Normal/"$color06Normal"/g" ~/.config/xmobar/xmobarrc-trayer # normal magenta
+sed -i "s/color06Bright/"$color06Bright"/g" ~/.config/xmobar/xmobarrc-trayer # bright magenta
+sed -i "s/color07Normal/"$color07Normal"/g" ~/.config/xmobar/xmobarrc-trayer # normal cyan
+sed -i "s/color07Bright/"$color07Bright"/g" ~/.config/xmobar/xmobarrc-trayer # bright cyan
+sed -i "s/color08Normal/"$color08Normal"/g" ~/.config/xmobar/xmobarrc-trayer # normal white
+sed -i "s/color08Bright/"$color08Bright"/g" ~/.config/xmobar/xmobarrc-trayer # bright white
+sed -i "s/colorFocus/"$colorFocus"/g" ~/.config/xmobar/xmobarrc-trayer # wm focus color
+sed -i "s/colorSecondary/"$colorSecondary"/g" ~/.config/xmobar/xmobarrc-trayer & # xmobar highlight color
+
+sed -i "s/Nsxiv.window.background: .*/Nsxiv.window.background: "$colorBgNormal"/" ~/.Xresources
+sed -i "s/Nsxiv.window.foreground: .*/Nsxiv.window.foreground: "$colorFgNormal"/" ~/.Xresources &
+
+sed -i "s/export GTK_THEME=.*/export GTK_THEME="$themeGTKName"/" ~/.xsession &
+
+#+END_SRC
+
+Lastly, desktop applications are started in the background.
+#+BEGIN_SRC sh :tangle startup.sh :tangle-mode (identity #o755)
+# Launch necessary desktop applications
+# emacs --daemon &
+# xautolock -time 10 -locker "dm-tool switch-to-greeter & systemctl suspend" &
+twmnd &
+alttab -w 1 -t 240x160 -i 64x64 -sc 1 -bg $colorBgNormal -fg $colorFgNormal -frame $colorSecondary -inact $colorFgNormal &
+nitrogen --restore &
+autokey-gtk &
+##/usr/bin/trayer --edge top --align right --SetDockType true --SetPartialStrut true --expand true --widthtype request --transparent true --alpha 0 --height 28 --tint $trayertint --monitor "primary" &
+nm-applet &
+GOMAXPROCS=1 syncthing --no-browser &
+rclone mount adantium-nextcloud:/ ~/Nextcloud &
+syncthing-gtk -m &
+# flatpak run com.discordapp.Discord --start-minimized &
+gnome-keyring-daemon --start --components=secrets &
+protonmail-bridge --no-window
+~/.local/bin/setup-external-monitor.sh &
+rm -rf ~/org
+#back4.sh 0.04 ~/Media/Backgrounds/steampunk-city.gif &
+##sleep 2 && xwinwrap -b -s -fs -st -sp -nf -ov -fdt -- mpv -wid WID --really-quiet --framedrop=vo --no-audio --panscan="1.0" --loop-file=inf --osc=no ~/Downloads/gruvbox-town-mod.gif --scale="bilinear"
+#+END_SRC
+*** New Xmobar Setup
+#+BEGIN_SRC haskell :tangle xmonad.hs
+--myPP = def { ppCurrent = xmobarColor colorFocus "" }
+myPP = xmobarPP { ppTitle = xmobarColor colorFocus "",
+                  ppCurrent = xmobarStripTags ["NSP"] . xmobarColor colorFocus "",
+                  ppVisible = xmobarStripTags ["NSP"] . xmobarColor colorSecondary "",
+                  ppHidden = xmobarStripTags ["NSP"] . xmobarColor colorFgNormal "",
+                  ppHiddenNoWindows = xmobarStripTags ["NSP"] . xmobarColor colorBgBright "",
+                  ppOrder = \(ws : _) -> [ws],
+                  ppSep = " "
+                }
+mySB = statusBarProp "xmobar" (pure myPP)
+
+#+END_SRC
+** Main
+Lastly, xmonad is started with all of the [[Settings][settings set up as variables]].  First xmobar is setup with =spawnPipe= so that it has access to the [[Workspaces][workspaces from xmonad]].  Then xmonad is executed with the settings.
+#+BEGIN_SRC haskell :tangle xmonad.hs
+-- Now run xmonad with all the defaults we set up.
+main = do
+  spawn ("xmobar -x 0 /home/librephoenix/.config/xmobar/xmobarrc")
+  spawn ("xmobar -x 1 /home/librephoenix/.config/xmobar/xmobarrc")
+  spawn ("xmobar -x 2 /home/librephoenix/.config/xmobar/xmobarrc")
+  xmonad . withSB mySB $
+    withNavigation2DConfig myNavigation2DConfig $
+      fullscreenSupportBorder $
+        docks $
+         EWMHD.ewmh
+          def
+            { -- simple stuff
+              terminal = myTerminal,
+              focusFollowsMouse = myFocusFollowsMouse,
+              clickJustFocuses = myClickJustFocuses,
+              borderWidth = myBorderWidth,
+              modMask = myModMask,
+              workspaces = myWorkspaces,
+              normalBorderColor = myNormalBorderColor,
+              focusedBorderColor = myFocusedBorderColor,
+              -- key bindings
+              keys = myKeys,
+              mouseBindings = myMouseBindings,
+              -- hooks, layouts
+              layoutHook = myLayout,
+              manageHook = myManageHook <+> myFullscreenManageHook <+> namedScratchpadManageHook myScratchPads,
+              handleEventHook = myEventHook <+> myFullscreenEventHook <+> fadeWindowsEventHook,
+              logHook = (refocusLastLogHook >> nsHideOnFocusLoss myScratchPads),
+              startupHook = myStartupHook
+            }
+#+END_SRC
+* XMobar
+I utilize xmobar as a status bar on one of my monitors.  To manage my xmobar configs, three main files are used:
+- [[./../.config/xmobar/base-xmobarrc][~/.config/xmobar/base-xmobarrc]] which contains the structure of my xmobar config
+- [[./../.config/xmobar/base-xmobarrc-trayer][~/.config/xmobar/base-xmobarrc-trayer]] which contains the structure of my xmobar config with a trayer pad (for when I use trayer)
+- [[./startup.sh][~/.xmonad/startup.sh]] which has a section which generates a copy of my xmobarrcs for the current color scheme I set in [[./xmonad.hs][xmonad.hs]]
+** Base xmobarrc
+My 2nd base xmobarrc is used for non-primary monitors, which don't have trayer. This also depends on =UbuntuMono=, =Symbols Nerd Font= and =Inconsolata for Powerline=.
+#+BEGIN_SRC haskell :tangle ~/.config/xmobar/base-xmobarrc
+Config { font = "UbuntuMono-R 18"
+       , additionalFonts = ["Symbols Nerd Font 21","Inconsolata for Powerline 28"]
+       , border = NoBorder
+       , bgColor = "colorBgNormal"
+       , alpha = 255
+       , fgColor = "colorFgNormal"
+       , position = TopSize C 100 28
+       , textOffset = -1
+       , iconOffset = -1
+       , lowerOnStart = True
+       , pickBroadest = False
+       , persistent = False
+       , hideOnStart = False
+       , iconRoot = "."
+       , allDesktops = True
+       , overrideRedirect = True
+       , commands = [
+                      Run UnsafeStdinReader
+                    , Run Date "<fn=2><fc=colorBgBright,colorBgNormal>\xe0b2</fc></fn><fc=color06Normal,colorBgBright> <fn=1>\xf073</fn> %a %-m/%-d/%y %-I:%M:%S%P </fc><fn=2><fc=colorBgBright,colorBgNormal>\xe0b0</fc></fn>" "date" 10
+                    , Run BatteryP ["BAT0"]
+                      ["-t", "<acstatus>",
+                      "-L", "10", "-H", "80", "-p", "3", "--",
+                      "-O","<fc=colorBgNormal,colorSecondary> <fn=1>\xf303</fn></fc><fn=2><fc=colorSecondary,colorBgBright>\xe0b0</fc></fn><fc=color03Normal,colorBgBright> <fn=1>\xf583</fn><left>% </fc><fn=2><fc=colorBgBright,colorBgNormal>\xe0b0</fc></fn>",
+                      "-i","<fc=colorBgNormal,colorSecondary> <fn=1>\xf303</fn></fc><fn=2><fc=colorSecondary,colorBgBright>\xe0b0</fc></fn><fc=color03Normal,colorBgBright> <fn=1>\xf578</fn><left>% </fc><fn=2><fc=colorBgBright,colorBgNormal>\xe0b0</fc></fn>",
+                      "-o","<fc=colorBgNormal,colorSecondary> <fn=1>\xf303</fn></fc><fn=2><fc=colorSecondary,colorBgBright>\xe0b0</fc></fn><fc=color02Normal,colorBgBright> <fn=1>\xf58b</fn><left>% </fc><fn=2><fc=colorBgBright,colorBgNormal>\xe0b0</fc></fn>",
+                      "-L", "-15", "-H", "-5",
+                      "-l", "color02Normal", "-m", "color05Normal", "-h", "color03Normal"] 10
+                    , Run Brightness
+                      [ "-t", "<fc=color04Normal><fn=1>\xf5dd</fn> <percent>% </fc><fn=2><fc=colorBgNormal,colorBgBright>\xe0b0</fc></fn>", "--",
+                        "-D", "amdgpu_bl1"
+                      ] 2
+                    , Run Volume "default" "Master"
+                      [ "-t", "<status>", "--"
+                      , "--on", "<fc=color07Normal,colorBgBright> <fn=1>\xf028</fn> <volume>% </fc><fn=2><fc=colorBgBright,colorBgNormal>\xe0b0</fc></fn>"
+                      , "--onc", "color07Normal"
+                      , "--off", "<fc=color06Normal,colorBgBright> <fn=1>\xf026</fn>Mute </fc><fn=2><fc=colorBgBright,colorBgNormal>\xe0b0</fc></fn>"
+                      , "--offc", "color06Normal"
+                      ] 1
+                    ]
+       , sepChar = "%"
+       , alignSep = "}{"
+       , template = "%battery% %bright%<action=`xdotool key Super_L+y`>%default:Master%</action>}<action=`xdotool key Super_L+c`>%date%</action>{<box color=colorBgBright width=0>%UnsafeStdinReader%</box>"
+       }
+}
+
+#+END_SRC
+** Transparent xmobarrc
+This is my transparent xmobarrc. This also depends on =UbuntuMono=, =Symbols Nerd Font= and =Inconsolata for Powerline=.
+#+BEGIN_SRC haskell :tangle ~/.config/xmobar/base-t-xmobarrc
+Config { font = "UbuntuMono-R 18"
+       , additionalFonts = ["Symbols Nerd Font 21","Inconsolata for Powerline 28"]
+       , border = NoBorder
+       , bgColor = "colorBgNormal"
+       , alpha = 200
+       , fgColor = "colorFgNormal"
+       , position = TopSize C 100 28
+       , textOffset = -1
+       , iconOffset = -1
+       , lowerOnStart = True
+       , pickBroadest = False
+       , persistent = False
+       , hideOnStart = False
+       , iconRoot = "."
+       , allDesktops = True
+       , overrideRedirect = True
+       , commands = [
+                      Run XMonadLog
+                    , Run Date "<fc=color06Normal> <fn=1>\xf073</fn> %a %-m/%-d/%y %-I:%M:%S%P</fc>" "date" 10
+                    , Run BatteryP ["BAT0"]
+                      ["-t", "<acstatus>",
+                      "-L", "10", "-H", "80", "-p", "3", "--",
+                      "-O","<fc=colorFgNormal> <fn=1>\xf303</fn></fc> <fc=color03Normal> <fn=1>\xf17e3</fn><left>% </fc>",
+                      "-i","<fc=colorFgNormal> <fn=1>\xf303</fn></fc> <fc=color03Normal> <fn=1>\xf17e7</fn><left>% </fc>",
+                      "-o","<fc=colorFgNormal> <fn=1>\xf303</fn></fc> <fc=color02Normal> <fn=1>\xf17e4</fn><left>% </fc>",
+                      "-L", "-15", "-H", "-5",
+                      "-l", "color02Normal", "-m", "color05Normal", "-h", "color03Normal"] 10
+                    , Run Brightness
+                      [ "-t", "<fc=color04Normal><fn=1>\xf0eb</fn> <percent>% </fc>", "--",
+                        "-D", "amdgpu_bl1"
+                      ] 2
+                    , Run Volume "default" "Master"
+                      [ "-t", "<status>", "--"
+                      , "--on", "<fc=color07Normal> <fn=1>\xf028</fn> <volume>% </fc>"
+                      , "--onc", "color07Normal"
+                      , "--off", "<fc=color06Normal> <fn=1>\xf026</fn>Mute </fc>"
+                      , "--offc", "color06Normal"
+                      ] 1
+                    ]
+       , sepChar = "%"
+       , alignSep = "}{"
+       , template = " %battery% %bright%<action=`xdotool key Super_L+y`>%default:Master%</action>}<box color=colorBgBright width=0>%XMonadLog%</box>{<action=`xdotool key Super_L+c`>%date%</action> "
+       }
+}
+
+#+END_SRC
+** Base xmobarrc (trayer)
+My base xmobarrc depends on =UbuntuMono=, =Symbols Nerd Font= and =Inconsolata for Powerline=.
+#+BEGIN_SRC haskell :tangle ~/.config/xmobar/base-xmobarrc-trayer
+Config { font = "UbuntuMono-R 18"
+       , additionalFonts = ["Symbols Nerd Font 21","Inconsolata for Powerline 28"]
+       , border = NoBorder
+       , bgColor = "colorBgNormal"
+       , fgColor = "colorFgNormal"
+       , position = TopSize C 100 28
+       , textOffset = -1
+       , iconOffset = -1
+       , lowerOnStart = True
+       , pickBroadest = False
+       , persistent = False
+       , hideOnStart = False
+       , iconRoot = "."
+       , allDesktops = True
+       , overrideRedirect = True
+       , commands = [
+                      Run UnsafeStdinReader
+                    , Run Date "<fn=2><fc=colorBgBright,colorBgNormal>\xe0b2</fc></fn><fc=color06Normal,colorBgBright> <fn=1>\xf073</fn> %a %-m/%-d/%y %-I:%M:%S%P </fc><fn=2><fc=colorBgBright,colorBgNormal>\xe0b0</fc></fn>" "date" 10
+                    , Run BatteryP ["BAT0"]
+                      ["-t", "<acstatus>",
+                      "-L", "10", "-H", "80", "-p", "3", "--",
+                      "-O","<fc=colorBgNormal,colorSecondary> <fn=1>\xe61f</fn>+<fn=1>\xf303</fn> </fc><fn=2><fc=colorSecondary,colorBgBright>\xe0b0</fc></fn><fc=color03Normal,colorBgBright> <fn=1>\xf583</fn><left>% </fc><fn=2><fc=colorBgBright,colorBgNormal>\xe0b0</fc></fn>",
+                      "-i","<fc=colorBgNormal,colorSecondary> <fn=1>\xe61f</fn>+<fn=1>\xf303</fn> </fc><fn=2><fc=colorSecondary,colorBgBright>\xe0b0</fc></fn><fc=color03Normal,colorBgBright> <fn=1>\xf578</fn><left>% </fc><fn=2><fc=colorBgBright,colorBgNormal>\xe0b0</fc></fn>",
+                      "-o","<fc=colorBgNormal,colorSecondary> <fn=1>\xe61f</fn>+<fn=1>\xf303</fn> </fc><fn=2><fc=colorSecondary,colorBgBright>\xe0b0</fc></fn><fc=color02Normal,colorBgBright> <fn=1>\xf58b</fn><left>% </fc><fn=2><fc=colorBgBright,colorBgNormal>\xe0b0</fc></fn>",
+                      "-L", "-15", "-H", "-5",
+                      "-l", "color02Normal", "-m", "color05Normal", "-h", "color03Normal"] 10
+                    , Run Brightness
+                      [ "-t", "<fc=color04Normal><fn=1>\xf5dd</fn> <percent>% </fc><fn=2><fc=colorBgNormal,colorBgBright>\xe0b0</fc></fn>", "--",
+                        "-D", "amdgpu_bl1"
+                      ] 2
+                    , Run Volume "default" "Master"
+                      [ "-t", "<status>", "--"
+                      , "--on", "<fc=color07Normal,colorBgBright> <fn=1>\xf028</fn> <volume>% </fc><fn=2><fc=colorBgBright,colorBgNormal>\xe0b0</fc></fn>"
+                      , "--onc", "color07Normal"
+                      , "--off", "<fc=color06Normal,colorBgBright> <fn=1>\xf026</fn>Mute </fc><fn=2><fc=colorBgBright,colorBgNormal>\xe0b0</fc></fn>"
+                      , "--offc", "color06Normal"
+                      ] 1
+                    , Run Com "/home/librephoenix/.config/xmobar/padding-icon.sh" [] "trayerpad" 2
+                    ]
+       , sepChar = "%"
+       , alignSep = "}{"
+       , template = "%battery% %bright%<action=`xdotool key Super_L+y`>%default:Master%</action> }<action=`xdotool key Super_L+c`>%date%</action>{<box color=colorBgBright width=0>%UnsafeStdinReader%</box> %trayerpad%"
+       }
+}
+
+#+END_SRC
+
+In order to get xmobar to work with trayer (systray), a padding-icon script must be used.  This script is based on [[https://github.com/jaor/xmobar/issues/239#issuecomment-233206552][Jonas Camillus Jeppensen's code]].  I have this called =padding-icon.sh=.
+#+BEGIN_SRC sh :tangle ~/.config/xmobar/padding-icon.sh :tangle-mode (identity #o755)
+#!/bin/bash
+
+# Detects the width of running window with name given as first
+# argument (xprop name '$1') and creates an XPM icon of that width,
+# 1px height, and transparent.  Outputs an <icon>-tag for use in
+# xmobar to display the generated XPM icon.
+#
+# Run script from xmobar and trayer:
+# `Run Com "/where/ever/padding-icon.sh" ["panel"] "trayerpad" 10`
+# and use `%trayerpad%` in your template.
+# or, if you're using for instance stalonetray:
+# `Run Com "/where/ever/padding-icon.sh" ["stalonetray"] "tray" 10`
+
+# Very heavily based on Jonas Camillus Jeppensen code
+# https://github.com/jaor/xmobar/issues/239#issuecomment-233206552
+
+# Function to create a transparent Wx1 px XPM icon
+create_xpm_icon () {
+timestamp=$(date)
+pixels=$(for i in `seq $1`; do echo -n "."; done)
+
+cat << EOF > "$2"
+/* XPM *
+static char * trayer_pad_xpm[] = {
+/* This XPM icon is used for padding in xmobar to */
+/* leave room for trayer-srg. It is dynamically   */
+/* updated by by trayer-pad-icon.sh which is run  */
+/* by xmobar.                                     */
+/* Created: ${timestamp} */
+/* <w/cols>  <h/rows>  <colors>  <chars per pixel> */
+"$1 1 1 1",
+/* Colors (none: transparent) */
+". c none",
+/* Pixels */
+"$pixels"
+};
+EOF
+}
+
+# panel window name
+pname=${1:-panel}
+
+# Width of the trayer window, uncorrected for HiDPI scaling
+width=$(xprop -name $pname | grep 'program specified minimum size' | cut -d ' ' -f 5)
+correct_width=$((width+5))
+
+# Icon file name
+iconfile="/tmp/$pname-padding-${correct_width:-0}px.xpm"
+
+# If the desired icon does not exist create it
+if [ ! -f $iconfile ]
+then
+    create_xpm_icon $correct_width $iconfile
+fi
+
+# Output the icon tag for xmobar
+echo "<icon=${iconfile}/>"
+#+END_SRC

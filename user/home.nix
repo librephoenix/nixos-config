@@ -40,6 +40,10 @@ in
 
   programs.home-manager.enable = true;
 
+  imports = [
+              ./wm/xmonad/xmonad.nix
+            ];
+
   programs.git.enable = true;
   programs.git.userName = myName;
   programs.git.userEmail = "librephoenix@protonmail.com";
