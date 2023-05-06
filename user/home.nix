@@ -73,9 +73,11 @@ in
     hello
     zsh
     alacritty
+    kitty
     librewolf-wayland
     brave
     dmenu
+    rofi
     nitrogen
     git
     xmobar
