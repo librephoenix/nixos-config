@@ -14,6 +14,8 @@
                   "nixos-config=$HOME/dotfiles/system/configuration.nix"
                   "/nix/var/nix/profiles/per-user/root/channels"
                 ];
+
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
   
   # Doas instead of sudo
   security.doas.enable = true;
