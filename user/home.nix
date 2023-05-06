@@ -286,7 +286,7 @@ in
 
     # Compositor and Desktop Utils
     nitrogen
-    picom-jonaburg
+    picom
     alttab
     xwinwrap
     xorg.xcursorthemes
@@ -308,8 +308,6 @@ in
     glfw-wayland
     swayidle
     swaylock
-    grim
-    slurp
     wlsunset
     wayshot
     wev
@@ -362,6 +360,27 @@ in
     enableCompletion = true;
     shellAliases = myAliases;
   };
+
+  nixpkgs.overlays = [
+    (self: super:
+      {
+        picom = super.picom.overrideAttrs (oldAttrs: rec {
+        version = "unstable-2021-10-23";
+        src = super.fetchFromGitHub {
+          owner = "pijulius";
+          repo = "picom";
+          rev = "982bb43e5d4116f1a37a0bde01c9bda0b88705b9";
+          sha256 = "sha256-YiuLScDV9UfgI1MiYRtjgRkJ0VuA1TExATA2nJSJMhM=";
+        };
+
+        meta = with builtins.lib; {
+          description = "A fork of picom featuring better animations";
+          homepage = "https://github.com/pijulius/picom";
+        };
+        });
+      }
+    )
+  ];
 
   home.file.".librewolf/librewolf.overrides.cfg".text = ''
     pref("font.name.serif.x-western","Inconsolata");
