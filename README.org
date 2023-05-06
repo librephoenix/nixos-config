@@ -1,6 +1,10 @@
 #+title: NixOS Config
 #+author: librephoenix
 
+[[https://gitlab.com/librephoenix/nixos-config][Main Repo Link (GitLab)]]
+
+[[https://github.com/librephoenix/nixos-config-mirror][Mirror Repo Link (GitHub)]]
+
 * What is this repository?
 While I still run =Arch btw=, I've been experimenting with NixOS and quite like it!  My configuration is not ready for daily use yet, but I'm learning inside a VM.  This repository is where I'm working on my NixOS dotfiles, and once ready, I will daily drive =Nix btw= instead.
 
