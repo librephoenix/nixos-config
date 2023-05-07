@@ -206,7 +206,7 @@ By default, workspaces are simply numeric strings ("1", "2", "3", etc..), but an
 myWorkspaces :: [String]
 myWorkspaces =
   [ "<fn=1>\xf15c</fn>¹", -- document icon for writing
-    "<fn=1>\xf059f</fn>²", -- globe icon for browsing
+    "<fn=1>\xfa9e</fn>²", -- globe icon for browsing
     "<fn=1>\xf121</fn>³", -- dev icon for programming
     "<fn=1>\xf001</fn>⁴", -- music file icon for composition
     "<fn=1>\xf1fc</fn>⁵", -- paint icon for art
@@ -813,7 +813,7 @@ In my xmonad config, it is then autostarted by setting a =startupHook=.  Inside 
 #+BEGIN_SRC haskell :tangle xmonad.hs
 -- Startup hook
 myStartupHook = do
-  spawnOnce ("~/.xmonad/startup.sh '" ++ trayerBgNormal ++ "' '" ++ colorBgNormal ++ "' '" ++ color08Bright ++ "' '" ++ colorFocus ++ "' '" ++ color08Bright ++ "' '" ++ gtkTheme ++ "' '" ++ alacrittyTheme ++ "' '" ++ doomEmacsTheme ++ "' '" ++ color01Normal ++ "' '" ++ color01Bright ++ "' '" ++ color02Normal ++ "' '" ++ color02Bright ++ "' '" ++ color03Normal ++ "' '" ++ color03Bright ++ "' '" ++ color04Normal ++ "' '" ++ color04Bright ++ "' '" ++ color05Normal ++ "' '" ++ color05Bright ++ "' '" ++ color06Normal ++ "' '" ++ color06Bright ++ "' '" ++ color07Normal ++ "' '" ++ color07Bright ++ "' '" ++ color08Normal ++ "' '" ++ color08Bright ++ "' '" ++ colorFocus ++ "' '" ++ colorSecondary ++ "' '" ++ colorBgBright ++ "'")
+  spawnOnce ("~/.config/xmonad/startup.sh '" ++ trayerBgNormal ++ "' '" ++ colorBgNormal ++ "' '" ++ color08Bright ++ "' '" ++ colorFocus ++ "' '" ++ color08Bright ++ "' '" ++ gtkTheme ++ "' '" ++ alacrittyTheme ++ "' '" ++ doomEmacsTheme ++ "' '" ++ color01Normal ++ "' '" ++ color01Bright ++ "' '" ++ color02Normal ++ "' '" ++ color02Bright ++ "' '" ++ color03Normal ++ "' '" ++ color03Bright ++ "' '" ++ color04Normal ++ "' '" ++ color04Bright ++ "' '" ++ color05Normal ++ "' '" ++ color05Bright ++ "' '" ++ color06Normal ++ "' '" ++ color06Bright ++ "' '" ++ color07Normal ++ "' '" ++ color07Bright ++ "' '" ++ color08Normal ++ "' '" ++ color08Bright ++ "' '" ++ colorFocus ++ "' '" ++ colorSecondary ++ "' '" ++ colorBgBright ++ "'")
 
 #+END_SRC
 
@@ -840,7 +840,6 @@ Then, a few things are set up before starting any applications, including the dp
 #+BEGIN_SRC sh :tangle startup.sh :tangle-mode (identity #o755)
 # pre-launch configurations
 # dbus-update-activation-environment --all &
-gnome-keyring-daemon --daemonize --login &
 # ~/.local/bin/setup-external-monitor.sh &
 # picom --experimental-backends &
 picom --animations --animation-window-mass 1 --animation-for-open-window zoom --animation-stiffness 200 --experimental-backends && # requires picom-pijulius
@@ -866,7 +865,7 @@ sed -i "s/(setq doom-theme .*/(setq doom-theme '"$themeDoomEmacsName")/" ~/.doom
 sed -i "s/(setq doom-theme .*/(setq doom-theme '"$themeDoomEmacsName")/" ~/.doom.d/doom.org &
 sed -i "s/(setq doom-theme .*/(setq doom-theme '"$themeDoomEmacsName")/" ~/.doom.d/doom-pub.org &
 
-cp -f ~/.config/xmobar/base-t-xmobarrc ~/.config/xmobar/xmobarrc &&
+cp -f ~/.config/xmobar/base-xmobarrc ~/.config/xmobar/xmobarrc &&
 sed -i "s/colorBgNormal/"$colorBgNormal"/g" ~/.config/xmobar/xmobarrc # normal background
 sed -i "s/colorBgBright/"$colorBgBright"/g" ~/.config/xmobar/xmobarrc # bright background
 sed -i "s/colorFgNormal/"$colorFgNormal"/g" ~/.config/xmobar/xmobarrc # normal foreground
@@ -889,34 +888,6 @@ sed -i "s/color08Bright/"$color08Bright"/g" ~/.config/xmobar/xmobarrc # bright w
 sed -i "s/colorFocus/"$colorFocus"/g" ~/.config/xmobar/xmobarrc # wm focus color
 sed -i "s/colorSecondary/"$colorSecondary"/g" ~/.config/xmobar/xmobarrc & # xmobar highlight color
 
-cp -f ~/.config/xmobar/base-xmobarrc-trayer ~/.config/xmobar/xmobarrc-trayer &&
-sed -i "s/colorBgNormal/"$colorBgNormal"/g" ~/.config/xmobar/xmobarrc-trayer # normal background
-sed -i "s/colorBgBright/"$colorBgBright"/g" ~/.config/xmobar/xmobarrc-trayer # bright background
-sed -i "s/colorFgNormal/"$colorFgNormal"/g" ~/.config/xmobar/xmobarrc-trayer # normal foreground
-sed -i "s/color01Normal/"$color01Normal"/g" ~/.config/xmobar/xmobarrc-trayer # normal black
-sed -i "s/color01Bright/"$color01Bright"/g" ~/.config/xmobar/xmobarrc-trayer # bright black
-sed -i "s/color02Normal/"$color02Normal"/g" ~/.config/xmobar/xmobarrc-trayer # normal red
-sed -i "s/color02Bright/"$color02Bright"/g" ~/.config/xmobar/xmobarrc-trayer # bright red
-sed -i "s/color03Normal/"$color03Normal"/g" ~/.config/xmobar/xmobarrc-trayer # normal green
-sed -i "s/color03Bright/"$color03Bright"/g" ~/.config/xmobar/xmobarrc-trayer # bright green
-sed -i "s/color04Normal/"$color04Normal"/g" ~/.config/xmobar/xmobarrc-trayer # normal yellow
-sed -i "s/color04Bright/"$color04Bright"/g" ~/.config/xmobar/xmobarrc-trayer # bright yellow
-sed -i "s/color05Normal/"$color05Normal"/g" ~/.config/xmobar/xmobarrc-trayer # normal blue
-sed -i "s/color05Bright/"$color05Bright"/g" ~/.config/xmobar/xmobarrc-trayer # bright blue
-sed -i "s/color06Normal/"$color06Normal"/g" ~/.config/xmobar/xmobarrc-trayer # normal magenta
-sed -i "s/color06Bright/"$color06Bright"/g" ~/.config/xmobar/xmobarrc-trayer # bright magenta
-sed -i "s/color07Normal/"$color07Normal"/g" ~/.config/xmobar/xmobarrc-trayer # normal cyan
-sed -i "s/color07Bright/"$color07Bright"/g" ~/.config/xmobar/xmobarrc-trayer # bright cyan
-sed -i "s/color08Normal/"$color08Normal"/g" ~/.config/xmobar/xmobarrc-trayer # normal white
-sed -i "s/color08Bright/"$color08Bright"/g" ~/.config/xmobar/xmobarrc-trayer # bright white
-sed -i "s/colorFocus/"$colorFocus"/g" ~/.config/xmobar/xmobarrc-trayer # wm focus color
-sed -i "s/colorSecondary/"$colorSecondary"/g" ~/.config/xmobar/xmobarrc-trayer & # xmobar highlight color
-
-sed -i "s/Nsxiv.window.background: .*/Nsxiv.window.background: "$colorBgNormal"/" ~/.Xresources
-sed -i "s/Nsxiv.window.foreground: .*/Nsxiv.window.foreground: "$colorFgNormal"/" ~/.Xresources &
-
-sed -i "s/export GTK_THEME=.*/export GTK_THEME="$themeGTKName"/" ~/.xsession &
-
 #+END_SRC
 
 Lastly, desktop applications are started in the background.
@@ -934,10 +905,11 @@ GOMAXPROCS=1 syncthing --no-browser &
 rclone mount adantium-nextcloud:/ ~/Nextcloud &
 syncthing-gtk -m &
 # flatpak run com.discordapp.Discord --start-minimized &
-gnome-keyring-daemon --start --components=secrets &
 protonmail-bridge --no-window
 ~/.local/bin/setup-external-monitor.sh &
-rm -rf ~/org
+rm -rf ~/org &
+gnome-keyring-daemon --daemonize --login &
+gnome-keyring-daemon --start --components=secrets &
 #back4.sh 0.04 ~/Media/Backgrounds/steampunk-city.gif &
 ##sleep 2 && xwinwrap -b -s -fs -st -sp -nf -ov -fdt -- mpv -wid WID --really-quiet --framedrop=vo --no-audio --panscan="1.0" --loop-file=inf --osc=no ~/Downloads/gruvbox-town-mod.gif --scale="bilinear"
 #+END_SRC
@@ -995,57 +967,8 @@ I utilize xmobar as a status bar on one of my monitors.  To manage my xmobar con
 - [[./../.config/xmobar/base-xmobarrc-trayer][~/.config/xmobar/base-xmobarrc-trayer]] which contains the structure of my xmobar config with a trayer pad (for when I use trayer)
 - [[./startup.sh][~/.xmonad/startup.sh]] which has a section which generates a copy of my xmobarrcs for the current color scheme I set in [[./xmonad.hs][xmonad.hs]]
 ** Base xmobarrc
-My 2nd base xmobarrc is used for non-primary monitors, which don't have trayer. This also depends on =UbuntuMono=, =Symbols Nerd Font= and =Inconsolata for Powerline=.
+This is my base xmobarrc. This also depends on =UbuntuMono=, =Symbols Nerd Font= and =Inconsolata for Powerline=.
 #+BEGIN_SRC haskell :tangle ~/.config/xmobar/base-xmobarrc
-Config { font = "UbuntuMono-R 18"
-       , additionalFonts = ["Symbols Nerd Font 21","Inconsolata for Powerline 28"]
-       , border = NoBorder
-       , bgColor = "colorBgNormal"
-       , alpha = 255
-       , fgColor = "colorFgNormal"
-       , position = TopSize C 100 28
-       , textOffset = -1
-       , iconOffset = -1
-       , lowerOnStart = True
-       , pickBroadest = False
-       , persistent = False
-       , hideOnStart = False
-       , iconRoot = "."
-       , allDesktops = True
-       , overrideRedirect = True
-       , commands = [
-                      Run UnsafeStdinReader
-                    , Run Date "<fn=2><fc=colorBgBright,colorBgNormal>\xe0b2</fc></fn><fc=color06Normal,colorBgBright> <fn=1>\xf073</fn> %a %-m/%-d/%y %-I:%M:%S%P </fc><fn=2><fc=colorBgBright,colorBgNormal>\xe0b0</fc></fn>" "date" 10
-                    , Run BatteryP ["BAT0"]
-                      ["-t", "<acstatus>",
-                      "-L", "10", "-H", "80", "-p", "3", "--",
-                      "-O","<fc=colorBgNormal,colorSecondary> <fn=1>\xf303</fn></fc><fn=2><fc=colorSecondary,colorBgBright>\xe0b0</fc></fn><fc=color03Normal,colorBgBright> <fn=1>\xf583</fn><left>% </fc><fn=2><fc=colorBgBright,colorBgNormal>\xe0b0</fc></fn>",
-                      "-i","<fc=colorBgNormal,colorSecondary> <fn=1>\xf303</fn></fc><fn=2><fc=colorSecondary,colorBgBright>\xe0b0</fc></fn><fc=color03Normal,colorBgBright> <fn=1>\xf578</fn><left>% </fc><fn=2><fc=colorBgBright,colorBgNormal>\xe0b0</fc></fn>",
-                      "-o","<fc=colorBgNormal,colorSecondary> <fn=1>\xf303</fn></fc><fn=2><fc=colorSecondary,colorBgBright>\xe0b0</fc></fn><fc=color02Normal,colorBgBright> <fn=1>\xf58b</fn><left>% </fc><fn=2><fc=colorBgBright,colorBgNormal>\xe0b0</fc></fn>",
-                      "-L", "-15", "-H", "-5",
-                      "-l", "color02Normal", "-m", "color05Normal", "-h", "color03Normal"] 10
-                    , Run Brightness
-                      [ "-t", "<fc=color04Normal><fn=1>\xf5dd</fn> <percent>% </fc><fn=2><fc=colorBgNormal,colorBgBright>\xe0b0</fc></fn>", "--",
-                        "-D", "amdgpu_bl1"
-                      ] 2
-                    , Run Volume "default" "Master"
-                      [ "-t", "<status>", "--"
-                      , "--on", "<fc=color07Normal,colorBgBright> <fn=1>\xf028</fn> <volume>% </fc><fn=2><fc=colorBgBright,colorBgNormal>\xe0b0</fc></fn>"
-                      , "--onc", "color07Normal"
-                      , "--off", "<fc=color06Normal,colorBgBright> <fn=1>\xf026</fn>Mute </fc><fn=2><fc=colorBgBright,colorBgNormal>\xe0b0</fc></fn>"
-                      , "--offc", "color06Normal"
-                      ] 1
-                    ]
-       , sepChar = "%"
-       , alignSep = "}{"
-       , template = "%battery% %bright%<action=`xdotool key Super_L+y`>%default:Master%</action>}<action=`xdotool key Super_L+c`>%date%</action>{<box color=colorBgBright width=0>%UnsafeStdinReader%</box>"
-       }
-}
-
-#+END_SRC
-** Transparent xmobarrc
-This is my transparent xmobarrc. This also depends on =UbuntuMono=, =Symbols Nerd Font= and =Inconsolata for Powerline=.
-#+BEGIN_SRC haskell :tangle ~/.config/xmobar/base-t-xmobarrc
 Config { font = "UbuntuMono-R 18"
        , additionalFonts = ["Symbols Nerd Font 21","Inconsolata for Powerline 28"]
        , border = NoBorder
@@ -1068,9 +991,9 @@ Config { font = "UbuntuMono-R 18"
                     , Run BatteryP ["BAT0"]
                       ["-t", "<acstatus>",
                       "-L", "10", "-H", "80", "-p", "3", "--",
-                      "-O","<fc=colorFgNormal> <fn=1>\xf303</fn></fc> <fc=color03Normal> <fn=1>\xf17e3</fn><left>% </fc>",
-                      "-i","<fc=colorFgNormal> <fn=1>\xf303</fn></fc> <fc=color03Normal> <fn=1>\xf17e7</fn><left>% </fc>",
-                      "-o","<fc=colorFgNormal> <fn=1>\xf303</fn></fc> <fc=color02Normal> <fn=1>\xf17e4</fn><left>% </fc>",
+                      "-O","<fc=colorFgNormal> <fn=1>\xf303</fn></fc> <fc=color03Normal> <fn=1>\xf583</fn><left>% </fc>",
+                      "-i","<fc=colorFgNormal> <fn=1>\xf303</fn></fc> <fc=color03Normal> <fn=1>\xf578</fn><left>% </fc>",
+                      "-o","<fc=colorFgNormal> <fn=1>\xf303</fn></fc> <fc=color02Normal> <fn=1>\xf58b</fn><left>% </fc>",
                       "-L", "-15", "-H", "-5",
                       "-l", "color02Normal", "-m", "color05Normal", "-h", "color03Normal"] 10
                     , Run Brightness
@@ -1091,114 +1014,4 @@ Config { font = "UbuntuMono-R 18"
        }
 }
 
-#+END_SRC
-** Base xmobarrc (trayer)
-My base xmobarrc depends on =UbuntuMono=, =Symbols Nerd Font= and =Inconsolata for Powerline=.
-#+BEGIN_SRC haskell :tangle ~/.config/xmobar/base-xmobarrc-trayer
-Config { font = "UbuntuMono-R 18"
-       , additionalFonts = ["Symbols Nerd Font 21","Inconsolata for Powerline 28"]
-       , border = NoBorder
-       , bgColor = "colorBgNormal"
-       , fgColor = "colorFgNormal"
-       , position = TopSize C 100 28
-       , textOffset = -1
-       , iconOffset = -1
-       , lowerOnStart = True
-       , pickBroadest = False
-       , persistent = False
-       , hideOnStart = False
-       , iconRoot = "."
-       , allDesktops = True
-       , overrideRedirect = True
-       , commands = [
-                      Run UnsafeStdinReader
-                    , Run Date "<fn=2><fc=colorBgBright,colorBgNormal>\xe0b2</fc></fn><fc=color06Normal,colorBgBright> <fn=1>\xf073</fn> %a %-m/%-d/%y %-I:%M:%S%P </fc><fn=2><fc=colorBgBright,colorBgNormal>\xe0b0</fc></fn>" "date" 10
-                    , Run BatteryP ["BAT0"]
-                      ["-t", "<acstatus>",
-                      "-L", "10", "-H", "80", "-p", "3", "--",
-                      "-O","<fc=colorBgNormal,colorSecondary> <fn=1>\xe61f</fn>+<fn=1>\xf303</fn> </fc><fn=2><fc=colorSecondary,colorBgBright>\xe0b0</fc></fn><fc=color03Normal,colorBgBright> <fn=1>\xf583</fn><left>% </fc><fn=2><fc=colorBgBright,colorBgNormal>\xe0b0</fc></fn>",
-                      "-i","<fc=colorBgNormal,colorSecondary> <fn=1>\xe61f</fn>+<fn=1>\xf303</fn> </fc><fn=2><fc=colorSecondary,colorBgBright>\xe0b0</fc></fn><fc=color03Normal,colorBgBright> <fn=1>\xf578</fn><left>% </fc><fn=2><fc=colorBgBright,colorBgNormal>\xe0b0</fc></fn>",
-                      "-o","<fc=colorBgNormal,colorSecondary> <fn=1>\xe61f</fn>+<fn=1>\xf303</fn> </fc><fn=2><fc=colorSecondary,colorBgBright>\xe0b0</fc></fn><fc=color02Normal,colorBgBright> <fn=1>\xf58b</fn><left>% </fc><fn=2><fc=colorBgBright,colorBgNormal>\xe0b0</fc></fn>",
-                      "-L", "-15", "-H", "-5",
-                      "-l", "color02Normal", "-m", "color05Normal", "-h", "color03Normal"] 10
-                    , Run Brightness
-                      [ "-t", "<fc=color04Normal><fn=1>\xf5dd</fn> <percent>% </fc><fn=2><fc=colorBgNormal,colorBgBright>\xe0b0</fc></fn>", "--",
-                        "-D", "amdgpu_bl1"
-                      ] 2
-                    , Run Volume "default" "Master"
-                      [ "-t", "<status>", "--"
-                      , "--on", "<fc=color07Normal,colorBgBright> <fn=1>\xf028</fn> <volume>% </fc><fn=2><fc=colorBgBright,colorBgNormal>\xe0b0</fc></fn>"
-                      , "--onc", "color07Normal"
-                      , "--off", "<fc=color06Normal,colorBgBright> <fn=1>\xf026</fn>Mute </fc><fn=2><fc=colorBgBright,colorBgNormal>\xe0b0</fc></fn>"
-                      , "--offc", "color06Normal"
-                      ] 1
-                    , Run Com "/home/librephoenix/.config/xmobar/padding-icon.sh" [] "trayerpad" 2
-                    ]
-       , sepChar = "%"
-       , alignSep = "}{"
-       , template = "%battery% %bright%<action=`xdotool key Super_L+y`>%default:Master%</action> }<action=`xdotool key Super_L+c`>%date%</action>{<box color=colorBgBright width=0>%UnsafeStdinReader%</box> %trayerpad%"
-       }
-}
-
-#+END_SRC
-
-In order to get xmobar to work with trayer (systray), a padding-icon script must be used.  This script is based on [[https://github.com/jaor/xmobar/issues/239#issuecomment-233206552][Jonas Camillus Jeppensen's code]].  I have this called =padding-icon.sh=.
-#+BEGIN_SRC sh :tangle ~/.config/xmobar/padding-icon.sh :tangle-mode (identity #o755)
-#!/bin/bash
-
-# Detects the width of running window with name given as first
-# argument (xprop name '$1') and creates an XPM icon of that width,
-# 1px height, and transparent.  Outputs an <icon>-tag for use in
-# xmobar to display the generated XPM icon.
-#
-# Run script from xmobar and trayer:
-# `Run Com "/where/ever/padding-icon.sh" ["panel"] "trayerpad" 10`
-# and use `%trayerpad%` in your template.
-# or, if you're using for instance stalonetray:
-# `Run Com "/where/ever/padding-icon.sh" ["stalonetray"] "tray" 10`
-
-# Very heavily based on Jonas Camillus Jeppensen code
-# https://github.com/jaor/xmobar/issues/239#issuecomment-233206552
-
-# Function to create a transparent Wx1 px XPM icon
-create_xpm_icon () {
-timestamp=$(date)
-pixels=$(for i in `seq $1`; do echo -n "."; done)
-
-cat << EOF > "$2"
-/* XPM *
-static char * trayer_pad_xpm[] = {
-/* This XPM icon is used for padding in xmobar to */
-/* leave room for trayer-srg. It is dynamically   */
-/* updated by by trayer-pad-icon.sh which is run  */
-/* by xmobar.                                     */
-/* Created: ${timestamp} */
-/* <w/cols>  <h/rows>  <colors>  <chars per pixel> */
-"$1 1 1 1",
-/* Colors (none: transparent) */
-". c none",
-/* Pixels */
-"$pixels"
-};
-EOF
-}
-
-# panel window name
-pname=${1:-panel}
-
-# Width of the trayer window, uncorrected for HiDPI scaling
-width=$(xprop -name $pname | grep 'program specified minimum size' | cut -d ' ' -f 5)
-correct_width=$((width+5))
-
-# Icon file name
-iconfile="/tmp/$pname-padding-${correct_width:-0}px.xpm"
-
-# If the desired icon does not exist create it
-if [ ! -f $iconfile ]
-then
-    create_xpm_icon $correct_width $iconfile
-fi
-
-# Output the icon tag for xmobar
-echo "<icon=${iconfile}/>"
 #+END_SRC

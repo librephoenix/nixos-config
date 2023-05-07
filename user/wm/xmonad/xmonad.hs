@@ -157,7 +157,7 @@ myModMask = mod4Mask
 myWorkspaces :: [String]
 myWorkspaces =
   [ "<fn=1>\xf15c</fn>¹", -- document icon for writing
-    "<fn=1>\xf059f</fn>²", -- globe icon for browsing
+    "<fn=1>\xfa9e</fn>²", -- globe icon for browsing
     "<fn=1>\xf121</fn>³", -- dev icon for programming
     "<fn=1>\xf001</fn>⁴", -- music file icon for composition
     "<fn=1>\xf1fc</fn>⁵", -- paint icon for art
@@ -528,7 +528,7 @@ myNavigation2DConfig = def {layoutNavigation = [("Tall", hybridOf sideNavigation
 
 -- Startup hook
 myStartupHook = do
-  spawnOnce ("~/.xmonad/startup.sh '" ++ trayerBgNormal ++ "' '" ++ colorBgNormal ++ "' '" ++ color08Bright ++ "' '" ++ colorFocus ++ "' '" ++ color08Bright ++ "' '" ++ gtkTheme ++ "' '" ++ alacrittyTheme ++ "' '" ++ doomEmacsTheme ++ "' '" ++ color01Normal ++ "' '" ++ color01Bright ++ "' '" ++ color02Normal ++ "' '" ++ color02Bright ++ "' '" ++ color03Normal ++ "' '" ++ color03Bright ++ "' '" ++ color04Normal ++ "' '" ++ color04Bright ++ "' '" ++ color05Normal ++ "' '" ++ color05Bright ++ "' '" ++ color06Normal ++ "' '" ++ color06Bright ++ "' '" ++ color07Normal ++ "' '" ++ color07Bright ++ "' '" ++ color08Normal ++ "' '" ++ color08Bright ++ "' '" ++ colorFocus ++ "' '" ++ colorSecondary ++ "' '" ++ colorBgBright ++ "'")
+  spawnOnce ("~/.config/xmonad/startup.sh '" ++ trayerBgNormal ++ "' '" ++ colorBgNormal ++ "' '" ++ color08Bright ++ "' '" ++ colorFocus ++ "' '" ++ color08Bright ++ "' '" ++ gtkTheme ++ "' '" ++ alacrittyTheme ++ "' '" ++ doomEmacsTheme ++ "' '" ++ color01Normal ++ "' '" ++ color01Bright ++ "' '" ++ color02Normal ++ "' '" ++ color02Bright ++ "' '" ++ color03Normal ++ "' '" ++ color03Bright ++ "' '" ++ color04Normal ++ "' '" ++ color04Bright ++ "' '" ++ color05Normal ++ "' '" ++ color05Bright ++ "' '" ++ color06Normal ++ "' '" ++ color06Bright ++ "' '" ++ color07Normal ++ "' '" ++ color07Bright ++ "' '" ++ color08Normal ++ "' '" ++ color08Bright ++ "' '" ++ colorFocus ++ "' '" ++ colorSecondary ++ "' '" ++ colorBgBright ++ "'")
 
 --myPP = def { ppCurrent = xmobarColor colorFocus "" }
 myPP = xmobarPP { ppTitle = xmobarColor colorFocus "",

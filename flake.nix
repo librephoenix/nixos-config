@@ -1,11 +1,22 @@
 {
-  description = "A very basic flake";
+  description = "Snowflakes are fractals";
 
-  outputs = { self, nixpkgs }: {
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs";
+    home-manager.url = "github:nix-community/home-manager";
+    stylix.url = "github:danth/stylix";
+  };
 
-    packages.x86_64-linux.hello = nixpkgs.legacyPackages.x86_64-linux.hello;
+  outputs = { self, nixpkgs, home-manager, stylix }: {
+    nixosConfigurations.snowfire = nixpkgs.lib.nixosSystem {
+      system = "x86_64-linux";
+      modules = [ ./system/configuration.nix ];
+    };
 
-    packages.x86_64-linux.default = self.packages.x86_64-linux.hello;
+    homeConfigurations."emmet" = home-manager.lib.homeManagerConfiguration {
+      pkgs = nixpkgs.legacyPackages.x86_64-linux;
+      modules = [ stylix.homeManagerModules.stylix ./user/home.nix ];
+    };
 
   };
 }
