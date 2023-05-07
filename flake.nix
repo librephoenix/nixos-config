@@ -14,7 +14,6 @@
     };
 
     homeConfigurations."emmet" = home-manager.lib.homeManagerConfiguration {
-      pkgs = nixpkgs.legacyPackages.x86_64-linux;
       modules = [ stylix.homeManagerModules.stylix ./user/home.nix ];
     };
 
