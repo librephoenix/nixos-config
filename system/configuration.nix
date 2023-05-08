@@ -131,6 +131,7 @@
     wget
     zsh
     auto-cpufreq
+    git
     (pkgs.writeScriptBin "sudo" ''exec doas "$@"'')
   ];
 
