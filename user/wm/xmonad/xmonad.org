@@ -205,18 +205,16 @@ By default, workspaces are simply numeric strings ("1", "2", "3", etc..), but an
 #+BEGIN_SRC haskell :tangle xmonad.hs
 myWorkspaces :: [String]
 myWorkspaces =
-  [ "<fn=1>\xf15c</fn>¹", -- document icon for writing
-    "<fn=1>\xfa9e</fn>²", -- globe icon for browsing
-    "<fn=1>\xf121</fn>³", -- dev icon for programming
-    "<fn=1>\xf001</fn>⁴", -- music file icon for composition
-    "<fn=1>\xf1fc</fn>⁵", -- paint icon for art
-    "<fn=1>\xead9</fn>⁶", -- video icon for recording/editing
-    "<fn=1>\xf0d6</fn>⁷", -- money icon for finances
-    "<fn=1>\xf19d</fn>⁸", -- cap icon for teaching
-    "<fn=1>\xf11b</fn>⁹" -- gamepad icon for gaming
+  [ "<fn=1>\xf15c¹</fn>", -- document icon for writing
+    "<fn=1>\xeb01 ²</fn>", -- globe icon for browsing
+    "<fn=1>\xf121³</fn>", -- dev icon for programming
+    "<fn=1>\xf001⁴</fn>", -- music file icon for composition
+    "<fn=1>\xf1fc⁵</fn>", -- paint icon for art
+    "<fn=1>\xf0bdc ⁶</fn>", -- video icon for recording/editing
+    "<fn=1>\xf0d6⁷</fn>", -- money icon for finances
+    "<fn=1>\xf19d⁸</fn>", -- cap icon for teaching
+    "<fn=1>\xf11b⁹</fn>" -- gamepad icon for gaming
   ]
---myWorkspaces =
---  [ "doc", "www", "dev", "mus", "art", "vid", "fin", "edu", "game"]
 
 myWorkspaceIndices = M.fromList $ zipWith (,) myWorkspaces [1..] -- (,) == \x y -> (x,y)
 
@@ -395,87 +393,13 @@ These setup standard bindings for brightness and audio control from the keyboard
       -- ((0, xK_F8), spawn "/home/librephoenix/.local/bin/setup_external_monitor.sh"),
 
 #+END_SRC
-**** Dmenu Script Keybinds
-I have =dmenu_run= bound to =S-;= for quick app access.
+**** Launcher Keybinds
+I have =rofi= bound to =S-;= for quick app access.
 #+BEGIN_SRC haskell :tangle xmonad.hs
       -- launch dmenu
       --((modm, xK_semicolon), spawn ("dmenu_run -nb '" ++ colorBgNormal ++ "' -nf '" ++ color08Bright ++ "' -sb '" ++ colorFocus ++ "' -sf '" ++ color08Bright ++ "' -fn 'UbuntuMono-R:regular:pixelsize=28' -l 4 -p '➤'")),
       ((modm, xK_semicolon), spawn ("rofi -show drun -show-icons")),
       ((modm, xK_p), spawn ("keepmenu")),
-
-#+END_SRC
-I also have some dmenu scripts bound to keybinds for quick use.
-***** App Template Dmenu Script
-I created another dmenu script which allows me to quickly select from a set of scripts in =~/.xmonad/workspace-templates/=.  These templates simply launch multiple apps at once, and are useful for quickly opening all necessary programs for a given task.
-#+BEGIN_SRC sh :tangle template-select.sh
-#!/bin/sh
-
-nbColor=$1
-nfColor=$2
-sbColor=$3
-sfColor=$4
-
-choices=$(/usr/bin/ls ~/.xmonad/workspace-templates/)
-
-promptarray[0]="What to do?"
-promptarray[1]="Which template?"
-promptarray[2]="... What do you want?"
-promptarray[3]="What template?"
-promptarray[4]="Your template is my command:"
-promptarray[5]="What would you like to do?"
-promptarray[6]="Yeas, boss?"
-promptarray[7]="Which template again?"
-
-size=${#promptarray[@]}
-index=$(($RANDOM % $size))
-
-selectedprompt=${promptarray[$index]}
-
-choice=$(echo -e "$choices" | dmenu -i -nb ${nbColor} -nf ${nfColor} -sb ${sbColor} -sf ${sfColor} -fn 'UbuntuMono-R:regular:pixelsize=28' -p "$selectedprompt") && exec ~/.xmonad/workspace-templates/$choice
-
-#+END_SRC
-
-I have this dmenu script bound to =S-w=:
-#+BEGIN_SRC haskell :tangle xmonad.hs
-      -- launch app template dmenu script
-      ((modm, xK_w), spawn ("~/.xmonad/template-select.sh '" ++ colorBgNormal ++ "' '" ++ color08Bright ++ "' '" ++ colorFocus ++ "' '" ++ color08Bright ++ "'")),
-
-#+END_SRC
-***** VM Select Dmenu Script
-I have another dmenu script which allows me to quickly select a particular QEMU virtual machine and immediately open it inside of virt-manager:
-#+BEGIN_SRC sh :tangle vm-select.sh
-#!/bin/sh
-
-nbColor=$1
-nfColor=$2
-sbColor=$3
-sfColor=$4
-
-choices=$(/usr/bin/ls ~/.config/libvirt/qemu | grep .xml | cut -f 1 -d '.')
-
-promptarray[0]="What VM?"
-promptarray[1]="Which VM?"
-promptarray[2]="... What VM do you want?"
-promptarray[3]="What VM do you need?"
-promptarray[4]="I shall start the VM:"
-promptarray[5]="Virtual time?"
-promptarray[6]="VM, boss?"
-promptarray[7]="Which VM again?"
-
-size=${#promptarray[@]}
-index=$(($RANDOM % $size))
-
-selectedprompt=${promptarray[$index]}
-
-choice=$(echo -e "$choices" | dmenu -i -nb ${nbColor} -nf ${nfColor} -sb ${sbColor} -sf ${sfColor} -fn 'UbuntuMono-R:regular:pixelsize=28' -p "$selectedprompt") && exec virt-manager -c qemu:///session --show-domain-console $choice
-#+END_SRC
-
-This script is bound to =S-v=:
-#+BEGIN_SRC haskell :tangle xmonad.hs
-      -- launch virt-manager vm select dmenu script
-      ((modm, xK_v), spawn ("~/.xmonad/vm-select.sh '" ++ colorBgNormal ++ "' '" ++ color08Bright ++ "' '" ++ colorFocus ++ "' '" ++ color08Bright ++ "'")),
-      -- launch virt-manager vm select dmenu script
-      -- ((modm .|. shiftMask, xK_v), spawn ("~/.xmonad/vm-app-select.sh '" ++ colorBgNormal ++ "' '" ++ color08Bright ++ "' '" ++ colorFocus ++ "' '" ++ color08Bright ++ "'")),
 
 #+END_SRC
 **** Window Management Keybinds
@@ -963,14 +887,13 @@ main = do
 #+END_SRC
 * XMobar
 I utilize xmobar as a status bar on one of my monitors.  To manage my xmobar configs, three main files are used:
-- [[./../.config/xmobar/base-xmobarrc][~/.config/xmobar/base-xmobarrc]] which contains the structure of my xmobar config
-- [[./../.config/xmobar/base-xmobarrc-trayer][~/.config/xmobar/base-xmobarrc-trayer]] which contains the structure of my xmobar config with a trayer pad (for when I use trayer)
-- [[./startup.sh][~/.xmonad/startup.sh]] which has a section which generates a copy of my xmobarrcs for the current color scheme I set in [[./xmonad.hs][xmonad.hs]]
+- [[./base-xmobarrc][base-xmobarrc]] which contains the structure of my xmobar config
+- [[./startup.sh][startup.sh]] which has a section which generates a copy of my xmobarrcs for the current color scheme I set in [[./xmonad.hs][xmonad.hs]]
 ** Base xmobarrc
-This is my base xmobarrc. This also depends on =UbuntuMono=, =Symbols Nerd Font= and =Inconsolata for Powerline=.
-#+BEGIN_SRC haskell :tangle ~/.config/xmobar/base-xmobarrc
-Config { font = "UbuntuMono-R 18"
-       , additionalFonts = ["Symbols Nerd Font 21","Inconsolata for Powerline 28"]
+This is my base xmobarrc. This also depends on =Inconsolata= and =Symbols Nerd Font=.
+#+BEGIN_SRC haskell :tangle base-xmobarrc
+Config { font = "Inconsolata 18"
+       , additionalFonts = ["Symbols Nerd Font 14"]
        , border = NoBorder
        , bgColor = "colorBgNormal"
        , alpha = 200
@@ -991,9 +914,9 @@ Config { font = "UbuntuMono-R 18"
                     , Run BatteryP ["BAT0"]
                       ["-t", "<acstatus>",
                       "-L", "10", "-H", "80", "-p", "3", "--",
-                      "-O","<fc=colorFgNormal> <fn=1>\xf303</fn></fc> <fc=color03Normal> <fn=1>\xf583</fn><left>% </fc>",
-                      "-i","<fc=colorFgNormal> <fn=1>\xf303</fn></fc> <fc=color03Normal> <fn=1>\xf578</fn><left>% </fc>",
-                      "-o","<fc=colorFgNormal> <fn=1>\xf303</fn></fc> <fc=color02Normal> <fn=1>\xf58b</fn><left>% </fc>",
+                      "-O","<fc=colorFgNormal> <fn=1>\xf303</fn></fc> <fc=color03Normal> <fn=1>\xf17e3</fn><left>% </fc>",
+                      "-i","<fc=colorFgNormal> <fn=1>\xf303</fn></fc> <fc=color03Normal> <fn=1>\xf17e7</fn><left>% </fc>",
+                      "-o","<fc=colorFgNormal> <fn=1>\xf303</fn></fc> <fc=color02Normal> <fn=1>\xf17e4</fn><left>% </fc>",
                       "-L", "-15", "-H", "-5",
                       "-l", "color02Normal", "-m", "color05Normal", "-h", "color03Normal"] 10
                     , Run Brightness

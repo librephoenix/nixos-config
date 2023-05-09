@@ -156,18 +156,16 @@ myModMask = mod4Mask
 
 myWorkspaces :: [String]
 myWorkspaces =
-  [ "<fn=1>\xf15c</fn>¹", -- document icon for writing
-    "<fn=1>\xfa9e</fn>²", -- globe icon for browsing
-    "<fn=1>\xf121</fn>³", -- dev icon for programming
-    "<fn=1>\xf001</fn>⁴", -- music file icon for composition
-    "<fn=1>\xf1fc</fn>⁵", -- paint icon for art
-    "<fn=1>\xead9</fn>⁶", -- video icon for recording/editing
-    "<fn=1>\xf0d6</fn>⁷", -- money icon for finances
-    "<fn=1>\xf19d</fn>⁸", -- cap icon for teaching
-    "<fn=1>\xf11b</fn>⁹" -- gamepad icon for gaming
+  [ "<fn=1>\xf15c¹</fn>", -- document icon for writing
+    "<fn=1>\xeb01 ²</fn>", -- globe icon for browsing
+    "<fn=1>\xf121³</fn>", -- dev icon for programming
+    "<fn=1>\xf001⁴</fn>", -- music file icon for composition
+    "<fn=1>\xf1fc⁵</fn>", -- paint icon for art
+    "<fn=1>\xf0bdc ⁶</fn>", -- video icon for recording/editing
+    "<fn=1>\xf0d6⁷</fn>", -- money icon for finances
+    "<fn=1>\xf19d⁸</fn>", -- cap icon for teaching
+    "<fn=1>\xf11b⁹</fn>" -- gamepad icon for gaming
   ]
---myWorkspaces =
---  [ "doc", "www", "dev", "mus", "art", "vid", "fin", "edu", "game"]
 
 myWorkspaceIndices = M.fromList $ zipWith (,) myWorkspaces [1..] -- (,) == \x y -> (x,y)
 
@@ -323,14 +321,6 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) =
       --((modm, xK_semicolon), spawn ("dmenu_run -nb '" ++ colorBgNormal ++ "' -nf '" ++ color08Bright ++ "' -sb '" ++ colorFocus ++ "' -sf '" ++ color08Bright ++ "' -fn 'UbuntuMono-R:regular:pixelsize=28' -l 4 -p '➤'")),
       ((modm, xK_semicolon), spawn ("rofi -show drun -show-icons")),
       ((modm, xK_p), spawn ("keepmenu")),
-
-      -- launch app template dmenu script
-      ((modm, xK_w), spawn ("~/.xmonad/template-select.sh '" ++ colorBgNormal ++ "' '" ++ color08Bright ++ "' '" ++ colorFocus ++ "' '" ++ color08Bright ++ "'")),
-
-      -- launch virt-manager vm select dmenu script
-      ((modm, xK_v), spawn ("~/.xmonad/vm-select.sh '" ++ colorBgNormal ++ "' '" ++ color08Bright ++ "' '" ++ colorFocus ++ "' '" ++ color08Bright ++ "'")),
-      -- launch virt-manager vm select dmenu script
-      -- ((modm .|. shiftMask, xK_v), spawn ("~/.xmonad/vm-app-select.sh '" ++ colorBgNormal ++ "' '" ++ color08Bright ++ "' '" ++ colorFocus ++ "' '" ++ color08Bright ++ "'")),
 
       -- close focused window
       ((modm, xK_q), kill),
