@@ -144,8 +144,6 @@ in
     # TODO need ytsub somehow (sarowish/ytsub)
     audio-recorder
     # TODO need flatpak discord
-    betterdiscord-installer
-    betterdiscordctl
 
     # Games
     #TODO need flatpak steam
@@ -282,16 +280,6 @@ in
       texinfo
       libffi zlib
       nodePackages.ungit
-
-    # Fonts
-    nerdfonts
-    powerline
-    inconsolata
-    inconsolata-nerdfont
-    iosevka
-    font-awesome
-    ubuntu_font_family
-    terminus_font
 
     # Compositor and Desktop Utils
     nitrogen

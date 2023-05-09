@@ -138,6 +138,19 @@
   environment.shells = with pkgs; [ zsh ];
   programs.zsh.enable = true;
 
+  fonts.fonts = with pkgs; [
+    # Fonts
+    (nerdfonts.override { fonts = [ "Inconsolata" ]; })
+    powerline
+    inconsolata
+    inconsolata-nerdfont
+    iosevka
+    font-awesome
+    ubuntu_font_family
+    terminus_font
+  ];
+
+
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
