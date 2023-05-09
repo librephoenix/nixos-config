@@ -3,6 +3,8 @@
 let
   myName = "emmet";
 
+  myDotfilesDir = "~/dotfiles/";
+
   # My shell aliases
   myAliases = {
     ls = "exa --icons -l -T -L=1";
@@ -20,13 +22,19 @@ let
   myPhoenixScript = ''
       if [ "$1" = "sync" ]; then
         if [ "$2" != "user" ]; then
-          sudo nixos-rebuild switch -I nixos-config=''+myNixConfigurationFilePath+'';
+          pushd ''+myDotfilesDir+'';
+          sudo nixos-rebuild switch --flake .#;
+          popd;
         fi
         if [ "2" != "system" ]; then
-          home-manager switch -f ''+myHomeManagerFilePath+'';
+          pushd ''+myDotfilesDir+'';
+          home-manager switch --flake .#''+myName+'';
+          popd;
         fi
       elif [ "$1" = "update" ]; then
-        nix-channel --update;
+        pushd ''+myDotfilesDir+'';
+        nix flake update;
+        popd;
       fi
     '';
 
@@ -277,6 +285,7 @@ in
 
     # Fonts
     nerdfonts
+    powerline
     inconsolata
     inconsolata-nerdfont
     iosevka
