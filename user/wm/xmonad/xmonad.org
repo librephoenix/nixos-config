@@ -1,7 +1,7 @@
 #+title: Xmonad Config
 #+author: librephoenix
 
-* XMonad
+* XMonad Config
 The main configuration file for XMonad is [[./xmonad.hs][~/.xmonad/xmonad.hs]].
 ** Imports
 First I import a bunch of libraries:
@@ -885,12 +885,12 @@ main = do
               startupHook = myStartupHook
             }
 #+END_SRC
-* XMobar
-I utilize xmobar as a status bar on one of my monitors.  To manage my xmobar configs, three main files are used:
+* XMobar Config
+I utilize xmobar as a status bar on my monitors.  To manage my xmobar configs, three main files are used:
 - [[./base-xmobarrc][base-xmobarrc]] which contains the structure of my xmobar config
 - [[./startup.sh][startup.sh]] which has a section which generates a copy of my xmobarrcs for the current color scheme I set in [[./xmonad.hs][xmonad.hs]]
 ** Base xmobarrc
-This is my base xmobarrc. This also depends on =Inconsolata= and =Symbols Nerd Font=.
+This is my base xmobarrc. This is a full xmobar config with placeholders for the colors (i.e. =colorFgNormal=, =colorBgNormal=, =color01Normal=, =color01Bright=, etc...). [[./startup.sh][startup.sh]] copies this into =xmobarrc= with my current base16 color scheme. This also depends on =Inconsolata= and =Symbols Nerd Font=.
 #+BEGIN_SRC haskell :tangle base-xmobarrc
 Config { font = "Inconsolata 18"
        , additionalFonts = ["Symbols Nerd Font 14"]
@@ -937,4 +937,15 @@ Config { font = "Inconsolata 18"
        }
 }
 
+#+END_SRC
+* Nix Integration
+In order to have Nix put my xmonad/xmobar configuration in the proper places, I have [[./xmonad.nix][xmonad.nix]], which I source in the =imports= block of my [[../../home.nix][home.nix]].
+#+BEGIN_SRC nix :tangle xmonad.nix
+{ config, pkgs, ... }:
+
+{
+  home.file.".config/xmonad/xmonad.hs".source = ./xmonad.hs;
+  home.file.".config/xmobar/base-xmobarrc".source = ./base-xmobarrc;
+  home.file.".config/xmonad/startup.sh".source = ./startup.sh;
+}
 #+END_SRC
