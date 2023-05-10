@@ -20,9 +20,9 @@ Config { font = "Inconsolata 18"
                     , Run BatteryP ["BAT0"]
                       ["-t", "<acstatus>",
                       "-L", "10", "-H", "80", "-p", "3", "--",
-                      "-O","<fc=colorFgNormal> <fn=1>\xf303</fn></fc> <fc=color03Normal> <fn=1>\xf17e3</fn><left>% </fc>",
-                      "-i","<fc=colorFgNormal> <fn=1>\xf303</fn></fc> <fc=color03Normal> <fn=1>\xf17e7</fn><left>% </fc>",
-                      "-o","<fc=colorFgNormal> <fn=1>\xf303</fn></fc> <fc=color02Normal> <fn=1>\xf17e4</fn><left>% </fc>",
+                      "-O","<fc=colorFgNormal><fn=1>\xf313</fn></fc> <fc=color03Normal> <fn=1>\xf17e3</fn><left>% </fc>",
+                      "-i","<fc=colorFgNormal><fn=1>\xf313</fn></fc> <fc=color03Normal> <fn=1>\xf17e7</fn><left>% </fc>",
+                      "-o","<fc=colorFgNormal><fn=1>\xf313</fn></fc> <fc=color02Normal> <fn=1>\xf17e4</fn><left>% </fc>",
                       "-L", "-15", "-H", "-5",
                       "-l", "color02Normal", "-m", "color05Normal", "-h", "color03Normal"] 10
                     , Run Brightness
@@ -33,7 +33,7 @@ Config { font = "Inconsolata 18"
                       [ "-t", "<status>", "--"
                       , "--on", "<fc=color07Normal> <fn=1>\xf028</fn> <volume>% </fc>"
                       , "--onc", "color07Normal"
-                      , "--off", "<fc=color06Normal> <fn=1>\xf026</fn>Mute </fc>"
+                      , "--off", "<fc=color06Normal> <fn=1>\xf026</fn> Mute </fc>"
                       , "--offc", "color06Normal"
                       ] 1
                     ]

@@ -208,7 +208,7 @@ myWorkspaces =
   [ "<fn=1>\xf15c¹</fn>", -- document icon for writing
     "<fn=1>\xeb01 ²</fn>", -- globe icon for browsing
     "<fn=1>\xf121³</fn>", -- dev icon for programming
-    "<fn=1>\xf001⁴</fn>", -- music file icon for composition
+    "<fn=1>\xf0cb9 ⁴</fn>", -- music file icon for composition
     "<fn=1>\xf1fc⁵</fn>", -- paint icon for art
     "<fn=1>\xf0bdc ⁶</fn>", -- video icon for recording/editing
     "<fn=1>\xf0d6⁷</fn>", -- money icon for finances
@@ -856,9 +856,9 @@ Lastly, xmonad is started with all of the [[Settings][settings set up as variabl
 #+BEGIN_SRC haskell :tangle xmonad.hs
 -- Now run xmonad with all the defaults we set up.
 main = do
-  spawn ("xmobar -x 0 /home/librephoenix/.config/xmobar/xmobarrc")
-  spawn ("xmobar -x 1 /home/librephoenix/.config/xmobar/xmobarrc")
-  spawn ("xmobar -x 2 /home/librephoenix/.config/xmobar/xmobarrc")
+  spawn ("xmobar -x 0")
+  spawn ("xmobar -x 1")
+  spawn ("xmobar -x 2")
   xmonad . withSB mySB $
     withNavigation2DConfig myNavigation2DConfig $
       fullscreenSupportBorder $
@@ -914,9 +914,9 @@ Config { font = "Inconsolata 18"
                     , Run BatteryP ["BAT0"]
                       ["-t", "<acstatus>",
                       "-L", "10", "-H", "80", "-p", "3", "--",
-                      "-O","<fc=colorFgNormal> <fn=1>\xf303</fn></fc> <fc=color03Normal> <fn=1>\xf17e3</fn><left>% </fc>",
-                      "-i","<fc=colorFgNormal> <fn=1>\xf303</fn></fc> <fc=color03Normal> <fn=1>\xf17e7</fn><left>% </fc>",
-                      "-o","<fc=colorFgNormal> <fn=1>\xf303</fn></fc> <fc=color02Normal> <fn=1>\xf17e4</fn><left>% </fc>",
+                      "-O","<fc=colorFgNormal><fn=1>\xf313</fn></fc> <fc=color03Normal> <fn=1>\xf17e3</fn><left>% </fc>",
+                      "-i","<fc=colorFgNormal><fn=1>\xf313</fn></fc> <fc=color03Normal> <fn=1>\xf17e7</fn><left>% </fc>",
+                      "-o","<fc=colorFgNormal><fn=1>\xf313</fn></fc> <fc=color02Normal> <fn=1>\xf17e4</fn><left>% </fc>",
                       "-L", "-15", "-H", "-5",
                       "-l", "color02Normal", "-m", "color05Normal", "-h", "color03Normal"] 10
                     , Run Brightness
@@ -927,7 +927,7 @@ Config { font = "Inconsolata 18"
                       [ "-t", "<status>", "--"
                       , "--on", "<fc=color07Normal> <fn=1>\xf028</fn> <volume>% </fc>"
                       , "--onc", "color07Normal"
-                      , "--off", "<fc=color06Normal> <fn=1>\xf026</fn>Mute </fc>"
+                      , "--off", "<fc=color06Normal> <fn=1>\xf026</fn> Mute </fc>"
                       , "--offc", "color06Normal"
                       ] 1
                     ]

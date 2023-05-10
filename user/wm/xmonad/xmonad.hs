@@ -159,7 +159,7 @@ myWorkspaces =
   [ "<fn=1>\xf15c¹</fn>", -- document icon for writing
     "<fn=1>\xeb01 ²</fn>", -- globe icon for browsing
     "<fn=1>\xf121³</fn>", -- dev icon for programming
-    "<fn=1>\xf001⁴</fn>", -- music file icon for composition
+    "<fn=1>\xf0cb9 ⁴</fn>", -- music file icon for composition
     "<fn=1>\xf1fc⁵</fn>", -- paint icon for art
     "<fn=1>\xf0bdc ⁶</fn>", -- video icon for recording/editing
     "<fn=1>\xf0d6⁷</fn>", -- money icon for finances
@@ -533,9 +533,9 @@ mySB = statusBarProp "xmobar" (pure myPP)
 
 -- Now run xmonad with all the defaults we set up.
 main = do
-  spawn ("xmobar -x 0 /home/librephoenix/.config/xmobar/xmobarrc")
-  spawn ("xmobar -x 1 /home/librephoenix/.config/xmobar/xmobarrc")
-  spawn ("xmobar -x 2 /home/librephoenix/.config/xmobar/xmobarrc")
+  spawn ("xmobar -x 0")
+  spawn ("xmobar -x 1")
+  spawn ("xmobar -x 2")
   xmonad . withSB mySB $
     withNavigation2DConfig myNavigation2DConfig $
       fullscreenSupportBorder $
