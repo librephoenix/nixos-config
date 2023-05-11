@@ -3,7 +3,7 @@
 (package! org-super-agenda)
 (package! emacsql :pin "c1a4407")
 (package! org-roam-ui)
-(package! org-roam-nursery :recipe (:repo "https://github.com/chrisbarrett/nursery"))
+;;(package! org-roam-nursery :recipe (:repo "https://github.com/chrisbarrett/nursery"))
 (package! lister)
 (package! org-download)
 (package! org-yt)
