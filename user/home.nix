@@ -97,19 +97,6 @@ in
     lxappearance
     (pkgs.writeScriptBin "phoenix" myPhoenixScript)
 
-    # Doom emacs
-    emacs
-    binutils
-    (ripgrep.override {withPCRE2 = true;})
-    gnutls
-    fd
-    imagemagick
-    zstd
-    nodePackages.javascript-typescript-langserver
-    sqlite
-    editorconfig-core-c
-    emacs-all-the-icons-fonts
-    
     # Office
     libreoffice-qt
     mate.atril
@@ -356,6 +343,11 @@ in
     enable = true;
     enableCompletion = true;
     shellAliases = myAliases;
+  };
+
+  programs.doom-emacs = {
+    enable = true;
+    doomPrivateDir = ./app/doom-emacs;
   };
 
   nixpkgs.overlays = [
