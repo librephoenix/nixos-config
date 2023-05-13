@@ -50,23 +50,8 @@ in
 
   imports = [
               ./wm/xmonad/xmonad.nix
+              ./style/stylix.nix
             ];
-  stylix.autoEnable = false;
-  stylix.image = pkgs.fetchurl {
-    url = "https://w.wallhaven.cc/full/6d/wallhaven-6d5k6x.jpg";
-    sha256 = "+xl4H3UiVmMRNvMhIlaLdVTYYqnSyCTSX2UOTGsDQ8c=";
-  };
-  stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/tokyo-night-dark.yaml";
-  stylix.targets.alacritty.enable = true;
-  #programs.alacritty.enable = true;
-  stylix.targets.kitty.enable = true;
-  #programs.kitty.enable = true;
-  stylix.targets.gtk.enable = true;
-  stylix.targets.rofi.enable = true;
-  programs.rofi.enable = true;
-  stylix.targets.feh.enable = true;
-  programs.feh.enable = true;
-  # stylix.targets.lightdm.enable = true;
 
   programs.git.enable = true;
   programs.git.userName = myName;
@@ -75,23 +60,7 @@ in
     init.defaultBranch = "main";
   };
 
-  # This value determines the Home Manager release that your configuration is
-  # compatible with. This helps avoid breakage when a new Home Manager release
-  # introduces backwards incompatible changes.
-  #
-  # You should not change this value, even if you update Home Manager. If you do
-  # want to update the value, then make sure to first check the Home Manager
-  # release notes.
   home.stateVersion = "22.11"; # Please read the comment before changing.
-
-  # The home.packages option allows you to install Nix packages into your
-  # environment.
-
-  # gtk.enable = true;
-  # gtk.theme.package = pkgs.graphite-gtk-theme.override { themeVariants = ["all"]; colorVariants = ["dark"]; tweaks = ["black"]; };
-  # gtk.theme.name = "Graphite-green-Dark";
-  # qt.enable = true;
-  # qt.platformTheme = "gtk";
 
   home.packages = with pkgs; [
     # # Adds the 'hello' command to your environment. It prints a friendly
@@ -109,8 +78,6 @@ in
     feh
     git
     xmobar
-    qt5ct
-    lxappearance
     (pkgs.writeScriptBin "phoenix" myPhoenixScript)
 
     # Office
@@ -142,11 +109,9 @@ in
     mediainfo
     libmediainfo
     mediainfo-gui
-    nsxiv
     freetube
     # TODO need ytsub somehow (sarowish/ytsub)
     audio-recorder
-    # TODO need flatpak discord
 
     # Games
     #TODO need flatpak steam
@@ -176,7 +141,6 @@ in
     w3m
     fzf
     hunspell hunspellDicts.en_US-large
-    mimeo
     pandoc
     nodePackages.mermaid-cli
     
@@ -426,7 +390,6 @@ in
   # if you don't want to manage your shell through Home Manager.
   home.sessionVariables = {
     EDITOR = "emacsclient";
-    "QT_QPA_PLATFORMTHEME"="qt5ct";
   };
 
 }
