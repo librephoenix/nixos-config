@@ -12,6 +12,9 @@
   outputs = { self, nixpkgs, home-manager, nix-doom-emacs, stylix, ... }:
   let
     system = "x86_64-linux";
+    name = "emmet";
+    email = "librephoenix@protonmail.com";
+    dotfilesDir = ./.;
 
     pkgs = import nixpkgs {
       inherit system;
@@ -29,6 +32,14 @@
             nix-doom-emacs.hmModule
             stylix.homeManagerModules.stylix
           ];
+          extraSpecialArgs = {
+            myName = name;
+            myHomeDir = /. + "home/"+name;
+            myEmail = email;
+            myDotfilesDir = dotfilesDir;
+            myNixConfigurationFilePath = dotfilesDir+"/system/configuration.nix";
+            myHomeManagerFilePath = dotfilesDir+"/user/home.nix";
+          };
       };
     };
     nixosConfigurations = {

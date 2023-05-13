@@ -1,24 +1,8 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, myName, myEmail, myHomeDir, myDotfilesDir, ... }:
 
 let
-  myName = "emmet";
-
-  myDotfilesDir = "~/dotfiles/";
-
-  # My shell aliases
-  myAliases = {
-    ls = "exa --icons -l -T -L=1";
-    cat = "bat";
-    htop = "btm";
-    fd = "fd -Lu";
-    w3m = "w3m -no-cookie -v";
-  };
-
-  # Variables for my nix configuration paths
-  myNixConfigurationFilePath = "$HOME/dotfiles/system/configuration.nix";
-  myHomeManagerFilePath = "$HOME/dotfiles/user/home.nix";
-
   # This sets up my "phoenix" script with my configuration paths
+  # =phoenix= is just my wrapper script for easier access to nix/nixos commands
   myPhoenixScript = ''
       if [ "$1" = "sync" ]; then
         if [ "$2" != "user" ]; then
@@ -39,26 +23,20 @@ let
     '';
 
 in
-
 {
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = myName;
-  home.homeDirectory = "/home/emmet";
+  home.homeDirectory = myHomeDir;
 
   programs.home-manager.enable = true;
 
   imports = [
-              ./wm/xmonad/xmonad.nix
-              ./style/stylix.nix
+              ./wm/xmonad/xmonad.nix # My xmonad config
+              ./shell/sh.nix # My zsh and bash config
+             ./app/git/git.nix # My git config
+              ./style/stylix.nix # Styling and themes for my apps
             ];
-
-  programs.git.enable = true;
-  programs.git.userName = myName;
-  programs.git.userEmail = "librephoenix@protonmail.com";
-  programs.git.extraConfig = {
-    init.defaultBranch = "main";
-  };
 
   home.stateVersion = "22.11"; # Please read the comment before changing.
 
@@ -291,38 +269,7 @@ in
 
     # Filesystems
     dosfstools
-
-    # # overrides. You can do that directly here, just don't forget the
-    # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
-    # # fonts?
-    # (pkgs.nerdfonts.override { fonts = [ "FantasqueSansMono" ]; })
-
-    # # You can also create simple shell scripts directly inside your
-    # # configuration. For example, this adds a command 'my-hello' to your
-    # # environment:
-    # (pkgs.writeShellScriptBin "my-hello" ''
-    #   echo "Hello, ${config.home.username}!"
-    # '')
   ];
-
-  programs.zsh = {
-    enable = true;
-    enableAutosuggestions = true;
-    enableCompletion = true;
-    enableSyntaxHighlighting = true;
-    shellAliases = myAliases;
-    oh-my-zsh = {
-      enable = true;
-      plugins = [ "git" ];
-      theme = "agnoster";
-    };
-  };
-
-  programs.bash = {
-    enable = true;
-    enableCompletion = true;
-    shellAliases = myAliases;
-  };
 
   programs.doom-emacs = {
     enable = true;
