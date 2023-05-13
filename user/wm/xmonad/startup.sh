@@ -41,7 +41,6 @@ killall twmnd
 killall trayer
 killall nm-applet
 killall nextcloud
-killall nitrogen
 killall xautolock
 killall caffeine
 killall syncthing-gtk
@@ -99,7 +98,6 @@ sed -i "s/colorSecondary/"$colorSecondary"/g" ~/.config/xmobar/xmobarrc & # xmob
 # xautolock -time 10 -locker "dm-tool switch-to-greeter & systemctl suspend" &
 twmnd &
 alttab -w 1 -t 240x160 -i 64x64 -sc 1 -bg $colorBgNormal -fg $colorFgNormal -frame $colorSecondary -inact $colorFgNormal &
-nitrogen --restore &
 autokey-gtk &
 ##/usr/bin/trayer --edge top --align right --SetDockType true --SetPartialStrut true --expand true --widthtype request --transparent true --alpha 0 --height 28 --tint $trayertint --monitor "primary" &
 nm-applet &

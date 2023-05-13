@@ -51,6 +51,22 @@ in
   imports = [
               ./wm/xmonad/xmonad.nix
             ];
+  stylix.autoEnable = false;
+  stylix.image = pkgs.fetchurl {
+    url = "https://w.wallhaven.cc/full/6d/wallhaven-6d5k6x.jpg";
+    sha256 = "+xl4H3UiVmMRNvMhIlaLdVTYYqnSyCTSX2UOTGsDQ8c=";
+  };
+  stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/tokyo-night-dark.yaml";
+  stylix.targets.alacritty.enable = true;
+  #programs.alacritty.enable = true;
+  stylix.targets.kitty.enable = true;
+  #programs.kitty.enable = true;
+  stylix.targets.gtk.enable = true;
+  stylix.targets.rofi.enable = true;
+  programs.rofi.enable = true;
+  stylix.targets.feh.enable = true;
+  programs.feh.enable = true;
+  # stylix.targets.lightdm.enable = true;
 
   programs.git.enable = true;
   programs.git.userName = myName;
@@ -71,10 +87,10 @@ in
   # The home.packages option allows you to install Nix packages into your
   # environment.
 
-  gtk.enable = true;
-  gtk.theme.package = pkgs.graphite-gtk-theme.override { themeVariants = ["all"]; colorVariants = ["dark"]; tweaks = ["black"]; };
-  gtk.theme.name = "Graphite-green-Dark";
-  qt.enable = true;
+  # gtk.enable = true;
+  # gtk.theme.package = pkgs.graphite-gtk-theme.override { themeVariants = ["all"]; colorVariants = ["dark"]; tweaks = ["black"]; };
+  # gtk.theme.name = "Graphite-green-Dark";
+  # qt.enable = true;
   # qt.platformTheme = "gtk";
 
   home.packages = with pkgs; [
@@ -90,7 +106,7 @@ in
     brave
     dmenu
     rofi
-    nitrogen
+    feh
     git
     xmobar
     qt5ct
@@ -269,7 +285,6 @@ in
       nodePackages.ungit
 
     # Compositor and Desktop Utils
-    nitrogen
     picom
     alttab
     xwinwrap
