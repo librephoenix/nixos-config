@@ -56,7 +56,7 @@
 (setq custom-file null-device)
 
 ;; Fancy splash image
-(setq fancy-splash-image "~/.doom.d/arch.png")
+(setq fancy-splash-image "./arch.png")
 
 (setq +doom-dashboard-menu-sections
 '(("Open org roam overview" :icon
@@ -149,6 +149,8 @@
 ;;        :init
 ;;        (add-hook 'org-mode-hook (lambda ()
 ;;                                   (org-bullets-mode 1))))
+
+(after! org (org-eldoc-load))
 
 (with-eval-after-load 'org (global-org-modern-mode))
 
