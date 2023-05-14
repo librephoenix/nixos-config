@@ -26,11 +26,7 @@
   home.stateVersion = "22.11"; # Please read the comment before changing.
 
   home.packages = with pkgs; [
-    # # Adds the 'hello' command to your environment. It prints a friendly
-    # # "Hello, world!" when run.
-    
     # Core
-    hello
     zsh
     alacritty
     kitty
@@ -52,8 +48,6 @@
 
     # File Managers
     ranger
-    libsForQt5.dolphin
-    libsForQt5.dolphin-plugins
     xdragon
 
     # Media
@@ -111,16 +105,16 @@
     twmn
 
     # Wayland Utils
-    xdg-desktop-portal-wlr
-    wtype
+    # xdg-desktop-portal-wlr
+    # wtype
     # wl-clipboard-x11
-    xorg.xlsclients
-    glfw-wayland
-    swayidle
-    swaylock
-    wlsunset
-    wayshot
-    wev
+    # xorg.xlsclients
+    # glfw-wayland
+    # swayidle
+    # swaylock
+    # wlsunset
+    # wayshot
+    # wev
     
     # TODO Configure pipewire audio server
 
