@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, myTheme, ... }:
 
 let
   myFont = "Inconsolata";
@@ -7,11 +7,12 @@ let
 in
 {
   stylix.autoEnable = false;
+  stylix.polarity = "dark";
   stylix.image = pkgs.fetchurl {
     url = "https://w.wallhaven.cc/full/6d/wallhaven-6d5k6x.jpg";
     sha256 = "+xl4H3UiVmMRNvMhIlaLdVTYYqnSyCTSX2UOTGsDQ8c=";
   };
-  stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/tokyo-night-dark.yaml";
+  stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/"+myTheme+".yaml";
 
   stylix.fonts = {
     monospace = {
@@ -47,5 +48,4 @@ in
   programs.rofi.enable = true;
   stylix.targets.feh.enable = true;
   programs.feh.enable = true;
-  # stylix.targets.lightdm.enable = true;
 }

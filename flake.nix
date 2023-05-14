@@ -14,7 +14,8 @@
     system = "x86_64-linux";
     name = "emmet";
     email = "librephoenix@protonmail.com";
-    dotfilesDir = ./.;
+    dotfilesDir = "~/dotfiles";
+    theme = "tokyo-night-dark";
 
     pkgs = import nixpkgs {
       inherit system;
@@ -39,6 +40,7 @@
             myDotfilesDir = dotfilesDir;
             myNixConfigurationFilePath = dotfilesDir+"/system/configuration.nix";
             myHomeManagerFilePath = dotfilesDir+"/user/home.nix";
+            myTheme = theme;
           };
       };
     };
@@ -47,7 +49,11 @@
         inherit system;
         modules = [
           ./system/configuration.nix
+          # stylix.nixosModules.stylix # complains that home-manager is not defined
         ];
+        # specialArgs = {
+        #   myTheme = theme;
+        # };
       };
     };
   };
