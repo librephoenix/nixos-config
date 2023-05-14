@@ -1,28 +1,5 @@
 { config, lib, pkgs, myName, myEmail, myHomeDir, myDotfilesDir, myTheme, ... }:
 
-let
-  # This sets up my "phoenix" script with my configuration paths
-  # =phoenix= is just my wrapper script for easier access to nix/nixos commands
-  myPhoenixScript = ''
-      if [ "$1" = "sync" ]; then
-        if [ "$2" != "user" ]; then
-          pushd ''+myDotfilesDir+'';
-          sudo nixos-rebuild switch --flake .#;
-          popd;
-        fi
-        if [ "2" != "system" ]; then
-          pushd ''+myDotfilesDir+'';
-          home-manager switch --flake .#''+myName+'';
-          popd;
-        fi
-      elif [ "$1" = "update" ]; then
-        pushd ''+myDotfilesDir+'';
-        nix flake update;
-        popd;
-      fi
-    '';
-
-in
 {
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
@@ -34,7 +11,8 @@ in
   imports = [
               ./wm/xmonad/xmonad.nix # My xmonad config
               ./shell/sh.nix # My zsh and bash config
-             ./app/git/git.nix # My git config
+              ./bin/phoenix.nix # My nix command wrapper
+              ./app/git/git.nix # My git config
               ./style/stylix.nix # Styling and themes for my apps
             ];
 
@@ -56,7 +34,6 @@ in
     feh
     git
     xmobar
-    (pkgs.writeScriptBin "phoenix" myPhoenixScript)
 
     # Office
     libreoffice-qt
