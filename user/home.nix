@@ -13,6 +13,7 @@
               ./shell/sh.nix # My zsh and bash config
               ./bin/phoenix.nix # My nix command wrapper
               ./app/git/git.nix # My git config
+              ./app/games/games.nix # Various videogame apps
               ./style/stylix.nix # Styling and themes for my apps
               ./lang/cc/cc.nix # C and C++ tools
               ./lang/python/python.nix # Python
