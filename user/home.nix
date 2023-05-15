@@ -19,9 +19,9 @@
               ./style/stylix.nix # Styling and themes for my apps
               ./lang/cc/cc.nix # C and C++ tools
               ./lang/python/python.nix # Python
-              ./lang/python/python-packages.nix # Extra Python packages I want
+              #./lang/python/python-packages.nix # Extra Python packages I want
               ./lang/haskell/haskell.nix # Haskell tools
-              ./lang/android/android.nix # Android developement
+              #./lang/android/android.nix # Android developement
               ./lang/godot/godot.nix # Game development
             ];
 
