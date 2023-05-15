@@ -12,6 +12,8 @@
               ./wm/xmonad/xmonad.nix # My xmonad config
               ./shell/sh.nix # My zsh and bash config
               ./bin/phoenix.nix # My nix command wrapper
+              ./app/terminal/alacritty.nix # My alacritty config
+              ./app/terminal/kitty.nix # My kitty config
               ./app/git/git.nix # My git config
               ./app/games/games.nix # Various videogame apps
               ./style/stylix.nix # Styling and themes for my apps

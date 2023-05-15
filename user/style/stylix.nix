@@ -40,9 +40,7 @@ in
   };
 
   stylix.targets.alacritty.enable = true;
-  #programs.alacritty.enable = true;
   stylix.targets.kitty.enable = true;
-  #programs.kitty.enable = true;
   stylix.targets.gtk.enable = true;
   stylix.targets.rofi.enable = true;
   programs.rofi.enable = true;
