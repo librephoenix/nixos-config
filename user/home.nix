@@ -12,6 +12,7 @@
               ./wm/xmonad/xmonad.nix # My xmonad config
               ./shell/sh.nix # My zsh and bash config
               ./bin/phoenix.nix # My nix command wrapper
+              ./app/doom-emacs/doom.nix # My doom emacs config
               ./app/terminal/alacritty.nix # My alacritty config
               ./app/terminal/kitty.nix # My kitty config
               ./app/git/git.nix # My git config
@@ -136,11 +137,6 @@
     # Filesystems
     dosfstools
   ];
-
-  programs.doom-emacs = {
-    enable = true;
-    doomPrivateDir = ./app/doom-emacs;
-  };
 
   home.file.".librewolf/librewolf.overrides.cfg".text = ''
     pref("font.name.serif.x-western","Inconsolata");
