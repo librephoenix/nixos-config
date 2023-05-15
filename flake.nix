@@ -35,7 +35,7 @@
           ];
           extraSpecialArgs = {
             myName = name;
-            myHomeDir = /. + "home/"+name;
+            myHomeDir = "/home/"+name;
             myEmail = email;
             myDotfilesDir = dotfilesDir;
             myNixConfigurationFilePath = dotfilesDir+"/system/configuration.nix";
