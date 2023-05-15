@@ -43,6 +43,7 @@
     mate.atril
     xournalpp
     gnome.geary
+    newsflash
     autokey
     protonmail-bridge
 
