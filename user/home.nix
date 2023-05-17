@@ -39,7 +39,6 @@
     rofi
     feh
     git
-    xmobar
 
     # Office
     libreoffice-qt
@@ -75,6 +74,7 @@
     # Command Line
     neofetch lolcat cowsay
     gnugrep gnused
+    libnotify
     bat exa fd bottom ripgrep
     rsync
     systeroid
@@ -106,7 +106,6 @@
     ddcutil
     sct
     caffeine-ng
-    twmn
 
     # Wayland Utils
     # xdg-desktop-portal-wlr
