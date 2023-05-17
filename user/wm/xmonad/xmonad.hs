@@ -437,7 +437,7 @@ myPP = xmobarPP { ppTitle = xmobarColor colorFocus "",
                   ppCurrent = xmobarStripTags ["NSP"] . xmobarColor colorFocus "",
                   ppVisible = xmobarStripTags ["NSP"] . xmobarColor colorSecondary "",
                   ppHidden = xmobarStripTags ["NSP"] . xmobarColor colorFg "",
-                  ppHiddenNoWindows = xmobarStripTags ["NSP"] . xmobarColor colorBlack "",
+                  ppHiddenNoWindows = xmobarStripTags ["NSP"] . xmobarColor color01 "",
                   ppOrder = \(ws : _) -> [ws],
                   ppSep = " "
                 }
