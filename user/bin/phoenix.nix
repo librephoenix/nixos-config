@@ -14,6 +14,9 @@ let
           pushd ''+myDotfilesDir+'';
           home-manager switch --flake .#''+myName+'';
           popd;
+          killall xmobar;
+          xmonad --recompile && xmonad --restart;
+          emacsclient --no-wait --eval "(load-theme 'doom-stylix t nil)";
         fi
       elif [ "$1" = "update" ]; then
         pushd ''+myDotfilesDir+'';
