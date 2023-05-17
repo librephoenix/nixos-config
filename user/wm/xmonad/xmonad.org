@@ -48,6 +48,28 @@ import XMonad.Util.SpawnOnce
 
 #+END_SRC
 ** Theme Setup
+*** Custom Color Library Template
+#+BEGIN_SRC haskell :tangle ./lib/Colors/Stylix.hs.mustache
+module Colors.Stylix where
+
+import XMonad
+
+colorBg = "#{{base00-hex}}"
+colorFg = "#{{base05-hex}}"
+color01 = "#{{base01-hex}}" -- usually black
+color02 = "#{{base08-hex}}" -- usually red
+color03 = "#{{base0B-hex}}" -- usually green
+color04 = "#{{base0A-hex}}" -- usually yellow
+color05 = "#{{base0E-hex}}" -- usually blue
+color06 = "#{{base0F-hex}}" -- usually magenta
+color07 = "#{{base0D-hex}}" -- usually cyan
+color08 = "#{{base07-hex}}" -- usually white
+
+-- Select focus and secondary color
+colorFocus = color02
+colorSecondary = color07
+
+#+END_SRC
 *** Import Custom Color Library
 #+BEGIN_SRC haskell :tangle xmonad.hs
 -- setup color variables
@@ -695,18 +717,16 @@ main = do
             }
 #+END_SRC
 * XMobar Config
-I utilize xmobar as a status bar on my monitors.  To manage my xmobar configs, three main files are used:
-- [[./base-xmobarrc][base-xmobarrc]] which contains the structure of my xmobar config
-- [[./startup.sh][startup.sh]] which has a section which generates a copy of my xmobarrcs for the current color scheme I set in [[./xmonad.hs][xmonad.hs]]
-** Base xmobarrc
+I utilize xmobar as a status bar on my monitors.  To manage my xmobar config, I start by creating a template file, and then style that using stylix.
+** Xmobar Template
 This is my base xmobarrc. This is a full xmobar config with placeholders for the colors (i.e. =colorFgNormal=, =colorBgNormal=, =color01Normal=, =color01Bright=, etc...). [[./startup.sh][startup.sh]] copies this into =xmobarrc= with my current base16 color scheme. This also depends on =Inconsolata= and =Symbols Nerd Font=.
-#+BEGIN_SRC haskell :tangle base-xmobarrc
+#+BEGIN_SRC haskell :tangle xmobarrc.mustache
 Config { font = "Inconsolata 18"
        , additionalFonts = ["Symbols Nerd Font 14"]
        , border = NoBorder
-       , bgColor = "colorBgNormal"
+       , bgColor = "#{{base00-hex}}"
        , alpha = 200
-       , fgColor = "colorFgNormal"
+       , fgColor = "#{{base05-hex}}"
        , position = TopSize C 100 28
        , textOffset = -1
        , iconOffset = -1
@@ -719,30 +739,30 @@ Config { font = "Inconsolata 18"
        , overrideRedirect = True
        , commands = [
                       Run XMonadLog
-                    , Run Date "<fc=color06Normal> <fn=1>\xf073</fn> %a %-m/%-d/%y %-I:%M:%S%P</fc>" "date" 10
+                    , Run Date "<fc=#{{base09-hex}}> <fn=1>\xf073</fn> %a %-m/%-d/%y %-I:%M:%S%P</fc>" "date" 10
                     , Run BatteryP ["BAT0"]
                       ["-t", "<acstatus>",
                       "-L", "10", "-H", "80", "-p", "3", "--",
-                      "-O","<fc=colorFgNormal><fn=1>\xf313</fn></fc> <fc=color03Normal> <fn=1>\xf17e3</fn><left>% </fc>",
-                      "-i","<fc=colorFgNormal><fn=1>\xf313</fn></fc> <fc=color03Normal> <fn=1>\xf17e7</fn><left>% </fc>",
-                      "-o","<fc=colorFgNormal><fn=1>\xf313</fn></fc> <fc=color02Normal> <fn=1>\xf17e4</fn><left>% </fc>",
+                      "-O","<fc=#{{base05-hex}}><fn=1>\xf313</fn></fc> <fc=#{{base0B-hex}}> <fn=1>\xf17e3</fn><left>% </fc>",
+                      "-i","<fc=#{{base05-hex}}><fn=1>\xf313</fn></fc> <fc=#{{base0B-hex}}> <fn=1>\xf17e7</fn><left>% </fc>",
+                      "-o","<fc=#{{base05-hex}}><fn=1>\xf313</fn></fc> <fc=#{{base08-hex}}> <fn=1>\xf17e4</fn><left>% </fc>",
                       "-L", "-15", "-H", "-5",
-                      "-l", "color02Normal", "-m", "color05Normal", "-h", "color03Normal"] 10
+                      "-l", "#{{base08-hex}}", "-m", "#{{base05-hex}}", "-h", "#{{base0B-hex}}"] 10
                     , Run Brightness
-                      [ "-t", "<fc=color04Normal><fn=1>\xf0eb</fn> <percent>% </fc>", "--",
+                      [ "-t", "<fc=#{{base0A-hex}}><fn=1>\xf0eb</fn> <percent>% </fc>", "--",
                         "-D", "amdgpu_bl1"
                       ] 2
                     , Run Volume "default" "Master"
                       [ "-t", "<status>", "--"
-                      , "--on", "<fc=color07Normal> <fn=1>\xf028</fn> <volume>% </fc>"
-                      , "--onc", "color07Normal"
-                      , "--off", "<fc=color06Normal> <fn=1>\xf026</fn> Mute </fc>"
-                      , "--offc", "color06Normal"
+                      , "--on", "<fc=#{{base0D-hex}}> <fn=1>\xf028</fn> <volume>% </fc>"
+                      , "--onc", "#{{base0D-hex}}"
+                      , "--off", "<fc=#{{base0F-hex}}> <fn=1>\xf026</fn> Mute </fc>"
+                      , "--offc", "#{{base0F-hex}}"
                       ] 1
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = " %battery% %bright%<action=`xdotool key Super_L+y`>%default:Master%</action>}<box color=colorBgBright width=0>%XMonadLog%</box>{<action=`xdotool key Super_L+c`>%date%</action> "
+       , template = " %battery% %bright%<action=`xdotool key Super_L+y`>%default:Master%</action>}%XMonadLog%{<action=`xdotool key Super_L+c`>%date%</action> "
        }
 }
 
@@ -757,12 +777,16 @@ In order to have Nix put my xmonad/xmobar configuration in the proper places, I 
   imports = [ ../picom/picom.nix ];
 
   home.file.".config/xmonad/xmonad.hs".source = ./xmonad.hs;
-  home.file.".config/xmobar/base-xmobarrc".source = ./base-xmobarrc;
   home.file.".config/xmonad/startup.sh".source = ./startup.sh;
 
   home.file.".config/xmonad/lib/Colors/Stylix.hs".source = config.lib.stylix.colors {
     template = builtins.readFile ./lib/Colors/Stylix.hs.mustache;
     extension = ".hs";
+  };
+
+  home.file.".config/xmobar/xmobarrc".source = config.lib.stylix.colors {
+    template = builtins.readFile ./xmobarrc.mustache;
+    extension = "";
   };
 
   home.packages = with pkgs; [

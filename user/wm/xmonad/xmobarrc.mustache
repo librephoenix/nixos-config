@@ -1,0 +1,44 @@
+Config { font = "Inconsolata 18"
+       , additionalFonts = ["Symbols Nerd Font 14"]
+       , border = NoBorder
+       , bgColor = "#{{base00-hex}}"
+       , alpha = 200
+       , fgColor = "#{{base05-hex}}"
+       , position = TopSize C 100 28
+       , textOffset = -1
+       , iconOffset = -1
+       , lowerOnStart = True
+       , pickBroadest = False
+       , persistent = False
+       , hideOnStart = False
+       , iconRoot = "."
+       , allDesktops = True
+       , overrideRedirect = True
+       , commands = [
+                      Run XMonadLog
+                    , Run Date "<fc=#{{base09-hex}}> <fn=1>\xf073</fn> %a %-m/%-d/%y %-I:%M:%S%P</fc>" "date" 10
+                    , Run BatteryP ["BAT0"]
+                      ["-t", "<acstatus>",
+                      "-L", "10", "-H", "80", "-p", "3", "--",
+                      "-O","<fc=#{{base05-hex}}><fn=1>\xf313</fn></fc> <fc=#{{base0B-hex}}> <fn=1>\xf17e3</fn><left>% </fc>",
+                      "-i","<fc=#{{base05-hex}}><fn=1>\xf313</fn></fc> <fc=#{{base0B-hex}}> <fn=1>\xf17e7</fn><left>% </fc>",
+                      "-o","<fc=#{{base05-hex}}><fn=1>\xf313</fn></fc> <fc=#{{base08-hex}}> <fn=1>\xf17e4</fn><left>% </fc>",
+                      "-L", "-15", "-H", "-5",
+                      "-l", "#{{base08-hex}}", "-m", "#{{base05-hex}}", "-h", "#{{base0B-hex}}"] 10
+                    , Run Brightness
+                      [ "-t", "<fc=#{{base0A-hex}}><fn=1>\xf0eb</fn> <percent>% </fc>", "--",
+                        "-D", "amdgpu_bl1"
+                      ] 2
+                    , Run Volume "default" "Master"
+                      [ "-t", "<status>", "--"
+                      , "--on", "<fc=#{{base0D-hex}}> <fn=1>\xf028</fn> <volume>% </fc>"
+                      , "--onc", "#{{base0D-hex}}"
+                      , "--off", "<fc=#{{base0F-hex}}> <fn=1>\xf026</fn> Mute </fc>"
+                      , "--offc", "#{{base0F-hex}}"
+                      ] 1
+                    ]
+       , sepChar = "%"
+       , alignSep = "}{"
+       , template = " %battery% %bright%<action=`xdotool key Super_L+y`>%default:Master%</action>}%XMonadLog%{<action=`xdotool key Super_L+c`>%date%</action> "
+       }
+}
