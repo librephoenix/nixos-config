@@ -48,113 +48,10 @@ import XMonad.Util.SpawnOnce
 
 #+END_SRC
 ** Theme Setup
-*** Color Variable Declarations
-Next, I declare some variables necessary to setup 16-bit color schemes.
-#+BEGIN_SRC haskell :tangle xmonad.hs
--- CUSTOM COLORS
-colorSchemeList, colorSchemePrettyList :: [String]
-colorBgNormalList, colorFgNormalList :: [String]
-color01NormalList, color01BrightList, color02NormalList, color02BrightList :: [String]
-color03NormalList, color03BrightList, color04NormalList, color04BrightList :: [String]
-color05NormalList, color05BrightList, color06NormalList, color06BrightList :: [String]
-color07NormalList, color07BrightList, color08NormalList, color08BrightList :: [String]
-colorFocusList, colorSecondaryList :: [String]
-colorScheme, colorSchemePretty :: String
-colorBgNormal, colorFgNormal :: [Char]
-color01Normal, color01Bright, color02Normal, color02Bright :: String
-color03Normal, color03Bright, color04Normal, color04Bright :: String
-color05Normal, color05Bright, color06Normal, color06Bright :: String
-color07Normal, color07Bright, color08Normal, color08Bright :: String
-colorFocus, colorSecondary :: String
-gtkTheme :: String
-alacrittyTheme :: String
-doomEmacsTheme :: String
-
-#+END_SRC
-*** Color Scheme Enumerations
-Next, I enumerate each color scheme as an integer.
-#+BEGIN_SRC haskell :tangle xmonad.hs
-gruvboxIndex, solarizedIndex, draculaIndex, tomorrowNightIndex, tokyoNightIndex, oceanicNextIndex, ubuntuIndex :: Int
-gruvboxIndex = 0
-solarizedIndex = 1
-draculaIndex = 2
-tomorrowNightIndex = 3
-tokyoNightIndex = 4
-oceanicNextIndex = 5
-oldHopeIndex = 6
-ubuntuIndex = 7
-
-#+END_SRC
-*** Color Scheme Arrays
-Each enumerated color scheme from [[Color Scheme Enumerations][before]] corresponds to the index of the following arrays.  These arrays are then used as the basis to select a color scheme.
-#+BEGIN_SRC haskell :tangle xmonad.hs
--- color scheme arrays
-colorSchemeList = ["gruvbox", "solarized", "dracula", "tomorrow-night", "tokyo-night", "oceanic-next", "old-hope"]
-colorSchemePrettyList = ["Gruvbox Dark", "Solarized Dark", "Dracula", "Tomorrow Night", "Tokyo Night", "Oceanic Next", "Old Hope"]
-gtkThemeList = ["MyGruvbox", "", "OfficialDracula", "MyGraphite", "", "MyOceanicNext", "SweetDark"] -- names of corresponding gtk themes
-alacrittyThemeList = ["gruvbox_dark", "solarized_dark", "dracula", "tomorrow_night", "tokyo_night", "oceanic_next", "old_hope"]
-doomEmacsThemeList = ["doom-gruvbox", "doom-solarized-dark", "doom-dracula", "doom-tomorrow-night", "doom-tokyo-night", "doom-oceanic-next", "doom-old-hope"]
-colorBgNormalList = ["#282828", "#002b36", "#282a36", "#1d1f21", "#1a1b26", "#1b2b34", "#1c1d21"] -- normal bg
-colorBgBrightList = ["#3b3838", "#113b3f", "#36343f", "#3d3f41", "#2a2b36", "#2b3b41", "#3c3d41"] -- lighter bg
-trayerBgNormalList = ["0x00282828", "0x00002b36", "0x00282a36", "0x1d1f21", "0x1a1b26", "0x1b2b34", "0x1c1d21"] -- trayer tint
-colorFgNormalList = ["#ebdbb2", "#839496", "#f8f8f2", "#c5c8c6", "#a9b1d6", "#d8dee9", "#cbcdd2"] -- normal fg
-color01NormalList = ["#343428", "#073642", "#000000", "#1d1f21", "#32344a", "#29414f", "#45474f"] -- black
-color01BrightList = ["#928374", "#002b36", "#555555", "#666666", "#444b6a", "#405860", "#65676f"] -- bright black
-color02NormalList = ["#cc241d", "#dc3ddf", "#ff5555", "#cc6666", "#f7768e", "#ec5f67", "#eb3d54"] -- red
-color02BrightList = ["#fb4934", "#cb4b16", "#ff1010", "#ff3334", "#ff7a93", "#ff3130", "#eb3d54"] -- bright red
-color03NormalList = ["#98971a", "#859900", "#50fa7b", "#b5bd68", "#9ece6a", "#99c794", "#78bd65"] -- green
-color03BrightList = ["#b8bb26", "#586e75", "#02fe03", "#9ec400", "#b9f27c", "#66fa56", "#78bd65"] -- bright green
-color04NormalList = ["#d79921", "#b58900", "#f1fa8c", "#e6c547", "#e0af68", "#fac863", "#e5cd52"] -- yellow
-color04BrightList = ["#fabd2f", "#657b83", "#ffff02", "#f0c674", "#ff9e64", "#ffca4f", "#e5cd52"] -- bright yellow
-color05NormalList = ["#458588", "#268bd2", "#bd93f9", "#81a2be", "#7aa2f7", "#6699cc", "#4fb4d8"] -- blue
-color05BrightList = ["#83a598", "#839496", "#4d31fd", "#81a2be", "#7da6ff", "#4477ee", "#4fb4d8"] -- bright blue
-color06NormalList = ["#b16286", "#d33682", "#ff79c6", "#b29fbb", "#ad8ee6", "#c594c5", "#ef7c2a"] -- magenta
-color06BrightList = ["#d3869b", "#6c71c4", "#ff20d8", "#b77ee0", "#bb9af7", "#d864d8", "#ef7c2a"] -- bright magenta
-color07NormalList = ["#689d6a", "#2aa198", "#8be9fd", "#70c0ba", "#449dab", "#5fb3b3", "#4fb4d8"] -- cyan
-color07BrightList = ["#8ec07c", "#93a1a1", "#03feff", "#54ced6", "#0db9d7", "#30d2d0", "#4fb4d8"] -- bright cyan
-color08NormalList = ["#a89984", "#eee8d5", "#bbbbbb", "#676b71", "#787c99", "#65737e", "#cbcdd2"] -- white
-color08BrightList = ["#ebdbb2", "#fdf6e3", "#ffffff", "#787a7e", "#acb0d0", "#d8dee9", "#cbcdd2"] -- bright white
-colorFocusList = ["#458588", "#859900", "#ff79c6", "#e6c547", "#ff9e64", "#c594c5", "#eb3d54"] -- focus and run launcher color
-colorSecondaryList = ["#d79921", "#dc3ddf", "#bbbbbb", "#70c0ba", "#0db9d7", "#fac863", "#4fb4d8"] -- secondary color
-
-#+END_SRC
-*** Choose Theme
-A theme is selected by setting the =myColorScheme= variable to one of the color schemes [[Color Scheme Enumerations][enumerated before]].
-#+BEGIN_SRC haskell :tangle xmonad.hs
--- choose a color scheme
-myColorScheme = oldHopeIndex
-
-#+END_SRC
-*** Setup Color Variables
+*** Import Custom Color Library
 #+BEGIN_SRC haskell :tangle xmonad.hs
 -- setup color variables
-colorScheme = colorSchemeList !! myColorScheme
-colorSchemePretty = colorSchemePrettyList !! myColorScheme
-gtkTheme = gtkThemeList !! myColorScheme
-alacrittyTheme = alacrittyThemeList !! myColorScheme
-doomEmacsTheme = doomEmacsThemeList !! myColorScheme
-colorBgNormal = colorBgNormalList !! myColorScheme -- normal bg
-colorBgBright = colorBgBrightList !! myColorScheme -- lighter bg
-trayerBgNormal = trayerBgNormalList !! myColorScheme -- trayer tint
-colorFgNormal = colorFgNormalList !! myColorScheme -- normal fg
-color01Normal = color01NormalList !! myColorScheme -- black
-color01Bright = color01BrightList !! myColorScheme -- bright black
-color02Normal = color02NormalList !! myColorScheme -- red
-color02Bright = color02BrightList !! myColorScheme -- bright red
-color03Normal = color03NormalList !! myColorScheme -- green
-color03Bright = color03BrightList !! myColorScheme -- bright green
-color04Normal = color04NormalList !! myColorScheme -- yellow
-color04Bright = color04BrightList !! myColorScheme -- bright yellow
-color05Normal = color05NormalList !! myColorScheme -- blue
-color05Bright = color05BrightList !! myColorScheme -- bright blue
-color06Normal = color06NormalList !! myColorScheme -- magenta
-color06Bright = color06BrightList !! myColorScheme -- bright magenta
-color07Normal = color07NormalList !! myColorScheme -- cyan
-color07Bright = color07BrightList !! myColorScheme -- bright cyan
-color08Normal = color08NormalList !! myColorScheme -- white
-color08Bright = color08BrightList !! myColorScheme -- bright white
-colorFocus = colorFocusList !! myColorScheme -- focus and run launcher color
-colorSecondary = colorSecondaryList !! myColorScheme
+import Colors.Stylix
 
 #+END_SRC
 ** Settings
@@ -162,7 +59,7 @@ colorSecondary = colorSecondaryList !! myColorScheme
 #+BEGIN_SRC haskell :tangle xmonad.hs
 -- Border colors for unfocused and focused windows, respectively.
 myNormalBorderColor, myFocusedBorderColor :: String
-myNormalBorderColor = colorBgNormal
+myNormalBorderColor = colorBg
 myFocusedBorderColor = colorFocus
 
 #+END_SRC
@@ -396,8 +293,7 @@ These setup standard bindings for brightness and audio control from the keyboard
 **** Launcher Keybinds
 I have =rofi= bound to =S-;= for quick app access.
 #+BEGIN_SRC haskell :tangle xmonad.hs
-      -- launch dmenu
-      --((modm, xK_semicolon), spawn ("dmenu_run -nb '" ++ colorBgNormal ++ "' -nf '" ++ color08Bright ++ "' -sb '" ++ colorFocus ++ "' -sf '" ++ color08Bright ++ "' -fn 'UbuntuMono-R:regular:pixelsize=28' -l 4 -p '➤'")),
+      -- launch rofi
       ((modm, xK_semicolon), spawn ("rofi -show drun -show-icons")),
       ((modm, xK_p), spawn ("keepmenu")),
 
@@ -694,50 +590,20 @@ myNavigation2DConfig = def {layoutNavigation = [("Tall", hybridOf sideNavigation
 #+END_SRC
 
 *** Startup Script
-I have a startup script at =~/.xmonad/startup.sh= which starts various apps and sets up a few things.  The script starts by taking some passed color values as strings from xmonad, which are set in the [[Theme Setup][beginning of the config]].
-#+BEGIN_SRC sh :tangle startup.sh :tangle-mode (identity #o755)
-#!/bin/sh
-
-trayertint=$1
-
-nbColor=$2
-nfColor=$3
-sbColor=$4
-sfColor=$5
-
-themeGTKName=$6
-themeAlacrittyName=$7
-themeDoomEmacsName=$8
-
-colorBgNormal=$2
-colorBgBright=${27}
-colorFgNormal=$3
-color01Normal=$9
-color01Bright=${10}
-color02Normal=${11}
-color02Bright=${12}
-color03Normal=${13}
-color03Bright=${14}
-color04Normal=${15}
-color04Bright=${16}
-color05Normal=${17}
-color05Bright=${18}
-color06Normal=${19}
-color06Bright=${20}
-color07Normal=${21}
-color07Bright=${22}
-color08Normal=${23}
-color08Bright=${24}
-colorFocus=${25}
-colorSecondary=${26}
-
-#+END_SRC
-
-In my xmonad config, it is then autostarted by setting a =startupHook=.  Inside my startup hook, I pass the colors of my currently selected theme to the script:
+I have a startup script at =~/.xmonad/startup.sh= which starts various apps and sets up a few things.  In my xmonad config, it is autostarted by setting a =startupHook=.
 #+BEGIN_SRC haskell :tangle xmonad.hs
 -- Startup hook
 myStartupHook = do
-  spawnOnce ("~/.config/xmonad/startup.sh '" ++ trayerBgNormal ++ "' '" ++ colorBgNormal ++ "' '" ++ color08Bright ++ "' '" ++ colorFocus ++ "' '" ++ color08Bright ++ "' '" ++ gtkTheme ++ "' '" ++ alacrittyTheme ++ "' '" ++ doomEmacsTheme ++ "' '" ++ color01Normal ++ "' '" ++ color01Bright ++ "' '" ++ color02Normal ++ "' '" ++ color02Bright ++ "' '" ++ color03Normal ++ "' '" ++ color03Bright ++ "' '" ++ color04Normal ++ "' '" ++ color04Bright ++ "' '" ++ color05Normal ++ "' '" ++ color05Bright ++ "' '" ++ color06Normal ++ "' '" ++ color06Bright ++ "' '" ++ color07Normal ++ "' '" ++ color07Bright ++ "' '" ++ color08Normal ++ "' '" ++ color08Bright ++ "' '" ++ colorFocus ++ "' '" ++ colorSecondary ++ "' '" ++ colorBgBright ++ "'")
+  spawnOnce ("~/.config/xmonad/startup.sh '" ++ colorBg ++ "' '" ++ colorFg ++ "' '" ++ colorFocus ++ "' '" ++ colorSecondary ++ "'")
+
+#+END_SRC
+
+First I start by retrieving the colors passed to the script from xmonad.
+#+BEGIN_SRC sh :tangle startup.sh :tangle-mode (identity #o755)
+colorBg=$1
+colorFg=$2
+colorFocus=$3
+colorSecondary=$4
 
 #+END_SRC
 
@@ -767,7 +633,7 @@ xset r rate 350 50 &
 setxkbmap -option caps:escape &
 ~/.fehbg &
 twmnd &
-alttab -w 1 -t 240x160 -i 64x64 -sc 1 -bg $colorBgNormal -fg $colorFgNormal -frame $colorSecondary -inact $colorFgNormal &
+alttab -w 1 -t 240x160 -i 64x64 -sc 1 -bg $colorBg -fg $colorFg -frame $colorSecondary -inact $colorFg &
 autokey-gtk &
 ##/usr/bin/trayer --edge top --align right --SetDockType true --SetPartialStrut true --expand true --widthtype request --transparent true --alpha 0 --height 28 --tint $trayertint --monitor "primary" &
 nm-applet &
@@ -786,8 +652,8 @@ gnome-keyring-daemon --start --components=secrets &
 myPP = xmobarPP { ppTitle = xmobarColor colorFocus "",
                   ppCurrent = xmobarStripTags ["NSP"] . xmobarColor colorFocus "",
                   ppVisible = xmobarStripTags ["NSP"] . xmobarColor colorSecondary "",
-                  ppHidden = xmobarStripTags ["NSP"] . xmobarColor colorFgNormal "",
-                  ppHiddenNoWindows = xmobarStripTags ["NSP"] . xmobarColor colorBgBright "",
+                  ppHidden = xmobarStripTags ["NSP"] . xmobarColor colorFg "",
+                  ppHiddenNoWindows = xmobarStripTags ["NSP"] . xmobarColor colorBlack "",
                   ppOrder = \(ws : _) -> [ws],
                   ppSep = " "
                 }
@@ -893,5 +759,15 @@ In order to have Nix put my xmonad/xmobar configuration in the proper places, I 
   home.file.".config/xmonad/xmonad.hs".source = ./xmonad.hs;
   home.file.".config/xmobar/base-xmobarrc".source = ./base-xmobarrc;
   home.file.".config/xmonad/startup.sh".source = ./startup.sh;
+
+  home.file.".config/xmonad/lib/Colors/Stylix.hs".source = config.lib.stylix.colors {
+    template = builtins.readFile ./lib/Colors/Stylix.hs.mustache;
+    extension = ".hs";
+  };
+
+  home.packages = with pkgs; [
+    xmobar
+    dunst
+  ];
 }
 #+END_SRC
