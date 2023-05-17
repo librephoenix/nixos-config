@@ -74,6 +74,8 @@
     # Command Line
     neofetch lolcat cowsay
     gnugrep gnused
+    xorg.xkill
+    killall
     libnotify
     bat exa fd bottom ripgrep
     rsync
