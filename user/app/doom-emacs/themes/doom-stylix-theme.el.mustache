@@ -1,8 +1,7 @@
 ;;; doom-stylix-theme.el --- stylix template created from doom-one -*- lexical-binding: t; no-byte-compile: t; -*-
 ;;
-;; Added: May 23, 2016 (28620647f838)
 ;; Author: Emmet K <https://gitlab.com/librephoenix>
-;; Maintainer: Henrik Lissner <https://gitlab.com/librephoenix>
+;; Maintainer: Emmet K <https://gitlab.com/librephoenix>
 ;; Source: https://github.com/doomemacs/themes
 ;;
 ;;; Commentary:
@@ -59,12 +58,12 @@ Can be an integer to determine the exact padding."
    ;; dark grey, base0 should be white and base8 should be black.
    (base0      '("#{{base00-hex}}" "black"       "black"        ))
    (base1      '("#{{base01-hex}}" "#1e1e1e"     "brightblack"  ))
-   (base2      '("#{{base02-hex}}" "#2e2e2e"     "brightblack"  ))
-   (base3      '("#{{base03-hex}}" "#262626"     "brightblack"  ))
-   (base4      '("#{{base04-hex}}" "#3f3f3f"     "brightblack"  ))
-   (base5      '("#{{base05-hex}}" "#525252"     "brightblack"  ))
-   (base6      '("#{{base06-hex}}" "#6b6b6b"     "brightblack"  ))
-   (base7      '("#{{base07-hex}}" "#979797"     "brightblack"  ))
+   (base2      '("#{{base01-hex}}" "#2e2e2e"     "brightblack"  ))
+   (base3      '("#{{base02-hex}}" "#262626"     "brightblack"  ))
+   (base4      '("#{{base03-hex}}" "#3f3f3f"     "brightblack"  ))
+   (base5      '("#{{base04-hex}}" "#525252"     "brightblack"  ))
+   (base6      '("#{{base05-hex}}" "#6b6b6b"     "brightblack"  ))
+   (base7      '("#{{base06-hex}}" "#979797"     "brightblack"  ))
    (base8      '("#{{base07-hex}}" "#dfdfdf"     "white"        ))
 
    (grey       base4)
@@ -156,6 +155,9 @@ Can be an integer to determine the exact padding."
    (markdown-markup-face :foreground base5)
    (markdown-header-face :inherit 'bold :foreground red)
    ((markdown-code-face &override) :background (doom-lighten base3 0.05))
+   ;;;; org-mode
+   (org-block                        :background (doom-darken bg 0.05 ) :extend t)
+   (org-code                         :background (doom-darken bg 0.05 ) :extend t)
    ;;;; rjsx-mode
    (rjsx-tag :foreground red)
    (rjsx-attr :foreground orange)
