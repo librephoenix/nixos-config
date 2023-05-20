@@ -14,14 +14,15 @@ To get this running on a NixOS system, I will start by cloning the repo:
 git clone https://gitlab.com/librephoenix/nixos-config.git /path/to/my/config/folder
 #+END_SRC
 
-To get the hardware configuration, I can other copy from =/etc/nixos/hardware-configuration.nix= or run:
+To get the hardware configuration on a new system, I can other copy from =/etc/nixos/hardware-configuration.nix= or run:
 #+BEGIN_SRC sh :noeval
 sudo nixos-generate-config --dir /dotfiles/path/system
 #+END_SRC
 
 Then, I can switch into the system configuration by running:
 #+BEGIN_SRC sh :noeval
-sudo nixos-rebuild switch -I nixos-config=nixos-config=/dotfiles/path/system/configuration.nix
+cd /dotfiles/path
+sudo nixos-rebuild switch --flake .#snowfire
 #+END_SRC
 
 Home manager can be installed with:
@@ -33,5 +34,15 @@ nix-shell '<home-manager>' -A install
 
 Then, my home-manager configuration can be installed with:
 #+BEGIN_SRC sh :noeval
-home-manager switch -f /dotfiles/path/user/home.nix
+home-manager switch --flake #.emmet
 #+END_SRC
+
+This loads in my convenience script =phoenix=, which replaces frequently used nix and nixos commands with more user friendly ones, namely:
+- =phoenix sync= to build and switch system and home configuration
+  - =phoenix sync system= to build and switch only system configuration
+  - =phoenix sync user= to build and switch only home configuration
+- =phoenix update= to update flake inputs
+- =phoenix gc= to garbage collect
+  - If no argument is given, it cleans anything older than 30 days
+  - If a time argument is supplied (i.e. 10d), it cleans stuff older than that (10 days in this example)
+  - If the argument =full= is given, it deletes /all/ previous generations
