@@ -3,7 +3,7 @@
 {
   home.packages = with pkgs; [
       # Python setup
-      python310Full
+      python3Full
       imath
       pystring
   ];

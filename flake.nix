@@ -7,9 +7,17 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nix-doom-emacs.url = "github:nix-community/nix-doom-emacs";
     stylix.url = "github:danth/stylix";
+    eaf = {
+      url = "github:emacs-eaf/emacs-application-framework";
+      flake = false;
+    };
+    eaf-browser = {
+      url = "github:emacs-eaf/eaf-browser";
+      flake = false;
+    };
   };
 
-  outputs = { self, nixpkgs, home-manager, nix-doom-emacs, stylix, ... }:
+  outputs = { self, nixpkgs, home-manager, nix-doom-emacs, stylix, eaf, eaf-browser, ... }@inputs:
   let
     system = "x86_64-linux";
     name = "emmet";
@@ -41,6 +49,8 @@
             myNixConfigurationFilePath = dotfilesDir+"/system/configuration.nix";
             myHomeManagerFilePath = dotfilesDir+"/user/home.nix";
             myTheme = theme;
+            inherit (inputs) eaf;
+            inherit (inputs) eaf-browser;
           };
       };
     };

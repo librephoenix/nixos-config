@@ -54,6 +54,38 @@
         "type": "github"
       }
     },
+    "eaf": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1684236422,
+        "narHash": "sha256-csmx8X/06rzFXcsUrH79Ha1V7SmdztiMEzQ75DW0CYo=",
+        "owner": "emacs-eaf",
+        "repo": "emacs-application-framework",
+        "rev": "6a9fa4cc6ce2878b9585f5a5a34f6b0b9693fe6f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "emacs-eaf",
+        "repo": "emacs-application-framework",
+        "type": "github"
+      }
+    },
+    "eaf-browser": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1683381393,
+        "narHash": "sha256-eZnSFyhN6/C/jV1+oaKOu3hunetJPNPFhzsnEkz7pYA=",
+        "owner": "emacs-eaf",
+        "repo": "eaf-browser",
+        "rev": "0edb767209255732099cd38967e2fb0f0eefd314",
+        "type": "github"
+      },
+      "original": {
+        "owner": "emacs-eaf",
+        "repo": "eaf-browser",
+        "type": "github"
+      }
+    },
     "emacs-overlay": {
       "flake": false,
       "locked": {
@@ -495,6 +527,8 @@
     },
     "root": {
       "inputs": {
+        "eaf": "eaf",
+        "eaf-browser": "eaf-browser",
         "home-manager": "home-manager",
         "nix-doom-emacs": "nix-doom-emacs",
         "nixpkgs": "nixpkgs_2",

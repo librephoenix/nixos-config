@@ -1303,10 +1303,10 @@ I don't have this active right now since I'm exploring tab-bar mode instead!
 
 #+END_SRC
 ** EAF
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle config.el
 ;;;-- Load emacs application framework;;;--
 (use-package! eaf
-  :load-path "~/.local/bin/emacs-application-framework/"
+  :load-path "~/.emacs.d/eaf/"
   :init
   :custom
   (eaf-browser-continue-where-left-off t)
@@ -1315,7 +1315,6 @@ I don't have this active right now since I'm exploring tab-bar mode instead!
   :config
   (defalias 'browse-web #'eaf-open-browser)
 
-  (require 'eaf-pdf-viewer)
   (require 'eaf-browser)
 
   (require 'eaf-evil)
@@ -1326,8 +1325,6 @@ I don't have this active right now since I'm exploring tab-bar mode instead!
             ("browser" (if  (string= (eaf-call-sync "eval_function" eaf--buffer-id "is_focus") "True")
                            (kbd "SPC")
                          (kbd eaf-evil-leader-key)))
-            ("pdf-viewer" (kbd eaf-evil-leader-key))
-            ("image-viewer" (kbd eaf-evil-leader-key))
             (_  (kbd "SPC")))
         (kbd "SPC")))))
 

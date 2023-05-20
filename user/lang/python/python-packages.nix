@@ -2,7 +2,7 @@
 
 {
   # Python packages
-  home.packages = with pkgs.python310Packages; [
+  home.packages = with pkgs.python3Packages; [
       cffi
       dbus-python
       wheel
