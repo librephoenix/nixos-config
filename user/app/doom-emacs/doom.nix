@@ -32,7 +32,8 @@
     recursive = true;
     onChange = "
       pushd ~/.emacs.d/eaf/app/browser;
-      npm install darkreader @mozilla/readability;
+      rm package*.json;
+      npm install darkreader @mozilla/readability && rm package*.json;
       popd;
     ";
   };

@@ -17,6 +17,10 @@ let
           killall xmobar;
           xmonad --recompile && xmonad --restart;
           emacsclient --no-wait --eval "(load-theme 'doom-stylix t nil)";
+          pushd ~/.emacs.d/eaf/app/browser;
+          rm package*.json;
+          npm install darkreader @mozilla/readability && rm package*.json;
+          popd;
         fi
       elif [ "$1" = "update" ]; then
         pushd ''+myDotfilesDir+'';
