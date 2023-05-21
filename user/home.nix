@@ -19,6 +19,7 @@
               ./app/games/games.nix # Various videogame apps
               ./style/stylix.nix # Styling and themes for my apps
               ./lang/cc/cc.nix # C and C++ tools
+              ./lang/rust/rust.nix # Rust tools
               #./lang/python/python.nix # Python
               #./lang/python/python-packages.nix # Extra Python packages I want
               ./lang/haskell/haskell.nix # Haskell tools
@@ -27,6 +28,7 @@
             ];
 
   home.stateVersion = "22.11"; # Please read the comment before changing.
+
 
   home.packages = with pkgs; [
     # Core
@@ -91,7 +93,8 @@
     hunspell hunspellDicts.en_US-large
     pandoc
     nodePackages.mermaid-cli
-    
+    (pkgs.callPackage ./pkgs/ytsub.nix { })
+
     # Various dev packages
     texinfo
     libffi zlib
@@ -155,5 +158,7 @@
   home.sessionVariables = {
     EDITOR = "emacsclient";
   };
+
+  # extra packages
 
 }

@@ -7,6 +7,7 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nix-doom-emacs.url = "github:nix-community/nix-doom-emacs";
     stylix.url = "github:danth/stylix";
+    rust-overlay.url = "github:oxalica/rust-overlay";
     eaf = {
       url = "github:emacs-eaf/emacs-application-framework";
       flake = false;
@@ -17,7 +18,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, nix-doom-emacs, stylix, eaf, eaf-browser, ... }@inputs:
+  outputs = { self, nixpkgs, home-manager, nix-doom-emacs, stylix, eaf, eaf-browser, rust-overlay, ... }@inputs:
   let
     system = "x86_64-linux";
     name = "emmet";
@@ -28,6 +29,7 @@
     pkgs = import nixpkgs {
       inherit system;
       config = { allowUnfree = true; };
+      overlays = [ rust-overlay.overlays.default ];
     };
 
     lib = nixpkgs.lib;
