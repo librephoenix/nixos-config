@@ -29,7 +29,6 @@
 
   home.stateVersion = "22.11"; # Please read the comment before changing.
 
-
   home.packages = with pkgs; [
     # Core
     zsh
@@ -95,6 +94,7 @@
     pandoc
     nodePackages.mermaid-cli
     (pkgs.callPackage ./pkgs/ytsub.nix { })
+    (pkgs.callPackage ./pkgs/pokemon-colorscripts.nix { })
 
     # Various dev packages
     texinfo
