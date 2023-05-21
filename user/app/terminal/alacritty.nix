@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   home.packages = with pkgs; [
@@ -6,6 +6,6 @@
   ];
   programs.alacritty.enable = true;
   programs.alacritty.settings = {
-    window.opacity = 0.9;
+    window.opacity = lib.mkForce 0.9;
   };
 }

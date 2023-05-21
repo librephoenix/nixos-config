@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   home.packages = with pkgs; [
@@ -6,6 +6,6 @@
   ];
   programs.kitty.enable = true;
   programs.kitty.settings = {
-    background_opacity = "0.9";
+    background_opacity = lib.mkForce "0.9";
   };
 }
