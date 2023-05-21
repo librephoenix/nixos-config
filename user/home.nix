@@ -39,6 +39,7 @@
     brave
     dmenu
     rofi
+    keepmenu
     feh
     git
 
