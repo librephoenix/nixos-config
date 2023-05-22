@@ -94,6 +94,11 @@
     displayManager = {
       lightdm.enable = true;
       defaultSession = "none+xmonad";
+      lightdm.greeters.slick.enable = true;
+      lightdm.background = pkgs.fetchurl {
+        url = "https://w.wallhaven.cc/full/6d/wallhaven-6d5k6x.jpg";
+        sha256 = "+xl4H3UiVmMRNvMhIlaLdVTYYqnSyCTSX2UOTGsDQ8c=";
+      };
     };
   };
 
