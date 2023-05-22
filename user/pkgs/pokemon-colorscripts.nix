@@ -16,11 +16,11 @@ in
     phases = "installPhase";
 
     installPhase = ''
-      mkdir -p $out $out/bin
-      cp -rf $src/colorscripts $out
-      cp $src/pokemon-colorscripts.py $out
-      cp $src/pokemon.json $out
-      ln -s $out/pokemon-colorscripts.py $out/bin/pokemon-colorscripts
+      mkdir -p $out $out/bin $out/opt
+      cp -rf $src/colorscripts $out/opt
+      cp $src/pokemon-colorscripts.py $out/opt
+      cp $src/pokemon.json $out/opt
+      ln -s $out/opt/pokemon-colorscripts.py $out/bin/pokemon-colorscripts
     '';
 
     meta = {
