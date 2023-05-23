@@ -73,6 +73,7 @@
     freetube
     # TODO need ytsub somehow (sarowish/ytsub)
     audio-recorder
+    pavucontrol
 
     # Command Line
     neofetch lolcat cowsay
