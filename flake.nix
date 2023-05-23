@@ -25,6 +25,8 @@
     email = "librephoenix@protonmail.com";
     dotfilesDir = "~/dotfiles";
     theme = "dracula";
+    backgroundUrl = "https://w.wallhaven.cc/full/6d/wallhaven-6d5k6x.jpg";
+    backgroundSha256 = "+xl4H3UiVmMRNvMhIlaLdVTYYqnSyCTSX2UOTGsDQ8c=";
 
     pkgs = import nixpkgs {
       inherit system;
@@ -51,6 +53,8 @@
             myNixConfigurationFilePath = dotfilesDir+"/system/configuration.nix";
             myHomeManagerFilePath = dotfilesDir+"/user/home.nix";
             myTheme = theme;
+            myBackgroundUrl = backgroundUrl;
+            myBackgroundSha256 = backgroundSha256;
             inherit (inputs) eaf;
             inherit (inputs) eaf-browser;
           };
@@ -63,9 +67,11 @@
           ./system/configuration.nix
           # stylix.nixosModules.stylix # complains that home-manager is not defined
         ];
-        # specialArgs = {
-        #   myTheme = theme;
-        # };
+        specialArgs = {
+          myTheme = theme;
+          myBackgroundUrl = backgroundUrl;
+          myBackgroundSha256 = backgroundSha256;
+        };
       };
     };
   };

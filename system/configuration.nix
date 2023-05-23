@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, myTheme, ... }:
+{ config, pkgs, myTheme, myBackgroundUrl, myBackgroundSha256, ... }:
 
 {
   imports =
@@ -96,9 +96,10 @@
       defaultSession = "none+xmonad";
       lightdm.greeters.slick.enable = true;
       lightdm.background = pkgs.fetchurl {
-        url = "https://w.wallhaven.cc/full/6d/wallhaven-6d5k6x.jpg";
-        sha256 = "+xl4H3UiVmMRNvMhIlaLdVTYYqnSyCTSX2UOTGsDQ8c=";
+        url = myBackgroundUrl;
+        sha256 = myBackgroundSha256;
       };
+      lightdm.greeters.slick.theme.name = "Adwaita-dark";
     };
   };
 

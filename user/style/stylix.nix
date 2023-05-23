@@ -1,16 +1,15 @@
-{ config, pkgs, myTheme, ... }:
+{ config, pkgs, myTheme, myBackgroundUrl, myBackgroundSha256, ... }:
 
 let
   myFont = "Inconsolata";
   myFontPkg = pkgs.inconsolata;
-
 in
 {
   stylix.autoEnable = false;
   stylix.polarity = "dark";
   stylix.image = pkgs.fetchurl {
-    url = "https://w.wallhaven.cc/full/6d/wallhaven-6d5k6x.jpg";
-    sha256 = "+xl4H3UiVmMRNvMhIlaLdVTYYqnSyCTSX2UOTGsDQ8c=";
+    url = myBackgroundUrl;
+    sha256 = myBackgroundSha256;
   };
   stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/"+myTheme+".yaml";
 
@@ -46,4 +45,13 @@ in
   programs.rofi.enable = true;
   stylix.targets.feh.enable = true;
   programs.feh.enable = true;
+  home.file.".fehbg-stylix".text = ''
+    #!/bin/sh
+    feh --no-fehbg --bg-fill ''+
+  pkgs.fetchurl {
+    url = myBackgroundUrl;
+    sha256 = myBackgroundSha256;
+  }+'';
+  '';
+  home.file.".fehbg-stylix".executable = true;
 }

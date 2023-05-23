@@ -653,7 +653,7 @@ emacs --daemon &
 picom --animations --animation-window-mass 1 --animation-for-open-window zoom --animation-stiffness 200 --experimental-backends && # requires picom-pijulius
 xset r rate 350 50 &
 setxkbmap -option caps:escape &
-~/.fehbg &
+~/.fehbg-stylix &
 twmnd &
 alttab -w 1 -t 240x160 -i 64x64 -sc 1 -bg $colorBg -fg $colorFg -frame $colorSecondary -inact $colorFg &
 autokey-gtk &
