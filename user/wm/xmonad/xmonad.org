@@ -224,13 +224,13 @@ myScratchPads =
         w = 0.9
         t = 0.95 - h
         l = 0.95 - w
-    spawnCal = "alacritty -o font.size=18 --title cal-scratchpad -e calcurse"
-    findCal = title =? "cal-scratchpad"
+    spawnCal = "gnome-calendar"
+    findCal = className =? "gnome-calendar"
     manageCal = customFloating $ W.RationalRect l t w h
       where
-        h = 0.6
-        w = 0.6
-        t = 0.65 - h
+        h = 0.4
+        w = 0.3
+        t = 0.45 - h
         l = 1 - w
     spawnPavucontrol = "pavucontrol"
     findPavucontrol = className =? "Pavucontrol"

@@ -47,6 +47,7 @@
     mate.atril
     xournalpp
     gnome.geary
+    gnome.gnome-calendar
     newsflash
     autokey
     protonmail-bridge
