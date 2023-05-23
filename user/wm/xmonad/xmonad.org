@@ -611,6 +611,20 @@ myNavigation2DConfig = def {layoutNavigation = [("Tall", hybridOf sideNavigation
 
 #+END_SRC
 
+*** New Xmobar Setup
+#+BEGIN_SRC haskell :tangle xmonad.hs
+--myPP = def { ppCurrent = xmobarColor colorFocus "" }
+myPP = xmobarPP { ppTitle = xmobarColor colorFocus "",
+                  ppCurrent = xmobarStripTags ["NSP"] . xmobarColor colorFocus "",
+                  ppVisible = xmobarStripTags ["NSP"] . xmobarColor colorSecondary "",
+                  ppHidden = xmobarStripTags ["NSP"] . xmobarColor colorFg "",
+                  ppHiddenNoWindows = xmobarStripTags ["NSP"] . xmobarColor color01 "",
+                  ppOrder = \(ws : _) -> [ws],
+                  ppSep = " "
+                }
+mySB = statusBarProp "xmobar" (pure myPP)
+
+#+END_SRC
 *** Startup Script
 I have a startup script at =~/.xmonad/startup.sh= which starts various apps and sets up a few things.  In my xmonad config, it is autostarted by setting a =startupHook=.
 #+BEGIN_SRC haskell :tangle xmonad.hs
@@ -667,20 +681,6 @@ protonmail-bridge --no-window
 rm -rf ~/org &
 gnome-keyring-daemon --daemonize --login &
 gnome-keyring-daemon --start --components=secrets &
-#+END_SRC
-*** New Xmobar Setup
-#+BEGIN_SRC haskell :tangle xmonad.hs
---myPP = def { ppCurrent = xmobarColor colorFocus "" }
-myPP = xmobarPP { ppTitle = xmobarColor colorFocus "",
-                  ppCurrent = xmobarStripTags ["NSP"] . xmobarColor colorFocus "",
-                  ppVisible = xmobarStripTags ["NSP"] . xmobarColor colorSecondary "",
-                  ppHidden = xmobarStripTags ["NSP"] . xmobarColor colorFg "",
-                  ppHiddenNoWindows = xmobarStripTags ["NSP"] . xmobarColor color01 "",
-                  ppOrder = \(ws : _) -> [ws],
-                  ppSep = " "
-                }
-mySB = statusBarProp "xmobar" (pure myPP)
-
 #+END_SRC
 ** Main
 Lastly, xmonad is started with all of the [[Settings][settings set up as variables]].  First xmobar is setup with =spawnPipe= so that it has access to the [[Workspaces][workspaces from xmonad]].  Then xmonad is executed with the settings.

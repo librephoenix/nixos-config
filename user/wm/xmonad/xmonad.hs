@@ -428,10 +428,6 @@ myNavigation2DConfig = def {layoutNavigation = [("Tall", hybridOf sideNavigation
                           , floatNavigation = hybridOf lineNavigation centerNavigation
                           , screenNavigation = hybridOf lineNavigation centerNavigation}
 
--- Startup hook
-myStartupHook = do
-  spawnOnce ("~/.config/xmonad/startup.sh '" ++ colorBg ++ "' '" ++ colorFg ++ "' '" ++ colorFocus ++ "' '" ++ colorSecondary ++ "'")
-
 --myPP = def { ppCurrent = xmobarColor colorFocus "" }
 myPP = xmobarPP { ppTitle = xmobarColor colorFocus "",
                   ppCurrent = xmobarStripTags ["NSP"] . xmobarColor colorFocus "",
@@ -442,6 +438,10 @@ myPP = xmobarPP { ppTitle = xmobarColor colorFocus "",
                   ppSep = " "
                 }
 mySB = statusBarProp "xmobar" (pure myPP)
+
+-- Startup hook
+myStartupHook = do
+  spawnOnce ("~/.config/xmonad/startup.sh '" ++ colorBg ++ "' '" ++ colorFg ++ "' '" ++ colorFocus ++ "' '" ++ colorSecondary ++ "'")
 
 -- Now run xmonad with all the defaults we set up.
 main = do
