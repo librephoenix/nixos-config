@@ -37,6 +37,9 @@
     jack.enable = true;
   };
 
+  # Kernel modules
+  boot.kernelModules = [ "i2c-dev" "i2c-piix4" ];
+
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -149,8 +152,15 @@
     zsh
     auto-cpufreq
     git
+    openrgb-with-all-plugins
     (pkgs.writeScriptBin "sudo" ''exec doas "$@"'')
   ];
+
+  # OpenRGB setup
+  services.hardware.openrgb = {
+    enable = true;
+    motherboard = "amd";
+  };
 
   environment.shells = with pkgs; [ zsh ];
   programs.zsh.enable = true;
