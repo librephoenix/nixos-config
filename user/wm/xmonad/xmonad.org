@@ -759,10 +759,12 @@ Config { font = "Inconsolata 18"
                       , "--off", "<fc=#{{base0F-hex}}> <fn=1>\xf026</fn> Mute </fc>"
                       , "--offc", "#{{base0F-hex}}"
                       ] 1
+                    , Run DynNetwork
+                      [ "-t", "<fc=#{{base0D-hex}}><fn=1>\xf0200</fn> <dev></fc>"] 1
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = " %battery% %bright%<action=`xdotool key Super_L+y`>%default:Master%</action>}%XMonadLog%{<action=`xdotool key Super_L+c`>%date%</action> "
+       , template = " %battery% %bright%<action=`xdotool key Super_L+y`>%default:Master%</action>}%XMonadLog%{<action='networkmanager_dmenu'>%dynnetwork%</action><action=`xdotool key Super_L+c`>%date%</action> "
        }
 }
 
