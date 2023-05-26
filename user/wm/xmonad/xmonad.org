@@ -761,10 +761,12 @@ Config { font = "Inconsolata 18"
                       ] 1
                     , Run DynNetwork
                       [ "-t", "<fc=#{{base0D-hex}}><fn=1>\xf0200</fn> <dev></fc>"] 1
+                    , Run Com "echo"
+                      [ "<fc=#{{base0E-hex}}><fn=1>\xea77</fn> st</fc>"] "syncthing" 0
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = " %battery% %bright%<action=`xdotool key Super_L+y`>%default:Master%</action>}%XMonadLog%{<action='networkmanager_dmenu'>%dynnetwork%</action><action=`xdotool key Super_L+c`>%date%</action> "
+       , template = " %battery% %bright%<action=`xdotool key Super_L+y`>%default:Master%</action>}%XMonadLog%{<action=`librewolf localhost:8384`>%syncthing%</action> <action='networkmanager_dmenu'>%dynnetwork%</action><action=`xdotool key Super_L+c`>%date%</action> "
        }
 }
 

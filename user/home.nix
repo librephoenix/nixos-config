@@ -42,6 +42,7 @@
     networkmanager_dmenu
     feh
     git
+    syncthing
 
     # Office
     libreoffice-qt
@@ -145,6 +146,8 @@
     # Filesystems
     dosfstools
   ];
+
+  services.syncthing.enable = true;
 
   home.file.".librewolf/librewolf.overrides.cfg".text = ''
     defaultPref("font.name.serif.x-western","Inconsolata");
