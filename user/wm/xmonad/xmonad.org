@@ -763,10 +763,11 @@ Config { font = "Inconsolata 18"
                       [ "-t", "<fc=#{{base0D-hex}}><fn=1>\xf0200</fn> <dev></fc>"] 1
                     , Run Com "echo"
                       [ "<fc=#{{base0E-hex}}><fn=1>\xea77</fn> st</fc>"] "syncthing" 0
+                    , Run Memory [ "-t", "<fc=#{{base08-hex}}><fn=1>\xf035b</fn> <usedratio>% (<used> GB)</fc>", "-d", "1", "--", "--scale", "1024"] 20
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = " %battery% %bright%<action=`xdotool key Super_L+y`>%default:Master%</action>}%XMonadLog%{<action=`librewolf localhost:8384`>%syncthing%</action> <action='networkmanager_dmenu'>%dynnetwork%</action><action=`xdotool key Super_L+c`>%date%</action> "
+       , template = " %battery% %bright%<action=`xdotool key Super_L+y`>%default:Master%</action>%memory%}%XMonadLog%{<action=`librewolf localhost:8384`>%syncthing%</action> <action='networkmanager_dmenu'>%dynnetwork%</action><action=`xdotool key Super_L+c`>%date%</action> "
        }
 }
 
