@@ -3,6 +3,7 @@
 let
   myFont = "Inconsolata";
   myFontPkg = pkgs.inconsolata;
+  myThemePath = "../../../themes/"+myTheme+".yaml";
 in
 {
   stylix.autoEnable = false;
@@ -11,7 +12,7 @@ in
     url = myBackgroundUrl;
     sha256 = myBackgroundSha256;
   };
-  stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/"+myTheme+".yaml";
+  stylix.base16Scheme = ./. + myThemePath;
 
   stylix.fonts = {
     monospace = {
