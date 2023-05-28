@@ -1,4 +1,4 @@
-{ config, pkgs, myTheme, myBackgroundUrl, myBackgroundSha256, ... }:
+{ config, pkgs, myTheme, myThemePolarity, myBackgroundUrl, myBackgroundSha256, ... }:
 
 let
   myFont = "Inconsolata";
@@ -7,7 +7,7 @@ let
 in
 {
   stylix.autoEnable = false;
-  stylix.polarity = "dark";
+  stylix.polarity = myThemePolarity;
   stylix.image = pkgs.fetchurl {
     url = myBackgroundUrl;
     sha256 = myBackgroundSha256;

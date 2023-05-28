@@ -24,7 +24,8 @@
     name = "emmet";
     email = "librephoenix@protonmail.com";
     dotfilesDir = "~/dotfiles";
-    theme = "dracula";
+    theme = "atelier-plateau";
+    themePolarity = "dark";
     backgroundUrl = "https://w.wallhaven.cc/full/6d/wallhaven-6d5k6x.jpg";
     backgroundSha256 = "+xl4H3UiVmMRNvMhIlaLdVTYYqnSyCTSX2UOTGsDQ8c=";
 
@@ -53,6 +54,7 @@
             myNixConfigurationFilePath = dotfilesDir+"/system/configuration.nix";
             myHomeManagerFilePath = dotfilesDir+"/user/home.nix";
             myTheme = theme;
+            myThemePolarity = themePolarity;
             myBackgroundUrl = backgroundUrl;
             myBackgroundSha256 = backgroundSha256;
             inherit (inputs) eaf;
