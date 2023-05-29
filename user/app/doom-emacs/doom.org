@@ -485,7 +485,7 @@ exit
 *** Org Mermaid Diagrams
 #+BEGIN_SRC emacs-lisp :tangle config.el
 ;; Mermaid diagrams
-(setq ob-mermaid-cli-path "/usr/bin/mmdc")
+(setq ob-mermaid-cli-path "~/.nix-profile/bin/mmdc")
 #+END_SRC
 *** Org Simple Printing
 #+BEGIN_SRC emacs-lisp :tangle config.el

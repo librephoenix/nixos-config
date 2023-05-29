@@ -401,7 +401,7 @@ same directory as the org-buffer and insert a link to this file."
  :image-data-fun #'org-image-link)
 
 ;; Mermaid diagrams
-(setq ob-mermaid-cli-path "/usr/bin/mmdc")
+(setq ob-mermaid-cli-path "~/.nix-profile/bin/mmdc")
 
 ;; Print org mode
 (defun org-simple-print-buffer ()
