@@ -1,14 +1,17 @@
 { config, lib, pkgs, ... }:
 let
   myYtpScript = ''
-    ytsub --video-player /usr/bin/mpv
+    #!/bin/sh
+    ytsub --video-player mpv
   '';
   myYtaScript = ''
+    #!/bin/sh
     yt-dlp -x --audio-format mp3 $1
   '';
   myYtdScript = ''
+    #!/bin/sh
     pushd ~/Media/Podcasts;
-    ytsub --video-player yta;
+    ytsub --video-player ~/.nix-profile/bin/yta;
     popd;
   '';
 in
