@@ -676,7 +676,7 @@ nm-applet &
 GOMAXPROCS=1 syncthing --no-browser &
 rclone mount adantium-nextcloud:/ ~/Nextcloud &
 syncthing-gtk -m &
-protonmail-bridge --no-window
+protonmail-bridge --noninteractive
 ~/.local/bin/setup-external-monitor.sh &
 rm -rf ~/org &
 gnome-keyring-daemon --daemonize --login &
