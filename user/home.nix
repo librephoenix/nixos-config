@@ -12,6 +12,7 @@
               ./wm/xmonad/xmonad.nix # My xmonad config
               ./shell/sh.nix # My zsh and bash config
               ./bin/phoenix.nix # My nix command wrapper
+              ./bin/ytsub-wrappers.nix # My ytsub wrapper
               ./app/doom-emacs/doom.nix # My doom emacs config
               ./app/terminal/alacritty.nix # My alacritty config
               ./app/terminal/kitty.nix # My kitty config
