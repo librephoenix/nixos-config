@@ -333,7 +333,7 @@ All of the following keybinds pertain to window management and layouts:
 | S-Space           | Switch to next layout                                                                          |
 | S-Shift-Space     | Reset layout on current workspace                                                              |
 | S-r               | Resize windows to correct size                                                                 |
-| S-{←,↓,↑,→}       | Switch to screen visually {left,down,up,right} (requires a [[Window Rules and Hooks][Navigation2Dconfig]])          |
+| S-{←,↓,↑,→}       | Switch to screen visually {left,down,up,right} (requires a [[Window Rules and Hooks][Navigation2Dconfig]])                 |
 | S-{h,j,k,l}       | Switch to window visually {left,down,up,right} (requires a [[Window Rules and Hooks][Navigation2Dconfig]])                 |
 | S-Shift-{h,j,k,l} | Swap window visually {left,down,up,right} on current workspace (requires a [[Window Rules and Hooks][Navigation2Dconfig]]) |
 | S-C-{h,l}         | Resize master window area                                                                      |
@@ -721,7 +721,7 @@ I utilize xmobar as a status bar on my monitors.  To manage my xmobar config, I 
 ** Xmobar Template
 This is my base xmobarrc. This is a full xmobar config with placeholders for the colors (i.e. =colorFgNormal=, =colorBgNormal=, =color01Normal=, =color01Bright=, etc...). [[./startup.sh][startup.sh]] copies this into =xmobarrc= with my current base16 color scheme. This also depends on =Inconsolata= and =Symbols Nerd Font=.
 #+BEGIN_SRC haskell :tangle xmobarrc.mustache
-Config { font = "Inconsolata 18"
+Config { font = "Inconsolata 16"
        , additionalFonts = ["Symbols Nerd Font 14"]
        , border = NoBorder
        , bgColor = "#{{base00-hex}}"
@@ -763,11 +763,15 @@ Config { font = "Inconsolata 18"
                       [ "-t", "<fc=#{{base0D-hex}}><fn=1>\xf0200</fn> <dev></fc>"] 1
                     , Run Com "echo"
                       [ "<fc=#{{base0E-hex}}><fn=1>\xea77</fn> st</fc>"] "syncthing" 0
+                    , Run Com "echo"
+                      [ "<fn=1>\xeb5c</fn> "] "currentthemesymbol" 0
+                    , Run Com "cat"
+                      [ "/home/emmet/.currenttheme"] "currenttheme" 0
                     , Run Memory [ "-t", "<fc=#{{base08-hex}}><fn=1>\xf035b</fn> <usedratio>% (<used> GB)</fc>", "-d", "1", "--", "--scale", "1024"] 20
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = " %battery% %bright%<action=`xdotool key Super_L+y`>%default:Master%</action>%memory%}%XMonadLog%{<action=`librewolf localhost:8384`>%syncthing%</action> <action='networkmanager_dmenu'>%dynnetwork%</action><action=`xdotool key Super_L+c`>%date%</action> "
+       , template = " %battery% %bright%<action=`xdotool key Super_L+y`>%default:Master%</action>%memory% %currentthemesymbol%%currenttheme%}%XMonadLog%{<action=`librewolf localhost:8384`>%syncthing%</action> <action='networkmanager_dmenu'>%dynnetwork%</action><action=`xdotool key Super_L+c`>%date%</action> "
        }
 }
 

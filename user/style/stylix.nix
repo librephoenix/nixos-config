@@ -6,6 +6,7 @@ let
   myThemePath = "../../../themes/"+myTheme+".yaml";
 in
 {
+  home.file.".currenttheme".text = myTheme;
   stylix.autoEnable = false;
   stylix.polarity = myThemePolarity;
   stylix.image = pkgs.fetchurl {
