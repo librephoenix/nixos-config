@@ -24,10 +24,12 @@
     name = "emmet";
     email = "librephoenix@protonmail.com";
     dotfilesDir = "~/dotfiles";
-    theme = "atelier-plateau";
+    theme = "ayu-dark";
     themePolarity = "dark";
-    backgroundUrl = "https://w.wallhaven.cc/full/6d/wallhaven-6d5k6x.jpg";
-    backgroundSha256 = "+xl4H3UiVmMRNvMhIlaLdVTYYqnSyCTSX2UOTGsDQ8c=";
+    backgroundUrlPath = "/themes/"+theme+"/backgroundurl.txt";
+    backgroundUrl = builtins.readFile (./. + backgroundUrlPath);
+    backgroundSha256Path = "/themes/"+theme+"/backgroundsha256.txt";
+    backgroundSha256 = builtins.readFile (./. + backgroundSha256Path);
 
     pkgs = import nixpkgs {
       inherit system;
