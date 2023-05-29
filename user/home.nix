@@ -146,6 +146,9 @@
 
     # Filesystems
     dosfstools
+
+    # Extra packages
+    flatpak
   ];
 
   services.syncthing.enable = true;
