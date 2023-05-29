@@ -23,7 +23,7 @@
     system = "x86_64-linux";
     name = "emmet";
     email = "librephoenix@protonmail.com";
-    dotfilesDir = "~/dotfiles";
+    dotfilesDir = "~/.dotfiles";
     theme = "ayu-dark";
     themePolarity = "dark";
     backgroundUrlPath = "/themes/"+theme+"/backgroundurl.txt";
