@@ -9,8 +9,7 @@ let
           pushd ''+myDotfilesDir+'';
           sudo nixos-rebuild switch --flake .#;
           popd;
-        fi
-        if [ "2" != "system" ]; then
+        elif [ "2" != "system" ]; then
           pushd ''+myDotfilesDir+'';
           home-manager switch --flake .#''+myName+'';
           popd;
