@@ -43,6 +43,7 @@
     feh
     git
     syncthing
+    flameshot
 
     # Office
     libreoffice-qt
