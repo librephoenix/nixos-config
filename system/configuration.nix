@@ -152,15 +152,15 @@
     zsh
     auto-cpufreq
     git
-    openrgb-with-all-plugins
+    # openrgb-with-all-plugins
     (pkgs.writeScriptBin "sudo" ''exec doas "$@"'')
   ];
 
   # OpenRGB setup
-  services.hardware.openrgb = {
-    enable = true;
-    motherboard = "amd";
-  };
+  # services.hardware.openrgb = {
+  #  enable = true;
+  #  motherboard = "amd";
+  #};
 
   environment.shells = with pkgs; [ zsh ];
   programs.zsh.enable = true;
