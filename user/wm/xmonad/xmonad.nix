@@ -20,5 +20,6 @@
   home.packages = with pkgs; [
     xmobar
     dunst
+    pamixer
   ];
 }
