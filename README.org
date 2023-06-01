@@ -6,7 +6,7 @@
 [[https://github.com/librephoenix/nixos-config-mirror][Mirror Repo Link (GitHub)]]
 
 * What is this repository?
-While I still run =Arch btw=, I've been experimenting with NixOS and quite like it!  My configuration is not ready for daily use yet, but I'm learning inside a VM.  This repository is where I'm working on my NixOS dotfiles, and once ready, I will daily drive =Nix btw= instead.
+These are my dotfiles (configuration files) for my NixOS setup(s).
 
 * Notes for Myself
 To get this running on a NixOS system, I will start by cloning the repo:
@@ -32,9 +32,14 @@ nix-channel --update
 nix-shell '<home-manager>' -A install
 #+END_SRC
 
+If home-manager starts to not cooperate, it may be because the unstable branch of nixpkgs is in the Nix channel list.  This can be fixed via:
+#+BEGIN_SRC sh :noeval
+nix-channel --add https://nixos.org/channels/nixpkgs-unstable
+#+END_SRC
+
 Then, my home-manager configuration can be installed with:
 #+BEGIN_SRC sh :noeval
-home-manager switch --flake #.emmet
+home-manager switch --flake .#emmet
 #+END_SRC
 
 This loads in my convenience script =phoenix=, which replaces frequently used nix and nixos commands with more user friendly ones, namely:
