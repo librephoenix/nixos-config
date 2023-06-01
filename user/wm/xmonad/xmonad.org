@@ -743,9 +743,9 @@ Config { font = "Inconsolata 16"
                     , Run BatteryP ["BAT0"]
                       ["-t", "<acstatus>",
                       "-L", "10", "-H", "80", "-p", "3", "--",
-                      "-O","<fc=#{{base05-hex}}><fn=1>\xf313</fn></fc> <fc=#{{base0B-hex}}> <fn=1>\xf17e3</fn> <left>% </fc>",
-                      "-i","<fc=#{{base05-hex}}><fn=1>\xf313</fn></fc> <fc=#{{base0B-hex}}> <fn=1>\xf17e7</fn> <left>% </fc>",
-                      "-o","<fc=#{{base05-hex}}><fn=1>\xf313</fn></fc> <fc=#{{base08-hex}}> <fn=1>\xf17e4</fn> <left>% </fc>",
+                      "-O","<fc=#{{base05-hex}}><fn=1>\xf313</fn></fc>  <fc=#{{base0B-hex}}> <fn=1>\xf17e3</fn> <left>% </fc>",
+                      "-i","<fc=#{{base05-hex}}><fn=1>\xf313</fn></fc>  <fc=#{{base0B-hex}}> <fn=1>\xf17e7</fn> <left>% </fc>",
+                      "-o","<fc=#{{base05-hex}}><fn=1>\xf313</fn></fc>  <fc=#{{base08-hex}}> <fn=1>\xf17e4</fn> <left>% </fc>",
                       "-L", "-15", "-H", "-5",
                       "-l", "#{{base08-hex}}", "-m", "#{{base05-hex}}", "-h", "#{{base0B-hex}}"] 10
                     , Run Brightness
