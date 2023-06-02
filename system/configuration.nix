@@ -114,6 +114,9 @@
       };
       lightdm.greeters.slick.theme.name = "Adwaita-dark";
     };
+    libinput = {
+      touchpad.disableWhileTyping = true;
+    };
   };
 
   services.xserver.displayManager.sessionCommands = ''
