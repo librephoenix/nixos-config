@@ -111,12 +111,12 @@
       :desc "Jump to register"
       "r" 'jump-to-register)
 
-(set-register ?f '(file . "/home/librephoenix/Org/Family.s/Notes/hledger.org"))
-(set-register ?r '(file . "/home/librephoenix/README.org"))
-(set-register ?d '(file . "/home/librephoenix/.doom.d/doom.org"))
-(set-register ?h '(file . "/home/librephoenix"))
-(set-register ?x '(file . "/home/librephoenix/.xmonad/xmonad.org"))
-(set-register ?s '(file . "/home/librephoenix/.install/install.org"))
+(set-register ?f '(file . "/home/emmet/Org/Family.s/Notes/hledger.org"))
+(set-register ?r '(file . "/home/emmet/README.org"))
+(set-register ?d '(file . "/home/emmet/.doom.d/doom.org"))
+(set-register ?h '(file . "/home/emmet"))
+(set-register ?x '(file . "/home/emmet/.xmonad/xmonad.org"))
+(set-register ?s '(file . "/home/emmet/.install/install.org"))
 
 ;;;------ Org mode configuration ------;;;
 
@@ -281,7 +281,7 @@ same directory as the org-buffer and insert a link to this file."
                   (file-name-nondirectory (buffer-file-name))
                   "_"
                   (format-time-string "%Y%m%d_%H%M%S_")) ) (file-name-extension template-file t)))
-  (copy-file (concat "/home/librephoenix/Templates/" template-file) filename)
+  (copy-file (concat "/home/emmet/Templates/" template-file) filename)
   (setq prettyname (read-from-minibuffer "Pretty name:"))
   (insert (concat "[[./files/" (file-name-nondirectory filename) "][" prettyname "]]"))
   (org-display-inline-images))
@@ -445,8 +445,8 @@ same directory as the org-buffer and insert a link to this file."
   (setq output-pptx-file-name (replace-regexp-in-string "\.org" "\.pptx" (buffer-file-name)))
   (setq output-odp-file-name (replace-regexp-in-string "\.org" "\.odp" (buffer-file-name)))
   (setq odp-style-file-name (completing-read "Choose style: "
-                                             '("/home/librephoenix/.doom.d/scripts/ox-odp/styles/water.odp"
-                                                "/home/librephoenix/.doom.d/scripts/ox-odp/styles/dark.odp"
+                                             '("/home/emmet/.doom.d/scripts/ox-odp/styles/water.odp"
+                                                "/home/emmet/.doom.d/scripts/ox-odp/styles/dark.odp"
                                               ) nil t))
   (shell-command (concat "~/.doom.d/scripts/ox-odp/ox-odp.sh \"" (buffer-file-name) "\" \"" odp-style-file-name "\" > /dev/null"))
   )
@@ -480,7 +480,7 @@ same directory as the org-buffer and insert a link to this file."
 (dolist (item full-org-roam-db-list)
   (setq full-org-roam-db-list-pretty
        (append (list
-             (replace-regexp-in-string "\\/home\\/librephoenix\\/Org\\/" "" item)) full-org-roam-db-list-pretty)))
+             (replace-regexp-in-string "\\/home\\/emmet\\/Org\\/" "" item)) full-org-roam-db-list-pretty)))
 
 (defun org-roam-open-dashboard ()
   "Open ${org-roam-directory}/dashboard.org (I use this naming convention to create dashboards for each of my org roam maps)"
@@ -505,7 +505,7 @@ same directory as the org-buffer and insert a link to this file."
   (dolist (item full-org-roam-db-list)
     (setq full-org-roam-db-list-pretty
         (append (list
-                 (replace-regexp-in-string "\\/home\\/librephoenix\\/Org\\/" "" item)) full-org-roam-db-list-pretty)))
+                 (replace-regexp-in-string "\\/home\\/emmet\\/Org\\/" "" item)) full-org-roam-db-list-pretty)))
 
   (setq org-roam-db-choice (completing-read "Select org roam database: "
                           full-org-roam-db-list-pretty nil t)))
@@ -770,7 +770,7 @@ same directory as the org-buffer and insert a link to this file."
 (setq org-super-agenda-groups
        '(;; Each group has an implicit boolean OR operator between its selectors.
          (:name "Home Tech"
-                :and(:file-path "librephoenix/Agenda" :not (:tag "event"))
+                :and(:file-path "emmet/Agenda" :not (:tag "event"))
                 :order 3)
 
          (:name "Family"
@@ -870,7 +870,7 @@ https://github.com/magit/magit/issues/460 (@cpitclaudel)."
 (add-to-list 'auto-mode-alist '("\\.journal\\'" . hledger-mode))
 
 ;; The default journal location is too opinionated.
-(setq hledger-jfile "/home/librephoenix/Org/Family.s/Notes/hledger.journal")
+(setq hledger-jfile "/home/emmet/Org/Family.s/Notes/hledger.journal")
 
 ;;; Auto-completion for account names
 ;; For company-mode users:
