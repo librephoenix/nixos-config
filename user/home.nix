@@ -98,7 +98,6 @@
     fzf
     hunspell hunspellDicts.en_US-large
     pandoc
-    nodePackages.mermaid-cli
     (pkgs.callPackage ./pkgs/ytsub.nix { })
     (pkgs.callPackage ./pkgs/pokemon-colorscripts.nix { })
 

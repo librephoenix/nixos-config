@@ -15,6 +15,8 @@
   wmctrl
   jshon
   aria
+  hledger
+  nodePackages.mermaid-cli
   (python3.withPackages (p: with p; [
     pandas
     requests
