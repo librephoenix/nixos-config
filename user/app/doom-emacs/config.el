@@ -130,6 +130,10 @@
 (setq org-startup-with-inline-images t
       org-image-actual-width nil)
 
+(require 'evil-org)
+(require 'evil-org-agenda)
+(add-hook 'org-mode-hook 'evil-org-mode -100)
+
 ;; Top-level headings should be bigger!
 (custom-set-faces!
   '(org-level-1 :inherit outline-1 :height 1.3)
@@ -140,16 +144,6 @@
   '(org-level-6 :inherit outline-6 :height 1.05)
   '(org-level-7 :inherit outline-7 :height 1.05)
   )
-
-;(custom-set-faces!
-;  '(org-link :foreground nil))
-
-;; Pretty org bullets
-;;(use-package org-bullets
-;;    :ensure t
-;;        :init
-;;        (add-hook 'org-mode-hook (lambda ()
-;;                                   (org-bullets-mode 1))))
 
 (after! org (org-eldoc-load))
 
@@ -674,9 +668,6 @@ same directory as the org-buffer and insert a link to this file."
       (doom-disable-line-numbers-h)))
 
 (add-hook 'org-mode-hook 'org-roam-olivetti-mode)
-
-(use-package org-roam-dblocks
-  :hook (org-mode . org-roam-dblocks-autoupdate-mode))
 
 (setq org-id-extra-files 'org-agenda-text-search-extra-files)
 
