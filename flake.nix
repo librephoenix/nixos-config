@@ -24,8 +24,10 @@
     name = "emmet";
     email = "librephoenix@protonmail.com";
     dotfilesDir = "~/.dotfiles";
-    theme = "ayu-dark";
-    themePolarity = "dark";
+    theme = "ashes";
+
+    themePolarityPath = "/themes/"+theme+"/polarity.txt";
+    themePolarity = builtins.readFile (./. + themePolarityPath);
     backgroundUrlPath = "/themes/"+theme+"/backgroundurl.txt";
     backgroundUrl = builtins.readFile (./. + backgroundUrlPath);
     backgroundSha256Path = "/themes/"+theme+"/backgroundsha256.txt";

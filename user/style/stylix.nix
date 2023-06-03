@@ -3,7 +3,7 @@
 let
   myFont = "Inconsolata";
   myFontPkg = pkgs.inconsolata;
-  myThemePath = "../../../themes/"+myTheme+".yaml";
+  myThemePath = "../../../themes/"+myTheme+"/"+myTheme+".yaml";
 in
 {
   home.file.".currenttheme".text = myTheme;
