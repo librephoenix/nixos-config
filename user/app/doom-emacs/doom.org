@@ -76,6 +76,8 @@ I use this functionality to load my private config file with non-public informat
 (setq custom-theme-directory "~/.emacs.d/themes")
 (setq doom-theme 'doom-stylix)
 (setq doom-font (font-spec :family "Inconsolata" :size 20))
+;; +unicode-init-fonts-h often errors out
+(remove-hook 'doom-init-ui-hook '+unicode-init-fonts-h)
 
 ;; Transparent background
 (set-frame-parameter (selected-frame) 'alpha '(90 . 90))
@@ -998,7 +1000,9 @@ styletree.write('styles.xml')
 #+END_SRC
 *** TODO Org Roam Dynamic Blocks
 This needs fixing on NixOS:
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle config.el
+(add-load-path! "~/.emacs.d/org-nursery/lisp")
+(require 'org-roam-dblocks)
 (use-package org-roam-dblocks
   :hook (org-mode . org-roam-dblocks-autoupdate-mode))
 

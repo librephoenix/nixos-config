@@ -16,9 +16,13 @@
       url = "github:emacs-eaf/eaf-browser";
       flake = false;
     };
+    org-nursery = {
+      url = "github:chrisbarrett/nursery";
+      flake = false;
+    };
   };
 
-  outputs = { self, nixpkgs, home-manager, nix-doom-emacs, stylix, eaf, eaf-browser, rust-overlay, ... }@inputs:
+  outputs = { self, nixpkgs, home-manager, nix-doom-emacs, stylix, eaf, eaf-browser, org-nursery, rust-overlay, ... }@inputs:
   let
     system = "x86_64-linux";
     name = "emmet";
@@ -63,6 +67,7 @@
             myBackgroundSha256 = backgroundSha256;
             inherit (inputs) eaf;
             inherit (inputs) eaf-browser;
+            inherit (inputs) org-nursery;
           };
       };
     };

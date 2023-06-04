@@ -1,4 +1,4 @@
-{ config, lib, pkgs, eaf, eaf-browser, ... }:
+{ config, lib, pkgs, eaf, eaf-browser, org-nursery, ... }:
 
 {
   programs.doom-emacs = {
@@ -38,5 +38,8 @@
       npm install darkreader @mozilla/readability && rm package*.json;
       popd;
     ";
+  };
+  home.file.".emacs.d/org-nursery" = {
+    source = "${org-nursery}";
   };
 }

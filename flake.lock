@@ -511,6 +511,22 @@
         "type": "github"
       }
     },
+    "org-nursery": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1684554851,
+        "narHash": "sha256-2qV19PET2WRKLeeTHkEAY8mP/5THlnymtu3isij6ay8=",
+        "owner": "chrisbarrett",
+        "repo": "nursery",
+        "rev": "8301db1405dc7a5f57f8c2af95195890afe6cca2",
+        "type": "github"
+      },
+      "original": {
+        "owner": "chrisbarrett",
+        "repo": "nursery",
+        "type": "github"
+      }
+    },
     "org-yt": {
       "flake": false,
       "locked": {
@@ -566,6 +582,7 @@
         "home-manager": "home-manager",
         "nix-doom-emacs": "nix-doom-emacs",
         "nixpkgs": "nixpkgs_2",
+        "org-nursery": "org-nursery",
         "rust-overlay": "rust-overlay",
         "stylix": "stylix"
       }

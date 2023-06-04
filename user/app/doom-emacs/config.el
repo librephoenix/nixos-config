@@ -24,6 +24,8 @@
 (setq custom-theme-directory "~/.emacs.d/themes")
 (setq doom-theme 'doom-stylix)
 (setq doom-font (font-spec :family "Inconsolata" :size 20))
+;; +unicode-init-fonts-h often errors out
+(remove-hook 'doom-init-ui-hook '+unicode-init-fonts-h)
 
 ;; Transparent background
 (set-frame-parameter (selected-frame) 'alpha '(90 . 90))
@@ -668,6 +670,11 @@ same directory as the org-buffer and insert a link to this file."
       (doom-disable-line-numbers-h)))
 
 (add-hook 'org-mode-hook 'org-roam-olivetti-mode)
+
+(add-load-path! "~/.emacs.d/org-nursery/lisp")
+(require 'org-roam-dblocks)
+(use-package org-roam-dblocks
+  :hook (org-mode . org-roam-dblocks-autoupdate-mode))
 
 (setq org-id-extra-files 'org-agenda-text-search-extra-files)
 
