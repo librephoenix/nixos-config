@@ -59,7 +59,7 @@
 (setq custom-file null-device)
 
 ;; Fancy splash image
-(setq fancy-splash-image "./arch.png")
+(setq fancy-splash-image "~/.emacs.d/dashboard-logo.png")
 
 (setq +doom-dashboard-menu-sections
 '(("Open org roam overview" :icon

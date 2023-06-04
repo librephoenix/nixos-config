@@ -1,5 +1,7 @@
-{ config, lib, pkgs, eaf, eaf-browser, org-nursery, ... }:
-
+{ config, lib, pkgs, eaf, eaf-browser, org-nursery, myThemePolarity, ... }:
+let
+  myDashboardLogo = ./. + "/nix-" + myThemePolarity + ".png";
+in
 {
   programs.doom-emacs = {
     enable = true;
@@ -42,4 +44,5 @@
   home.file.".emacs.d/org-nursery" = {
     source = "${org-nursery}";
   };
+  home.file.".emacs.d/dashboard-logo.png".source = myDashboardLogo;
 }

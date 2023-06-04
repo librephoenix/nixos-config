@@ -31,7 +31,7 @@
     theme = "ayu-dark";
 
     themePolarityPath = "/themes/"+theme+"/polarity.txt";
-    themePolarity = builtins.readFile (./. + themePolarityPath);
+    themePolarity = lib.removeSuffix "\n" (builtins.readFile (./. + themePolarityPath));
     backgroundUrlPath = "/themes/"+theme+"/backgroundurl.txt";
     backgroundUrl = builtins.readFile (./. + backgroundUrlPath);
     backgroundSha256Path = "/themes/"+theme+"/backgroundsha256.txt";
