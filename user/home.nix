@@ -53,7 +53,7 @@
     gnome.geary
     gnome.gnome-calendar
     newsflash
-    autokey
+    #autokey
     protonmail-bridge
 
     # File Managers
