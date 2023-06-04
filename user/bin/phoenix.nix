@@ -20,6 +20,7 @@ let
           rm package*.json;
           npm install darkreader @mozilla/readability && rm package*.json;
           popd;
+          ~/.fehbg-stylix;
         fi
       elif [ "$1" = "update" ]; then
         pushd ''+myDotfilesDir+'';
