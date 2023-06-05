@@ -26,7 +26,7 @@
   let
     system = "x86_64-linux";
     name = "emmet";
-    email = "librephoenix@protonmail.com";
+    email = "librephoenix3@pm.me";
     dotfilesDir = "~/.dotfiles";
     theme = "ayu-dark";
 

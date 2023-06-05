@@ -3,7 +3,7 @@
 ;;;------ User configuration ------;;;
 
 ;; My default user identity as my yt alias
-(setq user-full-name "librephoenix")
+(setq user-full-name "Emmet")
 
 ;; I prefer visual lines
 (setq display-line-numbers-type 'visual

@@ -1,5 +1,5 @@
 #+title: Xmonad Config
-#+author: librephoenix
+#+author: Emmet
 
 * XMonad Config
 The main configuration file for XMonad is [[./xmonad.hs][~/.xmonad/xmonad.hs]].
