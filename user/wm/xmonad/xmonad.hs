@@ -252,7 +252,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) =
       ((modm .|. shiftMask, xK_space), setLayout $ XMonad.layoutHook conf),
 
       -- Resize viewed windows to the correct size
-      ((modm, xK_r), refresh),
+      ((modm, xK_r), C.sequence_ [spawn "killall xmobar; autorandr -c; xmonad --restart;", refresh]),
 
       -- Move focus to window below
       ((modm, xK_j), C.sequence_ [windowGo D True, switchLayer, warpToWindow 0.5 0.5]),
