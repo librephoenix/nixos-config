@@ -1,5 +1,5 @@
 #+title: NixOS Config
-#+author: librephoenix
+#+author: Emmet
 
 [[https://gitlab.com/librephoenix/nixos-config][Main Repo Link (GitLab)]]
 
