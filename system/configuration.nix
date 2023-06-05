@@ -139,7 +139,7 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.emmet = {
     isNormalUser = true;
-    description = "Emmet K";
+    description = "Emmet";
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [];
   };
