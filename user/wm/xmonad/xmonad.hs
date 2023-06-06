@@ -226,10 +226,6 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) =
       ((0, xF86XK_AudioNext), spawn "cmus-remote -n && ~/.local/bin/cmus-current-song-notify.sh"),
       ((0, xF86XK_AudioPrev), spawn "cmus-remote -r && ~/.local/bin/cmus-current-song-notify.sh"),
 
-      -- manage multiple monitors with kbd
-      -- ((0, xF86XK_Explorer), spawn "/home/librephoenix/.local/bin/setup_external_monitor.sh"),
-      -- ((0, xK_F8), spawn "/home/librephoenix/.local/bin/setup_external_monitor.sh"),
-
       -- launch rofi
       ((modm, xK_semicolon), spawn ("rofi -show drun -show-icons")),
       ((modm, xK_p), spawn ("keepmenu")),
