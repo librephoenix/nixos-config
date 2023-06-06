@@ -1,7 +1,25 @@
 #+title: Theme Showcase
 #+author: Emmet
 
-** Ashes
+** [[./ashes][Ashes]]
 [[./ashes][ashes/ashes.png]]
-** Atelier Cave
+** [[./atelier-cave][Atelier Cave]]
 [[./atelier-cave][atelier-cave/atelier-cave.png]]
+** [[./atelier-dune][Atelier Dune]]
+[[./atelier-dune][atelier-dune/atelier-dune.png]]
+** [[./atelier-estuary][Atelier Estuary]]
+[[./atelier-estuary][atelier-estuary/atelier-estuary.png]]
+** [[./atelier-forest][Atelier Forest]]
+[[./atelier-forest][atelier-forest/atelier-forest.png]]
+** [[./atelier-heath][Atelier Heath]]
+[[./atelier-heath][atelier-heath/atelier-heath.png]]
+** [[./atelier-lakeside][Atelier Lakeside]]
+[[./atelier-lakeside][atelier-lakeside/atelier-lakeside.png]]
+** [[./atelier-plateau][Atelier Plateau]]
+[[./atelier-plateau][atelier-plateau/atelier-plateau.png]]
+** [[./atelier-savanna][Atelier Savanna]]
+[[./atelier-savanna][atelier-savanna/atelier-savanna.png]]
+** [[./atelier-seaside][Atelier Seaside]]
+[[./atelier-seaside][atelier-seaside/atelier-seaside.png]]
+** [[./atelier-sulphurpool][Atelier Sulphurpool]]
+[[./atelier-sulphurpool][atelier-sulphurpool/atelier-sulphurpool.png]]
