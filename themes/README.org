@@ -10,4 +10,4 @@ Each theme directory stores a few relevant files:
 - =polarity.txt= - Whether or not the background is =light= or =dark=
 - =${theme-name}.png= - A screenshot of the theme for previewing purposes
 
-Click on any of the theme directories above for more info!  [[./theme-showcase.org][Here is a link]] showcasing all of the themes!
+Look at any of the directories here for more info!
