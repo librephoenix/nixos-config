@@ -81,6 +81,7 @@
 
     # Command Line
     neofetch lolcat cowsay
+    cava
     gnugrep gnused
     xorg.xkill
     killall
