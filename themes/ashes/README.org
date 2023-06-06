@@ -1,0 +1,9 @@
+#+title: Ashes
+#+author: Emmet
+
+"Ashes" base-16 theme originally by Jannik Siebert (https://github.com/janniks).
+
+[[ashes.png]]
+
+[[https://images.hdqwalls.com/wallpapers/anime-road-to-city-everlasting-summer-4k-ep.jpg
+][Background Link]]
