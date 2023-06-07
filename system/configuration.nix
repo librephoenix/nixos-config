@@ -142,6 +142,7 @@
     description = "Emmet";
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [];
+    uid = 1000;
   };
 
   # Allow unfree packages
@@ -178,6 +179,7 @@
     font-awesome
     ubuntu_font_family
     terminus_font
+    gamemode
   ];
 
 
@@ -210,6 +212,9 @@
 
   # OpenGL
   hardware.opengl.enable = true;
+
+  # Feral GameMode
+  programs.gamemode.enable = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
