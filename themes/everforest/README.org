@@ -1,0 +1,8 @@
+#+title: Everforest
+#+author: Emmet
+
+"Everforest" base-16 theme originally by Sainnhe Park ([[https://github.com/sainnhe][https://github.com/sainnhe]]).
+
+[[everforest.png]]
+
+[[https://w.wallhaven.cc/full/83/wallhaven-839ppy.png][Background Link]]

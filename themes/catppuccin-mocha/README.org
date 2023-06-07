@@ -1,0 +1,8 @@
+#+title: Catppuccin Mocha
+#+author: Emmet
+
+"Catppuccin Mocha" base-16 theme ([[https://github.com/catppuccin/catppuccin][https://github.com/catppuccin/catppuccin]]).
+
+[[catppuccin-mocha.png]]
+
+[[https://images7.alphacoders.com/126/1266081.jpg][Background Link]]

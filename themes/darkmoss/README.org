@@ -1,0 +1,8 @@
+#+title: Darkmoss
+#+author: Emmet
+
+"Darkmoss" base-16 theme originally by Gabriel Avanzi ([[https://github.com/avanzzzi][https://github.com/avanzzzi]]).
+
+[[darkmoss.png]]
+
+[[https://w.wallhaven.cc/full/0w/wallhaven-0wrp3p.jpg][Background Link]]

@@ -1,0 +1,8 @@
+#+title: Catppuccin Frappe
+#+author: Emmet
+
+"Catppuccin Frappe" base-16 theme ([[https://github.com/catppuccin/catppuccin][https://github.com/catppuccin/catppuccin]]).
+
+[[catppuccin-frappe.png]]
+
+[[https://images3.alphacoders.com/126/1266078.jpg][Background Link]]

@@ -1,0 +1,8 @@
+#+title: Dracula
+#+author: Emmet
+
+"Dracula" base-16 theme ([[https://github.com/dracula][https://github.com/dracula]]).
+
+[[dracula.png]]
+
+[[https://images.hdqwalls.com/wallpapers/heights-are-not-scary-5k-7s.jpg][Background Link]]

@@ -1,7 +1,7 @@
 # Fairy Floss scheme
 # Based on fairyfloss by sailorhg (https://github.com/sailorhg/fairyfloss)
 scheme: "Fairy Floss"
-author: "librephoenix (https://gitlab.com/librephoenix)"
+author: "sailorhg (https://github.com/sailorhg)"
 base00: "343145" # ----
 base01: "464258" # ---
 base02: "6A6483" # --
