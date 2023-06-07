@@ -8,6 +8,9 @@
 * What is this repository?
 These are my dotfiles (configuration files) for my NixOS setup(s).
 
+Here is my main setup:
+[[themes/ayu-dark/ayu-dark.png]]
+
 * Notes for Myself
 To get this running on a NixOS system, I will start by cloning the repo:
 #+BEGIN_SRC sh :noeval
@@ -37,7 +40,9 @@ If home-manager starts to not cooperate, it may be because the unstable branch o
 nix-channel --add https://nixos.org/channels/nixpkgs-unstable
 #+END_SRC
 
-Then, my home-manager configuration can be installed with:
+Home-manager may also not work without re-logging back in after it has been installed.
+
+Once home-manager is running, my home-manager configuration can be installed with:
 #+BEGIN_SRC sh :noeval
 home-manager switch --flake .#emmet
 #+END_SRC

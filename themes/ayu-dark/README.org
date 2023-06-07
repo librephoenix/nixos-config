@@ -1,0 +1,8 @@
+#+title: Ayu Dark
+#+author: Emmet
+
+"Ayu Dark" base-16 theme originally by Khue Nguyen ([[mailto:Z5483Y@gmail.com][Z5483Y@gmail.com]]).
+
+[[ayu-dark.png]]
+
+[[https://w.wallhaven.cc/full/zy/wallhaven-zy8wwo.jpg][Background Link]]
