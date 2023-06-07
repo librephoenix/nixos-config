@@ -1,0 +1,8 @@
+#+title: Atelier Dune
+#+author: Emmet
+
+"Atelier Dune" base-16 theme originally by Bram de Haan ([[http://atelierbramdehaan.nl][http://atelierbramdehaan.nl]]).
+
+[[atelier-dune.png]]
+
+[[https://images.hdqwalls.com/wallpapers/anime-girl-angel-ring-5k-7c.jpg][Background Link]]
