@@ -13,7 +13,7 @@ killall nextcloud
 killall xautolock
 killall caffeine
 killall syncthing-gtk
-killall discord
+killall gtkcord4
 killall qjoypad
 
 # Launch necessary desktop applications

@@ -133,8 +133,8 @@ myScratchPads =
         w = 0.4
         t = 0.75 - h
         l = 0.70 - w
-    spawnDiscord = "flatpak run com.discordapp.Discord"
-    findDiscord = className =? "discord"
+    spawnDiscord = "gtkcord4"
+    findDiscord = className =? "gtkcord4"
     manageDiscord = customFloating $ W.RationalRect l t w h
       where
         h = 0.5
@@ -390,7 +390,7 @@ myManageHook =
     [ title =? "Myuzi" --> (customFloating $ W.RationalRect 0.05 0.05 0.9 0.9),
       title =? "octave-scratchpad" --> (customFloating $ W.RationalRect 0.1 0.1 0.8 0.8),
       title =? "scratchpad" --> (customFloating $ W.RationalRect 0.1 0.1 0.8 0.8),
-      className =? "discord" --> (customFloating $ W.RationalRect 0.1 0.1 0.8 0.8),
+      className =? "gtkcord4" --> (customFloating $ W.RationalRect 0.1 0.1 0.8 0.8),
       title =? "ranger-scratchpad" --> (customFloating $ W.RationalRect 0.05 0.05 0.9 0.9),
       title =? "btm-scratchpad" --> (customFloating $ W.RationalRect 0.1 0.1 0.8 0.8),
       className =? "Geary" --> (customFloating $ W.RationalRect 0.05 0.05 0.9 0.9),
