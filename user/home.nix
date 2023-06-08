@@ -14,6 +14,7 @@
               ./bin/phoenix.nix # My nix command wrapper
               ./bin/ytsub-wrappers.nix # My ytsub wrapper
               ./app/doom-emacs/doom.nix # My doom emacs config
+              ./app/ranger/ranger.nix # My ranger file manager config
               ./app/terminal/alacritty.nix # My alacritty config
               ./app/terminal/kitty.nix # My kitty config
               ./app/git/git.nix # My git config
@@ -55,10 +56,6 @@
     newsflash
     #autokey
     protonmail-bridge
-
-    # File Managers
-    ranger
-    xdragon
 
     # Media
     gimp-with-plugins
