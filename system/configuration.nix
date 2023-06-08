@@ -6,9 +6,8 @@
 
 {
   imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-   #   ./style/stylix.nix
+    [ ./hardware-configuration.nix
+      #./style/stylix.nix
     ];
 
   nix.nixPath = [ "nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos"
@@ -17,6 +16,10 @@
                 ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
+  # Need some flatpaks
+  services.flatpak.enable = true;
+  xdg.portal.enable = true;
   
   # Doas instead of sudo
   security.doas.enable = true;

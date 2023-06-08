@@ -75,9 +75,9 @@
     libmediainfo
     mediainfo-gui
     freetube
-    # TODO need ytsub somehow (sarowish/ytsub)
     audio-recorder
     pavucontrol
+    gtkcord4
 
     # Command Line
     neofetch lolcat cowsay
@@ -133,12 +133,13 @@
     
     # TODO Configure pipewire audio server
 
-    # Virtual Machines
+    # Virtual Machines and wine
     libvirt
     virt-manager
     qemu_full
     lxc
     swtpm
+    bottles
 
     # Security
     keepassxc
@@ -215,6 +216,7 @@
 
   home.sessionVariables = {
     EDITOR = "emacsclient";
+    XDG_DATA_DIRS = "$XDG_DATA_DIRS:/usr/share:/var/lib/flatpak/exports/share:$HOME/.local/share/flatpak/exports/share"; # lets flatpak work
   };
 
   # extra packages
