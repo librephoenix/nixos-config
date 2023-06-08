@@ -1,0 +1,8 @@
+#+title: Gruvbox Light Hard
+#+author: Emmet
+
+"Gruvbox Light Hard" base-16 theme originally by Dawid Kurek ([[mailto:dawikur@gmail.com][dawikur@gmail.com]]) and morhetz ([[https://github.com/morhetz/gruvbox][https://github.com/morhetz/gruvbox]]).
+
+[[gruvbox-light-hard.png]]
+
+[[https://w.wallhaven.cc/full/dp/wallhaven-dppjk3.jpg][Background Link]]

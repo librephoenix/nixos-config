@@ -1,0 +1,8 @@
+#+title: Solarized Light
+#+author: Emmet
+
+"Solarized Light" base-16 theme originally by Ethan Schoonover ([[https://ethanschoonover.com/solarized/][https://ethanschoonover.com/solarized/]]) and modified by aramisgithub.
+
+[[solarized-light.png]]
+
+[[https://r4.wallpaperflare.com/wallpaper/790/734/537/landscape-digital-art-coast-sky-wallpaper-2fbce811ee788644e4f742a5f338be69.jpg][Background Link]]

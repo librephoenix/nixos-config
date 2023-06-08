@@ -1,0 +1,8 @@
+#+title: Miramare
+#+author: Emmet
+
+"Miramare" base-16 theme originally by franbach ([[https://github.com/franbach/miramare][https://github.com/franbach/miramare]]).
+
+[[miramare.png]]
+
+[[https://w.wallhaven.cc/full/v9/wallhaven-v9qy9l.jpg][Background Link]]

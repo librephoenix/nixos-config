@@ -1,0 +1,8 @@
+#+title: Stella
+#+author: Emmet
+
+"Stella" base-16 theme originally by Shrimpram.
+
+[[stella.png]]
+
+[[https://r4.wallpaperflare.com/wallpaper/662/963/756/artwork-night-stars-sailing-ship-wallpaper-f8e6cdf800802ca8b0acb18ea86274ca.jpg][Background Link]]

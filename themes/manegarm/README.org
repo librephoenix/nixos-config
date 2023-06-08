@@ -1,0 +1,8 @@
+#+title: Manegarm
+#+author: Emmet
+
+"Manegarm" base-16 theme originally by kenranunderscore ([[https://github.com/kenranunderscore][https://github.com/kenranunderscore]])
+
+[[manegarm.png]]
+
+[[https://r4.wallpaperflare.com/wallpaper/86/440/1017/digital-digital-art-artwork-illustration-drawing-hd-wallpaper-60cb37b6dd08e0d36729f856e7bcb083.jpg][Background Link]]

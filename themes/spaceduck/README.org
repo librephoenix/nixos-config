@@ -1,0 +1,8 @@
+#+title: Spaceduck
+#+author: Emmet
+
+"Spaceduck" base-16 theme originally by Guillermo Rodriguez ([[https://github.com/pineapplegiant][https://github.com/pineapplegiant]]) and packaged by Gabriel Fontes ([[https://github.com/Misterio77][https://github.com/Misterio77]]).
+
+[[spaceduck.png]]
+
+[[https://w.wallhaven.cc/full/6d/wallhaven-6d5k6x.jpg][Background Link]]

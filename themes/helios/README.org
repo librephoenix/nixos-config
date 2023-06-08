@@ -1,0 +1,8 @@
+#+title: Helios
+#+author: Emmet
+
+"Helios" base-16 theme originally by Alex Meyer ([[https://github.com/reyemxela][https://github.com/reyemxela]]).
+
+[[helios.png]]
+
+[[https://images.hdqwalls.com/wallpapers/one-last-time-8h.jpg][Background Link]]

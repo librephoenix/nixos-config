@@ -1,0 +1,8 @@
+#+title: Summerfruit Dark
+#+author: Emmet
+
+"Summerfruit Dark" base-16 theme originally by Christopher Corley ([[http://christop.club][http://christop.club]]).
+
+[[summerfruit-dark.png]]
+
+[[https://w.wallhaven.cc/full/rr/wallhaven-rrow61.png][Background Link]]

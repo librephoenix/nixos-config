@@ -1,0 +1,8 @@
+#+title: Material Vivid
+#+author: Emmet
+
+"Material Vivid" base-16 theme originally by joshyrobot.
+
+[[material-vivid.png]]
+
+[[https://w.wallhaven.cc/full/e7/wallhaven-e7z71l.jpg][Background Link]]

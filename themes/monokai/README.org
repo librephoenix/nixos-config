@@ -1,0 +1,8 @@
+#+title: Monokai
+#+author: Emmet
+
+"Monokai" base-16 theme originally by Wimer Hazenberg ([[http://www.monokai.nl][http://www.monokai.nl]]).
+
+[[monokai.png]]
+
+[[https://w.wallhaven.cc/full/xl/wallhaven-xl225z.png][Background Link]]

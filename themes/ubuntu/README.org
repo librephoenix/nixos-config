@@ -1,0 +1,8 @@
+#+title: Ubuntu
+#+author: Emmet
+
+"Ubuntu" base-16 theme based on the official Ubuntu color palette ([[https://design.ubuntu.com/brand/colour-palette][https://design.ubuntu.com/brand/colour-palette]]) and packaged by me ([[https://gitlab.com/librephoenix][https://gitlab.com/librephoenix]]).
+
+[[ubuntu.png]]
+
+[[https://images.hdqwalls.com/download/sea-of-dreamscape-r4-1920x1080.jpg][Background Link]]

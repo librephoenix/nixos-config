@@ -1,0 +1,8 @@
+#+title: Solarized Dark
+#+author: Emmet
+
+"Solarized Dark" base-16 theme originally by Ethan Schoonover ([[https://ethanschoonover.com/solarized/][https://ethanschoonover.com/solarized/]]) and modified by aramisgithub.
+
+[[solarized-dark.png]]
+
+[[https://r4.wallpaperflare.com/wallpaper/474/140/1011/stars-sea-clouds-night-wallpaper-7bede9caa0ccfc6d8a1eb0759c9972b0.jpg][Background Link]]
