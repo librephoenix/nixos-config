@@ -169,11 +169,10 @@ I use this functionality to load my private config file with non-public informat
       "r" 'jump-to-register)
 
 (set-register ?f '(file . "/home/emmet/Org/Family.s/Notes/hledger.org"))
-(set-register ?r '(file . "/home/emmet/README.org"))
-(set-register ?d '(file . "/home/emmet/.doom.d/doom.org"))
 (set-register ?h '(file . "/home/emmet"))
-(set-register ?x '(file . "/home/emmet/.xmonad/xmonad.org"))
-(set-register ?s '(file . "/home/emmet/.install/install.org"))
+(set-register ?r '(file . "/home/emmet/.dotfiles/README.org"))
+(set-register ?x '(file . "/home/emmet/.dotfiles/user/wm/xmonad/xmonad.org"))
+(set-register ?d '(file . "/home/emmet/.dotfiles/user/app/doom-emacs/doom.org"))
 
 #+END_SRC
 ** Org Mode Configuration
