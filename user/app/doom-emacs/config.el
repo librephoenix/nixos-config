@@ -838,6 +838,8 @@ https://github.com/magit/magit/issues/460 (@cpitclaudel)."
 
 (evil-set-initial-state 'magit-status-mode 'normal)
 (evil-set-initial-state 'magit-log-mode 'normal)
+(evil-set-initial-state 'magit-diff-mode 'normal)
+(evil-set-initial-state 'magit-refs-mode 'normal)
 (evil-define-key 'normal magit-status-mode-map
   "j" 'evil-next-visual-line
   "k" 'evil-previous-visual-line
@@ -846,7 +848,24 @@ https://github.com/magit/magit/issues/460 (@cpitclaudel)."
   "u" 'magit-unstage
   "l" 'magit-log
   "F" 'magit-pull
-  "p" 'magit-push)
+  "p" 'magit-push
+  "q" '+magit/quit
+  (kbd "<return>") 'magit-visit-ref)
+(evil-define-key 'normal magit-log-mode-map
+  "j" 'evil-next-visual-line
+  "k" 'evil-previous-visual-line
+  "q" '+magit/quit
+  (kbd "<return>") 'magit-visit-ref)
+(evil-define-key 'normal magit-diff-mode-map
+  "j" 'evil-next-visual-line
+  "k" 'evil-previous-visual-line
+  "q" '+magit/quit
+  (kbd "<return>") 'magit-visit-ref)
+(evil-define-key 'normal magit-refs-mode-map
+  "j" 'evil-next-visual-line
+  "k" 'evil-previous-visual-line
+  "q" '+magit/quit
+  (kbd "<return>") 'magit-visit-ref)
 
 ;;;------ dired configuration ------;;;
 
@@ -944,6 +963,14 @@ https://github.com/magit/magit/issues/460 (@cpitclaudel)."
 (add-to-list 'focus-mode-to-thing '(lisp-mode . paragraph))
 
 ;(add-hook 'org-mode-hook #'focus-mode)
+
+;;;------ helpful configuration ------;;;
+
+(evil-set-initial-state 'helpful-mode 'normal)
+(evil-define-key 'normal helpful-mode-map
+  "j" 'evil-next-visual-line
+  "k" 'evil-previous-visual-line
+  "q" 'helpful-kill-buffers)
 
 ;;;-- Load emacs application framework;;;--
 (use-package! eaf
