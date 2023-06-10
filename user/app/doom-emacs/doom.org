@@ -1186,6 +1186,18 @@ https://github.com/magit/magit/issues/460 (@cpitclaudel)."
 (advice-add 'magit-process-environment
             :filter-return #'~/magit-process-environment)
 
+(evil-set-initial-state 'magit-status-mode 'normal)
+(evil-set-initial-state 'magit-log-mode 'normal)
+(evil-define-key 'normal magit-status-mode-map
+  "j" 'evil-next-visual-line
+  "k" 'evil-previous-visual-line
+  "c" 'magit-commit
+  "s" 'magit-stage
+  "u" 'magit-unstage
+  "l" 'magit-log
+  "F" 'magit-pull
+  "p" 'magit-push)
+
 #+END_SRC
 ** Dired Configuration
 #+BEGIN_SRC emacs-lisp :tangle config.el
@@ -1537,7 +1549,6 @@ Any git package can be configured for a particular commit or branch:
 - =(unpin! pinned-package another-pinned-package)= to get bleeding edge instead of Doom's stability
 
 #+BEGIN_SRC emacs-lisp :tangle packages.el
-;;(package! org-bullets)
 (package! org-modern)
 (package! org-super-agenda)
 (package! emacsql :pin "c1a4407")

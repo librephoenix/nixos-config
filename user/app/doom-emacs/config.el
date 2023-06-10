@@ -836,6 +836,18 @@ https://github.com/magit/magit/issues/460 (@cpitclaudel)."
 (advice-add 'magit-process-environment
             :filter-return #'~/magit-process-environment)
 
+(evil-set-initial-state 'magit-status-mode 'normal)
+(evil-set-initial-state 'magit-log-mode 'normal)
+(evil-define-key 'normal magit-status-mode-map
+  "j" 'evil-next-visual-line
+  "k" 'evil-previous-visual-line
+  "c" 'magit-commit
+  "s" 'magit-stage
+  "u" 'magit-unstage
+  "l" 'magit-log
+  "F" 'magit-pull
+  "p" 'magit-push)
+
 ;;;------ dired configuration ------;;;
 
 (add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
