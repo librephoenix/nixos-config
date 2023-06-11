@@ -5,54 +5,30 @@
 
 [[https://github.com/librephoenix/nixos-config-mirror][Mirror Repo Link (GitHub)]]
 
-* What is this repository?
+** What is this repository?
 These are my dotfiles (configuration files) for my NixOS setup(s).
 
 Here is my main setup:
 [[themes/ayu-dark/ayu-dark.png]]
 
-* Notes for Myself
-To get this running on a NixOS system, I will start by cloning the repo:
-#+BEGIN_SRC sh :noeval
-git clone https://gitlab.com/librephoenix/nixos-config.git /path/to/my/config/folder
+** Install
+I wrote some reinstall notes for myself [[./install.org][here (install.org)]].
+
+** Modules
+Separate Nix files can be imported as modules using an import block:
+#+BEGIN_SRC nix
+imports = [ import1.nix
+            import2.nix
+            ...
+          ];
 #+END_SRC
 
-To get the hardware configuration on a new system, I can other copy from =/etc/nixos/hardware-configuration.nix= or run:
-#+BEGIN_SRC sh :noeval
-sudo nixos-generate-config --dir /dotfiles/path/system
-#+END_SRC
+This conveniently allows configurations to be separated and swapped around quickly.
 
-Then, I can switch into the system configuration by running:
-#+BEGIN_SRC sh :noeval
-cd /dotfiles/path
-sudo nixos-rebuild switch --flake .#snowfire
-#+END_SRC
+I have my modules separated into two groups:
+- System-level - stored in the [[./system][system directory]]
+  - System-level modules are imported into [[./system/configuration.nix][configuration.nix]], which is what is sourced into [[./flake.nix][my flake (flake.nix)]]
+- User-level - stored in the [[./user][user directory]] (managed by home-manager)
+  - User-level modules are imported into [[./user/home.nix][home.nix]], which is also sourced into [[./flake.nix][my flake (flake.nix)]]
 
-Home manager can be installed with:
-#+BEGIN_SRC sh :noeval
-nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
-nix-channel --update
-nix-shell '<home-manager>' -A install
-#+END_SRC
-
-If home-manager starts to not cooperate, it may be because the unstable branch of nixpkgs is in the Nix channel list.  This can be fixed via:
-#+BEGIN_SRC sh :noeval
-nix-channel --add https://nixos.org/channels/nixpkgs-unstable
-#+END_SRC
-
-Home-manager may also not work without re-logging back in after it has been installed.
-
-Once home-manager is running, my home-manager configuration can be installed with:
-#+BEGIN_SRC sh :noeval
-home-manager switch --flake .#emmet
-#+END_SRC
-
-This loads in my convenience script =phoenix=, which replaces frequently used nix and nixos commands with more user friendly ones, namely:
-- =phoenix sync= to build and switch system and home configuration
-  - =phoenix sync system= to build and switch only system configuration
-  - =phoenix sync user= to build and switch only home configuration
-- =phoenix update= to update flake inputs
-- =phoenix gc= to garbage collect
-  - If no argument is given, it cleans anything older than 30 days
-  - If a time argument is supplied (i.e. 10d), it cleans stuff older than that (10 days in this example)
-  - If the argument =full= is given, it deletes /all/ previous generations
+More detailed information on these specific modules are in the [[./system][system directory]] and [[./user][user directory]] respectively.

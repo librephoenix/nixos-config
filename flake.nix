@@ -1,5 +1,5 @@
 {
-  description = "No, I don't understand how this works, so please don't ask";
+  description = "Flake of LibrePhoenix";
 
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-unstable";
@@ -59,8 +59,6 @@
             myHomeDir = "/home/"+name;
             myEmail = email;
             myDotfilesDir = dotfilesDir;
-            myNixConfigurationFilePath = dotfilesDir+"/system/configuration.nix";
-            myHomeManagerFilePath = dotfilesDir+"/user/home.nix";
             myTheme = theme;
             myThemePolarity = themePolarity;
             myBackgroundUrl = backgroundUrl;
