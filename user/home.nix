@@ -6,41 +6,23 @@
   home.username = myName;
   home.homeDirectory = myHomeDir;
 
-  nixpkgs.overlays = [
-    (self: super:
-      {
-        keepmenu = super.keepmenu.overrideAttrs (oldAttrs: rec {
-        pname = "keepmenu";
-        version = "1.3.1";
-        src = super.python3Packages.fetchPypi {
-          inherit pname version;
-          sha256 = "sha256-AGuJY7IirzIjcu/nY9CzeOqU1liwcRijYLi8hGN/pRg=";
-        };
-        });
-      }
-    )
-  ];
-
   programs.home-manager.enable = true;
 
   imports = [
               ./wm/xmonad/xmonad.nix # My xmonad config
               ./shell/sh.nix # My zsh and bash config
+              ./shell/cli-collection.nix # Useful CLI apps
               ./bin/phoenix.nix # My nix command wrapper
-              ./bin/ytsub-wrappers.nix # My ytsub wrapper
               ./app/doom-emacs/doom.nix # My doom emacs config
               ./app/ranger/ranger.nix # My ranger file manager config
-              ./app/terminal/alacritty.nix # My alacritty config
-              ./app/terminal/kitty.nix # My kitty config
               ./app/git/git.nix # My git config
+              ./app/keepass/keepass.nix # My password manager
+              ./app/browser/librewolf.nix # My default browser
               ./app/games/games.nix # Various videogame apps
+              ./app/virtualization/virtualization.nix # Virtual machines
+              ./app/flatpak/flatpak.nix # Flatpaks
               ./style/stylix.nix # Styling and themes for my apps
               ./lang/cc/cc.nix # C and C++ tools
-              #./lang/rust/rust.nix # Rust tools
-              #./lang/python/python.nix # Python
-              #./lang/python/python-packages.nix # Extra Python packages I want
-              ./lang/haskell/haskell.nix # Haskell tools
-              #./lang/android/android.nix # Android developement
               ./lang/godot/godot.nix # Game development
             ];
 
@@ -50,17 +32,12 @@
     # Core
     zsh
     alacritty
-    kitty
     librewolf
     brave
     dmenu
     rofi
-    keepmenu
-    networkmanager_dmenu
-    feh
     git
     syncthing
-    flameshot
 
     # Office
     libreoffice-qt
@@ -68,6 +45,7 @@
     xournalpp
     gnome.geary
     gnome.gnome-calendar
+    gnome.seahorse
     newsflash
     #autokey
     protonmail-bridge
@@ -79,6 +57,7 @@
     vlc
     mpv
     yt-dlp
+    freetube
     blender
     obs-studio
     libsForQt5.kdenlive
@@ -86,83 +65,14 @@
     mediainfo
     libmediainfo
     mediainfo-gui
-    freetube
     audio-recorder
-    pavucontrol
     gtkcord4
-
-    # Command Line
-    neofetch lolcat cowsay
-    cava
-    gnugrep gnused
-    xorg.xkill
-    killall
-    libnotify
-    bat exa fd bottom ripgrep
-    rsync
-    systeroid
-    tmux
-    htop
-    hwinfo
-    unzip
-    octave
-    brightnessctl
-    w3m
-    fzf
-    hunspell hunspellDicts.en_US-large
-    pandoc
-    (pkgs.callPackage ./pkgs/ytsub.nix { })
-    (pkgs.callPackage ./pkgs/pokemon-colorscripts.nix { })
 
     # Various dev packages
     texinfo
     libffi zlib
     nodePackages.ungit
 
-    # Compositor and Desktop Utils
-    picom
-    alttab
-    xorg.xcursorthemes
-
-    # X Utils
-    xdotool
-    xclip
-    ddcutil
-    sct
-    caffeine-ng
-
-    # Wayland Utils
-    # xdg-desktop-portal-wlr
-    # wtype
-    # wl-clipboard-x11
-    # xorg.xlsclients
-    # glfw-wayland
-    # swayidle
-    # swaylock
-    # wlsunset
-    # wayshot
-    # wev
-    
-    # TODO Configure pipewire audio server
-
-    # Virtual Machines and wine
-    libvirt
-    virt-manager
-    qemu_full
-    lxc
-    swtpm
-    bottles
-
-    # Security
-    keepassxc
-    gnome.seahorse
-    protonvpn-gui
-
-    # Filesystems
-    dosfstools
-
-    # Extra packages
-    flatpak
   ];
 
   services.syncthing.enable = true;
@@ -190,47 +100,7 @@
       XDG_BOOK_DIR = "${config.home.homeDirectory}/Media/Books";
     };
   };
-
-  home.file.".librewolf/librewolf.overrides.cfg".text = ''
-    defaultPref("font.name.serif.x-western","Inconsolata");
-    defaultPref("font.size.variable.x-western",20);
-    defaultPref("browser.toolbars.bookmarks.visibility","always");
-    defaultPref("privacy.resisttFingerprinting.letterboxing", true);
-    defaultPref("network.http.referer.XOriginPolicy",2);
-    defaultPref("privacy.clearOnShutdown.history",false);
-    defaultPref("privacy.clearOnShutdown.downloads",false);
-    defaultPref("privacy.clearOnShutdown.cookies",false);
-    defaultPref("gfx.webrender.software.opengl",true);
-    defaultPref("webgl.disabled",false);
-    pref("font.name.serif.x-western","Inconsolata");
-    pref("font.size.variable.x-western",20);
-    pref("browser.toolbars.bookmarks.visibility","always");
-    pref("privacy.resisttFingerprinting.letterboxing", true);
-    pref("network.http.referer.XOriginPolicy",2);
-    pref("privacy.clearOnShutdown.history",false);
-    pref("privacy.clearOnShutdown.downloads",false);
-    pref("privacy.clearOnShutdown.cookies",false);
-    pref("gfx.webrender.software.opengl",true);
-    pref("webgl.disabled",false);
-    '';
-
-  home.file.".config/networkmanager-dmenu/config.ini".text = ''
-    [dmenu]
-    dmenu_command = rofi -show dmenu
-    compact = True
-    wifi_chars = ▂▄▆█
-    list_saved = True
-
-    [editor]
-    terminal = alacritty
-    # gui_if_available = <True or False> (Default: True)
-  '';
-
-  home.sessionVariables = {
-    EDITOR = "emacsclient";
-    XDG_DATA_DIRS = "$XDG_DATA_DIRS:/usr/share:/var/lib/flatpak/exports/share:$HOME/.local/share/flatpak/exports/share"; # lets flatpak work
-  };
-
-  # extra packages
+  xdg.mime.enable = true;
+  xdg.mimeApps.enable = true;
 
 }

@@ -2,7 +2,39 @@
 
 {
 
-  imports = [ ../picom/picom.nix ];
+  imports = [ ../picom/picom.nix
+              ../../lang/haskell/haskell.nix
+              ../../app/terminal/alacritty.nix
+              ../../app/terminal/kitty.nix
+              ../../app/dmenu-scripts/networkmanager-dmenu.nix
+            ];
+
+  home.packages = with pkgs; [
+    xmobar
+    dunst
+    pamixer
+    autorandr
+    alacritty
+    kitty
+    dmenu
+    rofi
+    keepmenu
+    networkmanager_dmenu
+    pavucontrol
+    feh
+    flameshot
+    alttab
+    xdotool
+    xclip
+    ddcutil
+    sct
+    libnotify
+    xorg.xkill
+    killall
+    bottom
+    brightnessctl
+    xorg.xcursorthemes
+  ];
 
   home.file.".config/xmonad/xmonad.hs".source = ./xmonad.hs;
   home.file.".config/xmonad/startup.sh".source = ./startup.sh;
@@ -16,13 +48,6 @@
     template = builtins.readFile ./xmobarrc.mustache;
     extension = "";
   };
-
-  home.packages = with pkgs; [
-    xmobar
-    dunst
-    pamixer
-    autorandr
-  ];
 
   services.autorandr.enable = true;
   programs.autorandr.enable = true;

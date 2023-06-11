@@ -7,10 +7,12 @@ in
     enable = true;
     doomPrivateDir = ./.;
   };
+
   home.file.".emacs.d/themes/doom-stylix-theme.el".source = config.lib.stylix.colors {
       template = builtins.readFile ./themes/doom-stylix-theme.el.mustache;
       extension = ".el";
   };
+
   home.packages = with pkgs; [
   git
   nodejs
@@ -18,6 +20,8 @@ in
   jshon
   aria
   hledger
+  hunspell hunspellDicts.en_US-large
+  pandoc
   nodePackages.mermaid-cli
   (python3.withPackages (p: with p; [
     pandas
@@ -27,6 +31,11 @@ in
     pymupdf
     markdown
   ]))];
+
+  home.sessionVariables = {
+    EDITOR = "emacsclient";
+  };
+
   home.file.".emacs.d/eaf" = {
     source = "${eaf}";
     recursive = true;

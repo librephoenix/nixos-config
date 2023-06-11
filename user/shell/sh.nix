@@ -29,4 +29,10 @@ in
     enableCompletion = true;
     shellAliases = myAliases;
   };
+
+  home.packages = with pkgs; [
+    neofetch lolcat cowsay
+    gnugrep gnused
+    bat exa bottom fd
+  ];
 }
