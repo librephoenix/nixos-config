@@ -16,8 +16,8 @@ This directory includes my Doom Emacs configuration, which consists of:
 - [[./config.el][config.el]] - Main configuration
 - [[./init.el][init.el]] - Doom modules (easy sets of packages curated by Doom)
 - [[./packages.el][packages.el]] - Additional packages from Melpa (Emacs package manager).
-- [[./doom.nix][doom.nix]] - Loads Nix Doom Emacs and my configuration into my flake when imported
 - [[./themes/doom-stylix-theme.el.mustache][doom-stylix-theme.el.mustache]] - Mustache Doom Emacs template to be used with stylix, requires my [[../../style/stylix.nix][stylix.nix module]] as well
+- [[./doom.nix][doom.nix]] - Loads Nix Doom Emacs and my configuration into my flake when imported
 - A few other [[./scripts][random scripts]]
 
 My full config is a [[./doom.org][literate org document (doom.org)]].

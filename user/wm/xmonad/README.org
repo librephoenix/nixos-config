@@ -1,0 +1,28 @@
+#+title: XMonad
+#+author: Emmet
+
+* What is XMonad?
+[[https://xmonad.org/][XMonad]] is a tiling window manager written and configured in Haskell. Since I have built up my own XMonad config over a few years, it is extremely efficient for me to operate (since it can be managed fully with the keyboard).
+
+[[xmonad.png]]
+
+With my XMonad setup, there are several auxiliary utilities required to make it a "full desktop environment." A few of these packages include:
+- [[https://codeberg.org/xmobar/xmobar][xmobar]] - Status bar
+- [[https://github.com/davatorium/rofi][rofi]] - App launcher
+- [[https://github.com/sagb/alttab][alttab]] - Window switcher
+- [[https://feh.finalrewind.org/][feh]] - Wallpaper utility
+- pavucontrol and pamixer - Sound and volume control
+- [[https://github.com/firecat53/networkmanager-dmenu][networkmanager_dmenu]] - Internet connection control
+- brightnessctl - Screen brightness control
+- [[https://www.umaxx.net/][sct]] - Adjust screen color temperature
+- xkill and killall - Better than hitting Ctrl+Alt+Delete and waiting a few minutes
+
+* My Config
+This directory includes my XMonad configuration, which consists of:
+- [[./xmonad.hs][xmonad.hs]] - Main configuration
+- [[./startup.sh][startup.sh]] - Startup script called by XMonad on startup
+- [[./lib/Colors/Stylix.hs.mustache][lib/Colors/Stylix.hs.mustache]] - Mustache template used to generate color library to theme XMonad with Stylix
+- [[./xmobarrc.mustache][xmobarrc.mustache]] - Mustache template used to generate my xmobar config themed with Stylix
+- [[./xmonad.nix][xmonad.nix]] - Loads XMonad and my configuration (along with any necessary packages for my config) into my flake when imported
+
+My full config is a [[./xmonad.org][literate org document (xmonad.org)]].
