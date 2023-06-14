@@ -781,11 +781,13 @@ same directory as the org-buffer and insert a link to this file."
 (map!
   :map evil-org-agenda-mode-map
   :after org-agenda
-  :nvmeg "<RET>" #'org-agenda-switch-with-roam)
+  :nvmeg "<RET>" #'org-agenda-switch-with-roam
+  :nvmeg "<return>" #'org-agenda-switch-with-roam)
 (map!
   :map org-agenda-mode-map
   :after org-agenda
-  :nvmeg "<RET>" #'org-agenda-switch-with-roam)
+  :nvmeg "<RET>" #'org-agenda-switch-with-roam
+  :nvmeg "<return>" #'org-agenda-switch-with-roam)
 
 (require 'org-super-agenda)
 

@@ -1131,11 +1131,13 @@ I want this to be able to automatically open ORUI in EAF Browser in a split to t
 (map!
   :map evil-org-agenda-mode-map
   :after org-agenda
-  :nvmeg "<RET>" #'org-agenda-switch-with-roam)
+  :nvmeg "<RET>" #'org-agenda-switch-with-roam
+  :nvmeg "<return>" #'org-agenda-switch-with-roam)
 (map!
   :map org-agenda-mode-map
   :after org-agenda
-  :nvmeg "<RET>" #'org-agenda-switch-with-roam)
+  :nvmeg "<RET>" #'org-agenda-switch-with-roam
+  :nvmeg "<return>" #'org-agenda-switch-with-roam)
 
 #+END_SRC
 *** Org Super Agenda Configuration
