@@ -628,6 +628,13 @@ same directory as the org-buffer and insert a link to this file."
 ;; Build agenda for first time during this session
 (org-roam-refresh-agenda-list)
 
+
+(map! :leader
+      :prefix ("o a")
+
+      :desc "Refresh org agenda from roam dbs"
+      "r" 'org-roam-refresh-agenda-list)
+
 (map! :leader
       :prefix ("N" . "org-roam notes")
 
@@ -762,6 +769,24 @@ same directory as the org-buffer and insert a link to this file."
       :desc "Open org calendar"
       "o c" #'cfw:open-org-calendar)
 
+(defun org-agenda-switch-with-roam ()
+  "Switches to org roam node file and database from org agenda view"
+  (interactive)
+  (org-agenda-switch-to)
+  (if (f-exists-p (concat (dir!) "/org-roam.db"))
+    (org-roam-switch-db (f-filename (f-parent (dir!))) t))
+  (org-roam-olivetti-mode)
+)
+
+(map!
+  :map evil-org-agenda-mode-map
+  :after org-agenda
+  :nvmeg "<RET>" #'org-agenda-switch-with-roam)
+(map!
+  :map org-agenda-mode-map
+  :after org-agenda
+  :nvmeg "<RET>" #'org-agenda-switch-with-roam)
+
 (require 'org-super-agenda)
 
 (setq org-super-agenda-groups
@@ -866,6 +891,13 @@ https://github.com/magit/magit/issues/460 (@cpitclaudel)."
   "k" 'evil-previous-visual-line
   "q" '+magit/quit
   (kbd "<return>") 'magit-visit-ref)
+
+(evil-set-initial-state 'ibuffer-mode 'normal)
+(evil-define-key 'normal 'ibuffer-mode
+  "j" 'evil-next-visual-line
+  "k" 'evil-previous-visual-line
+  "q" 'kill-buffer
+  (kbd "<return>") 'ibuffer-visit-buffer)
 
 ;;;------ dired configuration ------;;;
 
