@@ -877,7 +877,7 @@ https://github.com/magit/magit/issues/460 (@cpitclaudel)."
   "F" 'magit-pull
   "p" 'magit-push
   "q" '+magit/quit
-  (kbd "<return>") 'magit-visit-ref)
+  (kbd "<return>") 'magit-diff-visit-file-worktree)
 (evil-define-key 'normal magit-log-mode-map
   "j" 'evil-next-visual-line
   "k" 'evil-previous-visual-line
