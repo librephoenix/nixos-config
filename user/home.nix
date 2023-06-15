@@ -43,9 +43,11 @@
     libreoffice-qt
     mate.atril
     xournalpp
+    glib
     gnome.geary
     gnome.gnome-calendar
     gnome.seahorse
+    gnome.gnome-maps
     newsflash
     #autokey
     protonmail-bridge
