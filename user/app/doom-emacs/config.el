@@ -353,6 +353,7 @@ same directory as the org-buffer and insert a link to this file."
 
 (defun org-copy-link-to-clipboard-at-point ()
   "Copy current link at point into clipboard (useful for images and links)"
+  ;; Remember to press C-g to kill this foreground process if it hangs!
   (interactive)
   (if (eq major-mode #'org-mode)
       (link-hint-copy-link-at-point)
@@ -363,7 +364,7 @@ same directory as the org-buffer and insert a link to this file."
   (if (eq major-mode #'image-mode)
       (image-mode-copy-file-name-as-kill)
   )
-  (shell-command (concat "~/.doom.d/scripts/copy-link-or-file/copy-link-or-file-to-clipboard.sh " (gui-get-selection 'CLIPBOARD)) nil nil)
+  (shell-command (concat "~/.emacs.d/scripts/copy-link-or-file/copy-link-or-file-to-clipboard.sh " (gui-get-selection 'CLIPBOARD)) nil nil)
 )
 
 (map! :leader

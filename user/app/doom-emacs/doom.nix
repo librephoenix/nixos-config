@@ -39,6 +39,7 @@ in
 
   home.packages = with pkgs; [
   git
+  file
   nodejs
   wmctrl
   jshon
@@ -78,4 +79,8 @@ in
     source = "${org-nursery}";
   };
   home.file.".emacs.d/dashboard-logo.png".source = myDashboardLogo;
+  home.file.".emacs.d/scripts/copy-link-or-file/copy-link-or-file-to-clipboard.sh" = {
+    source = ./scripts/copy-link-or-file/copy-link-or-file-to-clipboard.sh;
+    executable = true;
+  };
 }

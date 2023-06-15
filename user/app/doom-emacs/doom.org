@@ -423,6 +423,7 @@ same directory as the org-buffer and insert a link to this file."
 #+BEGIN_SRC emacs-lisp :tangle config.el
 (defun org-copy-link-to-clipboard-at-point ()
   "Copy current link at point into clipboard (useful for images and links)"
+  ;; Remember to press C-g to kill this foreground process if it hangs!
   (interactive)
   (if (eq major-mode #'org-mode)
       (link-hint-copy-link-at-point)
@@ -433,7 +434,7 @@ same directory as the org-buffer and insert a link to this file."
   (if (eq major-mode #'image-mode)
       (image-mode-copy-file-name-as-kill)
   )
-  (shell-command (concat "~/.doom.d/scripts/copy-link-or-file/copy-link-or-file-to-clipboard.sh " (gui-get-selection 'CLIPBOARD)) nil nil)
+  (shell-command (concat "~/.emacs.d/scripts/copy-link-or-file/copy-link-or-file-to-clipboard.sh " (gui-get-selection 'CLIPBOARD)) nil nil)
 )
 
 (map! :leader
@@ -445,7 +446,6 @@ same directory as the org-buffer and insert a link to this file."
 Shamelessly stolen from [[https://unix.stackexchange.com/questions/30093/copy-image-from-command-line-to-clipboard][here]] and modified for my use.
 #+BEGIN_SRC shell :tangle ./scripts/copy-link-or-file/copy-link-or-file-to-clipboard.sh :tangle-mode (identity #o755)
 #!/bin/sh
-#command -v xclip >/dev/null 2>&1 || { echo "Need command xclip. Aborting." >&2; exit 1; }
 if [[ -f "$1" ]]; then
   TYPE=$(file -b --mime-type "$1")
   xclip -selection clipboard -t "$TYPE" -i "$1"
@@ -1450,6 +1450,7 @@ in
 
   home.packages = with pkgs; [
   git
+  file
   nodejs
   wmctrl
   jshon
@@ -1489,5 +1490,9 @@ in
     source = "${org-nursery}";
   };
   home.file.".emacs.d/dashboard-logo.png".source = myDashboardLogo;
+  home.file.".emacs.d/scripts/copy-link-or-file/copy-link-or-file-to-clipboard.sh" = {
+    source = ./scripts/copy-link-or-file/copy-link-or-file-to-clipboard.sh;
+    executable = true;
+  };
 }
 #+END_SRC
