@@ -183,6 +183,7 @@
     ubuntu_font_family
     terminus_font
     gamemode
+    openvpn
   ];
 
 
@@ -206,6 +207,8 @@
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
+
+  environment.etc.openvpn.source = "${pkgs.update-resolv-conf}/libexec/openvpn";
 
   # Printing
   services.printing.enable = true;
