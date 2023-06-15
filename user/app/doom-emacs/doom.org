@@ -1219,11 +1219,11 @@ https://github.com/magit/magit/issues/460 (@cpitclaudel)."
 (advice-add 'magit-process-environment
             :filter-return #'~/magit-process-environment)
 
-(evil-set-initial-state 'magit-status-mode 'normal)
-(evil-set-initial-state 'magit-log-mode 'normal)
-(evil-set-initial-state 'magit-diff-mode 'normal)
-(evil-set-initial-state 'magit-refs-mode 'normal)
-(evil-define-key 'normal magit-status-mode-map
+(evil-set-initial-state 'magit-status-mode 'motion)
+(evil-set-initial-state 'magit-log-mode 'motion)
+(evil-set-initial-state 'magit-diff-mode 'motion)
+(evil-set-initial-state 'magit-refs-mode 'motion)
+(evil-define-key 'motion magit-status-mode-map
   "j" 'evil-next-visual-line
   "k" 'evil-previous-visual-line
   "c" 'magit-commit
@@ -1234,17 +1234,17 @@ https://github.com/magit/magit/issues/460 (@cpitclaudel)."
   "p" 'magit-push
   "q" '+magit/quit
   (kbd "<return>") 'magit-diff-visit-file-worktree)
-(evil-define-key 'normal magit-log-mode-map
+(evil-define-key 'motion magit-log-mode-map
   "j" 'evil-next-visual-line
   "k" 'evil-previous-visual-line
   "q" '+magit/quit
   (kbd "<return>") 'magit-visit-ref)
-(evil-define-key 'normal magit-diff-mode-map
+(evil-define-key 'motion magit-diff-mode-map
   "j" 'evil-next-visual-line
   "k" 'evil-previous-visual-line
   "q" '+magit/quit
   (kbd "<return>") 'magit-visit-ref)
-(evil-define-key 'normal magit-refs-mode-map
+(evil-define-key 'motion magit-refs-mode-map
   "j" 'evil-next-visual-line
   "k" 'evil-previous-visual-line
   "q" '+magit/quit
@@ -1253,10 +1253,11 @@ https://github.com/magit/magit/issues/460 (@cpitclaudel)."
 #+END_SRC
 ** Ibuffer Configuration
 #+BEGIN_SRC emacs-lisp :tangle config.el
-(evil-set-initial-state 'ibuffer-mode 'normal)
-(evil-define-key 'normal 'ibuffer-mode
+(evil-set-initial-state 'ibuffer-mode 'motion)
+(evil-define-key 'motion 'ibuffer-mode
   "j" 'evil-next-visual-line
   "k" 'evil-previous-visual-line
+  "d" 'ibuffer-mark-for-delete
   "q" 'kill-buffer
   (kbd "<return>") 'ibuffer-visit-buffer)
 #+END_SRC
