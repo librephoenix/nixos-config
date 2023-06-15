@@ -431,25 +431,6 @@ same directory as the org-buffer and insert a link to this file."
 ;      :desc "Simple print region in web browser"
 ;      "r" 'org-simple-print-region)
 
-;; Custom function to convert org mode to ODP presentation
-;; Depends on bash, libreoffice, and pandoc
-(defun my-ox-odp ()
-  "Convert an org mode file to an ODP presentation."
-  (interactive)
-  (setq file-name (buffer-file-name))
-  (setq output-pptx-file-name (replace-regexp-in-string "\.org" "\.pptx" (buffer-file-name)))
-  (setq output-odp-file-name (replace-regexp-in-string "\.org" "\.odp" (buffer-file-name)))
-  (setq odp-style-file-name (completing-read "Choose style: "
-                                             '("/home/emmet/.doom.d/scripts/ox-odp/styles/water.odp"
-                                                "/home/emmet/.doom.d/scripts/ox-odp/styles/dark.odp"
-                                              ) nil t))
-  (shell-command (concat "~/.doom.d/scripts/ox-odp/ox-odp.sh \"" (buffer-file-name) "\" \"" odp-style-file-name "\" > /dev/null"))
-  )
-
-(map! :leader
-      :desc "Convert org document to odp presentation"
-      "e p" 'my-ox-odp)
-
 ;;;------ Org roam configuration ------;;;
 
 (require 'org-roam)
