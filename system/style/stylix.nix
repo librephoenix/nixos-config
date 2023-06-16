@@ -1,33 +1,43 @@
-{ config, pkgs, ... }:
+{ config, pkgs, myTheme, myThemePolarity, myBackgroundUrl, myBackgroundSha256, ... }:
+
 let
   myFont = "Inconsolata";
   myFontPkg = pkgs.inconsolata;
+  myThemePath = "../../../themes/"+myTheme+"/"+myTheme+".yaml";
+  myLightDMTheme = if myThemePolarity == "light" then "Adwaita" else "Adwaita-dark";
 in
 {
-  #stylix.autoEnable = false;
-  #stylix.polarity = "dark";
-  # stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/tokyo-dark-night.yaml";
-  #stylix.fonts = {
-  #  monospace = {
-  #    name = myFont;
-  #    package = myFontPkg;
-  #  };
-  #  serif = {
-  #    name = myFont;
-  #    package = myFontPkg;
-  #  };
-  #  sansSerif = {
-  #    name = myFont;
-  #    package = myFontPkg;
-  #  };
-  #  emoji = {
-  #    name = "Noto Color Emoji";
-  #    package = pkgs.noto-fonts-emoji-blob-bin;
-  #  };
-  #};
-#
- # stylix.targets.grub.enable = true;
- # stylix.targets.lightdm.enable = true;
- # stylix.targets.console.enable = true;
+  stylix.autoEnable = false;
+  stylix.polarity = myThemePolarity;
+  stylix.image = pkgs.fetchurl {
+    url = myBackgroundUrl;
+    sha256 = myBackgroundSha256;
+  };
+  stylix.base16Scheme = ./. + myThemePath;
+  stylix.fonts = {
+    monospace = {
+      name = myFont;
+      package = myFontPkg;
+    };
+    serif = {
+      name = myFont;
+      package = myFontPkg;
+    };
+    sansSerif = {
+      name = myFont;
+      package = myFontPkg;
+    };
+    emoji = {
+      name = "Noto Color Emoji";
+      package = pkgs.noto-fonts-emoji-blob-bin;
+    };
+  };
+
+  stylix.targets.lightdm.enable = true;
+  services.xserver.displayManager.lightdm = {
+      greeters.slick.enable = true;
+      greeters.slick.theme.name = myLightDMTheme;
+  };
+  stylix.targets.console.enable = true;
 
 }

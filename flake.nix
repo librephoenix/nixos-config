@@ -74,10 +74,12 @@
         inherit system;
         modules = [
           ./system/configuration.nix
-          # stylix.nixosModules.stylix # complains that home-manager is not defined
+          ./system/style/stylix.nix
+          stylix.nixosModules.stylix
         ];
         specialArgs = {
           myTheme = theme;
+          myThemePolarity = themePolarity;
           myBackgroundUrl = backgroundUrl;
           myBackgroundSha256 = backgroundSha256;
         };

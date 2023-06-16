@@ -110,12 +110,6 @@
     displayManager = {
       lightdm.enable = true;
       defaultSession = "none+xmonad";
-      lightdm.greeters.slick.enable = true;
-      lightdm.background = pkgs.fetchurl {
-        url = myBackgroundUrl;
-        sha256 = myBackgroundSha256;
-      };
-      lightdm.greeters.slick.theme.name = "Adwaita-dark";
     };
     libinput = {
       touchpad.disableWhileTyping = true;
