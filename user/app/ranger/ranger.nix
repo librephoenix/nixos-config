@@ -1,9 +1,19 @@
 { config, lib, pkgs, ... }:
-
+let myCbxScript = ''
+  #!/bin/sh
+  if [ "$#" -le "2" ]; then
+    if [ "$1" = "copy" -o "$1" = "cut" ]; then
+      #xclip -selection clipboard -t $(file -b --mime-type $2) -i $2;
+      xclip -selection clipboard -t image/png -i $2;
+    fi
+  fi
+  '';
+in
 {
   home.packages = with pkgs; [
     ranger
     xdragon
+    (pkgs.writeScriptBin "cbx" myCbxScript)
   ];
   home.file.".config/ranger/rc.conf".source = ./rc.conf;
   home.file.".config/ranger/rifle.conf".source = ./rifle.conf;
