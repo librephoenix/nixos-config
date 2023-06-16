@@ -51,6 +51,7 @@
     newsflash
     #autokey
     protonmail-bridge
+    openvpn
 
     # Media
     gimp-with-plugins
