@@ -20,9 +20,13 @@
       url = "github:chrisbarrett/nursery";
       flake = false;
     };
+    blocklist-hosts = {
+      url = "github:StevenBlack/hosts";
+      flake = false;
+    };
   };
 
-  outputs = { self, nixpkgs, home-manager, nix-doom-emacs, stylix, eaf, eaf-browser, org-nursery, rust-overlay, ... }@inputs:
+  outputs = { self, nixpkgs, home-manager, nix-doom-emacs, stylix, eaf, eaf-browser, org-nursery, blocklist-hosts, rust-overlay, ... }@inputs:
   let
     system = "x86_64-linux";
     name = "emmet";
@@ -82,6 +86,7 @@
           myThemePolarity = themePolarity;
           myBackgroundUrl = backgroundUrl;
           myBackgroundSha256 = backgroundSha256;
+          inherit (inputs) blocklist-hosts;
         };
       };
     };
