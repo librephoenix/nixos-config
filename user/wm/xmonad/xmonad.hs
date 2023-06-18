@@ -94,7 +94,7 @@ myScratchPads =
     NS "btm" spawnBtm findBtm manageBtm,
     NS "geary" spawnGeary findGeary manageGeary,
     NS "helpmenu" spawnHelp findHelp manageHelp,
-    NS "cmus" spawnCmus findCmus manageCmus,
+    NS "musikcube" spawnMusikcube findMusikcube manageMusikcube,
     NS "cal" spawnCal findCal manageCal,
     NS "pavucontrol" spawnPavucontrol findPavucontrol managePavucontrol,
     NS "discord" spawnDiscord findDiscord manageDiscord
@@ -157,9 +157,9 @@ myScratchPads =
         w = 0.9
         t = 0.95 - h
         l = 0.95 - w
-    spawnCmus = myTerminal ++ " -o font.size=28 --title cmus-scratchpad -e cmus && cmus-remote -R && cmus-remote -S"
-    findCmus = title =? "cmus-scratchpad"
-    manageCmus = customFloating $ W.RationalRect l t w h
+    spawnMusikcube = myTerminal ++ " -o font.size=28 --title musikcube-scratchpad -e musikcube"
+    findMusikcube = title =? "musikcube-scratchpad"
+    manageMusikcube = customFloating $ W.RationalRect l t w h
       where
         h = 0.9
         w = 0.9
@@ -221,10 +221,10 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) =
       ((0, xF86XK_AudioMute), spawn "pamixer -t"),
 
       -- control music from kbd
-      ((0, xF86XK_AudioPlay), spawn "cmus-remote -u"),
-      ((0, xF86XK_AudioStop), spawn "cmus-remote -s"),
-      ((0, xF86XK_AudioNext), spawn "cmus-remote -n && ~/.local/bin/cmus-current-song-notify.sh"),
-      ((0, xF86XK_AudioPrev), spawn "cmus-remote -r && ~/.local/bin/cmus-current-song-notify.sh"),
+      --((0, xF86XK_AudioPlay), spawn "cmus-remote -u"),
+      --((0, xF86XK_AudioStop), spawn "cmus-remote -s"),
+      --((0, xF86XK_AudioNext), spawn "cmus-remote -n && ~/.local/bin/cmus-current-song-notify.sh"),
+      --((0, xF86XK_AudioPrev), spawn "cmus-remote -r && ~/.local/bin/cmus-current-song-notify.sh"),
 
       -- launch rofi
       ((modm, xK_semicolon), spawn ("rofi -show drun -show-icons")),
@@ -301,7 +301,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) =
       ((modm, xK_d), namedScratchpadAction myScratchPads "discord"),
       ((modm, xK_o), namedScratchpadAction myScratchPads "octave"),
       ((modm, xK_e), namedScratchpadAction myScratchPads "geary"),
-      ((modm, xK_n), namedScratchpadAction myScratchPads "cmus"),
+      ((modm, xK_n), namedScratchpadAction myScratchPads "musikcube"),
       ((modm, xK_c), namedScratchpadAction myScratchPads "cal"),
       ((modm, xK_y), namedScratchpadAction myScratchPads "pavucontrol"),
       ((modm, xK_slash), namedScratchpadAction myScratchPads "helpmenu")

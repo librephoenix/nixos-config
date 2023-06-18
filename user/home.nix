@@ -56,7 +56,7 @@
     # Media
     gimp-with-plugins
     krita
-    cmus
+    musikcube
     vlc
     mpv
     yt-dlp
