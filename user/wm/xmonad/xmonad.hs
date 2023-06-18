@@ -157,7 +157,7 @@ myScratchPads =
         w = 0.9
         t = 0.95 - h
         l = 0.95 - w
-    spawnMusikcube = myTerminal ++ " -o font.size=28 --title musikcube-scratchpad -e musikcube"
+    spawnMusikcube = myTerminal ++ " -o font.size=14 --title musikcube-scratchpad -e musikcube"
     findMusikcube = title =? "musikcube-scratchpad"
     manageMusikcube = customFloating $ W.RationalRect l t w h
       where
