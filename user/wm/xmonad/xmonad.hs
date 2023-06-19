@@ -229,6 +229,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) =
       -- launch rofi
       ((modm, xK_semicolon), spawn ("rofi -show drun -show-icons")),
       ((modm, xK_p), spawn ("keepmenu")),
+      ((modm, xK_i), spawn ("networkmanager_dmenu")),
 
       -- close focused window
       ((modm, xK_q), kill),

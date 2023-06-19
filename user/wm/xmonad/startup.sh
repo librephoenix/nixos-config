@@ -7,30 +7,21 @@ colorSecondary=$4
 #
 ## Kill previous instances of applications (Prevents multiple instances of the following if XMonad is restarted durin the X session)
 killall xmobar
-killall trayer
 killall nm-applet
-killall nextcloud
-killall xautolock
-killall caffeine
-killall syncthing-gtk
-killall gtkcord4
-killall qjoypad
 
 # Launch necessary desktop applications
-emacs --daemon &
+autorandr;
 picom --animations --animation-window-mass 1 --animation-for-open-window zoom --animation-stiffness 200 --experimental-backends && # requires picom-pijulius
 xset r rate 350 50 &
 setxkbmap -option caps:escape &
 ~/.fehbg-stylix &
+~/.config/xmobar/xmobar-st-check.sh &
 twmnd &
 alttab -w 1 -t 240x160 -i 64x64 -sc 1 -bg $colorBg -fg $colorFg -frame $colorSecondary -inact $colorFg &
 ##/usr/bin/trayer --edge top --align right --SetDockType true --SetPartialStrut true --expand true --widthtype request --transparent true --alpha 0 --height 28 --tint $trayertint --monitor "primary" &
 nm-applet &
 GOMAXPROCS=1 syncthing --no-browser &
-rclone mount adantium-nextcloud:/ ~/Nextcloud &
-syncthing-gtk -m &
 protonmail-bridge --noninteractive
-~/.local/bin/setup-external-monitor.sh &
-rm -rf ~/org &
+emacs --daemon; rm -rf ~/org &
 gnome-keyring-daemon --daemonize --login &
 gnome-keyring-daemon --start --components=secrets &

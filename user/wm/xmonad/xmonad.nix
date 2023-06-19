@@ -11,6 +11,7 @@
 
   home.packages = with pkgs; [
     xmobar
+    networkmanagerapplet
     dunst
     pamixer
     autorandr
@@ -47,6 +48,15 @@
   home.file.".config/xmobar/xmobarrc".source = config.lib.stylix.colors {
     template = builtins.readFile ./xmobarrc.mustache;
     extension = "";
+  };
+
+
+  home.file.".config/xmobar/xmobar-st-check.sh" = {
+    source = config.lib.stylix.colors {
+      template = builtins.readFile ./xmobar-st-check.sh.mustache;
+      extension = ".sh";
+    };
+    executable = true;
   };
 
   services.autorandr.enable = true;

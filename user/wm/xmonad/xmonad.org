@@ -314,6 +314,7 @@ I have =rofi= bound to =S-;= for quick app access.
       -- launch rofi
       ((modm, xK_semicolon), spawn ("rofi -show drun -show-icons")),
       ((modm, xK_p), spawn ("keepmenu")),
+      ((modm, xK_i), spawn ("networkmanager_dmenu")),
 
 #+END_SRC
 **** Window Management Keybinds
@@ -645,35 +646,26 @@ The autostart script kills all applications I am autostarting, which prevents mu
 #
 ## Kill previous instances of applications (Prevents multiple instances of the following if XMonad is restarted durin the X session)
 killall xmobar
-killall trayer
 killall nm-applet
-killall nextcloud
-killall xautolock
-killall caffeine
-killall syncthing-gtk
-killall gtkcord4
-killall qjoypad
 
 #+END_SRC
 
 Then, desktop applications are started in the background.
 #+BEGIN_SRC sh :tangle startup.sh :tangle-mode (identity #o755)
 # Launch necessary desktop applications
-emacs --daemon &
+autorandr;
 picom --animations --animation-window-mass 1 --animation-for-open-window zoom --animation-stiffness 200 --experimental-backends && # requires picom-pijulius
 xset r rate 350 50 &
 setxkbmap -option caps:escape &
 ~/.fehbg-stylix &
+~/.config/xmobar/xmobar-st-check.sh &
 twmnd &
 alttab -w 1 -t 240x160 -i 64x64 -sc 1 -bg $colorBg -fg $colorFg -frame $colorSecondary -inact $colorFg &
 ##/usr/bin/trayer --edge top --align right --SetDockType true --SetPartialStrut true --expand true --widthtype request --transparent true --alpha 0 --height 28 --tint $trayertint --monitor "primary" &
 nm-applet &
 GOMAXPROCS=1 syncthing --no-browser &
-rclone mount adantium-nextcloud:/ ~/Nextcloud &
-syncthing-gtk -m &
 protonmail-bridge --noninteractive
-~/.local/bin/setup-external-monitor.sh &
-rm -rf ~/org &
+emacs --daemon; rm -rf ~/org &
 gnome-keyring-daemon --daemonize --login &
 gnome-keyring-daemon --start --components=secrets &
 #+END_SRC
@@ -756,21 +748,34 @@ Config { font = "Inconsolata 16"
                       ] 1
                     , Run DynNetwork
                       [ "-t", "<fc=#{{base0D-hex}}><fn=1>\xf0200</fn> <dev></fc>"] 1
+                    , Run Com "cat"
+                      [ "/home/emmet/.st-status"] "syncthing" 10
                     , Run Com "echo"
-                      [ "<fc=#{{base0E-hex}}><fn=1>\xea77</fn> st</fc>"] "syncthing" 0
+                      [ "<fn=1>\xea77</fn> "] "syncthingsymbol" 0
                     , Run Com "echo"
-                      [ "<fn=1>\xeb5c</fn> "] "currentthemesymbol" 0
+                      [ "<fn=1>\xeb5c</fn> "] "artsymbol" 0
                     , Run Com "cat"
                       [ "/home/emmet/.currenttheme"] "currenttheme" 0
                     , Run Memory [ "-t", "<fc=#{{base08-hex}}><fn=1>\xf035b</fn> <usedratio>% (<used> GB)</fc>", "-d", "1", "--", "--scale", "1024"] 20
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = " %battery% %bright%<action=`xdotool key Super_L+y`>%default:Master%</action> %memory%  %currentthemesymbol%%currenttheme%}%XMonadLog%{<action=`librewolf localhost:8384`>%syncthing%</action>  <action='networkmanager_dmenu'>%dynnetwork%</action> <action=`xdotool key Super_L+c`>%date%</action> "
+       , template = " %battery% %bright%<action=`xdotool key Super_L+y`>%default:Master%</action> %memory%  %artsymbol%%currenttheme%}%XMonadLog%{<action=`librewolf localhost:8384`>%syncthing%</action>  <action='networkmanager_dmenu'>%dynnetwork%</action> <action=`xdotool key Super_L+c`>%date%</action> "
        }
 }
 
 #+END_SRC
+
+#+BEGIN_SRC shell :tangle xmobar-st-check.sh.mustache
+#!/bin/sh
+while true
+  do
+    curl localhost:8384 &> /dev/null || echo '<fc=#{{base08-hex}}>❄ st off</fc>' > ~/.st-status;
+    curl localhost:8384 &> /dev/null && echo '<fc=#{{base0E-hex}}>↺ st on</fc>' > ~/.st-status;
+    sleep 5;
+  done
+#+END_SRC
+
 * Nix Integration
 In order to have Nix put my xmonad/xmobar configuration in the proper places, I have [[./xmonad.nix][xmonad.nix]], which I source in the =imports= block of my [[../../home.nix][home.nix]].
 #+BEGIN_SRC nix :tangle xmonad.nix
@@ -787,6 +792,7 @@ In order to have Nix put my xmonad/xmobar configuration in the proper places, I 
 
   home.packages = with pkgs; [
     xmobar
+    networkmanagerapplet
     dunst
     pamixer
     autorandr
@@ -823,6 +829,15 @@ In order to have Nix put my xmonad/xmobar configuration in the proper places, I 
   home.file.".config/xmobar/xmobarrc".source = config.lib.stylix.colors {
     template = builtins.readFile ./xmobarrc.mustache;
     extension = "";
+  };
+
+
+  home.file.".config/xmobar/xmobar-st-check.sh" = {
+    source = config.lib.stylix.colors {
+      template = builtins.readFile ./xmobar-st-check.sh.mustache;
+      extension = ".sh";
+    };
+    executable = true;
   };
 
   services.autorandr.enable = true;
