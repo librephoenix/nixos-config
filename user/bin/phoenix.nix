@@ -13,19 +13,22 @@ let
           pushd ''+myDotfilesDir+'';
           home-manager switch --flake .#''+myName+'';
           popd;
-          killall xmobar;
-          xmonad --recompile && xmonad --restart;
-          emacsclient --no-wait --eval "(load-theme 'doom-stylix t nil)";
-          pushd ~/.emacs.d/eaf/app/browser;
-          rm package*.json;
-          npm install darkreader @mozilla/readability && rm package*.json;
-          popd;
-          ~/.fehbg-stylix;
+          which xmobar &> /dev/null && killall xmobar;
+          which xmonad &> /dev/null && xmonad --recompile && xmonad --restart;
+          which emacsclient &> /dev/null && emacsclient --no-wait --eval "(load-theme 'doom-stylix t nil)";
+          [ -f ~/.fehbg-stylix ] &> /dev/null && ~/.fehbg-stylix;
         fi
       elif [ "$1" = "update" ]; then
         pushd ''+myDotfilesDir+'';
         nix flake update;
         popd;
+        if [ -d ~/.emacs.d/eaf/app/browser ]
+        then
+          pushd ~/.emacs.d/eaf/app/browser;
+          rm package*.json;
+          npm install darkreader @mozilla/readability && rm package*.json;
+          popd;
+        fi
       elif [ "$1" = "gc" ]; then
         if [ "$2" = "full" ]; then
           sudo nix-collect-garbage --delete-old;

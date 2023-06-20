@@ -2,13 +2,13 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, lib, pkgs, blocklist-hosts, myTheme, myBackgroundUrl, myBackgroundSha256, ... }:
+{ config, lib, pkgs, blocklist-hosts, myHostname, myTheme, myBackgroundUrl, myBackgroundSha256, ... }:
 let blocklist = builtins.readFile "${blocklist-hosts}/alternates/gambling-porn/hosts";
 in
 {
   imports =
     [ ./hardware-configuration.nix
-      #./style/stylix.nix
+      ./style/stylix.nix
     ];
 
   nix.nixPath = [ "nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos"
@@ -54,7 +54,7 @@ in
     "/crypto_keyfile.bin" = null;
   };
 
-  networking.hostName = "snowfire"; # Define your hostname.
+  networking.hostName = myHostname; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   networking.extraHosts = ''

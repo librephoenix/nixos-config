@@ -28,12 +28,15 @@
 
   outputs = { self, nixpkgs, home-manager, nix-doom-emacs, stylix, eaf, eaf-browser, org-nursery, blocklist-hosts, rust-overlay, ... }@inputs:
   let
-    system = "x86_64-linux";
-    name = "emmet";
-    email = "librephoenix3@pm.me";
-    dotfilesDir = "~/.dotfiles";
-    theme = "ayu-dark";
+    system = "x86_64-linux"; # system arch
+    hostname = "snowfire"; # hostname
+    profile = "personal"; # select a profile defined from my profiles directory
+    name = "emmet"; # username
+    email = "librephoenix3@pm.me"; # email (used for certain configurations)
+    dotfilesDir = "~/.dotfiles"; # absolute path of the repo
+    theme = "ayu-dark"; # selcted theme from my themes directory
 
+    # calculates certain things for stylix
     themePolarityPath = "/themes/"+theme+"/polarity.txt";
     themePolarity = lib.removeSuffix "\n" (builtins.readFile (./. + themePolarityPath));
     backgroundUrlPath = "/themes/"+theme+"/backgroundurl.txt";
@@ -78,11 +81,11 @@
         inherit system;
         modules = [
           ./system/configuration.nix
-          ./system/style/stylix.nix
           stylix.nixosModules.stylix
         ];
         specialArgs = {
           myTheme = theme;
+          myHostname = hostname;
           myThemePolarity = themePolarity;
           myBackgroundUrl = backgroundUrl;
           myBackgroundSha256 = backgroundSha256;
