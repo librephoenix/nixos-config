@@ -1,4 +1,4 @@
-{ config, lib, pkgs, python3Packages, myName, myEmail, myHomeDir, myDotfilesDir, myTheme, ... }:
+{ config, lib, pkgs, python3Packages, nix-doom-emacs, stylix, myName, myEmail, myHomeDir, myDotfilesDir, myTheme, ... }:
 
 {
   # Home Manager needs a bit of information about you and the paths it should
@@ -9,21 +9,23 @@
   programs.home-manager.enable = true;
 
   imports = [
-              ./wm/xmonad/xmonad.nix # My xmonad config
-              ./shell/sh.nix # My zsh and bash config
-              ./shell/cli-collection.nix # Useful CLI apps
-              ./bin/phoenix.nix # My nix command wrapper
-              ./app/doom-emacs/doom.nix # My doom emacs config
-              ./app/ranger/ranger.nix # My ranger file manager config
-              ./app/git/git.nix # My git config
-              ./app/keepass/keepass.nix # My password manager
-              ./app/browser/librewolf.nix # My default browser
-              ./app/games/games.nix # Various videogame apps
-              ./app/virtualization/virtualization.nix # Virtual machines
-              ./app/flatpak/flatpak.nix # Flatpaks
-              ./style/stylix.nix # Styling and themes for my apps
-              ./lang/cc/cc.nix # C and C++ tools
-              ./lang/godot/godot.nix # Game development
+              nix-doom-emacs.hmModule
+              stylix.homeManagerModules.stylix
+              ../../user/wm/xmonad/xmonad.nix # My xmonad config
+              ../../user/shell/sh.nix # My zsh and bash config
+              ../../user/shell/cli-collection.nix # Useful CLI apps
+              ../../user/bin/phoenix.nix # My nix command wrapper
+              ../../user/app/doom-emacs/doom.nix # My doom emacs config
+              ../../user/app/ranger/ranger.nix # My ranger file manager config
+              ../../user/app/git/git.nix # My git config
+              ../../user/app/keepass/keepass.nix # My password manager
+              ../../user/app/browser/librewolf.nix # My default browser
+              ../../user/app/games/games.nix # Various videogame apps
+              ../../user/app/virtualization/virtualization.nix # Virtual machines
+              ../../user/app/flatpak/flatpak.nix # Flatpaks
+              ../../user/style/stylix.nix # Styling and themes for my apps
+              ../../user/lang/cc/cc.nix # C and C++ tools
+              ../../user/lang/godot/godot.nix # Game development
             ];
 
   home.stateVersion = "22.11"; # Please read the comment before changing.

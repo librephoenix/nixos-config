@@ -28,15 +28,24 @@
 
   outputs = { self, nixpkgs, home-manager, nix-doom-emacs, stylix, eaf, eaf-browser, org-nursery, blocklist-hosts, rust-overlay, ... }@inputs:
   let
+    # --- SYSTEM SETTINGS --- #
     system = "x86_64-linux"; # system arch
     hostname = "snowfire"; # hostname
     profile = "personal"; # select a profile defined from my profiles directory
+    timezone = "America/Chicago"; # select timezone
+    locale = "en_US.UTF-8"; # select locale
+
+    # ---- USER SETTINGS ---- #
     name = "emmet"; # username
     email = "librephoenix3@pm.me"; # email (used for certain configurations)
     dotfilesDir = "~/.dotfiles"; # absolute path of the repo
     theme = "ayu-dark"; # selcted theme from my themes directory
 
-    # calculates certain things for stylix
+    # ---- CALCULATIONS ----- #
+    profileWithSlash = "/" + profile; # I honestly don't know why this is necessary
+    homeNixPath = ./. + "/profiles" + profileWithSlash + "/home.nix";
+    configurationNixPath = ./. + "/profiles" + profileWithSlash + "/configuration.nix";
+
     themePolarityPath = "/themes/"+theme+"/polarity.txt";
     themePolarity = lib.removeSuffix "\n" (builtins.readFile (./. + themePolarityPath));
     backgroundUrlPath = "/themes/"+theme+"/backgroundurl.txt";
@@ -57,12 +66,11 @@
       emmet = home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
           modules = [
-            ./user/home.nix
-            nix-doom-emacs.hmModule
-            stylix.homeManagerModules.stylix
+            homeNixPath
           ];
           extraSpecialArgs = {
             myName = name;
+            myHostname = hostname;
             myHomeDir = "/home/"+name;
             myEmail = email;
             myDotfilesDir = dotfilesDir;
@@ -70,6 +78,8 @@
             myThemePolarity = themePolarity;
             myBackgroundUrl = backgroundUrl;
             myBackgroundSha256 = backgroundSha256;
+            inherit (inputs) nix-doom-emacs;
+            inherit (inputs) stylix;
             inherit (inputs) eaf;
             inherit (inputs) eaf-browser;
             inherit (inputs) org-nursery;
@@ -79,16 +89,15 @@
     nixosConfigurations = {
       snowfire = lib.nixosSystem {
         inherit system;
-        modules = [
-          ./system/configuration.nix
-          stylix.nixosModules.stylix
-        ];
+        modules = [ configurationNixPath ];
         specialArgs = {
+          myName = name;
           myTheme = theme;
           myHostname = hostname;
           myThemePolarity = themePolarity;
           myBackgroundUrl = backgroundUrl;
           myBackgroundSha256 = backgroundSha256;
+          inherit (inputs) stylix;
           inherit (inputs) blocklist-hosts;
         };
       };

@@ -1,4 +1,4 @@
-{ config, pkgs, myTheme, myThemePolarity, myBackgroundUrl, myBackgroundSha256, ... }:
+{ config, pkgs, stylix, myTheme, myThemePolarity, myBackgroundUrl, myBackgroundSha256, ... }:
 
 let
   myFont = "Inconsolata";
@@ -7,11 +7,13 @@ let
   myLightDMTheme = if myThemePolarity == "light" then "Adwaita" else "Adwaita-dark";
 in
 {
+  imports = [ stylix.nixosModules.stylix ];
+
   stylix.autoEnable = false;
   stylix.polarity = myThemePolarity;
   stylix.image = pkgs.fetchurl {
-    url = myBackgroundUrl;
-    sha256 = myBackgroundSha256;
+   url = myBackgroundUrl;
+   sha256 = myBackgroundSha256;
   };
   stylix.base16Scheme = ./. + myThemePath;
   stylix.fonts = {

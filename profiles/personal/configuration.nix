@@ -2,13 +2,13 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, lib, pkgs, blocklist-hosts, myHostname, myTheme, myBackgroundUrl, myBackgroundSha256, ... }:
+{ config, lib, pkgs, blocklist-hosts, myName, myHostname, myTheme, myBackgroundUrl, myBackgroundSha256, ... }:
 let blocklist = builtins.readFile "${blocklist-hosts}/alternates/gambling-porn/hosts";
 in
 {
   imports =
-    [ ./hardware-configuration.nix
-      ./style/stylix.nix
+    [ ../../system/hardware-configuration.nix
+      ../../system/style/stylix.nix
     ];
 
   nix.nixPath = [ "nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos"
@@ -26,7 +26,7 @@ in
   security.doas.enable = true;
   security.sudo.enable = false;
   security.doas.extraRules = [{
-    users = [ "emmet" ];
+    users = [ "${myName}" ];
     keepEnv = true;
     persist = true;
   }];
@@ -135,7 +135,7 @@ in
   users.defaultUserShell = pkgs.zsh;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.emmet = {
+  users.users.${myName} = {
     isNormalUser = true;
     description = "Emmet";
     extraGroups = [ "networkmanager" "wheel" ];
