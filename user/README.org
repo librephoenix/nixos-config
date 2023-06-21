@@ -33,7 +33,7 @@ My user-level Nix modules are organized into this directory:
   - [[./shell/sh.nix][sh]] - bash and zsh configs
   - [[./shell/cli-collection.nix][cli-collection]] - Curated useful CLI utilities
 - [[./style][style]] - Stylix setup (system-wide base16 theme generation)
-- [[./wm][wm]] - Window manager, compositor, and/or wayland compositor setups
+- [[./wm][wm]] - Window manager, compositor, wayland compositor, and/or desktop environment setups
   - [[./wm/xmonad][xmonad]]
   - [[./wm/picom][picom]]
 

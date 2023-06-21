@@ -29,6 +29,7 @@
     backgroundSha256Path = "/themes/"+theme+"/backgroundsha256.txt";
     backgroundSha256 = builtins.readFile (./. + backgroundSha256Path);
 
+    # set pkgs to correct type
     pkgs = import nixpkgs {
       inherit system;
       config = { allowUnfree = true; };
