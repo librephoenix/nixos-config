@@ -15,11 +15,15 @@
     email = "librephoenix3@pm.me"; # email (used for certain configurations)
     dotfilesDir = "~/.dotfiles"; # absolute path of the repo
     theme = "ayu-dark"; # selcted theme from my themes directory
+    wm = "xmonad"; # Selected window manager or desktop environment
 
     # ---- CALCULATIONS ----- #
     profileWithSlash = "/" + profile; # I honestly don't know why this is necessary
+    wmWithSlash = "/" + wm; # Don't understand this either
     homeNixPath = ./. + "/profiles" + profileWithSlash + "/home.nix";
     configurationNixPath = ./. + "/profiles" + profileWithSlash + "/configuration.nix";
+    systemWMNixPath = ./. + "/system/wm" + wmWithSlash + ".nix";
+    userWMNixPath = ./. + "/user/wm" + wmWithSlash + wmWithSlash + ".nix";
 
     themePolarityPath = "/themes/"+theme+"/polarity.txt";
     themePolarity = lib.removeSuffix "\n" (builtins.readFile (./. + themePolarityPath));
@@ -49,6 +53,7 @@
             myHomeDir = "/home/"+name;
             myEmail = email;
             myDotfilesDir = dotfilesDir;
+            inherit userWMNixPath;
             myTheme = theme;
             myThemePolarity = themePolarity;
             myBackgroundUrl = backgroundUrl;
@@ -67,10 +72,11 @@
         modules = [ configurationNixPath ];
         specialArgs = {
           myName = name;
-          myTheme = theme;
           myHostname = hostname;
           myTimezone = timezone;
           myLocale = locale;
+          inherit systemWMNixPath;
+          myTheme = theme;
           myThemePolarity = themePolarity;
           myBackgroundUrl = backgroundUrl;
           myBackgroundSha256 = backgroundSha256;

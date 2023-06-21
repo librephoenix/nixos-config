@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, lib, pkgs, blocklist-hosts, myName, myHostname, myTimezone, myLocale, myTheme, myBackgroundUrl, myBackgroundSha256, ... }:
+{ config, lib, pkgs, blocklist-hosts, myName, myHostname, myTimezone, myLocale, systemWMNixPath, myTheme, myBackgroundUrl, myBackgroundSha256, ... }:
 {
   imports =
     [ ../../system/hardware-configuration.nix
@@ -10,7 +10,7 @@
       ../../system/hardware/opengl.nix
       ../../system/hardware/printing.nix
       ../../system/hardware/bluetooth.nix
-      ../../system/wm/xmonad.nix
+      systemWMNixPath # My window manager selected from flake
       ../../system/app/flatpak.nix
       ../../system/security/doas.nix
       ../../system/security/gpg.nix

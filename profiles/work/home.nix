@@ -1,4 +1,4 @@
-{ config, lib, pkgs, python3Packages, nix-doom-emacs, stylix, myName, myEmail, myHomeDir, myDotfilesDir, myTheme, ... }:
+{ config, lib, pkgs, python3Packages, nix-doom-emacs, stylix, myName, myEmail, myHomeDir, myDotfilesDir, myTheme, userWMNixPath, ... }:
 
 {
   # Home Manager needs a bit of information about you and the paths it should
@@ -11,7 +11,7 @@
   imports = [
               nix-doom-emacs.hmModule
               stylix.homeManagerModules.stylix
-              ../../user/wm/xmonad/xmonad.nix # My xmonad config
+              userWMNixPath # My window manager selected from flake
               ../../user/shell/sh.nix # My zsh and bash config
               ../../user/shell/cli-collection.nix # Useful CLI apps
               ../../user/bin/phoenix.nix # My nix command wrapper
