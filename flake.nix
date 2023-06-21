@@ -1,31 +1,6 @@
 {
   description = "Flake of LibrePhoenix";
 
-  inputs = {
-    nixpkgs.url = "nixpkgs/nixos-unstable";
-    home-manager.url = "github:nix-community/home-manager/master";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs";
-    nix-doom-emacs.url = "github:nix-community/nix-doom-emacs";
-    stylix.url = "github:danth/stylix";
-    rust-overlay.url = "github:oxalica/rust-overlay";
-    eaf = {
-      url = "github:emacs-eaf/emacs-application-framework";
-      flake = false;
-    };
-    eaf-browser = {
-      url = "github:emacs-eaf/eaf-browser";
-      flake = false;
-    };
-    org-nursery = {
-      url = "github:chrisbarrett/nursery";
-      flake = false;
-    };
-    blocklist-hosts = {
-      url = "github:StevenBlack/hosts";
-      flake = false;
-    };
-  };
-
   outputs = { self, nixpkgs, home-manager, nix-doom-emacs, stylix, eaf, eaf-browser, org-nursery, blocklist-hosts, rust-overlay, ... }@inputs:
   let
     # --- SYSTEM SETTINGS --- #
@@ -103,6 +78,31 @@
           inherit (inputs) blocklist-hosts;
         };
       };
+    };
+  };
+
+  inputs = {
+    nixpkgs.url = "nixpkgs/nixos-unstable";
+    home-manager.url = "github:nix-community/home-manager/master";
+    home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    nix-doom-emacs.url = "github:nix-community/nix-doom-emacs";
+    stylix.url = "github:danth/stylix";
+    rust-overlay.url = "github:oxalica/rust-overlay";
+    eaf = {
+      url = "github:emacs-eaf/emacs-application-framework";
+      flake = false;
+    };
+    eaf-browser = {
+      url = "github:emacs-eaf/eaf-browser";
+      flake = false;
+    };
+    org-nursery = {
+      url = "github:chrisbarrett/nursery";
+      flake = false;
+    };
+    blocklist-hosts = {
+      url = "github:StevenBlack/hosts";
+      flake = false;
     };
   };
 }
