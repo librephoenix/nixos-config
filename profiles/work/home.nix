@@ -49,7 +49,6 @@
     gnome.gnome-calendar
     gnome.seahorse
     gnome.gnome-maps
-    newsflash
     openvpn
 
     # Media
