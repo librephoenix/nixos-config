@@ -23,12 +23,22 @@ imports = [ import1.nix
           ];
 #+END_SRC
 
-This conveniently allows configurations to be separated and swapped around quickly.
+This conveniently allows configurations to be (*cough cough) /modular/ (ba dum, tssss).
 
 I have my modules separated into two groups:
 - System-level - stored in the [[./system][system directory]]
-  - System-level modules are imported into [[./system/configuration.nix][configuration.nix]], which is what is sourced into [[./flake.nix][my flake (flake.nix)]]
+  - System-level modules are imported into configuration.nix, which is what is sourced into [[./flake.nix][my flake (flake.nix)]]
 - User-level - stored in the [[./user][user directory]] (managed by home-manager)
-  - User-level modules are imported into [[./user/home.nix][home.nix]], which is also sourced into [[./flake.nix][my flake (flake.nix)]]
+  - User-level modules are imported into home.nix, which is also sourced into [[./flake.nix][my flake (flake.nix)]]
 
 More detailed information on these specific modules are in the [[./system][system directory]] and [[./user][user directory]] respectively.
+
+** Profiles
+I separate my configurations into [[./profiles][profiles]] (essentially system templates), i.e:
+- [[./profiles/personal][Personal]] - What I would run on a personal laptop/desktop
+- [[./profiles/work][Work]] - What I would run on a work laptop/desktop (if they let me bring my own OS :P)
+- [[./profiles/homelab][Homelab]] - What I would run on a server or homelab
+
+My profile can be conveniently selected in [[./flake.nix][my flake.nix]] by setting the =profile= variable.
+
+More detailed information on these profiles is in the [[./profiles][profiles directory]].
