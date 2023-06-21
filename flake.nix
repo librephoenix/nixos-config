@@ -94,6 +94,8 @@
           myName = name;
           myTheme = theme;
           myHostname = hostname;
+          myTimezone = timezone;
+          myLocale = locale;
           myThemePolarity = themePolarity;
           myBackgroundUrl = backgroundUrl;
           myBackgroundSha256 = backgroundSha256;
