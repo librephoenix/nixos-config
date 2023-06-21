@@ -1,7 +1,6 @@
 #+title: User-level Nix Modules
 #+author: Emmet
 
-** User-level Nix Modules
 Separate Nix files can be imported as modules using an import block:
 #+BEGIN_SRC nix
 imports = [ import1.nix
@@ -43,6 +42,7 @@ Variables can be imported from [[../flake.nix][flake.nix]] by setting the =extra
 
 I currently import the following variables to the system config:
 - =myName= - Username
+- =myHostname= - Hostname for machine
 - =myHomeDir= - Absolute path to home directory derived from =myName=
 - =myEmail= - Email
 - =myDotfilesDir= - Path to my dotfiles directory on the system

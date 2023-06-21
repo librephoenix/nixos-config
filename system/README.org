@@ -1,7 +1,6 @@
 #+title: System-level Nix Modules
 #+author: Emmet
 
-** System-level Nix Modules
 Separate Nix files can be imported as modules using an import block:
 #+BEGIN_SRC nix
 imports = [ import1.nix
@@ -18,6 +17,10 @@ My system-level Nix modules are organized into this directory:
 Variables can be imported from [[../flake.nix][flake.nix]] by setting the =specialArgs= block inside the flake (see [[../flake.nix][my flake]] for more details).  This allows variables to merely be managed in one place ([[../flake.nix][flake.nix]]) rather than having to manage them in multiple locations.
 
 I currently import the following variables to the system config:
+- =myName= - Username
+- =myHostname= - Hostname for machine
+- =myTimezone= - Timezone for machine
+- =myLocale= - Locale for machine
 - =myTheme= - base16 theme stored in ../themes to be used
 - =myBackgroundUrl= - Direct link to background wallpaper (used for login screen)
 - =myBackgroundSha256= - Checksum for background image used when downloading
