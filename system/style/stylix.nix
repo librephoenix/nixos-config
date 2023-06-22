@@ -1,33 +1,34 @@
-{ config, pkgs, stylix, myTheme, myThemePolarity, myBackgroundUrl, myBackgroundSha256, ... }:
+{ config, lib, pkgs, stylix, theme, font, fontPkg, ... }:
 
 let
-  myFont = "Inconsolata";
-  myFontPkg = pkgs.inconsolata;
-  myThemePath = "../../../themes/"+myTheme+"/"+myTheme+".yaml";
-  myLightDMTheme = if myThemePolarity == "light" then "Adwaita" else "Adwaita-dark";
+  themePath = "../../../themes/"+theme+"/"+theme+".yaml";
+  themePolarity = lib.removeSuffix "\n" (builtins.readFile (./. + "../../../themes"+("/"+theme)+"/polarity.txt"));
+  myLightDMTheme = if themePolarity == "light" then "Adwaita" else "Adwaita-dark";
+  backgroundUrl = builtins.readFile (./. + "../../../themes"+("/"+theme)+"/backgroundurl.txt");
+  backgroundSha256 = builtins.readFile (./. + "../../../themes/"+("/"+theme)+"/backgroundsha256.txt");
 in
 {
   imports = [ stylix.nixosModules.stylix ];
 
   stylix.autoEnable = false;
-  stylix.polarity = myThemePolarity;
+  stylix.polarity = themePolarity;
   stylix.image = pkgs.fetchurl {
-   url = myBackgroundUrl;
-   sha256 = myBackgroundSha256;
+   url = backgroundUrl;
+   sha256 = backgroundSha256;
   };
-  stylix.base16Scheme = ./. + myThemePath;
+  stylix.base16Scheme = ./. + themePath;
   stylix.fonts = {
     monospace = {
-      name = myFont;
-      package = myFontPkg;
+      name = font;
+      package = fontPkg;
     };
     serif = {
-      name = myFont;
-      package = myFontPkg;
+      name = font;
+      package = fontPkg;
     };
     sansSerif = {
-      name = myFont;
-      package = myFontPkg;
+      name = font;
+      package = fontPkg;
     };
     emoji = {
       name = "Noto Color Emoji";

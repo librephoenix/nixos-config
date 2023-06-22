@@ -1,4 +1,4 @@
-{ config, lib, pkgs, blocklist-hosts, myName, myHostname, myTimezone, myLocale, myTheme, myBackgroundUrl, myBackgroundSha256, ... }:
+{ config, lib, pkgs, blocklist-hosts, username, hostname, timezone, locale, ... }:
 
 args@{ ... }:
 
@@ -32,26 +32,26 @@ args@{ ... }:
   boot.loader.efi.efiSysMountPoint = "/boot/efi";
 
   # Networking
-  networking.hostName = myHostname; # Define your hostname.
+  networking.hostName = hostname; # Define your hostname.
   networking.networkmanager.enable = true; # Use networkmanager
 
   # Timezone and locale
-  time.timeZone = myTimezone; # time zone
-  i18n.defaultLocale = myLocale;
+  time.timeZone = timezone; # time zone
+  i18n.defaultLocale = locale;
   i18n.extraLocaleSettings = {
-    LC_ADDRESS = myLocale;
-    LC_IDENTIFICATION = myLocale;
-    LC_MEASUREMENT = myLocale;
-    LC_MONETARY = myLocale;
-    LC_NAME = myLocale;
-    LC_NUMERIC = myLocale;
-    LC_PAPER = myLocale;
-    LC_TELEPHONE = myLocale;
-    LC_TIME = myLocale;
+    LC_ADDRESS = locale;
+    LC_IDENTIFICATION = locale;
+    LC_MEASUREMENT = locale;
+    LC_MONETARY = locale;
+    LC_NAME = locale;
+    LC_NUMERIC = locale;
+    LC_PAPER = locale;
+    LC_TELEPHONE = locale;
+    LC_TIME = locale;
   };
 
   # User account
-  users.users.${myName} = {
+  users.users.${username} = {
     isNormalUser = true;
     description = "Emmet";
     extraGroups = [ "networkmanager" "wheel" ];

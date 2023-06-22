@@ -1,32 +1,33 @@
-{ config, pkgs, myTheme, myThemePolarity, myBackgroundUrl, myBackgroundSha256, ... }:
+{ config, lib, pkgs, theme, font, fontPkg, ... }:
 
 let
-  myFont = "Inconsolata";
-  myFontPkg = pkgs.inconsolata;
-  myThemePath = "../../../themes/"+myTheme+"/"+myTheme+".yaml";
+  themePath = "../../../themes"+("/"+theme+"/"+theme)+".yaml";
+  themePolarity = lib.removeSuffix "\n" (builtins.readFile (./. + "../../../themes"+("/"+theme)+"/polarity.txt"));
+  backgroundUrl = builtins.readFile (./. + "../../../themes"+("/"+theme)+"/backgroundurl.txt");
+  backgroundSha256 = builtins.readFile (./. + "../../../themes/"+("/"+theme)+"/backgroundsha256.txt");
 in
 {
-  home.file.".currenttheme".text = myTheme;
+  home.file.".currenttheme".text = theme;
   stylix.autoEnable = false;
-  stylix.polarity = myThemePolarity;
+  stylix.polarity = themePolarity;
   stylix.image = pkgs.fetchurl {
-    url = myBackgroundUrl;
-    sha256 = myBackgroundSha256;
+    url = backgroundUrl;
+    sha256 = backgroundSha256;
   };
-  stylix.base16Scheme = ./. + myThemePath;
+  stylix.base16Scheme = ./. + themePath;
 
   stylix.fonts = {
     monospace = {
-      name = myFont;
-      package = myFontPkg;
+      name = font;
+      package = fontPkg;
     };
     serif = {
-      name = myFont;
-      package = myFontPkg;
+      name = font;
+      package = fontPkg;
     };
     sansSerif = {
-      name = myFont;
-      package = myFontPkg;
+      name = font;
+      package = fontPkg;
     };
     emoji = {
       name = "Noto Color Emoji";
@@ -51,8 +52,8 @@ in
     #!/bin/sh
     feh --no-fehbg --bg-fill ''+
   pkgs.fetchurl {
-    url = myBackgroundUrl;
-    sha256 = myBackgroundSha256;
+    url = backgroundUrl;
+    sha256 = backgroundSha256;
   }+'';
   '';
   home.file.".fehbg-stylix".executable = true;

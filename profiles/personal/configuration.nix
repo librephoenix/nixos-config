@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, lib, pkgs, blocklist-hosts, myName, myHostname, myTimezone, myLocale, myTheme, myBackgroundUrl, myBackgroundSha256, ... }:
+{ config, lib, pkgs, blocklist-hosts, username, name, hostname, timezone, locale, wm, theme, ... }:
 {
   imports =
     [ ../work/configuration.nix # Personal is essentially work system + games

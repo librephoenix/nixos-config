@@ -1,4 +1,4 @@
-{ config, lib, pkgs, myName, myDotfilesDir, ... }:
+{ config, lib, pkgs, username, dotfilesDir, ... }:
 
 let
   # This sets up my "phoenix" script with my configuration paths
@@ -6,12 +6,12 @@ let
   myPhoenixScript = ''
       if [ "$1" = "sync" ]; then
         if [ "$2" != "user" ]; then
-          pushd ''+myDotfilesDir+'';
+          pushd ''+dotfilesDir+'';
           sudo nixos-rebuild switch --flake .#;
           popd;
         elif [ "2" != "system" ]; then
-          pushd ''+myDotfilesDir+'';
-          home-manager switch --flake .#''+myName+'';
+          pushd ''+dotfilesDir+'';
+          home-manager switch --flake .#''+username+'';
           popd;
           which xmobar &> /dev/null && killall xmobar;
           which xmonad &> /dev/null && xmonad --recompile && xmonad --restart;
@@ -19,7 +19,7 @@ let
           [ -f ~/.fehbg-stylix ] &> /dev/null && ~/.fehbg-stylix;
         fi
       elif [ "$1" = "update" ]; then
-        pushd ''+myDotfilesDir+'';
+        pushd ''+dotfilesDir+'';
         nix flake update;
         popd;
         if [ -d ~/.emacs.d/eaf/app/browser ]

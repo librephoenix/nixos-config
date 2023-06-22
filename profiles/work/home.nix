@@ -1,17 +1,17 @@
-{ config, lib, pkgs, python3Packages, nix-doom-emacs, stylix, myName, myEmail, myHomeDir, myDotfilesDir, myTheme, userWMNixPath, ... }:
+{ config, lib, pkgs, python3Packages, nix-doom-emacs, stylix, username, email, dotfilesDir, theme, wm, ... }:
 
 {
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
-  home.username = myName;
-  home.homeDirectory = myHomeDir;
+  home.username = username;
+  home.homeDirectory = "/home/"+username;
 
   programs.home-manager.enable = true;
 
   imports = [
               nix-doom-emacs.hmModule
               stylix.homeManagerModules.stylix
-              userWMNixPath # My window manager selected from flake
+              (./. + "../../../user/wm"+("/"+wm+"/"+wm)+".nix") # My window manager selected from flake
               ../../user/shell/sh.nix # My zsh and bash config
               ../../user/shell/cli-collection.nix # Useful CLI apps
               ../../user/bin/phoenix.nix # My nix command wrapper

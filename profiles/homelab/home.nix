@@ -1,10 +1,10 @@
-{ config, lib, pkgs, python3Packages, nix-doom-emacs, stylix, myName, myEmail, myHomeDir, myDotfilesDir, myTheme, ... }:
+{ config, lib, pkgs, python3Packages, nix-doom-emacs, stylix, username, email, dotfilesDir, theme, ... }:
 
 {
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
-  home.username = myName;
-  home.homeDirectory = myHomeDir;
+  home.username = username;
+  home.homeDirectory = "/home/"+username;
 
   programs.home-manager.enable = true;
 

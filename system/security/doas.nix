@@ -1,11 +1,11 @@
-{ config, myName, pkgs, ... }:
+{ config, username, pkgs, ... }:
 
 {
   # Doas instead of sudo
   security.doas.enable = true;
   security.sudo.enable = false;
   security.doas.extraRules = [{
-    users = [ "${myName}" ];
+    users = [ "${username}" ];
     keepEnv = true;
     persist = true;
   }];

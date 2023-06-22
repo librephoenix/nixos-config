@@ -11,23 +11,14 @@
     locale = "en_US.UTF-8"; # select locale
 
     # ----- USER SETTINGS ----- #
-    name = "emmet"; # username
+    username = "emmet"; # username
+    name = "Emmet"; # name/identifier
     email = "librephoenix3@pm.me"; # email (used for certain configurations)
-    dotfilesDir = "~/.dotfiles"; # absolute path of the repo
+    dotfilesDir = "~/.dotfiles"; # absolute path of the repo locally
     theme = "ayu-dark"; # selcted theme from my themes directory
     wm = "xmonad"; # Selected window manager or desktop environment
-
-    # --- PATH CALCULATIONS -- #
-    homeNixPath = ./. + "/profiles"+("/"+profile)+"/home.nix";
-    configurationNixPath = ./. + "/profiles"+("/"+profile)+"/configuration.nix";
-    systemWMNixPath = ./. + "/system/wm"+("/"+wm)+".nix";
-    userWMNixPath = ./. + "/user/wm"+("/"+wm+"/"+wm)+".nix";
-    themePolarityPath = "/themes/"+theme+"/polarity.txt";
-    themePolarity = lib.removeSuffix "\n" (builtins.readFile (./. + themePolarityPath));
-    backgroundUrlPath = "/themes/"+theme+"/backgroundurl.txt";
-    backgroundUrl = builtins.readFile (./. + backgroundUrlPath);
-    backgroundSha256Path = "/themes/"+theme+"/backgroundsha256.txt";
-    backgroundSha256 = builtins.readFile (./. + backgroundSha256Path);
+    font = "Inconsolata"; # Selected font
+    fontPkg = pkgs.inconsolata; # Font package
 
     # set pkgs to correct type
     pkgs = import nixpkgs {
@@ -42,20 +33,17 @@
     homeConfigurations = {
       emmet = home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
-          modules = [
-            homeNixPath
-          ];
+          modules = [ (./. + "/profiles"+("/"+profile)+"/home.nix") ]; # load home.nix from profile
           extraSpecialArgs = {
-            myName = name;
-            myHostname = hostname;
-            myHomeDir = "/home/"+name;
-            myEmail = email;
-            myDotfilesDir = dotfilesDir;
-            myTheme = theme;
-            myThemePolarity = themePolarity;
-            myBackgroundUrl = backgroundUrl;
-            myBackgroundSha256 = backgroundSha256;
-            inherit userWMNixPath;
+            inherit username;
+            inherit name;
+            inherit hostname;
+            inherit email;
+            inherit dotfilesDir;
+            inherit theme;
+            inherit font;
+            inherit fontPkg;
+            inherit wm;
             inherit (inputs) nix-doom-emacs;
             inherit (inputs) stylix;
             inherit (inputs) eaf;
@@ -67,17 +55,17 @@
     nixosConfigurations = {
       snowfire = lib.nixosSystem {
         inherit system;
-        modules = [ configurationNixPath ];
+        modules = [ (./. + "/profiles"+("/"+profile)+"/configuration.nix") ]; # load configuration.nix from profile
         specialArgs = {
-          myName = name;
-          myHostname = hostname;
-          myTimezone = timezone;
-          myLocale = locale;
-          myTheme = theme;
-          myThemePolarity = themePolarity;
-          myBackgroundUrl = backgroundUrl;
-          myBackgroundSha256 = backgroundSha256;
-          inherit systemWMNixPath;
+          inherit username;
+          inherit name;
+          inherit hostname;
+          inherit timezone;
+          inherit locale;
+          inherit theme;
+          inherit font;
+          inherit fontPkg;
+          inherit wm;
           inherit (inputs) stylix;
           inherit (inputs) blocklist-hosts;
         };

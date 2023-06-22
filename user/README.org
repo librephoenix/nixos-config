@@ -41,12 +41,12 @@ My user-level Nix modules are organized into this directory:
 Variables can be imported from [[../flake.nix][flake.nix]] by setting the =extraSpecialArgs= block inside the flake (see [[../flake.nix][my flake]] for more details).  This allows variables to merely be managed in one place ([[../flake.nix][flake.nix]]) rather than having to manage them in multiple locations.
 
 I currently import the following variables to the system config:
-- =myName= - Username
-- =myHostname= - Hostname for machine
-- =myHomeDir= - Absolute path to home directory derived from =myName=
-- =myEmail= - Email
-- =myDotfilesDir= - Path to my dotfiles directory on the system
-- =myTheme= - base16 theme stored in ../themes to be used
-- =myThemePolarity= - whether theme is =light= or =dark=
-- =myBackgroundUrl= - Direct link to background wallpaper (used for login screen)
-- =myBackgroundSha256= - Checksum for background image used when downloading
+- =username= - Username
+- =hostname= - Hostname for machine
+- =myHomeDir= - Absolute path to home directory derived from =username=
+- =email= - Email
+- =dotfilesDir= - Path to my dotfiles directory on the system
+- =theme= - base16 theme stored in ../themes to be used
+- =themePolarity= - whether theme is =light= or =dark=
+- =backgroundUrl= - Direct link to background wallpaper (used for login screen)
+- =backgroundSha256= - Checksum for background image used when downloading

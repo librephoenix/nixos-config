@@ -1,6 +1,7 @@
-{ config, lib, pkgs, eaf, eaf-browser, org-nursery, myThemePolarity, ... }:
+{ config, lib, pkgs, eaf, eaf-browser, org-nursery, theme, ... }:
 let
-  myDashboardLogo = ./. + "/nix-" + myThemePolarity + ".png";
+  themePolarity = lib.removeSuffix "\n" (builtins.readFile (./. + "../../../../themes"+("/"+theme)+"/polarity.txt"));
+  dashboardLogo = ./. + "/nix-" + themePolarity + ".png";
 in
 {
   programs.doom-emacs = {
@@ -78,7 +79,7 @@ in
   home.file.".emacs.d/org-nursery" = {
     source = "${org-nursery}";
   };
-  home.file.".emacs.d/dashboard-logo.png".source = myDashboardLogo;
+  home.file.".emacs.d/dashboard-logo.png".source = dashboardLogo;
   home.file.".emacs.d/scripts/copy-link-or-file/copy-link-or-file-to-clipboard.sh" = {
     source = ./scripts/copy-link-or-file/copy-link-or-file-to-clipboard.sh;
     executable = true;

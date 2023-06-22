@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, lib, pkgs, blocklist-hosts, myName, myHostname, myTimezone, myLocale, systemWMNixPath, myTheme, myBackgroundUrl, myBackgroundSha256, ... }:
+{ config, lib, pkgs, blocklist-hosts, username, name, hostname, timezone, locale, wm, theme, ... }:
 {
   imports =
     [ ../../system/hardware-configuration.nix
@@ -10,7 +10,7 @@
       ../../system/hardware/opengl.nix
       ../../system/hardware/printing.nix
       ../../system/hardware/bluetooth.nix
-      systemWMNixPath # My window manager selected from flake
+      (./. + "../../../system/wm"+("/"+wm)+".nix") # My window manager
       ../../system/app/flatpak.nix
       ../../system/security/doas.nix
       ../../system/security/gpg.nix
@@ -41,28 +41,28 @@
   boot.loader.efi.efiSysMountPoint = "/boot/efi";
 
   # Networking
-  networking.hostName = myHostname; # Define your hostname.
+  networking.hostName = hostname; # Define your hostname.
   networking.networkmanager.enable = true; # Use networkmanager
 
   # Timezone and locale
-  time.timeZone = myTimezone; # time zone
-  i18n.defaultLocale = myLocale;
+  time.timeZone = timezone; # time zone
+  i18n.defaultLocale = locale;
   i18n.extraLocaleSettings = {
-    LC_ADDRESS = myLocale;
-    LC_IDENTIFICATION = myLocale;
-    LC_MEASUREMENT = myLocale;
-    LC_MONETARY = myLocale;
-    LC_NAME = myLocale;
-    LC_NUMERIC = myLocale;
-    LC_PAPER = myLocale;
-    LC_TELEPHONE = myLocale;
-    LC_TIME = myLocale;
+    LC_ADDRESS = locale;
+    LC_IDENTIFICATION = locale;
+    LC_MEASUREMENT = locale;
+    LC_MONETARY = locale;
+    LC_NAME = locale;
+    LC_NUMERIC = locale;
+    LC_PAPER = locale;
+    LC_TELEPHONE = locale;
+    LC_TIME = locale;
   };
 
   # User account
-  users.users.${myName} = {
+  users.users.${username} = {
     isNormalUser = true;
-    description = "Emmet";
+    description = name;
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [];
     uid = 1000;
