@@ -799,6 +799,8 @@ I want this to be able to automatically open ORUI in EAF Browser in a split to t
 ;                                    (window-width . 50)
 ;))
 
+(setq org-roam-ui-browser-function 'eaf-open-browser)
+
 (defun open-org-roam-ui ()
   (interactive)
   (+evil/window-vsplit-and-follow)
@@ -1173,6 +1175,8 @@ I don't have this active right now since I'm exploring tab-bar mode instead!
                          (kbd eaf-evil-leader-key)))
             (_  (kbd "SPC")))
         (kbd "SPC")))))
+
+(setq browse-url-browser-function 'browse-url-default-browser)
 
 (map! :leader
       :desc "Open web browser"

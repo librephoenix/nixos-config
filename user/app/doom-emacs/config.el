@@ -675,6 +675,8 @@ same directory as the org-buffer and insert a link to this file."
 ;                                    (window-width . 50)
 ;))
 
+(setq org-roam-ui-browser-function 'eaf-open-browser)
+
 (defun open-org-roam-ui ()
   (interactive)
   (+evil/window-vsplit-and-follow)
@@ -1012,6 +1014,8 @@ https://github.com/magit/magit/issues/460 (@cpitclaudel)."
                          (kbd eaf-evil-leader-key)))
             (_  (kbd "SPC")))
         (kbd "SPC")))))
+
+(setq browse-url-browser-function 'browse-url-default-browser)
 
 (map! :leader
       :desc "Open web browser"
