@@ -48,8 +48,10 @@ myFocusedBorderColor = colorFocus
 
 -- Default apps
 myTerminal, myBrowser :: String
-myTerminal = "alacritty -o font.size=20"
-myBrowser = "librewolf"
+myTerminal = "$TERM"
+myBrowser = "$BROWSER"
+myEditor = "$EDITOR"
+mySpawnEditor = "$SPAWNEDITOR"
 
 -- Whether focus follows the mouse pointer.
 myFocusFollowsMouse :: Bool
@@ -108,7 +110,6 @@ myScratchPads =
         w = 0.9
         t = 0.95 - h
         l = 0.95 - w
-    --spawnRanger = myTerminal ++ " --title ranger-scratchpad -e ranger"
     spawnRanger = "kitty --title ranger-scratchpad -e ranger"
     findRanger = title =? "ranger-scratchpad"
     manageRanger = customFloating $ W.RationalRect l t w h
@@ -191,7 +192,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) =
       ((modm, xK_Return), spawn $ XMonad.terminal conf),
 
       -- launch emacsclient
-      ((modm, xK_a), spawn "emacsclient -c -a 'emacs'"),
+      ((modm, xK_a), spawn mySpawnEditor),
 
       -- launch browser
       ((modm, xK_s), spawn myBrowser),

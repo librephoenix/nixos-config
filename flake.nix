@@ -14,27 +14,39 @@
     username = "emmet"; # username
     name = "Emmet"; # name/identifier
     email = "librephoenix3@pm.me"; # email (used for certain configurations)
-    dotfilesDir = "~/.dotfiles"; # absolute path of the repo locally
-    theme = "ayu-dark"; # selcted theme from my themes directory
-    wm = "xmonad"; # Selected window manager or desktop environment
+    dotfilesDir = "~/.dotfiles"; # absolute path of the local repo
+    theme = "ayu-dark"; # selcted theme from my themes directory (./themes/)
+    wm = "xmonad"; # Selected window manager or desktop environment; must select one in both ./user/wm/ and ./system/wm/
+    browser = "librewolf"; # Default browser; must select one from ./user/app/browser/
+    editor = "emacsclient"; # Default editor;
+    term = "alacritty -o font.size=20"; # Default terminal command;
     font = "Inconsolata"; # Selected font
     fontPkg = pkgs.inconsolata; # Font package
 
-    # set pkgs to correct type
+    # editor spawning translator
+    # generates a command that can be used to spawn editor inside a gui
+    # EDITOR and TERM session variables must be set in home.nix or other module
+    # I set the session variable SPAWNEDITOR to this in my home.nix for convenience
+    spawnEditor = if (editor == "emacsclient") then "emacsclient -c -a 'emacs'"
+                  else (if (editor == ("vim" || "nvim" || "nano")) then "$TERM -e $EDITOR" else editor);
+
+    # configure pkgs
     pkgs = import nixpkgs {
       inherit system;
       config = { allowUnfree = true; };
       overlays = [ rust-overlay.overlays.default ];
     };
 
+    # configure lib
     lib = nixpkgs.lib;
 
   in {
     homeConfigurations = {
       emmet = home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
-          modules = [ (./. + "/profiles"+("/"+profile)+"/home.nix") ]; # load home.nix from profile
+          modules = [ (./. + "/profiles"+("/"+profile)+"/home.nix") ]; # load home.nix from selected PROFILE
           extraSpecialArgs = {
+            # pass config variables from above
             inherit username;
             inherit name;
             inherit hostname;
@@ -44,6 +56,10 @@
             inherit font;
             inherit fontPkg;
             inherit wm;
+            inherit browser;
+            inherit editor;
+            inherit term;
+            inherit spawnEditor;
             inherit (inputs) nix-doom-emacs;
             inherit (inputs) stylix;
             inherit (inputs) eaf;
@@ -55,8 +71,9 @@
     nixosConfigurations = {
       snowfire = lib.nixosSystem {
         inherit system;
-        modules = [ (./. + "/profiles"+("/"+profile)+"/configuration.nix") ]; # load configuration.nix from profile
+        modules = [ (./. + "/profiles"+("/"+profile)+"/configuration.nix") ]; # load configuration.nix from selected PROFILE
         specialArgs = {
+          # pass config variables from above
           inherit username;
           inherit name;
           inherit hostname;

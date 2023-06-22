@@ -1,4 +1,4 @@
-{ config, lib, pkgs, python3Packages, nix-doom-emacs, stylix, username, email, dotfilesDir, theme, wm, ... }:
+{ config, lib, pkgs, python3Packages, nix-doom-emacs, stylix, username, email, dotfilesDir, theme, wm, browser, editor, spawnEditor, term, ... }:
 
 {
   # Home Manager needs a bit of information about you and the paths it should
@@ -19,7 +19,7 @@
               ../../user/app/ranger/ranger.nix # My ranger file manager config
               ../../user/app/git/git.nix # My git config
               ../../user/app/keepass/keepass.nix # My password manager
-              ../../user/app/browser/librewolf.nix # My default browser
+              (./. + "../../../user/app/browser"+("/"+browser)+".nix") # My default browser selected from flake
               ../../user/app/virtualization/virtualization.nix # Virtual machines
               ../../user/app/flatpak/flatpak.nix # Flatpaks
               ../../user/style/stylix.nix # Styling and themes for my apps
@@ -99,5 +99,12 @@
   };
   xdg.mime.enable = true;
   xdg.mimeApps.enable = true;
+
+  home.sessionVariables = {
+    EDITOR = editor;
+    SPAWNEDITOR = spawnEditor;
+    TERM = term;
+    BROWSER = browser;
+  };
 
 }
