@@ -42,7 +42,7 @@
 
   in {
     homeConfigurations = {
-      emmet = home-manager.lib.homeManagerConfiguration {
+      user = home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
           modules = [ (./. + "/profiles"+("/"+profile)+"/home.nix") ]; # load home.nix from selected PROFILE
           extraSpecialArgs = {
@@ -69,7 +69,7 @@
       };
     };
     nixosConfigurations = {
-      snowfire = lib.nixosSystem {
+      system = lib.nixosSystem {
         inherit system;
         modules = [ (./. + "/profiles"+("/"+profile)+"/configuration.nix") ]; # load configuration.nix from selected PROFILE
         specialArgs = {
