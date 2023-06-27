@@ -50,6 +50,7 @@
     gnome.seahorse
     gnome.gnome-maps
     openvpn
+    protonmail-bridge
 
     # Media
     gimp-with-plugins
