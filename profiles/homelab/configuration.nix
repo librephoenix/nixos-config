@@ -1,7 +1,5 @@
 { config, lib, pkgs, blocklist-hosts, username, hostname, timezone, locale, ... }:
 
-args@{ ... }:
-
 {
   imports =
     [ ../../system/hardware-configuration.nix
