@@ -3,7 +3,7 @@
 
 [[https://gitlab.com/librephoenix/nixos-config][Main Repo Link (GitLab)]]
 
-[[https://github.com/librephoenix/nixos-config-mirror][Mirror Repo Link (GitHub)]]
+[[https://github.com/librephoenix/nixos-config][Mirror Repo Link (GitHub)]]
 
 ** What is this repository?
 These are my dotfiles (configuration files) for my NixOS setup(s).
