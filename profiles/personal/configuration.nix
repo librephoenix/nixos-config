@@ -9,6 +9,7 @@
       ../../system/hardware-configuration.nix
       #../../system/hardware/openrgb.nix
       ../../system/app/gamemode.nix
+      ../../system/app/steam.nix
       ../../system/security/doas.nix
       ../../system/security/gpg.nix
       ../../system/security/blocklist.nix

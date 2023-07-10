@@ -14,6 +14,7 @@ in
 {
   home.packages = with pkgs; [
     # Games
+    steam # also requires system-level steam.nix to run
     gamehub
     myRetroarch
     airshipper
