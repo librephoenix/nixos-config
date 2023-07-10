@@ -172,7 +172,7 @@ let
         fi
         popd &> /dev/null;
         echo -e "$CYAN### Flake and other updates finished ###$NC";
-        echo -e "Please run$GREEN git$NC diff HEAD flake.nix inside ''+dotfilesDir+(" "+'' to see flake input changes";'')+
+        echo -e "Please run$GREEN git$NC diff HEAD flake.lock inside ''+dotfilesDir+(" "+'' to see flake input changes";'')+
       ''}
       if [ "$1" = "sync" ]; then
         if [ "$#" = 1 ]; then
