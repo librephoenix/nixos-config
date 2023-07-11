@@ -6,7 +6,7 @@
       ../../system/security/doas.nix
       ../../system/security/gpg.nix
       ../../system/security/sshd.nix
-      ( import ../../system/app/docker.nix ( args {storageDriver = "btrfs";} ) )
+      ( import ../../system/app/docker.nix {storageDriver = "btrfs"; inherit username pkgs config lib;} )
     ];
 
   # Fix nix path

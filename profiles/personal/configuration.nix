@@ -8,6 +8,7 @@
     [ ../work/configuration.nix # Personal is essentially work system + games
       ../../system/hardware-configuration.nix
       #../../system/hardware/openrgb.nix
+      ( import ../../system/app/docker.nix {storageDriver = "btrfs"; inherit username pkgs config lib;} )
       ../../system/app/gamemode.nix
       ../../system/app/steam.nix
       ../../system/security/doas.nix
