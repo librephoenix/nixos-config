@@ -63,6 +63,9 @@
     wget
     zsh
     git
+    rclone
+    rdiff-backup
+    gocryptfs
   ];
 
   # I use zsh btw
