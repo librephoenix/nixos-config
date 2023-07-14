@@ -65,7 +65,9 @@
     git
     rclone
     rdiff-backup
+    cryptsetup
     gocryptfs
+    cryfs
   ];
 
   # I use zsh btw

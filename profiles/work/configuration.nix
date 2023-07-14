@@ -74,6 +74,7 @@
     wget
     zsh
     git
+    cryptsetup
   ];
 
   # I use zsh btw
