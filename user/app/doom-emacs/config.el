@@ -604,6 +604,7 @@ same directory as the org-buffer and insert a link to this file."
   (dolist (DB full-org-roam-db-list-pretty)
     (org-roam-append-notes-to-agenda "todos" DB)
   )
+  (setq org-agenda-files (-uniq org-agenda-files))
   (org-roam-switch-db prev-org-roam-db-choice 1)
 )
 
