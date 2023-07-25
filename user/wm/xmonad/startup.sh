@@ -22,6 +22,6 @@ alttab -w 1 -t 240x160 -i 64x64 -sc 1 -bg $colorBg -fg $colorFg -frame $colorSec
 nm-applet &
 GOMAXPROCS=1 syncthing --no-browser &
 protonmail-bridge --noninteractive
-emacs --daemon; rm -rf ~/org &
+emacs --daemon &
 gnome-keyring-daemon --daemonize --login &
 gnome-keyring-daemon --start --components=secrets &
