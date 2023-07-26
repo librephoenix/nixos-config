@@ -34,5 +34,10 @@ in
     neofetch lolcat cowsay
     gnugrep gnused
     bat exa bottom fd
+    direnv nix-direnv
   ];
+
+  programs.direnv.enable = true;
+  programs.direnv.enableZshIntegration = true;
+  programs.direnv.nix-direnv.enable = true;
 }
