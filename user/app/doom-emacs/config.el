@@ -1021,3 +1021,21 @@ https://github.com/magit/magit/issues/460 (@cpitclaudel)."
 (map! :leader
       :desc "Open web browser"
       "o w" #'eaf-open-browser-with-history)
+
+;;;-- Load emacs direnv;;;--
+(require 'direnv)
+(direnv-mode)
+
+;;;-- projectile wrapper commands ;;;--
+(defun projectile-goto-project ()
+  (interactive)
+  (projectile-switch-project t)
+  (neotree-dir (projectile-project-root))
+)
+
+(map! :leader
+      :desc "Open project"
+      "p p" #'projectile-goto-project)
+(map! :leader
+      :desc "Projectile commander"
+      "p @" #'projectile-commander)

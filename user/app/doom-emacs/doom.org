@@ -20,6 +20,8 @@
   - [[#focus-mode-configuration][Focus Mode Configuration]]
   - [[#helpful-mode-configuration][Helpful Mode Configuration]]
   - [[#eaf][EAF]]
+  - [[#direnv][Direnv]]
+  - [[#projectile][Projectile]]
 - [[#my-initel][My init.el]]
 - [[#my-packagesel][My packages.el]]
 - [[#nix-integration][Nix Integration]]
@@ -1184,6 +1186,28 @@ I don't have this active right now since I'm exploring tab-bar mode instead!
       "o w" #'eaf-open-browser-with-history)
 
 #+END_SRC
+** Direnv
+#+BEGIN_SRC emacs-lisp :tangle config.el
+;;;-- Load emacs direnv;;;--
+(require 'direnv)
+(direnv-mode)
+#+END_SRC
+** Projectile
+#+BEGIN_SRC emacs-lisp :tangle config.el
+;;;-- projectile wrapper commands ;;;--
+(defun projectile-goto-project ()
+  (interactive)
+  (projectile-switch-project t)
+  (neotree-dir (projectile-project-root))
+)
+
+(map! :leader
+      :desc "Open project"
+      "p p" #'projectile-goto-project)
+(map! :leader
+      :desc "Projectile commander"
+      "p @" #'projectile-commander)
+#+END_SRC
 * My init.el
 This section is the [[./init.el][init.el]] section, which controls which Doom modules are loaded.
 
@@ -1274,7 +1298,7 @@ This section is the [[./init.el][init.el]] section, which controls which Doom mo
        (eval +overlay)     ; run code, run (also, repls)
        ;;gist              ; interacting with github gists
        lookup              ; navigate your code and its documentation
-       lsp               ; M-x vscode
+       (lsp)               ; M-x vscode
        magit             ; a git porcelain for Emacs
        ;;make              ; run make tasks from Emacs
        ;;pass              ; password manager for nerds
@@ -1318,8 +1342,8 @@ This section is the [[./init.el][init.el]] section, which controls which Doom mo
        ;;hy                ; readability of scheme w/ speed of python
        ;;idris             ; a language you can depend on
        json              ; At least it ain't XML
-       ;;(java +meghanada) ; the poster child for carpal tunnel syndrome
-       ;;javascript        ; all(hope(abandon(ye(who(enter(here))))))
+       (java +lsp) ; the poster child for carpal tunnel syndrome
+       javascript        ; all(hope(abandon(ye(who(enter(here))))))
        ;;julia             ; a better, faster MATLAB
        ;;kotlin            ; a better, slicker Java(Script)
        latex             ; writing papers in Emacs has never been so fun
@@ -1390,6 +1414,7 @@ Any git package can be configured for a particular commit or branch:
 - =(unpin! pinned-package another-pinned-package)= to get bleeding edge instead of Doom's stability
 
 #+BEGIN_SRC emacs-lisp :tangle packages.el
+(package! direnv)
 (package! org-modern)
 (package! org-super-agenda)
 (package! emacsql :pin "c1a4407")
