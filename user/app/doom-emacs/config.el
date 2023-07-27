@@ -1039,3 +1039,11 @@ https://github.com/magit/magit/issues/460 (@cpitclaudel)."
 (map! :leader
       :desc "Projectile commander"
       "p @" #'projectile-commander)
+
+;;;-- LSP stuff ;;;--
+(use-package lsp-mode
+  :ensure t)
+
+(use-package nix-mode
+  :hook (nix-mode . lsp-deferred)
+  :ensure t)

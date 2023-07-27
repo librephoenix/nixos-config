@@ -39,6 +39,8 @@ in
   };
 
   home.packages = with pkgs; [
+  nil
+  nixfmt
   git
   file
   nodejs

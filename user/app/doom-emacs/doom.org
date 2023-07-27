@@ -22,6 +22,7 @@
   - [[#eaf][EAF]]
   - [[#direnv][Direnv]]
   - [[#projectile][Projectile]]
+  - [[#lsp][LSP]]
 - [[#my-initel][My init.el]]
 - [[#my-packagesel][My packages.el]]
 - [[#nix-integration][Nix Integration]]
@@ -1208,6 +1209,16 @@ I don't have this active right now since I'm exploring tab-bar mode instead!
       :desc "Projectile commander"
       "p @" #'projectile-commander)
 #+END_SRC
+** LSP
+#+BEGIN_SRC emacs-lisp :tangle config.el
+;;;-- LSP stuff ;;;--
+(use-package lsp-mode
+  :ensure t)
+
+(use-package nix-mode
+  :hook (nix-mode . lsp-deferred)
+  :ensure t)
+#+END_SRC
 * My init.el
 This section is the [[./init.el][init.el]] section, which controls which Doom modules are loaded.
 
@@ -1480,6 +1491,8 @@ in
   };
 
   home.packages = with pkgs; [
+  nil
+  nixfmt
   git
   file
   nodejs
