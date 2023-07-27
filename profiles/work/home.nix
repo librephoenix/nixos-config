@@ -61,6 +61,7 @@
     yt-dlp
     freetube
     blender
+    blockbench-electron
     obs-studio
     libsForQt5.kdenlive
     movit
