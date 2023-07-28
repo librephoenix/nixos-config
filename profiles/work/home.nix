@@ -41,7 +41,7 @@
     syncthing
 
     # Office
-    libreoffice-qt
+    libreoffice-fresh-unwrapped
     mate.atril
     xournalpp
     glib
