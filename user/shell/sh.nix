@@ -15,7 +15,7 @@ in
     enable = true;
     enableAutosuggestions = true;
     enableCompletion = true;
-    enableSyntaxHighlighting = true;
+    syntaxHighlighting.enable = true;
     shellAliases = myAliases;
     initExtra = ''
     PROMPT=" ◉ %U%F{magenta}%n%f%u@%U%F{blue}%m%f%u:%F{yellow}%~%f
