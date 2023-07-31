@@ -1218,6 +1218,8 @@ I don't have this active right now since I'm exploring tab-bar mode instead!
 (use-package nix-mode
   :hook (nix-mode . lsp-deferred)
   :ensure t)
+
+(setq lsp-java-workspace-dir "/home/emmet/.local/share/doom/java-workspace")
 #+END_SRC
 * My init.el
 This section is the [[./init.el][init.el]] section, which controls which Doom modules are loaded.

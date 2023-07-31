@@ -1047,3 +1047,5 @@ https://github.com/magit/magit/issues/460 (@cpitclaudel)."
 (use-package nix-mode
   :hook (nix-mode . lsp-deferred)
   :ensure t)
+
+(setq lsp-java-workspace-dir "/home/emmet/.local/share/doom/java-workspace")
