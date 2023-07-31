@@ -16,6 +16,7 @@
       ../../system/security/gpg.nix
       ../../system/security/blocklist.nix
       ../../system/security/firewall.nix
+      ../../system/security/firejail.nix
       ../../system/security/openvpn.nix
       ../../system/style/stylix.nix
     ];

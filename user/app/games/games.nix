@@ -14,13 +14,10 @@ in
 {
   home.packages = with pkgs; [
     # Games
-    steam # also requires system-level steam.nix to run
     gamehub
     myRetroarch
     airshipper
     qjoypad
-    prismlauncher
-    #TODO need flatpak steam - I don't have this declaratively yet
   ];
   # The following 2 declarations allow retroarch to be imported into gamehub
   # Set retroarch core directory to ~/.local/bin/libretro
