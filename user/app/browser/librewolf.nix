@@ -10,21 +10,21 @@
     defaultPref("browser.toolbars.bookmarks.visibility","always");
     defaultPref("privacy.resisttFingerprinting.letterboxing", true);
     defaultPref("network.http.referer.XOriginPolicy",2);
-    defaultPref("privacy.clearOnShutdown.history",false);
-    defaultPref("privacy.clearOnShutdown.downloads",false);
-    defaultPref("privacy.clearOnShutdown.cookies",false);
-    defaultPref("gfx.webrender.software.opengl",true);
-    defaultPref("webgl.disabled",false);
+    defaultPref("privacy.clearOnShutdown.history",true);
+    defaultPref("privacy.clearOnShutdown.downloads",true);
+    defaultPref("privacy.clearOnShutdown.cookies",true);
+    defaultPref("gfx.webrender.software.opengl",false);
+    defaultPref("webgl.disabled",true);
     pref("font.name.serif.x-western","Inconsolata");
     pref("font.size.variable.x-western",20);
     pref("browser.toolbars.bookmarks.visibility","always");
     pref("privacy.resisttFingerprinting.letterboxing", true);
     pref("network.http.referer.XOriginPolicy",2);
-    pref("privacy.clearOnShutdown.history",false);
-    pref("privacy.clearOnShutdown.downloads",false);
-    pref("privacy.clearOnShutdown.cookies",false);
-    pref("gfx.webrender.software.opengl",true);
-    pref("webgl.disabled",false);
+    pref("privacy.clearOnShutdown.history",true);
+    pref("privacy.clearOnShutdown.downloads",true);
+    pref("privacy.clearOnShutdown.cookies",true);
+    pref("gfx.webrender.software.opengl",false);
+    pref("webgl.disabled",true);
     '';
 
   xdg.mimeApps.defaultApplications = {
