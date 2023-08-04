@@ -1,4 +1,4 @@
-{ config, lib, pkgs, python3Packages, nix-doom-emacs, stylix, username, email, dotfilesDir, theme, wm, browser, editor, spawnEditor, term, ... }:
+{ config, lib, pkgs, stdenv, fetchurl, python3Packages, nix-doom-emacs, stylix, username, email, dotfilesDir, theme, wm, browser, editor, spawnEditor, term, ... }:
 
 {
   # Home Manager needs a bit of information about you and the paths it should
@@ -25,9 +25,11 @@
               ../../user/style/stylix.nix # Styling and themes for my apps
               ../../user/lang/cc/cc.nix # C and C++ tools
               ../../user/lang/godot/godot.nix # Game development
+              ../../user/pkgs/blockbench.nix # Blockbench
             ];
 
   home.stateVersion = "22.11"; # Please read the comment before changing.
+
 
   home.packages = with pkgs; [
     # Core
