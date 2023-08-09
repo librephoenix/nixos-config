@@ -1,0 +1,23 @@
+{ lib, pkgs, ... }:
+
+{
+  nixpkgs.overlays = [
+    (self: super:
+      {
+        ranger = super.ranger.overrideAttrs (oldAttrs: rec {
+        preConfigure = ''
+          substituteInPlace ranger/__init__.py \
+            --replace "DEFAULT_PAGER = 'less'" "DEFAULT_PAGER = '${lib.getBin pkgs.less}/bin/less'"
+      
+          # give image previews out of the box when building with w3m
+          substituteInPlace ranger/config/rc.conf \
+            --replace "set preview_images false" "set preview_images true"
+
+          substituteInPlace ranger/ext/img_display.py \
+            --replace "self.image_id -= 1" "self.image_id = max(0, self.image_id - 1)"
+        '';
+        });
+      }
+    )
+  ];
+}

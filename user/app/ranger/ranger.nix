@@ -10,9 +10,12 @@ let myCbxScript = ''
   '';
 in
 {
+  imports = [ ../../pkgs/ranger.nix ];
+
   home.packages = with pkgs; [
     ranger
     xdragon
+    highlight
     (pkgs.writeScriptBin "cbx" myCbxScript)
   ];
   home.file.".config/ranger/rc.conf".source = ./rc.conf;
