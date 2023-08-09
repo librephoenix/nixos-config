@@ -193,9 +193,10 @@
 ;; ---- end block ---- ;;
 
 ;; Better org table editing
-(setq-default evil-insert-state-exit-hook '(org-update-parent-todo-statistics
- t))
-(setq org-table-automatic-realign nil)
+;; This breaks multiline visual block edits
+;;(setq-default evil-insert-state-exit-hook '(org-update-parent-todo-statistics
+;; t))
+;;(setq org-table-automatic-realign nil)
 
 ;; Better for org source blocks
 (setq electric-indent-mode nil)
