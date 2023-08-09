@@ -1049,3 +1049,8 @@ https://github.com/magit/magit/issues/460 (@cpitclaudel)."
   :ensure t)
 
 (setq lsp-java-workspace-dir "/home/emmet/.local/share/doom/java-workspace")
+
+(require 'gdscript-mode)
+(use-package gdscript-mode
+  :hook (gdscript-mode . lsp-deferred)
+  :ensure t)

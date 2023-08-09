@@ -1220,6 +1220,11 @@ I don't have this active right now since I'm exploring tab-bar mode instead!
   :ensure t)
 
 (setq lsp-java-workspace-dir "/home/emmet/.local/share/doom/java-workspace")
+
+(require 'gdscript-mode)
+(use-package gdscript-mode
+  :hook (gdscript-mode . lsp-deferred)
+  :ensure t)
 #+END_SRC
 * My init.el
 This section is the [[./init.el][init.el]] section, which controls which Doom modules are loaded.
