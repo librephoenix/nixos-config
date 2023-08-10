@@ -23,6 +23,7 @@
   - [[#direnv][Direnv]]
   - [[#projectile][Projectile]]
   - [[#lsp][LSP]]
+  - [[#tramp][Tramp]]
 - [[#my-initel][My init.el]]
 - [[#my-packagesel][My packages.el]]
 - [[#nix-integration][Nix Integration]]
@@ -1226,6 +1227,18 @@ I don't have this active right now since I'm exploring tab-bar mode instead!
 (use-package gdscript-mode
   :hook (gdscript-mode . lsp-deferred)
   :ensure t)
+#+END_SRC
+** Tramp
+#+BEGIN_SRC emacs-lisp :tangle config.el
+(after! tramp
+  (setq tramp-inline-compress-start-size 1000)
+  (setq tramp-copy-size-limit 10000)
+  (setq vc-handled-backends '(Git))
+  (setq tramp-verbose 1)
+  (setq tramp-default-method "scp")
+  (setq tramp-use-ssh-controlmaster-options nil)
+  (setq projectile--mode-line "Projectile")
+  (setq tramp-verbose 1))
 #+END_SRC
 * My init.el
 This section is the [[./init.el][init.el]] section, which controls which Doom modules are loaded.
