@@ -50,6 +50,9 @@
 (bind-key* "C-h" #'evil-window-left)
 (bind-key* "C-l" #'evil-window-right)
 (bind-key* "C-q" #'evil-window-delete)
+(bind-key* "M-q" #'kill-current-buffer)
+(bind-key* "M-z" #'+vterm/toggle)
+(bind-key* (kbd "M-<return>") #'+vterm/here)
 
 ;; Mouse buffer management
 (bind-key* "<mouse-8>" #'previous-buffer)
@@ -1056,12 +1059,4 @@ https://github.com/magit/magit/issues/460 (@cpitclaudel)."
   :hook (gdscript-mode . lsp-deferred)
   :ensure t)
 
-(after! tramp
-  (setq tramp-inline-compress-start-size 1000)
-  (setq tramp-copy-size-limit 10000)
-  (setq vc-handled-backends '(Git))
-  (setq tramp-verbose 1)
-  (setq tramp-default-method "scp")
-  (setq tramp-use-ssh-controlmaster-options nil)
-  (setq projectile--mode-line "Projectile")
-  (setq tramp-verbose 1))
+

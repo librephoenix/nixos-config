@@ -23,7 +23,7 @@
   - [[#direnv][Direnv]]
   - [[#projectile][Projectile]]
   - [[#lsp][LSP]]
-  - [[#tramp][Tramp]]
+  - [[#terminal][Terminal]]
 - [[#my-initel][My init.el]]
 - [[#my-packagesel][My packages.el]]
 - [[#nix-integration][Nix Integration]]
@@ -111,6 +111,9 @@ Doom Emacs is traditionally installed by cloning the repository ([[https://githu
 (bind-key* "C-h" #'evil-window-left)
 (bind-key* "C-l" #'evil-window-right)
 (bind-key* "C-q" #'evil-window-delete)
+(bind-key* "M-q" #'kill-current-buffer)
+(bind-key* "M-z" #'+vterm/toggle)
+(bind-key* (kbd "M-<return>") #'+vterm/here)
 
 ;; Mouse buffer management
 (bind-key* "<mouse-8>" #'previous-buffer)
@@ -1228,17 +1231,8 @@ I don't have this active right now since I'm exploring tab-bar mode instead!
   :hook (gdscript-mode . lsp-deferred)
   :ensure t)
 #+END_SRC
-** Tramp
+** Terminal
 #+BEGIN_SRC emacs-lisp :tangle config.el
-(after! tramp
-  (setq tramp-inline-compress-start-size 1000)
-  (setq tramp-copy-size-limit 10000)
-  (setq vc-handled-backends '(Git))
-  (setq tramp-verbose 1)
-  (setq tramp-default-method "scp")
-  (setq tramp-use-ssh-controlmaster-options nil)
-  (setq projectile--mode-line "Projectile")
-  (setq tramp-verbose 1))
 #+END_SRC
 * My init.el
 This section is the [[./init.el][init.el]] section, which controls which Doom modules are loaded.
