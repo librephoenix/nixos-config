@@ -35,6 +35,9 @@
     bottom
     brightnessctl
     xorg.xcursorthemes
+    xdg-utils
+    xdg-desktop-portal
+    xdg-desktop-portal-gtk
   ];
 
   home.file.".config/xmonad/xmonad.hs".source = ./xmonad.hs;
