@@ -6,7 +6,8 @@
 {
   imports =
     [ ../../system/hardware-configuration.nix
-      ../../system/hardware/power.nix
+      ../../system/hardware/kernel.nix # Kernel config
+      ../../system/hardware/power.nix # Power management
       ../../system/hardware/opengl.nix
       ../../system/hardware/printing.nix
       ../../system/hardware/bluetooth.nix
