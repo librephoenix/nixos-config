@@ -10,9 +10,9 @@
       turbo = "auto";
     };
     battery = {
-      governor = "powersave";
+      governor = "schedutil";
       scaling_min_freq = 1200000;
-      scaling_max_freq = 2200000;
+      scaling_max_freq = 2800000;
       turbo = "never";
     };
   };
