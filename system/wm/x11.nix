@@ -14,10 +14,6 @@
     xkbVariant = "";
     xkbOptions = "caps:escape";
     excludePackages = [ pkgs.xterm ];
-    windowManager.xmonad = {
-      enable = true;
-      enableContribAndExtras = true;
-    };
     displayManager = {
       lightdm.enable = true;
       sessionCommands = ''

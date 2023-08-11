@@ -16,7 +16,7 @@
     email = "librephoenix3@pm.me"; # email (used for certain configurations)
     dotfilesDir = "~/.dotfiles"; # absolute path of the local repo
     theme = "ayu-dark"; # selcted theme from my themes directory (./themes/)
-    wm = "xmonad"; # Selected window manager or desktop environment; must select one in both ./user/wm/ and ./system/wm/
+    wm = "hyprland"; # Selected window manager or desktop environment; must select one in both ./user/wm/ and ./system/wm/
     browser = "librewolf"; # Default browser; must select one from ./user/app/browser/
     editor = "emacsclient"; # Default editor;
     term = "alacritty -o font.size=20"; # Default terminal command;
