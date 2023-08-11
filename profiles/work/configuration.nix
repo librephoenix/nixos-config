@@ -77,12 +77,21 @@
     zsh
     git
     cryptsetup
+    home-manager
   ];
 
   # I use zsh btw
   environment.shells = with pkgs; [ zsh ];
   users.defaultUserShell = pkgs.zsh;
   programs.zsh.enable = true;
+
+  xdg.portal = {
+    enable = true;
+    extraPortals = [
+      pkgs.xdg-desktop-portal
+      pkgs.xdg-desktop-portal-gtk
+    ];
+  };
 
   # It is ok to leave this unchanged for compatibility purposes
   system.stateVersion = "22.11";
