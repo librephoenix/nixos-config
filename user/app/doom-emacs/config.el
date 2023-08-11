@@ -54,9 +54,9 @@
 (bind-key* "M-z" #'+vterm/toggle)
 (bind-key* (kbd "M-<return>") #'+vterm/here)
 
-;; Mouse buffer management
-(bind-key* "<mouse-8>" #'previous-buffer)
+;; Buffer management
 (bind-key* "<mouse-9>" #'next-buffer)
+(bind-key* "<mouse-8>" #'previous-buffer)
 
 ;; Disables custom.el
 (setq custom-file null-device)
@@ -1043,6 +1043,9 @@ https://github.com/magit/magit/issues/460 (@cpitclaudel)."
 (map! :leader
       :desc "Projectile commander"
       "p @" #'projectile-commander)
+(map! :leader
+      :desc "Projectile grep"
+      "/" #'projectile-grep)
 
 ;;;-- LSP stuff ;;;--
 (use-package lsp-mode

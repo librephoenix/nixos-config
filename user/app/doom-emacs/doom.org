@@ -115,9 +115,9 @@ Doom Emacs is traditionally installed by cloning the repository ([[https://githu
 (bind-key* "M-z" #'+vterm/toggle)
 (bind-key* (kbd "M-<return>") #'+vterm/here)
 
-;; Mouse buffer management
-(bind-key* "<mouse-8>" #'previous-buffer)
+;; Buffer management
 (bind-key* "<mouse-9>" #'next-buffer)
+(bind-key* "<mouse-8>" #'previous-buffer)
 
 ;; Disables custom.el
 (setq custom-file null-device)
@@ -1213,6 +1213,9 @@ I don't have this active right now since I'm exploring tab-bar mode instead!
 (map! :leader
       :desc "Projectile commander"
       "p @" #'projectile-commander)
+(map! :leader
+      :desc "Projectile grep"
+      "/" #'projectile-grep)
 #+END_SRC
 ** LSP
 #+BEGIN_SRC emacs-lisp :tangle config.el
