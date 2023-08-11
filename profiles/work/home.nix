@@ -1,4 +1,4 @@
-{ config, lib, pkgs, stdenv, fetchurl, python3Packages, nix-doom-emacs, stylix, username, email, dotfilesDir, theme, wm, browser, editor, spawnEditor, term, ... }:
+{ config, lib, pkgs, stdenv, fetchurl, nix-doom-emacs, stylix, username, email, dotfilesDir, theme, wm, browser, editor, spawnEditor, term, ... }:
 
 {
   # Home Manager needs a bit of information about you and the paths it should
