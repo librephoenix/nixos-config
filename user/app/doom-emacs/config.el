@@ -51,6 +51,9 @@
 (bind-key* "C-l" #'evil-window-right)
 (bind-key* "C-q" #'evil-window-delete)
 (bind-key* "M-q" #'kill-current-buffer)
+(bind-key* "M-w" #'+workspace/close-window-or-workspace)
+(bind-key* "M-n" #'next-buffer)
+(bind-key* "M-p" #'previous-buffer)
 (bind-key* "M-z" #'+vterm/toggle)
 (bind-key* (kbd "M-<return>") #'+vterm/here)
 
