@@ -27,6 +27,7 @@
 
     # Media
     gtkcord4
+    tuxpaint
   ];
 
   xdg.enable = true;
