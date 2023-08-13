@@ -4,7 +4,7 @@
   imports = [
     ../../app/terminal/alacritty.nix
     ../../app/terminal/kitty.nix
-    ( import ../../app/dmenu-scripts/networkmanager-dmenu.nix {dmenu_command = "wofi --show dmenu"; inherit config lib pkgs;})
+    ( import ../../app/dmenu-scripts/networkmanager-dmenu.nix {dmenu_command = "fuzzel -d"; inherit config lib pkgs;})
   ];
 
   wayland.windowManager.hyprland = {
@@ -12,6 +12,8 @@
     plugins = [];
     settings = {};
     extraConfig = ''
+      exec-once = pypr
+
       general {
         layout = master
       }
@@ -58,6 +60,28 @@
       bind=SUPERSHIFT,8,movetoworkspace,8
       bind=SUPERSHIFT,9,movetoworkspace,9
       bind=SUPERSHIFT,0,movetoworkspace,10
+
+      bind=SUPER,Z,exec,pypr toggle term
+      bind=SUPER,F,exec,pypr toggle ranger
+      bind=SUPER,N,exec,pypr toggle musikcube
+      bind=SUPER,B,exec,pypr toggle btm
+      bind=SUPER,E,exec,pypr toggle geary
+      $scratchpadsize = size 80% 85%
+
+      $scratchpad = class:^(scratchpad)$
+      windowrulev2 = float,$scratchpad
+      windowrulev2 = $scratchpadsize,$scratchpad
+      windowrulev2 = workspace special silent,$scratchpad
+      windowrulev2 = center,$scratchpad
+
+
+      $gearyscratchpad = class:^(geary)$
+      windowrulev2 = float,$gearyscratchpad
+      windowrulev2 = $scratchpadsize,$gearyscratchpad
+      windowrulev2 = workspace special silent,$gearyscratchpad
+      windowrulev2 = center,$gearyscratchpad
+
+      bind=SUPER,X,exec,pypr zoom
 
       bind=SUPERCTRL,right,workspace,+1
       bind=SUPERCTRL,left,workspace,-1
@@ -117,6 +141,8 @@
     xdg-desktop-portal-gtk
     xdg-desktop-portal-hyprland
     wlsunset
+    pavucontrol
+    pamixer
     (pkgs.writeScriptBin "sct" ''
       #!/bin/sh
       killall wlsunset
@@ -140,4 +166,38 @@
       doCheck = false;
     })
   ];
+  home.file.".config/hypr/pyprland.json".text = ''
+    {
+      "pyprland": {
+        "plugins": ["scratchpads", "magnify"]
+      },
+      "scratchpads": {
+        "term": {
+          "command": "alacritty --class scratchpad",
+          "margin": 50,
+          "unfocus": true
+        },
+        "ranger": {
+          "command": "kitty --class scratchpad -e ranger",
+          "margin": 50,
+          "unfocus": true
+        },
+        "musikcube": {
+          "command": "alacritty --class scratchpad -e musikcube",
+          "margin": 50,
+          "unfocus": true
+        },
+        "btm": {
+          "command": "alacritty --class scratchpad -e btm",
+          "margin": 50,
+          "unfocus": true
+        },
+        "geary": {
+          "command": "geary",
+          "margin": 50,
+          "unfocus": true
+        }
+      }
+    }
+  '';
 }
