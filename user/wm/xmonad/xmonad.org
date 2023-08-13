@@ -779,7 +779,7 @@ while true
 * Nix Integration
 In order to have Nix put my xmonad/xmobar configuration in the proper places, I have [[./xmonad.nix][xmonad.nix]], which I source in the =imports= block of my [[../../home.nix][home.nix]].
 #+BEGIN_SRC nix :tangle xmonad.nix
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 {
 
@@ -787,7 +787,7 @@ In order to have Nix put my xmonad/xmobar configuration in the proper places, I 
               ../../lang/haskell/haskell.nix
               ../../app/terminal/alacritty.nix
               ../../app/terminal/kitty.nix
-              ../../app/dmenu-scripts/networkmanager-dmenu.nix
+              ( import ../../app/dmenu-scripts/networkmanager-dmenu.nix {dmenu_command = "rofi -show dmenu"; inherit config lib pkgs;})
             ];
 
   home.packages = with pkgs; [

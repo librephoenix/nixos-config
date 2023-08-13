@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 {
 
@@ -6,7 +6,7 @@
               ../../lang/haskell/haskell.nix
               ../../app/terminal/alacritty.nix
               ../../app/terminal/kitty.nix
-              ../../app/dmenu-scripts/networkmanager-dmenu.nix
+              ( import ../../app/dmenu-scripts/networkmanager-dmenu.nix {dmenu_command = "rofi -show dmenu"; inherit config lib pkgs;})
             ];
 
   home.packages = with pkgs; [
