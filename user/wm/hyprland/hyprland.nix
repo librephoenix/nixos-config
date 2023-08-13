@@ -13,6 +13,11 @@
     settings = {};
     extraConfig = ''
       exec-once = pypr
+      exec-once = nm-applet
+      exec-once = GOMAXPROCS=1 syncthing --no-browser
+      exec-once = protonmail-bridge --noninteractive
+      exec-once = gnome-keyring-daemon --daemonize --login
+      exec-once = gnome-keyring-daemon --start --components=secrets
 
       general {
         layout = master
