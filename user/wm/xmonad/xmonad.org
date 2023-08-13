@@ -816,6 +816,7 @@ In order to have Nix put my xmonad/xmobar configuration in the proper places, I 
     bottom
     brightnessctl
     xorg.xcursorthemes
+    xorg.xev
     xdg-utils
     xdg-desktop-portal
     xdg-desktop-portal-gtk

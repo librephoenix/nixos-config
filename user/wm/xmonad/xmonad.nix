@@ -35,6 +35,7 @@
     bottom
     brightnessctl
     xorg.xcursorthemes
+    xorg.xev
     xdg-utils
     xdg-desktop-portal
     xdg-desktop-portal-gtk
