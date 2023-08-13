@@ -19,7 +19,7 @@
     wm = "hyprland"; # Selected window manager or desktop environment; must select one in both ./user/wm/ and ./system/wm/
     browser = "librewolf-wayland"; # Default browser; must select one from ./user/app/browser/
     editor = "emacsclient"; # Default editor;
-    term = "alacritty -o font.size=20"; # Default terminal command;
+    term = "alacritty"; # Default terminal command;
     font = "Inconsolata"; # Selected font
     fontPkg = pkgs.inconsolata; # Font package
 
