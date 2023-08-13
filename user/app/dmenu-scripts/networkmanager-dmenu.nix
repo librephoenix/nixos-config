@@ -1,11 +1,12 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, dmenu_command ? "rofi -show dmenu", ... }:
 
 {
   home.packages = [ pkgs.networkmanager_dmenu ];
 
   home.file.".config/networkmanager-dmenu/config.ini".text = ''
     [dmenu]
-    dmenu_command = rofi -show dmenu
+    dmenu_command = ''+dmenu_command+''
+
     compact = True
     wifi_chars = ▂▄▆█
     list_saved = True
