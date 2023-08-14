@@ -7,7 +7,7 @@
               ./fonts.nix
             ];
 
-  environment.systemPackages = [ pkgs.wayland ];
+  environment.systemPackages = [ pkgs.wayland pkgs.waydroid ];
 
   # Configure xwayland
   services.xserver = {
