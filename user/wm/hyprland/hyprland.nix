@@ -132,7 +132,7 @@
     gsettings-desktop-schemas
     swaynotificationcenter
     wlr-randr
-    ydotool
+    wtype
     hyprland-share-picker
     wl-clipboard
     hyprland-protocols
@@ -143,6 +143,8 @@
     #hyprpaper
     #wofi
     fuzzel
+    keepmenu
+    pinentry_gnome
     wev
     swww
     grim
