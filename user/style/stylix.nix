@@ -50,13 +50,14 @@ in
   programs.feh.enable = true;
   home.file.".fehbg-stylix".text = ''
     #!/bin/sh
-    feh --no-fehbg --bg-fill ''+
-  pkgs.fetchurl {
-    url = backgroundUrl;
-    sha256 = backgroundSha256;
-  }+'';
+    feh --no-fehbg --bg-fill ''+config.stylix.image+'';
   '';
   home.file.".fehbg-stylix".executable = true;
+  home.file.".swaybg-stylix".text = ''
+    #!/bin/sh
+    swaybg -m fill -i ''+config.stylix.image+'';
+  '';
+  home.file.".swaybg-stylix".executable = true;
   home.file = {
     ".config/qt5ct/colors/oomox-current.conf".source = config.lib.stylix.colors {
       template = builtins.readFile ./oomox-current.conf.mustache;
@@ -72,6 +73,15 @@ in
     };
     ".config/qt5ct/qt5ct.conf".text = pkgs.lib.mkBefore (builtins.readFile ./qt5ct.conf);
   };
+  home.file.".config/hypr/hyprpaper.conf".text = ''
+    preload = ''+config.stylix.image+''
+
+    wallpaper = eDP-1,''+config.stylix.image+''
+
+    wallpaper = HDMI-A-1,''+config.stylix.image+''
+
+    wallpaper = DP-1,''+config.stylix.image+''
+  '';
   home.packages = with pkgs; [
      qt5ct pkgs.libsForQt5.breeze-qt5
   ];
