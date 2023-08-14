@@ -384,15 +384,16 @@
         "ws-butler": "ws-butler"
       },
       "locked": {
-        "lastModified": 1689075996,
-        "narHash": "sha256-NwBzz2CHNtT0oDqAGewByQ5OFnAWf+ewHUrK0F44xZk=",
-        "owner": "nix-community",
+        "lastModified": 1692036829,
+        "narHash": "sha256-C7VR/g4d8kUvbedqHi5gOKnMTAhti1ZlRkcWbHso/BA=",
+        "owner": "librephoenix",
         "repo": "nix-doom-emacs",
-        "rev": "9a5b34d9ba30842eb8f0d7deb08bf03a75930471",
+        "rev": "66f75fae616d8e36c901bbb594225d1c630fbceb",
         "type": "github"
       },
       "original": {
-        "owner": "nix-community",
+        "owner": "librephoenix",
+        "ref": "pgtk-patch",
         "repo": "nix-doom-emacs",
         "type": "github"
       }
@@ -400,15 +401,16 @@
     "nix-straight": {
       "flake": false,
       "locked": {
-        "lastModified": 1666982610,
-        "narHash": "sha256-xjgIrmUsekVTE+MpZb5DMU8DQf9DJ/ZiR0o30L9/XCc=",
-        "owner": "nix-community",
+        "lastModified": 1692033740,
+        "narHash": "sha256-oCd0yJiMArPr20nYVz/HGU1bmZnmiS30n9Z4MKZUHj0=",
+        "owner": "librephoenix",
         "repo": "nix-straight.el",
-        "rev": "ad10364d64f472c904115fd38d194efe1c3f1226",
+        "rev": "1e4a1375b04acb8a88d123a91585734410192d42",
         "type": "github"
       },
       "original": {
-        "owner": "nix-community",
+        "owner": "librephoenix",
+        "ref": "pgtk-patch",
         "repo": "nix-straight.el",
         "type": "github"
       }

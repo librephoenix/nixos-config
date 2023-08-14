@@ -96,7 +96,7 @@
     nixpkgs.url = "nixpkgs/nixos-unstable";
     home-manager.url = "github:nix-community/home-manager/master";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
-    nix-doom-emacs.url = "github:nix-community/nix-doom-emacs";
+    nix-doom-emacs.url = "github:librephoenix/nix-doom-emacs?ref=pgtk-patch";
     stylix.url = "github:danth/stylix";
     rust-overlay.url = "github:oxalica/rust-overlay";
     eaf = {
