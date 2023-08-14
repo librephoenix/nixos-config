@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, browser, term, spawnEditor, fetchFromGitHub, ... }:
 
 {
   imports = [
@@ -19,15 +19,21 @@
       exec-once = gnome-keyring-daemon --daemonize --login
       exec-once = gnome-keyring-daemon --start --components=secrets
 
+      exec = ~/.swaybg-stylix
+
       general {
         layout = master
       }
       bind=SUPER,SPACE,fullscreen,1
       bind=ALT,TAB,cyclenext
       bind=ALTSHIFT,TAB,cyclenext,prev
-      bind=SUPER,RETURN,exec,alacritty
-      bind=SUPER,A,exec,emacs
-      bind=SUPER,S,exec,librewolf
+
+      bind=SUPER,RETURN,exec,''+term+''
+
+      bind=SUPER,A,exec,''+spawnEditor+''
+
+      bind=SUPER,S,exec,''+browser+''
+
       bind=SUPER,code:47,exec,fuzzel
       bind=SUPER,Q,killactive
       bind=SUPERSHIFT,Q,exit
@@ -79,14 +85,14 @@
       windowrulev2 = workspace special silent,$scratchpad
       windowrulev2 = center,$scratchpad
 
-
       $gearyscratchpad = class:^(geary)$
       windowrulev2 = float,$gearyscratchpad
       windowrulev2 = $scratchpadsize,$gearyscratchpad
       windowrulev2 = workspace special silent,$gearyscratchpad
       windowrulev2 = center,$gearyscratchpad
 
-      bind=SUPER,X,exec,pypr zoom
+      bind=SUPER,code:21,exec,pypr zoom
+      bind=SUPER,code:21,exec,hyprctl reload
 
       bind=SUPERCTRL,right,workspace,+1
       bind=SUPERCTRL,left,workspace,-1
@@ -133,7 +139,8 @@
     hyprpicker
     swayidle
     swaylock
-    hyprpaper
+    swaybg
+    #hyprpaper
     #wofi
     fuzzel
     wev

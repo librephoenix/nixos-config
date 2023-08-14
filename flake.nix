@@ -17,7 +17,8 @@
     dotfilesDir = "~/.dotfiles"; # absolute path of the local repo
     theme = "ayu-dark"; # selcted theme from my themes directory (./themes/)
     wm = "hyprland"; # Selected window manager or desktop environment; must select one in both ./user/wm/ and ./system/wm/
-    browser = "librewolf-wayland"; # Default browser; must select one from ./user/app/browser/
+    wmType = "wayland"; # x11 or wayland
+    browser = "librewolf"; # Default browser; must select one from ./user/app/browser/
     editor = "emacsclient"; # Default editor;
     term = "alacritty"; # Default terminal command;
     font = "Inconsolata"; # Selected font
@@ -56,6 +57,7 @@
             inherit font;
             inherit fontPkg;
             inherit wm;
+            inherit wmType;
             inherit browser;
             inherit editor;
             inherit term;

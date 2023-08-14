@@ -1,8 +1,14 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, wmType, ... }:
 
 {
   # Module installing librewolf as default browser
-  home.packages = [ pkgs.librewolf ];
+  home.packages = if (wmType == "wayland") then [ pkgs.librewolf-wayland ]
+                else [ pkgs.librewolf ];
+
+  home.sessionVariables = if (wmType == "wayland")
+                            then { DEFAULT_BROWSER = "${pkgs.librewolf-wayland}/bin/librewolf";}
+                          else
+                            { DEFAULT_BROWSER = "${pkgs.librewolf}/bin/librewolf";};
 
   home.file.".librewolf/librewolf.overrides.cfg".text = ''
     defaultPref("font.name.serif.x-western","Inconsolata");
@@ -33,10 +39,6 @@
   "x-scheme-handler/https" = "librewolf.desktop";
   "x-scheme-handler/about" = "librewolf.desktop";
   "x-scheme-handler/unknown" = "librewolf.desktop";
-  };
-
-  home.sessionVariables = {
-    DEFAULT_BROWSER = "${pkgs.librewolf}/bin/librewolf";
   };
 
 }
