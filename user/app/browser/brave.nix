@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 {
-  # Module installing librewolf as default browser
+  # Module installing brave as default browser
   home.packages = [ pkgs.brave ];
 
   xdg.mimeApps.defaultApplications = {
