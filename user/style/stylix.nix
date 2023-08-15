@@ -57,6 +57,16 @@ in
     swaybg -m fill -i ''+config.stylix.image+'';
   '';
   home.file.".swaybg-stylix".executable = true;
+  # TODO add stylix colors to swaylock cmd
+  home.file.".swayidle-stylix".text = ''
+    #!/bin/sh
+    swaylock_cmd='swaylock --indicator-radius 200 --grace 5 --fade-in 0.5 --screenshots --effect-blur 10x10'
+    swayidle -w timeout 300 "$swaylock_cmd" \
+                timeout 600 'hyprctl dispatch dpms off' \
+                resume 'hyprctl dispatch dpms on' \
+                before-sleep "$swaylock_cmd"
+    '';
+  home.file.".swayidle-stylix".executable = true;
   home.file = {
     ".config/qt5ct/colors/oomox-current.conf".source = config.lib.stylix.colors {
       template = builtins.readFile ./oomox-current.conf.mustache;

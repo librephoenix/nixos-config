@@ -19,6 +19,7 @@
       exec-once = gnome-keyring-daemon --daemonize --login
       exec-once = gnome-keyring-daemon --start --components=secrets
 
+      exec-once = ~/.swayidle-stylix
       exec = ~/.swaybg-stylix
 
       general {
@@ -138,7 +139,7 @@
     hyprland-protocols
     hyprpicker
     swayidle
-    swaylock
+    swaylock-effects
     swaybg
     #hyprpaper
     #wofi
