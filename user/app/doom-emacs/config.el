@@ -955,23 +955,6 @@ https://github.com/magit/magit/issues/460 (@cpitclaudel)."
       :desc "Edit amount at point"
       "t a" 'hledger-edit-amount)
 
-;;;-- tab-bar-mode configuration ;;;--
-
-;; Kbd tab navigation
-(map!
-  :map evil-normal-state-map
-  "H" #'tab-bar-switch-to-prev-tab
-  "L" #'tab-bar-switch-to-next-tab
-  "C-<iso-lefttab>" #'tab-bar-switch-to-prev-tab
-  "C-<tab>" #'tab-bar-switch-to-next-tab)
-
-(evil-global-set-key 'normal (kbd "C-w") 'tab-bar-close-tab)
-(evil-global-set-key 'normal (kbd "C-t") 'tab-bar-new-tab)
-
-(setq tab-bar-new-tab-choice "*doom*")
-
-(tab-bar-mode t)
-
 (require 'focus)
 
 (map! :leader
@@ -1037,7 +1020,7 @@ https://github.com/magit/magit/issues/460 (@cpitclaudel)."
 (defun projectile-goto-project ()
   (interactive)
   (projectile-switch-project t)
-  (neotree-dir (projectile-project-root))
+  ;;(neotree-dir (projectile-project-root))
 )
 
 (map! :leader

@@ -1109,8 +1109,8 @@ https://github.com/magit/magit/issues/460 (@cpitclaudel)."
 
 #+END_SRC
 ** Tab Bar Configuration
-I don't have this active right now since I'm exploring tab-bar mode instead!
-#+BEGIN_SRC emacs-lisp :tangle config.el
+I don't have this active right now since it's kinda weird with pgtk...
+#+BEGIN_SRC emacs-lisp
 ;;;-- tab-bar-mode configuration ;;;--
 
 ;; Kbd tab navigation
@@ -1207,7 +1207,7 @@ I don't have this active right now since I'm exploring tab-bar mode instead!
 (defun projectile-goto-project ()
   (interactive)
   (projectile-switch-project t)
-  (neotree-dir (projectile-project-root))
+  ;;(neotree-dir (projectile-project-root))
 )
 
 (map! :leader
