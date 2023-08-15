@@ -63,6 +63,9 @@
     executable = true;
   };
 
+  programs.feh.enable = true;
+  programs.rofi.enable = true;
+
   services.autorandr.enable = true;
   programs.autorandr.enable = true;
   programs.autorandr.profiles = {

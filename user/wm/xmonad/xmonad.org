@@ -844,6 +844,9 @@ In order to have Nix put my xmonad/xmobar configuration in the proper places, I 
     executable = true;
   };
 
+  programs.feh.enable = true;
+  programs.rofi.enable = true;
+
   services.autorandr.enable = true;
   programs.autorandr.enable = true;
   programs.autorandr.profiles = {

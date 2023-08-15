@@ -1,4 +1,4 @@
-{ config, lib, pkgs, theme, font, fontPkg, ... }:
+{ config, lib, pkgs, theme, font, fontPkg, wmType, ... }:
 
 let
   themePath = "../../../themes"+("/"+theme+"/"+theme)+".yaml";
@@ -35,7 +35,7 @@ in
     };
     sizes = {
       terminal = 18;
-      applications = 14;
+      applications = 12;
       popups = 12;
       desktop = 12;
     };
@@ -44,9 +44,8 @@ in
   stylix.targets.alacritty.enable = true;
   stylix.targets.kitty.enable = true;
   stylix.targets.gtk.enable = true;
-  stylix.targets.rofi.enable = true;
-  programs.rofi.enable = true;
-  stylix.targets.feh.enable = true;
+  stylix.targets.rofi.enable = if (wmType == "x11") then true else false;
+  stylix.targets.feh.enable = if (wmType == "x11") then true else false;
   programs.feh.enable = true;
   home.file.".fehbg-stylix".text = ''
     #!/bin/sh
