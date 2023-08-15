@@ -1,4 +1,4 @@
-{ config, lib, pkgs, browser, term, spawnEditor, fetchFromGitHub, ... }:
+{ config, lib, pkgs, browser, term, spawnEditor, ... }:
 
 {
   imports = [
@@ -214,4 +214,11 @@
       }
     }
   '';
+  programs.fuzzel.enable = true;
+  programs.fuzzel.settings = {
+    main = {
+      terminal = "${pkgs.alacritty}/bin/alacritty";
+    };
+    colors.background = config.lib.stylix.colors.base00+"e6";
+  };
 }
