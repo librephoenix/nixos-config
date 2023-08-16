@@ -36,6 +36,8 @@
       bind=SUPER,S,exec,''+browser+''
 
       bind=SUPER,code:47,exec,fuzzel
+      bind=SUPER,X,exec,fnottctl dismiss
+      bind=SUPERSHIFT,X,exec,fnottctl dismiss all
       bind=SUPER,Q,killactive
       bind=SUPERSHIFT,Q,exit
       bind=SUPER,mouse:272,movewindow
@@ -140,6 +142,7 @@
     swayidle
     swaylock-effects
     swaybg
+    fnott
     #hyprpaper
     #wofi
     fuzzel
@@ -221,4 +224,5 @@
     };
     colors.background = config.lib.stylix.colors.base00+"e6";
   };
+  services.fnott.enable = true;
 }
