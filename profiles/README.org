@@ -6,5 +6,6 @@ Current profiles I have available are:
 - [[./personal][Personal]] - What I would run on a personal laptop/desktop*
 - [[./work][Work]] - What I would run on a work laptop/desktop (if they let me bring my own OS :P)
 - [[./homelab][Homelab]] - What I would run on a server or homelab
+- [[./wsl][WSL]] - What I would run inside WSL on Windows
 
 *My [[./personal][personal]] and [[./work][work]] profiles are actually functionally identical (the [[./work][work]] profile is actually imported into the [[./personal][personal]] profile)! The only difference between them is that my [[./personal][personal]] profile has a few extra things like gaming and social apps.

@@ -1,0 +1,3 @@
+#+title: Trying to use a computer without Linux is hard
+
+This is my =WSL= profile, which is a minimal installation I use on Windows underneath WSL. This is essentially just for Emacs, some useful CLI apps I can't live without (namely ranger), and LibreOffice, which runs strangely slow on Windows.
