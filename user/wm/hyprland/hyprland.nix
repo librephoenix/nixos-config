@@ -131,7 +131,6 @@
     polkit_gnome
     libva-utils
     gsettings-desktop-schemas
-    swaynotificationcenter
     wlr-randr
     wtype
     hyprland-share-picker
@@ -147,8 +146,8 @@
     keepmenu
     pinentry_gnome
     wev
-    swww
     grim
+    slurp
     qt5.qtwayland
     qt6.qtwayland
     xdg-utils
