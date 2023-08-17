@@ -43,6 +43,13 @@
       bind=SUPER,mouse:272,movewindow
       bind=SUPER,mouse:273,movewindow
 
+      bind=,code:107,exec,grim -g "$(slurp)"
+      bind=SHIFT,code:107,exec,grim -g "$(slurp -o)"
+      bind=SUPER,code:107,exec,grim
+      bind=CTRL,code:107,exec,grim -g "$(slurp)" - | wl-copy
+      bind=SHIFTCTRL,code:107,exec,grim -g "$(slurp -o)" - | wl-copy
+      bind=SUPERCTRL,code:107,exec,grim - | wl-copy
+
       bind=SUPER,H,movefocus,l
       bind=SUPER,J,movefocus,d
       bind=SUPER,K,movefocus,u
