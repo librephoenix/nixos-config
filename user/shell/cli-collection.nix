@@ -24,6 +24,16 @@
     (pkgs.callPackage ../pkgs/ytsub.nix { })
     (pkgs.callPackage ../pkgs/russ.nix { })
     (pkgs.callPackage ../pkgs/pokemon-colorscripts.nix { })
+    (pkgs.writeShellScriptBin "airplane-mode" ''
+      #!/bin/sh
+      connectivity="$(nmcli n connectivity)"
+      if [ "$connectivity" == "full" ]
+      then
+          nmcli n off
+      else
+          nmcli n on
+      fi
+    '')
   ];
 
   imports = [
