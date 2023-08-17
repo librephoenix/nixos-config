@@ -24,7 +24,17 @@
 
       general {
         layout = master
+        cursor_inactive_timeout = 30
+        border_size = 4
+        col.active_border = 0xff''+config.lib.stylix.colors.base08+''
+
+        col.inactive_border = 0x33''+config.lib.stylix.colors.base00+''
+
+        resize_on_border = true
+        gaps_in = 7
+        gaps_out = 7
       }
+
       bind=SUPER,SPACE,fullscreen,1
       bind=ALT,TAB,cyclenext
       bind=ALTSHIFT,TAB,cyclenext,prev
@@ -125,12 +135,16 @@
       bind=SUPER,I,exec,networkmanager_dmenu
       bind=SUPER,P,exec,keepmenu
 
-      xwayland {
-        force_zero_scaling = true
-      }
       monitor=eDP-1,1920x1080,1000x1200,1
       monitor=HDMI-A-1,1920x1200,1920x0,1
       monitor=DP-1,1920x1200,0x0,1
+
+      xwayland {
+        force_zero_scaling = true
+      }
+
+      env = WLR_DRM_DEVICES,/dev/dri/card1:/dev/dri/card0
+
       input {
         kb_layout = us
         kb_options = caps:escape
@@ -139,7 +153,11 @@
         accel_profile = adaptive
         follow_mouse = 2
       }
-    env = WLR_DRM_DEVICES,/dev/dri/card1:/dev/dri/card0
+
+      decoration {
+        rounding = 8
+      }
+
     '';
     xwayland = {
       enable = true;
@@ -242,9 +260,22 @@
   programs.fuzzel.enable = true;
   programs.fuzzel.settings = {
     main = {
+      font = font+":size=13";
       terminal = "${pkgs.alacritty}/bin/alacritty";
     };
-    colors.background = config.lib.stylix.colors.base00+"e6";
+    colors = {
+      background = config.lib.stylix.colors.base00+"e6";
+      text = config.lib.stylix.colors.base07+"ff";
+      match = config.lib.stylix.colors.base05+"ff";
+      selection = config.lib.stylix.colors.base08+"ff";
+      selection-text = config.lib.stylix.colors.base00+"ff";
+      selection-match= config.lib.stylix.colors.base05+"ff";
+      border = config.lib.stylix.colors.base08+"ff";
+    };
+    border = {
+      width = 3;
+      radius = 7;
+    };
   };
   services.fnott.enable = true;
   services.fnott.settings = {
