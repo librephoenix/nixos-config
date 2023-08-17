@@ -1,4 +1,4 @@
-{ config, lib, pkgs, browser, term, spawnEditor, ... }:
+{ config, lib, pkgs, browser, term, spawnEditor, font, ... }:
 
 {
   imports = [
@@ -61,6 +61,9 @@
       bind=,code:237,exec,brightnessctl --device='asus::kbd_backlight' set 1-
       bind=,code:238,exec,brightnessctl --device='asus::kbd_backlight' set +1
       bind=,code:255,exec,airplane-mode
+
+      bind=SUPERSHIFT,S,exec,systemctl suspend
+      bind=SUPERSHIFT,L,exec,swaylock --indicator-radius 200 --screenshots --effect-blur 10x10
 
       bind=SUPER,H,movefocus,l
       bind=SUPER,J,movefocus,d
@@ -244,4 +247,42 @@
     colors.background = config.lib.stylix.colors.base00+"e6";
   };
   services.fnott.enable = true;
+  services.fnott.settings = {
+    main = {
+      anchor = "bottom-right";
+      stacking-order = "top-down";
+      min-width = 400;
+      title-font = font+":size=14";
+      summary-font = font+":size=12";
+      body-font = font+":size=11";
+      border-size = 0;
+    };
+    low = {
+      background = config.lib.stylix.colors.base00+"e6";
+      title-color = config.lib.stylix.colors.base03+"ff";
+      summary-color = config.lib.stylix.colors.base03+"ff";
+      body-color = config.lib.stylix.colors.base03+"ff";
+      idle-timeout = 150;
+      max-timeout = 30;
+      default-timeout = 8;
+    };
+    normal = {
+      background = config.lib.stylix.colors.base00+"e6";
+      title-color = config.lib.stylix.colors.base07+"ff";
+      summary-color = config.lib.stylix.colors.base07+"ff";
+      body-color = config.lib.stylix.colors.base07+"ff";
+      idle-timeout = 150;
+      max-timeout = 30;
+      default-timeout = 8;
+    };
+    critical = {
+      background = config.lib.stylix.colors.base00+"e6";
+      title-color = config.lib.stylix.colors.base08+"ff";
+      summary-color = config.lib.stylix.colors.base08+"ff";
+      body-color = config.lib.stylix.colors.base08+"ff";
+      idle-timeout = 0;
+      max-timeout = 0;
+      default-timeout = 0;
+    };
+  };
 }
