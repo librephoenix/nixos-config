@@ -689,7 +689,7 @@ same directory as the org-buffer and insert a link to this file."
   (interactive)
   (+evil/window-vsplit-and-follow)
   (org-roam-ui-open)
-  (evil-window-left))
+  (evil-window-left 1))
 
 (defun kill-org-roam-ui ()
   (interactive)

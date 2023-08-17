@@ -817,7 +817,7 @@ I want this to be able to automatically open ORUI in EAF Browser in a split to t
   (interactive)
   (+evil/window-vsplit-and-follow)
   (org-roam-ui-open)
-  (evil-window-left))
+  (evil-window-left 1))
 
 (defun kill-org-roam-ui ()
   (interactive)
