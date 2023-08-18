@@ -42,7 +42,7 @@
     syncthing
 
     # Office
-    libreoffice-fresh-unwrapped
+    libreoffice-fresh
     mate.atril
     xournalpp
     glib
