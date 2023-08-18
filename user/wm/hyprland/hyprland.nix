@@ -224,8 +224,6 @@
 
       if [[ $workspace -eq $passivews ]] && [[ $activemonitor != "$passivemonitor" ]]; then
         hyprctl dispatch swapactiveworkspaces "$activemonitor" "$passivemonitor" &&
-        hyprctl reload &&
-        hyprctl dispatch focusmonitor "$activemonitor"
         echo $activemonitor $passivemonitor
       else
         hyprctl dispatch moveworkspacetomonitor "$workspace $activemonitor" && hyprctl dispatch workspace "$workspace"
