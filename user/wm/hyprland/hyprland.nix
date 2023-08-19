@@ -341,7 +341,7 @@
         clock = {
           "interval" = 1;
           "format" = "{:%a %Y-%m-%d %I:%M:%S %p}";
-          "timezone" = "America/New_York";
+          "timezone" = "America/Chicago";
           "tooltip-format" = ''
             <big>{:%Y %B}</big>
             <tt><small>{calendar}</small></tt>'';
