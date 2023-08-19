@@ -4,13 +4,16 @@
   imports = [
     ../../app/terminal/alacritty.nix
     ../../app/terminal/kitty.nix
-    ( import ../../app/dmenu-scripts/networkmanager-dmenu.nix {dmenu_command = "fuzzel -d"; inherit config lib pkgs;})
+    (import ../../app/dmenu-scripts/networkmanager-dmenu.nix {
+      dmenu_command = "fuzzel -d";
+      inherit config lib pkgs;
+    })
   ];
 
   wayland.windowManager.hyprland = {
     enable = true;
-    plugins = [];
-    settings = {};
+    plugins = [ ];
+    settings = { };
     extraConfig = ''
       exec-once = pypr
       exec-once = nm-applet
@@ -26,140 +29,137 @@
         layout = master
         cursor_inactive_timeout = 30
         border_size = 4
-        col.active_border = 0xff''+config.lib.stylix.colors.base08+''
+        col.active_border = 0xff'' + config.lib.stylix.colors.base08 + ''
 
-        col.inactive_border = 0x33''+config.lib.stylix.colors.base00+''
+        col.inactive_border = 0x33'' + config.lib.stylix.colors.base00 + ''
 
-        resize_on_border = true
-        gaps_in = 7
-        gaps_out = 7
-      }
+            resize_on_border = true
+            gaps_in = 7
+            gaps_out = 7
+       }
 
-      bind=SUPER,SPACE,fullscreen,1
-      bind=ALT,TAB,cyclenext
-      bind=ALTSHIFT,TAB,cyclenext,prev
+       bind=SUPER,SPACE,fullscreen,1
+       bind=ALT,TAB,cyclenext
+       bind=ALTSHIFT,TAB,cyclenext,prev
 
-      bind=SUPER,RETURN,exec,''+term+''
+       bind=SUPER,RETURN,exec,'' + term + ''
 
-      bind=SUPER,A,exec,''+spawnEditor+''
+       bind=SUPER,A,exec,'' + spawnEditor + ''
 
-      bind=SUPER,S,exec,''+browser+''
+       bind=SUPER,S,exec,'' + browser + ''
 
-      bind=SUPER,code:47,exec,fuzzel
-      bind=SUPER,X,exec,fnottctl dismiss
-      bind=SUPERSHIFT,X,exec,fnottctl dismiss all
-      bind=SUPER,Q,killactive
-      bind=SUPERSHIFT,Q,exit
-      bind=SUPER,mouse:272,movewindow
-      bind=SUPER,mouse:273,movewindow
+       bind=SUPER,code:47,exec,fuzzel
+       bind=SUPER,X,exec,fnottctl dismiss
+       bind=SUPERSHIFT,X,exec,fnottctl dismiss all
+       bind=SUPER,Q,killactive
+       bind=SUPERSHIFT,Q,exit
+       bind=SUPER,mouse:272,movewindow
+       bind=SUPER,mouse:273,movewindow
 
-      bind=,code:107,exec,grim -g "$(slurp)"
-      bind=SHIFT,code:107,exec,grim -g "$(slurp -o)"
-      bind=SUPER,code:107,exec,grim
-      bind=CTRL,code:107,exec,grim -g "$(slurp)" - | wl-copy
-      bind=SHIFTCTRL,code:107,exec,grim -g "$(slurp -o)" - | wl-copy
-      bind=SUPERCTRL,code:107,exec,grim - | wl-copy
+       bind=,code:107,exec,grim -g "$(slurp)"
+       bind=SHIFT,code:107,exec,grim -g "$(slurp -o)"
+       bind=SUPER,code:107,exec,grim
+       bind=CTRL,code:107,exec,grim -g "$(slurp)" - | wl-copy
+       bind=SHIFTCTRL,code:107,exec,grim -g "$(slurp -o)" - | wl-copy
+       bind=SUPERCTRL,code:107,exec,grim - | wl-copy
 
-      bind=,code:122,exec,pamixer -d 10
-      bind=,code:123,exec,pamixer -i 10
-      bind=,code:121,exec,pamixer -t
-      bind=,code:256,exec,pamixer --default-source -t
-      bind=SHIFT,code:122,exec,pamixer --default-source -d 10
-      bind=SHIFT,code:123,exec,pamixer --default-source -i 10
-      bind=,code:232,exec,brightnessctl set 15-
-      bind=,code:233,exec,brightnessctl set +15
-      bind=,code:237,exec,brightnessctl --device='asus::kbd_backlight' set 1-
-      bind=,code:238,exec,brightnessctl --device='asus::kbd_backlight' set +1
-      bind=,code:255,exec,airplane-mode
+       bind=,code:122,exec,pamixer -d 10
+       bind=,code:123,exec,pamixer -i 10
+       bind=,code:121,exec,pamixer -t
+       bind=,code:256,exec,pamixer --default-source -t
+       bind=SHIFT,code:122,exec,pamixer --default-source -d 10
+       bind=SHIFT,code:123,exec,pamixer --default-source -i 10
+       bind=,code:232,exec,brightnessctl set 15-
+       bind=,code:233,exec,brightnessctl set +15
+       bind=,code:237,exec,brightnessctl --device='asus::kbd_backlight' set 1-
+       bind=,code:238,exec,brightnessctl --device='asus::kbd_backlight' set +1
+       bind=,code:255,exec,airplane-mode
 
-      bind=SUPERSHIFT,S,exec,systemctl suspend
-      bind=SUPERCTRL,L,exec,swaylock --indicator-radius 200 --screenshots --effect-blur 10x10
+       bind=SUPERSHIFT,S,exec,systemctl suspend
+       bind=SUPERCTRL,L,exec,swaylock --indicator-radius 200 --screenshots --effect-blur 10x10
 
-      bind=SUPER,H,movefocus,l
-      bind=SUPER,J,movefocus,d
-      bind=SUPER,K,movefocus,u
-      bind=SUPER,L,movefocus,r
+       bind=SUPER,H,movefocus,l
+       bind=SUPER,J,movefocus,d
+       bind=SUPER,K,movefocus,u
+       bind=SUPER,L,movefocus,r
 
-      bind=SUPERSHIFT,H,movewindow,l
-      bind=SUPERSHIFT,J,movewindow,d
-      bind=SUPERSHIFT,K,movewindow,u
-      bind=SUPERSHIFT,L,movewindow,r
+       bind=SUPERSHIFT,H,movewindow,l
+       bind=SUPERSHIFT,J,movewindow,d
+       bind=SUPERSHIFT,K,movewindow,u
+       bind=SUPERSHIFT,L,movewindow,r
 
-      bind=SUPER,1,exec,hyprworkspace 1
-      bind=SUPER,2,exec,hyprworkspace 2
-      bind=SUPER,3,exec,hyprworkspace 3
-      bind=SUPER,4,exec,hyprworkspace 4
-      bind=SUPER,5,exec,hyprworkspace 5
-      bind=SUPER,6,exec,hyprworkspace 6
-      bind=SUPER,7,exec,hyprworkspace 7
-      bind=SUPER,8,exec,hyprworkspace 8
-      bind=SUPER,9,exec,hyprworkspace 9
+       bind=SUPER,1,exec,hyprworkspace 1
+       bind=SUPER,2,exec,hyprworkspace 2
+       bind=SUPER,3,exec,hyprworkspace 3
+       bind=SUPER,4,exec,hyprworkspace 4
+       bind=SUPER,5,exec,hyprworkspace 5
+       bind=SUPER,6,exec,hyprworkspace 6
+       bind=SUPER,7,exec,hyprworkspace 7
+       bind=SUPER,8,exec,hyprworkspace 8
+       bind=SUPER,9,exec,hyprworkspace 9
 
-      bind=SUPERSHIFT,1,movetoworkspace,1
-      bind=SUPERSHIFT,2,movetoworkspace,2
-      bind=SUPERSHIFT,3,movetoworkspace,3
-      bind=SUPERSHIFT,4,movetoworkspace,4
-      bind=SUPERSHIFT,5,movetoworkspace,5
-      bind=SUPERSHIFT,6,movetoworkspace,6
-      bind=SUPERSHIFT,7,movetoworkspace,7
-      bind=SUPERSHIFT,8,movetoworkspace,8
-      bind=SUPERSHIFT,9,movetoworkspace,9
+       bind=SUPERSHIFT,1,movetoworkspace,1
+       bind=SUPERSHIFT,2,movetoworkspace,2
+       bind=SUPERSHIFT,3,movetoworkspace,3
+       bind=SUPERSHIFT,4,movetoworkspace,4
+       bind=SUPERSHIFT,5,movetoworkspace,5
+       bind=SUPERSHIFT,6,movetoworkspace,6
+       bind=SUPERSHIFT,7,movetoworkspace,7
+       bind=SUPERSHIFT,8,movetoworkspace,8
+       bind=SUPERSHIFT,9,movetoworkspace,9
 
-      bind=SUPER,Z,exec,pypr toggle term
-      bind=SUPER,F,exec,pypr toggle ranger
-      bind=SUPER,N,exec,pypr toggle musikcube
-      bind=SUPER,B,exec,pypr toggle btm
-      bind=SUPER,E,exec,pypr toggle geary
-      $scratchpadsize = size 80% 85%
+       bind=SUPER,Z,exec,pypr toggle term
+       bind=SUPER,F,exec,pypr toggle ranger
+       bind=SUPER,N,exec,pypr toggle musikcube
+       bind=SUPER,B,exec,pypr toggle btm
+       bind=SUPER,E,exec,pypr toggle geary
+       $scratchpadsize = size 80% 85%
 
-      $scratchpad = class:^(scratchpad)$
-      windowrulev2 = float,$scratchpad
-      windowrulev2 = $scratchpadsize,$scratchpad
-      windowrulev2 = workspace special silent,$scratchpad
-      windowrulev2 = center,$scratchpad
+       $scratchpad = class:^(scratchpad)$
+       windowrulev2 = float,$scratchpad
+       windowrulev2 = $scratchpadsize,$scratchpad
+       windowrulev2 = workspace special silent,$scratchpad
+       windowrulev2 = center,$scratchpad
 
-      $gearyscratchpad = class:^(geary)$
-      windowrulev2 = float,$gearyscratchpad
-      windowrulev2 = $scratchpadsize,$gearyscratchpad
-      windowrulev2 = workspace special silent,$gearyscratchpad
-      windowrulev2 = center,$gearyscratchpad
+       $gearyscratchpad = class:^(geary)$
+       windowrulev2 = float,$gearyscratchpad
+       windowrulev2 = $scratchpadsize,$gearyscratchpad
+       windowrulev2 = workspace special silent,$gearyscratchpad
+       windowrulev2 = center,$gearyscratchpad
 
-      bind=SUPER,code:21,exec,pypr zoom
-      bind=SUPER,code:21,exec,hyprctl reload
+       bind=SUPER,code:21,exec,pypr zoom
+       bind=SUPER,code:21,exec,hyprctl reload
 
-      bind=SUPERCTRL,right,workspace,+1
-      bind=SUPERCTRL,left,workspace,-1
+       bind=SUPERCTRL,right,workspace,+1
+       bind=SUPERCTRL,left,workspace,-1
 
-      bind=SUPER,I,exec,networkmanager_dmenu
-      bind=SUPER,P,exec,keepmenu
+       bind=SUPER,I,exec,networkmanager_dmenu
+       bind=SUPER,P,exec,keepmenu
 
-      monitor=eDP-1,1920x1080,1000x1200,1
-      monitor=HDMI-A-1,1920x1200,1920x0,1
-      monitor=DP-1,1920x1200,0x0,1
+       monitor=eDP-1,1920x1080,1000x1200,1
+       monitor=HDMI-A-1,1920x1200,1920x0,1
+       monitor=DP-1,1920x1200,0x0,1
 
-      xwayland {
-        force_zero_scaling = true
-      }
+       xwayland {
+         force_zero_scaling = true
+       }
 
-      env = WLR_DRM_DEVICES,/dev/dri/card1:/dev/dri/card0
+       env = WLR_DRM_DEVICES,/dev/dri/card1:/dev/dri/card0
 
-      input {
-        kb_layout = us
-        kb_options = caps:escape
-        repeat_delay = 350
-        repeat_rate = 50
-        accel_profile = adaptive
-        follow_mouse = 2
-      }
+       input {
+         kb_layout = us
+         kb_options = caps:escape
+         repeat_delay = 350
+         repeat_rate = 50
+         accel_profile = adaptive
+         follow_mouse = 2
+       }
 
-      decoration {
-        rounding = 8
-      }
-
+       decoration {
+         rounding = 8
+       }
     '';
-    xwayland = {
-      enable = true;
-    };
+    xwayland = { enable = true; };
     systemdIntegration = true;
   };
 
@@ -292,41 +292,46 @@
       mainBar = {
         layer = "top";
         position = "top";
-        height = 30;
+        height = 35;
+        margin = "7 7 3 7";
         # width = 1280;
-        spacing = 4;
+        spacing = 2;
 
-        modules-left = [ ];
+        modules-left = [ "battery" "backlight" "pulseaudio" "cpu" "memory" ];
         modules-center = [ "wlr/workspaces" ];
-        modules-right = [ "idle_inhibitor" "pulseaudio" "network" "cpu" "memory" "backlight" "battery" "clock" "tray"];
+        modules-right = [ "idle_inhibitor" "clock" "tray" ];
 
         "wlr/workspaces" = {
           "format" = "{icon}";
           "format-icons" = {
-            "1" = "";
-            "2" = "";
-            "3" = "";
-            "4" = "";
-            "5" = "";
+            "1" = "󱚌 ¹";
+            "2" = "󰈹 ²";
+            "3" = "󰈮 ³";
+            "4" = "󱍙 ⁴";
+            "5" = "⁵";
+            "6" = "󰄄 ⁶";
+            "7" = "⁷";
+            "8" = "⁸";
+            "9" = "⁹";
           };
           "persistent_workspaces" = {
-             "1" = [];
-             "2" = [];
-             "3" = [];
-             "4" = [];
-             "5" = [];
-             "6" = [];
-             "7" = [];
-             "8" = [];
-             "9" = [];
-           };
+            "1" = [ ];
+            "2" = [ ];
+            "3" = [ ];
+            "4" = [ ];
+            "5" = [ ];
+            "6" = [ ];
+            "7" = [ ];
+            "8" = [ ];
+            "9" = [ ];
+          };
         };
 
         "idle_inhibitor" = {
           format = "{icon}";
           format-icons = {
-            activated = "";
-            deactivated = "";
+            activated = "󰅶";
+            deactivated = "󰾪";
           };
         };
         tray = {
@@ -334,20 +339,22 @@
           "spacing" = 10;
         };
         clock = {
+          "interval" = 1;
+          "format" = "{:%a %Y-%m-%d %I:%M:%S %p}";
           "timezone" = "America/New_York";
-          "tooltip-format" = "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
-          "format-alt" = "{:%Y-%m-%d}";
+          "tooltip-format" = ''
+            <big>{:%Y %B}</big>
+            <tt><small>{calendar}</small></tt>'';
+          "format-alt" = "{:%I:%M:%S %p}";
         };
         cpu = {
           "format" = "{usage}% ";
           "tooltip" = false;
         };
-        memory = {
-          "format" = "{}% ";
-        };
+        memory = { "format" = "{}% "; };
         backlight = {
-            "format" = "{percent}% {icon}";
-            "format-icons" = ["" "" "" "" "" "" "" "" ""];
+          "format" = "{percent}% {icon}";
+          "format-icons" = [ "" "" "" "" "" "" "" "" "" ];
         };
         battery = {
           "states" = {
@@ -361,22 +368,14 @@
           "format-alt" = "{time} {icon}";
           #"format-good" = ""; # An empty format will hide the module
           #"format-full" = "";
-          "format-icons" = ["" "" "" "" ""];
-        };
-        network = {
-          "format-wifi" = "{essid} ({signalStrength}%) ";
-          "format-ethernet" = "{ipaddr}/{cidr} ";
-          "tooltip-format" = "{ifname} via {gwaddr} ";
-          "format-linked" = "{ifname} (No IP) ";
-          "format-disconnected" = "Disconnected ⚠";
-          "format-alt" = "{ifname}: {ipaddr}/{cidr}";
+          "format-icons" = [ "" "" "" "" "" ];
         };
         pulseaudio = {
           "scroll-step" = 1;
-          "format" = "{volume}% {icon} {format_source}";
-          "format-bluetooth" = "{volume}% {icon} {format_source}";
-          "format-bluetooth-muted" = " {icon} {format_source}";
-          "format-muted" = " {format_source}";
+          "format" = "{volume}% {icon}  {format_source}";
+          "format-bluetooth" = "{volume}% {icon}  {format_source}";
+          "format-bluetooth-muted" = " {icon}  {format_source}";
+          "format-muted" = "  {format_source}";
           "format-source" = "{volume}% ";
           "format-source-muted" = "";
           "format-icons" = {
@@ -386,7 +385,7 @@
             "phone" = "";
             "portable" = "";
             "car" = "";
-            "default" = ["" "" ""];
+            "default" = [ "" "" "" ];
           };
           "on-click" = "pavucontrol";
         };
@@ -395,45 +394,30 @@
     style = ''
       * {
           /* `otf-font-awesome` is required to be installed for icons */
-          font-family: FontAwesome, Roboto, Helvetica, Arial, sans-serif;
-          font-size: 13px;
+          font-family: FontAwesome, Inconsolata;
+          font-size: 20px;
       }
 
       window#waybar {
-          background-color: rgba(43, 48, 59, 0.9);
-          color: #ffffff;
+          background-color: #'' + config.lib.stylix.colors.base00 + '';
+          opacity: 0.87;
+          border-radius: 8px;
+          color: #'' + config.lib.stylix.colors.base07 + '';
           transition-property: background-color;
-          transition-duration: .5s;
+          transition-duration: .2s;
+      }
+
+      window > box {
+          border-radius: 8px;
+          opacity: 0.87;
       }
 
       window#waybar.hidden {
           opacity: 0.2;
       }
 
-      /*
-      window#waybar.empty {
-          background-color: transparent;
-      }
-      window#waybar.solo {
-          background-color: #FFFFFF;
-      }
-      */
-
-      window#waybar.termite {
-          background-color: #3F3F3F;
-      }
-
-      window#waybar.chromium {
-          background-color: #000000;
-          border: none;
-      }
-
       button {
-          /* Use box-shadow instead of border so the text isn't offset */
-          box-shadow: inset 0 -3px transparent;
-          /* Avoid rounded borders under each button name */
           border: none;
-          border-radius: 2;
       }
 
       /* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
@@ -444,33 +428,27 @@
       #workspaces button {
           padding: 0 7px;
           background-color: transparent;
-          color: #ffffff;
+          color: #'' + config.lib.stylix.colors.base04 + '';
       }
 
       #workspaces button:hover {
-          background: rgba(0, 0, 0, 0.2);
-      }
-
-      #workspaces button.focused {
-          background-color: #64727D;
-          box-shadow: inset 0 -3px #ffffff;
+          color: #'' + config.lib.stylix.colors.base07 + '';
       }
 
       #workspaces button.active {
-          background-color: #ff0000;
+          color: #'' + config.lib.stylix.colors.base08 + '';
+      }
+
+      #workspaces button.focused {
+          color: #'' + config.lib.stylix.colors.base0A + '';
       }
 
       #workspaces button.visible {
-          background-color: #0000ff;
+          color: #'' + config.lib.stylix.colors.base07 + '';
       }
 
       #workspaces button.urgent {
-          background-color: #eb4d4b;
-      }
-
-      #mode {
-          background-color: #64727D;
-          border-bottom: 3px solid #ffffff;
+          color: #'' + config.lib.stylix.colors.base09 + '';
       }
 
       #clock,
@@ -490,7 +468,9 @@
       #scratchpad,
       #mpd {
           padding: 0 10px;
-          color: #ffffff;
+          color: #'' + config.lib.stylix.colors.base07 + '';
+          border: none;
+          border-radius: 8px;
       }
 
       #window,
@@ -509,29 +489,27 @@
       }
 
       #clock {
-          background-color: #64727D;
+          color: #'' + config.lib.stylix.colors.base0D + '';
       }
 
       #battery {
-          background-color: #ffffff;
-          color: #000000;
+          color: #'' + config.lib.stylix.colors.base0B + '';
       }
 
       #battery.charging, #battery.plugged {
-          color: #ffffff;
-          background-color: #26A65B;
+          color: #'' + config.lib.stylix.colors.base0C + '';
       }
 
       @keyframes blink {
           to {
-              background-color: #ffffff;
-              color: #000000;
+              background-color: #'' + config.lib.stylix.colors.base07 + '';
+              color: #'' + config.lib.stylix.colors.base00 + '';
           }
       }
 
       #battery.critical:not(.charging) {
-          background-color: #f53c3c;
-          color: #ffffff;
+          background-color: #'' + config.lib.stylix.colors.base08 + '';
+          color: #'' + config.lib.stylix.colors.base07 + '';
           animation-name: blink;
           animation-duration: 0.5s;
           animation-timing-function: linear;
@@ -540,77 +518,31 @@
       }
 
       label:focus {
-          background-color: #000000;
+          background-color: #'' + config.lib.stylix.colors.base00 + '';
       }
 
       #cpu {
-          background-color: #2ecc71;
-          color: #000000;
+          color: #'' + config.lib.stylix.colors.base0D + '';
       }
 
       #memory {
-          background-color: #9b59b6;
+          color: #'' + config.lib.stylix.colors.base0E + '';
       }
 
       #disk {
-          background-color: #964B00;
+          color: #'' + config.lib.stylix.colors.base0F + '';
       }
 
       #backlight {
-          background-color: #90b1b1;
-      }
-
-      #network {
-          background-color: #2980b9;
-      }
-
-      #network.disconnected {
-          background-color: #f53c3c;
+          color: #'' + config.lib.stylix.colors.base0A + '';
       }
 
       #pulseaudio {
-          background-color: #f1c40f;
-          color: #000000;
+          color: #'' + config.lib.stylix.colors.base0C + '';
       }
 
       #pulseaudio.muted {
-          background-color: #90b1b1;
-          color: #2a5c45;
-      }
-
-      #wireplumber {
-          background-color: #fff0f5;
-          color: #000000;
-      }
-
-      #wireplumber.muted {
-          background-color: #f53c3c;
-      }
-
-      #custom-media {
-          background-color: #66cc99;
-          color: #2a5c45;
-          min-width: 100px;
-      }
-
-      #custom-media.custom-spotify {
-          background-color: #66cc99;
-      }
-
-      #custom-media.custom-vlc {
-          background-color: #ffa000;
-      }
-
-      #temperature {
-          background-color: #f0932b;
-      }
-
-      #temperature.critical {
-          background-color: #eb4d4b;
-      }
-
-      #tray {
-          background-color: #2980b9;
+          color: #'' + config.lib.stylix.colors.base04 + '';
       }
 
       #tray > .passive {
@@ -619,83 +551,31 @@
 
       #tray > .needs-attention {
           -gtk-icon-effect: highlight;
-          background-color: #eb4d4b;
       }
 
       #idle_inhibitor {
-          background-color: #2d3436;
+          color: #'' + config.lib.stylix.colors.base04 + '';
       }
 
       #idle_inhibitor.activated {
-          background-color: #ecf0f1;
-          color: #2d3436;
+          color: #'' + config.lib.stylix.colors.base0F + '';
       }
-
-      #mpd {
-          background-color: #66cc99;
-          color: #2a5c45;
-      }
-
-      #mpd.disconnected {
-          background-color: #f53c3c;
-      }
-
-      #mpd.stopped {
-          background-color: #90b1b1;
-      }
-
-      #mpd.paused {
-          background-color: #51a37a;
-      }
-
-      #language {
-          background: #00b093;
-          color: #740864;
-          padding: 0 5px;
-          margin: 0 5px;
-          min-width: 16px;
-      }
-
-      #keyboard-state {
-          background: #97e1ad;
-          color: #000000;
-          padding: 0 0px;
-          margin: 0 5px;
-          min-width: 16px;
-      }
-
-      #keyboard-state > label {
-          padding: 0 5px;
-      }
-
-      #keyboard-state > label.locked {
-          background: rgba(0, 0, 0, 0.2);
-      }
-
-      #scratchpad {
-          background: rgba(0, 0, 0, 0.2);
-      }
-
-      #scratchpad.empty {
-      	background-color: transparent;
-      }
-
-    '';
+      '';
   };
   programs.fuzzel.enable = true;
   programs.fuzzel.settings = {
     main = {
-      font = font+":size=13";
+      font = font + ":size=13";
       terminal = "${pkgs.alacritty}/bin/alacritty";
     };
     colors = {
-      background = config.lib.stylix.colors.base00+"e6";
-      text = config.lib.stylix.colors.base07+"ff";
-      match = config.lib.stylix.colors.base05+"ff";
-      selection = config.lib.stylix.colors.base08+"ff";
-      selection-text = config.lib.stylix.colors.base00+"ff";
-      selection-match= config.lib.stylix.colors.base05+"ff";
-      border = config.lib.stylix.colors.base08+"ff";
+      background = config.lib.stylix.colors.base00 + "e6";
+      text = config.lib.stylix.colors.base07 + "ff";
+      match = config.lib.stylix.colors.base05 + "ff";
+      selection = config.lib.stylix.colors.base08 + "ff";
+      selection-text = config.lib.stylix.colors.base00 + "ff";
+      selection-match = config.lib.stylix.colors.base05 + "ff";
+      border = config.lib.stylix.colors.base08 + "ff";
     };
     border = {
       width = 3;
@@ -708,34 +588,34 @@
       anchor = "bottom-right";
       stacking-order = "top-down";
       min-width = 400;
-      title-font = font+":size=14";
-      summary-font = font+":size=12";
-      body-font = font+":size=11";
+      title-font = font + ":size=14";
+      summary-font = font + ":size=12";
+      body-font = font + ":size=11";
       border-size = 0;
     };
     low = {
-      background = config.lib.stylix.colors.base00+"e6";
-      title-color = config.lib.stylix.colors.base03+"ff";
-      summary-color = config.lib.stylix.colors.base03+"ff";
-      body-color = config.lib.stylix.colors.base03+"ff";
+      background = config.lib.stylix.colors.base00 + "e6";
+      title-color = config.lib.stylix.colors.base03 + "ff";
+      summary-color = config.lib.stylix.colors.base03 + "ff";
+      body-color = config.lib.stylix.colors.base03 + "ff";
       idle-timeout = 150;
       max-timeout = 30;
       default-timeout = 8;
     };
     normal = {
-      background = config.lib.stylix.colors.base00+"e6";
-      title-color = config.lib.stylix.colors.base07+"ff";
-      summary-color = config.lib.stylix.colors.base07+"ff";
-      body-color = config.lib.stylix.colors.base07+"ff";
+      background = config.lib.stylix.colors.base00 + "e6";
+      title-color = config.lib.stylix.colors.base07 + "ff";
+      summary-color = config.lib.stylix.colors.base07 + "ff";
+      body-color = config.lib.stylix.colors.base07 + "ff";
       idle-timeout = 150;
       max-timeout = 30;
       default-timeout = 8;
     };
     critical = {
-      background = config.lib.stylix.colors.base00+"e6";
-      title-color = config.lib.stylix.colors.base08+"ff";
-      summary-color = config.lib.stylix.colors.base08+"ff";
-      body-color = config.lib.stylix.colors.base08+"ff";
+      background = config.lib.stylix.colors.base00 + "e6";
+      title-color = config.lib.stylix.colors.base08 + "ff";
+      summary-color = config.lib.stylix.colors.base08 + "ff";
+      body-color = config.lib.stylix.colors.base08 + "ff";
       idle-timeout = 0;
       max-timeout = 0;
       default-timeout = 0;
