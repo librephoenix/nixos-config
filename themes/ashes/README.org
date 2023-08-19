@@ -1,7 +1,7 @@
 #+title: Ashes
 #+author: Emmet
 
-"Ashes" base-16 theme originally by Jannik Siebert ([[https://github.com/janniks][https://github.com/janniks]]).
+"Ashes" base-16 theme originally by Jannik Siebert ([[https://github.com/janniks]]).
 
 [[https://raw.githubusercontent.com/librephoenix/nixos-config/main/themes/ashes/ashes.png]]
 
