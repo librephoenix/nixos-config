@@ -297,9 +297,15 @@
         # width = 1280;
         spacing = 2;
 
-        modules-left = [ "battery" "backlight" "pulseaudio" "cpu" "memory" ];
+        modules-left = [ "custom/os" "battery" "backlight" "pulseaudio" "cpu" "memory" ];
         modules-center = [ "wlr/workspaces" ];
         modules-right = [ "idle_inhibitor" "clock" "tray" ];
+
+        "custom/os" = {
+          "format" = " {} ";
+          "exec" = ''echo "" '';
+          "interval" = "once";
+        };
 
         "wlr/workspaces" = {
           "format" = "{icon}";
