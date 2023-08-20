@@ -1,7 +1,7 @@
 #+title: Old Hope
 #+author: Emmet
 
-"Old Hope" base-16 theme originally by mohkale ([[https://github.com/mohkale/an-old-hope-theme][https://github.com/mohkale/an-old-hope-theme]]).
+"Old Hope" base-16 theme originally by mohkale ([[https://github.com/mohkale/an-old-hope-theme]]).
 
 [[https://raw.githubusercontent.com/librephoenix/nixos-config-screenshots/main/xmonad/old-hope.png]]
 

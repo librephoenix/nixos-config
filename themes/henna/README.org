@@ -1,7 +1,7 @@
 #+title: Henna
 #+author: Emmet
 
-"Henna" base-16 theme originally by httpsterio ([[https://github.com/httpsterio/vscode-henna][https://github.com/httpsterio/vscode-henna]]).
+"Henna" base-16 theme originally by httpsterio ([[https://github.com/httpsterio/vscode-henna]]).
 
 [[https://raw.githubusercontent.com/librephoenix/nixos-config-screenshots/main/xmonad/henna.png]]
 

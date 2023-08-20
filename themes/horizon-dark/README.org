@@ -1,7 +1,7 @@
 #+title: Horizon Dark
 #+author: Emmet
 
-"Horizon Dark" base-16 theme originally by Michaël Ball ([[http://github.com/michael-ball][http://github.com/michael-ball]]).
+"Horizon Dark" base-16 theme originally by Michaël Ball ([[https://github.com/michael-ball]]).
 
 [[https://raw.githubusercontent.com/librephoenix/nixos-config-screenshots/main/xmonad/horizon-dark.png]]
 

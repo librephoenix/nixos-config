@@ -1,7 +1,7 @@
 #+title: Solarized Light
 #+author: Emmet
 
-"Solarized Light" base-16 theme originally by Ethan Schoonover ([[https://ethanschoonover.com/solarized/][https://ethanschoonover.com/solarized/]]) and modified by aramisgithub.
+"Solarized Light" base-16 theme originally by Ethan Schoonover ([[https://ethanschoonover.com/solarized/]]) and modified by aramisgithub.
 
 [[https://raw.githubusercontent.com/librephoenix/nixos-config-screenshots/main/xmonad/solarized-light.png]]
 

@@ -1,7 +1,7 @@
 #+title: Dracula
 #+author: Emmet
 
-"Dracula" base-16 theme ([[https://github.com/dracula][https://github.com/dracula]]).
+"Dracula" base-16 theme ([[https://github.com/dracula]]).
 
 [[https://raw.githubusercontent.com/librephoenix/nixos-config-screenshots/main/xmonad/dracula.png]]
 

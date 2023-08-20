@@ -1,7 +1,7 @@
 #+title: Darkmoss
 #+author: Emmet
 
-"Darkmoss" base-16 theme originally by Gabriel Avanzi ([[https://github.com/avanzzzi][https://github.com/avanzzzi]]).
+"Darkmoss" base-16 theme originally by Gabriel Avanzi ([[https://github.com/avanzzzi]]).
 
 [[https://raw.githubusercontent.com/librephoenix/nixos-config-screenshots/main/xmonad/darkmoss.png]]
 

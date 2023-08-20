@@ -1,7 +1,7 @@
 #+title: Miramare
 #+author: Emmet
 
-"Miramare" base-16 theme originally by franbach ([[https://github.com/franbach/miramare][https://github.com/franbach/miramare]]).
+"Miramare" base-16 theme originally by franbach ([[https://github.com/franbach/miramare]]).
 
 [[https://raw.githubusercontent.com/librephoenix/nixos-config-screenshots/main/xmonad/miramare.png]]
 

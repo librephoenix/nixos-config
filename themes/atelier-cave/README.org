@@ -1,7 +1,7 @@
 #+title: Atelier Cave
 #+author: Emmet
 
-"Atelier Cave" base-16 theme originally by Bram de Haan ([[http://atelierbramdehaan.nl][http://atelierbramdehaan.nl]]).
+"Atelier Cave" base-16 theme originally by Bram de Haan ([[http://atelierbramdehaan.nl]]).
 
 [[https://raw.githubusercontent.com/librephoenix/nixos-config-screenshots/main/xmonad/atelier-cave.png]]
 

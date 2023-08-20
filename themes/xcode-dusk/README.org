@@ -1,7 +1,7 @@
 #+title: Xcode Dusk
 #+author: Emmet
 
-"Xcode Dusk" base-16 theme originally by Elsa Gonsiorowski ([[https://github.com/gonsie][https://github.com/gonsie]]).
+"Xcode Dusk" base-16 theme originally by Elsa Gonsiorowski ([[https://github.com/gonsie]]).
 
 [[https://raw.githubusercontent.com/librephoenix/nixos-config-screenshots/main/xmonad/xcode-dusk.png]]
 

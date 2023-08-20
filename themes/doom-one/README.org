@@ -1,7 +1,7 @@
 #+title: Doom One
 #+author: Emmet
 
-"Doom One" base-16 theme originally by Henrik Lissner ([[https://github.com/doomemacs/themes][https://github.com/doomemacs/themes]]).
+"Doom One" base-16 theme originally by Henrik Lissner ([[https://github.com/doomemacs/themes]]).
 
 [[https://raw.githubusercontent.com/librephoenix/nixos-config-screenshots/main/xmonad/doom-one.png]]
 

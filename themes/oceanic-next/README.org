@@ -1,7 +1,7 @@
 #+title: Oceanic Next
 #+author: Emmet
 
-"Oceanic Next" base-16 theme originally by voronianski ([[https://github.com/voronianski/oceanic-next-color-scheme][https://github.com/voronianski/oceanic-next-color-scheme]]).
+"Oceanic Next" base-16 theme originally by voronianski ([[https://github.com/voronianski/oceanic-next-color-scheme]]).
 
 [[https://raw.githubusercontent.com/librephoenix/nixos-config-screenshots/main/xmonad/oceanic-next.png]]
 

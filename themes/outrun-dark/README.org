@@ -1,7 +1,7 @@
 #+title: Outrun Dark
 #+author: Emmet
 
-"Outrun Dark" base-16 theme originally by Hugo Delahousse ([[https://github.com/hugodelahousse][https://github.com/hugodelahousse]]).
+"Outrun Dark" base-16 theme originally by Hugo Delahousse ([[https://github.com/hugodelahousse]]).
 
 [[https://raw.githubusercontent.com/librephoenix/nixos-config-screenshots/main/xmonad/outrun-dark.png]]
 

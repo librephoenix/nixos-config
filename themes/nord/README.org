@@ -1,7 +1,7 @@
 #+title: Nord
 #+author: Emmet
 
-"Nord" base-16 theme originally by Arctic Ice Studio ([[https://www.arcticicestudio.com/][https://www.arcticicestudio.com/]]) and Sven Greb ([[https://svengreb.de/][https://svengreb.de/]]).
+"Nord" base-16 theme originally by Arctic Ice Studio ([[https://www.arcticicestudio.com/]]) and Sven Greb ([[https://svengreb.de/]]).
 
 [[https://raw.githubusercontent.com/librephoenix/nixos-config-screenshots/main/xmonad/nord.png]]
 

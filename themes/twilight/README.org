@@ -1,7 +1,7 @@
 #+title: Twilight
 #+author: Emmet
 
-"Twilight" base-16 theme originally by David Hart ([[https://github.com/hartbit][https://github.com/hartbit]])
+"Twilight" base-16 theme originally by David Hart ([[https://github.com/hartbit]])
 
 [[https://raw.githubusercontent.com/librephoenix/nixos-config-screenshots/main/xmonad/twilight.png]]
 

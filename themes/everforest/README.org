@@ -1,7 +1,7 @@
 #+title: Everforest
 #+author: Emmet
 
-"Everforest" base-16 theme originally by Sainnhe Park ([[https://github.com/sainnhe][https://github.com/sainnhe]]).
+"Everforest" base-16 theme originally by Sainnhe Park ([[https://github.com/sainnhe]]).
 
 [[https://raw.githubusercontent.com/librephoenix/nixos-config-screenshots/main/xmonad/everforest.png]]
 

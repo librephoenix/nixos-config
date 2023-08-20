@@ -1,7 +1,7 @@
 #+title: Atelier Sulphurpool
 #+author: Emmet
 
-"Atelier Sulphurpool" base-16 theme originally by Bram de Haan ([[http://atelierbramdehaan.nl][http://atelierbramdehaan.nl]]).
+"Atelier Sulphurpool" base-16 theme originally by Bram de Haan ([[http://atelierbramdehaan.nl]]).
 
 [[https://raw.githubusercontent.com/librephoenix/nixos-config-screenshots/main/xmonad/atelier-sulphurpool.png]]
 

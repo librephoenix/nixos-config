@@ -1,7 +1,7 @@
 #+title: Gruvbox Dark Medium
 #+author: Emmet
 
-"Gruvbox Dark Medium" base-16 theme originally by Dawid Kurek ([[mailto:dawikur@gmail.com][dawikur@gmail.com]]) and morhetz ([[https://github.com/morhetz/gruvbox][https://github.com/morhetz/gruvbox]]).
+"Gruvbox Dark Medium" base-16 theme originally by Dawid Kurek ([[mailto:dawikur@gmail.com][dawikur@gmail.com]]) and morhetz ([[https://github.com/morhetz/gruvbox]]).
 
 [[https://raw.githubusercontent.com/librephoenix/nixos-config-screenshots/main/xmonad/gruvbox-dark-medium.png]]
 

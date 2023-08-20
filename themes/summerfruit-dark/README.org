@@ -1,7 +1,7 @@
 #+title: Summerfruit Dark
 #+author: Emmet
 
-"Summerfruit Dark" base-16 theme originally by Christopher Corley ([[http://christop.club][http://christop.club]]).
+"Summerfruit Dark" base-16 theme originally by Christopher Corley ([[http://christop.club]]).
 
 [[https://raw.githubusercontent.com/librephoenix/nixos-config-screenshots/main/xmonad/summerfruit-dark.png]]
 

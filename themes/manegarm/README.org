@@ -1,7 +1,7 @@
 #+title: Manegarm
 #+author: Emmet
 
-"Manegarm" base-16 theme originally by kenranunderscore ([[https://github.com/kenranunderscore][https://github.com/kenranunderscore]])
+"Manegarm" base-16 theme originally by kenranunderscore ([[https://github.com/kenranunderscore]])
 
 [[https://raw.githubusercontent.com/librephoenix/nixos-config-screenshots/main/xmonad/manegarm.png]]
 

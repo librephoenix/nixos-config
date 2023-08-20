@@ -1,7 +1,7 @@
 #+title: Catppuccin Mocha
 #+author: Emmet
 
-"Catppuccin Mocha" base-16 theme ([[https://github.com/catppuccin/catppuccin][https://github.com/catppuccin/catppuccin]]).
+"Catppuccin Mocha" base-16 theme ([[https://github.com/catppuccin/catppuccin]]).
 
 [[https://raw.githubusercontent.com/librephoenix/nixos-config-screenshots/main/xmonad/catppuccin-mocha.png]]
 

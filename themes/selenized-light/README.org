@@ -1,7 +1,7 @@
 #+title: Selenized Light
 #+author: Emmet
 
-"Selenized Light" base-16 theme originally by Jan Warchol ([[https://github.com/jan-warchol/selenized][https://github.com/jan-warchol/selenized]]) and adapted by ali.
+"Selenized Light" base-16 theme originally by Jan Warchol ([[https://github.com/jan-warchol/selenized]]) and adapted by ali.
 
 [[https://raw.githubusercontent.com/librephoenix/nixos-config-screenshots/main/xmonad/selenized-light.png]]
 

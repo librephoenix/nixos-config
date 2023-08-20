@@ -1,7 +1,7 @@
 #+title: Fairy Floss
 #+author: Emmet
 
-"Fairy Floss" base-16 theme originally by sailorhg ([[(https://github.com/sailorhg/fairyfloss)][(https://github.com/sailorhg/fairyfloss)]]).
+"Fairy Floss" base-16 theme originally by sailorhg ([[https://github.com/sailorhg/fairyfloss]]).
 
 [[https://raw.githubusercontent.com/librephoenix/nixos-config-screenshots/main/xmonad/fairy-floss.png]]
 

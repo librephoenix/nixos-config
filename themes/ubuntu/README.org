@@ -1,7 +1,7 @@
 #+title: Ubuntu
 #+author: Emmet
 
-"Ubuntu" base-16 theme based on the official Ubuntu color palette ([[https://design.ubuntu.com/brand/colour-palette][https://design.ubuntu.com/brand/colour-palette]]) and packaged by me ([[https://gitlab.com/librephoenix][https://gitlab.com/librephoenix]]).
+"Ubuntu" base-16 theme based on the official Ubuntu color palette ([[https://design.ubuntu.com/brand/colour-palette]]) and packaged by me ([[https://gitlab.com/librephoenix]]).
 
 [[https://raw.githubusercontent.com/librephoenix/nixos-config-screenshots/main/xmonad/ubuntu.png]]
 
