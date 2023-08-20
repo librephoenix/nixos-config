@@ -1,3 +1,5 @@
 #+title: Trying to use a computer without Linux is hard
 
-This is my =WSL= profile, which is a minimal installation I use on Windows underneath WSL. This is essentially just for Emacs, some useful CLI apps I can't live without (namely ranger), and LibreOffice, which runs strangely slow on Windows.
+This is my =WSL= profile, which is a minimal installation I use on Windows underneath WSL. This (obviously) requires [[https://github.com/nix-community/NixOS-WSL][NixOS-WSL]] to be installed. I essentially just use this for Emacs, some useful CLI apps I can't live without (namely ranger), and LibreOffice, which runs strangely slow on Windows (hmm, I wonder why? It's not like Microsoft has a competing office suite or anything...)
+
+The [[./nixos-wsl][nixos-wsl]] directory is taken directly from [[https://github.com/nix-community/NixOS-WSL][NixOS-WSL]] and merely patched slightly to allow it to run with the unstable channel of nixpkgs.

@@ -3,9 +3,16 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
 { config, lib, pkgs, blocklist-hosts, username, name, hostname, timezone, locale, wm, theme, ... }:
+
+with lib;
+let
+  nixos-wsl = import ./nixos-wsl;
+in
 {
   imports =
-    [ ../../system/hardware-configuration.nix
+    [ #"${modulesPath}/profiles/minimal.nix"
+      nixos-wsl.nixosModules.wsl
+      #../../system/hardware-configuration.nix
       ../../system/hardware/kernel.nix # Kernel config
       ../../system/hardware/opengl.nix
       ../../system/hardware/printing.nix
@@ -18,6 +25,20 @@
       ../../system/style/stylix.nix
     ];
 
+  wsl = {
+    enable = true;
+    automountPath = "/mnt";
+    defaultUser = username;
+    startMenuLaunchers = true;
+
+    # Enable native Docker support
+    # docker-native.enable = true;
+
+    # Enable integration with Docker Desktop (needs to be installed)
+    # docker-desktop.enable = true;
+
+  };
+
   # Fix nix path
   nix.nixPath = [ "nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos"
                   "nixos-config=$HOME/dotfiles/system/configuration.nix"
@@ -27,20 +48,20 @@
   # Experimental features
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
+  # Ensure nix flakes are enabled
+  nix.package = pkgs.nixFlakes;
+  nix.extraOptions = ''
+    experimental-features = nix-command flakes
+  '';
+
   # I'm sorry Stallman-taichou
   nixpkgs.config.allowUnfree = true;
 
   # Kernel modules
   boot.kernelModules = [ "i2c-dev" "i2c-piix4" "cpufreq_powersave" ];
 
-  # Bootloader
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.efi.efiSysMountPoint = "/boot/efi";
-
   # Networking
   networking.hostName = hostname; # Define your hostname.
-  networking.networkmanager.enable = true; # Use networkmanager
 
   # Timezone and locale
   time.timeZone = timezone; # time zone
@@ -89,6 +110,6 @@
   };
 
   # It is ok to leave this unchanged for compatibility purposes
-  system.stateVersion = "22.11";
+  system.stateVersion = "22.05";
 
 }

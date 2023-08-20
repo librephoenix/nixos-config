@@ -43,6 +43,7 @@ I separate my configurations into [[./profiles][profiles]] (essentially system t
 - [[./profiles/personal][Personal]] - What I would run on a personal laptop/desktop
 - [[./profiles/work][Work]] - What I would run on a work laptop/desktop (if they let me bring my own OS :P)
 - [[./profiles/homelab][Homelab]] - What I would run on a server or homelab
+- [[./profiles/wsl][WSL]] - What I would run underneath Windows Subystem for Linux
 
 My profile can be conveniently selected in [[./flake.nix][my flake.nix]] by setting the =profile= variable.
 
