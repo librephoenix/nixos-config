@@ -9,7 +9,7 @@
 These are my dotfiles (configuration files) for my NixOS setup(s).
 
 Here is my main setup:
-[[themes/ayu-dark/ayu-dark.png]]
+[[https://raw.githubusercontent.com/librephoenix/nixos-config-screenshots/main/xmonad/ayu-dark.png]]
 
 ** My 55+ Themes
 [[https://github.com/danth/stylix#readme][Stylix]] (and [[https://github.com/SenchoPens/base16.nix#readme][base16.nix]], of course) is amazing, allowing you to theme your entire system with base16-themes.

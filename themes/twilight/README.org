@@ -3,6 +3,6 @@
 
 "Twilight" base-16 theme originally by David Hart ([[https://github.com/hartbit][https://github.com/hartbit]])
 
-[[twilight.png]]
+[[https://raw.githubusercontent.com/librephoenix/nixos-config-screenshots/main/xmonad/twilight.png]]
 
 [[https://w.wallhaven.cc/full/q6/wallhaven-q6m557.png][Background Link]]

@@ -3,6 +3,6 @@
 
 "Outrun Dark" base-16 theme originally by Hugo Delahousse ([[https://github.com/hugodelahousse][https://github.com/hugodelahousse]]).
 
-[[outrun-dark.png]]
+[[https://raw.githubusercontent.com/librephoenix/nixos-config-screenshots/main/xmonad/outrun-dark.png]]
 
 [[https://r4.wallpaperflare.com/wallpaper/586/965/67/night-sky-illustration-futuristic-art-night-wallpaper-88366d08c0d00c08207cf12ef892b49a.jpg][Background Link]]

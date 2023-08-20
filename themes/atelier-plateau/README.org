@@ -3,6 +3,6 @@
 
 "Atelier Plateau" base-16 theme originally by Bram de Haan ([[http://atelierbramdehaan.nl][http://atelierbramdehaan.nl]]).
 
-[[atelier-plateau.png]]
+[[https://raw.githubusercontent.com/librephoenix/nixos-config-screenshots/main/xmonad/atelier-plateau.png]]
 
 [[https://r4.wallpaperflare.com/wallpaper/428/434/322/art-computer-digital-art-concept-art-wallpaper-b9a0c85d016a9d0b66a7b84f509116ad.jpg][Background Link]]

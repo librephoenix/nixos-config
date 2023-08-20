@@ -3,6 +3,6 @@
 
 "Material Vivid" base-16 theme originally by joshyrobot.
 
-[[material-vivid.png]]
+[[https://raw.githubusercontent.com/librephoenix/nixos-config-screenshots/main/xmonad/material-vivid.png]]
 
 [[https://w.wallhaven.cc/full/e7/wallhaven-e7z71l.jpg][Background Link]]

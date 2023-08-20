@@ -3,6 +3,6 @@
 
 "Doom One" base-16 theme originally by Henrik Lissner ([[https://github.com/doomemacs/themes][https://github.com/doomemacs/themes]]).
 
-[[doom-one.png]]
+[[https://raw.githubusercontent.com/librephoenix/nixos-config-screenshots/main/xmonad/doom-one.png]]
 
 [[https://r4.wallpaperflare.com/wallpaper/834/299/692/city-lights-girl-moon-wallpaper-e178a9faa68bf35ee7e3f2afc50e43fc.jpg][Background Link]]

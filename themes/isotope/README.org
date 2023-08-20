@@ -3,6 +3,6 @@
 
 "Isotope" base-16 theme originally by Jan T. Sott.
 
-[[isotope.png]]
+[[https://raw.githubusercontent.com/librephoenix/nixos-config-screenshots/main/xmonad/isotope.png]]
 
 [[https://r4.wallpaperflare.com/wallpaper/108/140/869/digital-digital-art-artwork-fantasy-art-drawing-hd-wallpaper-d8b62d28c0f06c48d03c114ec8f2b4aa.jpg][Background Link]]
