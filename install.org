@@ -9,17 +9,6 @@ To get this running on a NixOS system, I will start by cloning the repo:
 git clone https://gitlab.com/librephoenix/nixos-config.git ~/.dotfiles
 #+END_SRC
 
-Since I store tons of images to showcase all of my [[./themes][themes]] cloning the entire repo can actually take a really long time! A quicker way is to use a shallow, sparse clone like so:
-#+BEGIN_SRC sh :noeval
-git clone --filter=blob:none --depth 1 --no-checkout https://gitlab.com/librephoenix/nixos-config.git
-cd ~/.dotfiles
-echo "/*" > .git/info/sparse-checkout
-echo "/themes/*/*.png" >> .git/info/sparse-checkout
-git sparse-checkout init --cone
-git read-tree -mu HEAD
-#+END_SRC
-This clones all the necessary build files without the huge image files.
-
 To get the hardware configuration on a new system, I can other copy from =/etc/nixos/hardware-configuration.nix= or run:
 #+BEGIN_SRC sh :noeval
 cd ~/.dotfiles
