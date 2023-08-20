@@ -3,6 +3,6 @@
 
 "Bespin" base-16 theme originally by Jan T. Sott.
 
-[[https://raw.githubusercontent.com/librephoenix/nixos-config-screenshots/main/xmonad/bespin.png]]
+[[https://gitlab.com/librephoenix/nixos-config-screenshots/-/raw/main/xmonad/bespin.png]]
 
 [[https://r4.wallpaperflare.com/wallpaper/597/635/621/sword-fantasy-forest-twilight-river-hd-wallpaper-f98078cd21caad7b46d7b83fb021566d.jpg][Background Link]]

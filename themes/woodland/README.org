@@ -3,6 +3,6 @@
 
 "Woodland" base-16 theme originally by Jay Cornwall ([[https://jcornwall.com]]).
 
-[[https://raw.githubusercontent.com/librephoenix/nixos-config-screenshots/main/xmonad/woodland.png]]
+[[https://gitlab.com/librephoenix/nixos-config-screenshots/-/raw/main/xmonad/woodland.png]]
 
 [[https://images.hdqwalls.com/wallpapers/beyond-the-railroad-crossing-5k-5b.jpg][Background Link]]

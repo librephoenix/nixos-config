@@ -3,6 +3,6 @@
 
 "Old Hope" base-16 theme originally by mohkale ([[https://github.com/mohkale/an-old-hope-theme]]).
 
-[[https://raw.githubusercontent.com/librephoenix/nixos-config-screenshots/main/xmonad/old-hope.png]]
+[[https://gitlab.com/librephoenix/nixos-config-screenshots/-/raw/main/xmonad/old-hope.png]]
 
 [[https://r4.wallpaperflare.com/wallpaper/218/1018/501/star-wars-star-wars-the-rise-of-skywalker-jedi-kylo-ren-lightsaber-hd-wallpaper-534b63fd3d29abf5efe66267283ba8c8.jpg][Background Link]]

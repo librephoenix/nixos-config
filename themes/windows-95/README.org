@@ -3,6 +3,6 @@
 
 "Windows 95" base-16 theme originally by Fergus Collins ([[https://github.com/C-Fergus]]).
 
-[[https://raw.githubusercontent.com/librephoenix/nixos-config-screenshots/main/xmonad/windows-95.png]]
+[[https://gitlab.com/librephoenix/nixos-config-screenshots/-/raw/main/xmonad/windows-95.png]]
 
 [[https://w.wallhaven.cc/full/01/wallhaven-01e6xw.jpg][Background Link]]

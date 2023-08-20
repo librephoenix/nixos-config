@@ -3,6 +3,6 @@
 
 "Catppuccin Mocha" base-16 theme ([[https://github.com/catppuccin/catppuccin]]).
 
-[[https://raw.githubusercontent.com/librephoenix/nixos-config-screenshots/main/xmonad/catppuccin-mocha.png]]
+[[https://gitlab.com/librephoenix/nixos-config-screenshots/-/raw/main/xmonad/catppuccin-mocha.png]]
 
 [[https://images7.alphacoders.com/126/1266081.jpg][Background Link]]

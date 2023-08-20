@@ -7,7 +7,7 @@
 - [[https://orgmode.org/][Org Agenda]] (Calendar and todo list)
 - [[https://magit.vc/][magit]] (Git Client)
 
-[[https://raw.githubusercontent.com/librephoenix/nixos-config-screenshots/main/app/doom.png]]
+[[https://gitlab.com/librephoenix/nixos-config-screenshots/-/raw/main/app/doom.png]]
 
 I have found Emacs to be incredibly efficient, and transferring my workflow to fit inside of Emacs has allowed me to get much more work done.  I primarily use Emacs for writing, note-taking, task/project management and organizing information.
 

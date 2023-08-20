@@ -3,6 +3,6 @@
 
 "Miramare" base-16 theme originally by franbach ([[https://github.com/franbach/miramare]]).
 
-[[https://raw.githubusercontent.com/librephoenix/nixos-config-screenshots/main/xmonad/miramare.png]]
+[[https://gitlab.com/librephoenix/nixos-config-screenshots/-/raw/main/xmonad/miramare.png]]
 
 [[https://w.wallhaven.cc/full/v9/wallhaven-v9qy9l.jpg][Background Link]]
