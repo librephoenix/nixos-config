@@ -40,7 +40,9 @@
 
        bind=SUPER,SPACE,fullscreen,1
        bind=ALT,TAB,cyclenext
+       bind=ALT,TAB,bringactivetotop
        bind=ALTSHIFT,TAB,cyclenext,prev
+       bind=ALTSHIFT,TAB,bringactivetotop
 
        bind=SUPER,RETURN,exec,'' + term + ''
 
@@ -53,8 +55,9 @@
        bind=SUPERSHIFT,X,exec,fnottctl dismiss all
        bind=SUPER,Q,killactive
        bind=SUPERSHIFT,Q,exit
-       bind=SUPER,mouse:272,movewindow
-       bind=SUPER,mouse:273,movewindow
+       bindm=SUPER,mouse:272,movewindow
+       bindm=SUPER,mouse:273,resizewindow
+       bind=SUPER,T,togglefloating
 
        bind=,code:107,exec,grim -g "$(slurp)"
        bind=SHIFT,code:107,exec,grim -g "$(slurp -o)"
@@ -223,7 +226,7 @@
       passivews=$(grep -A 6 "Monitor $passivemonitor" "$monitors" | awk 'NR==4 {print $1}' RS='(' FS=')')
 
       if [[ $workspace -eq $passivews ]] && [[ $activemonitor != "$passivemonitor" ]]; then
-        hyprctl dispatch swapactiveworkspaces "$activemonitor" "$passivemonitor" &&
+       hyprctl dispatch workspace "$workspace" && hyprctl dispatch swapactiveworkspaces "$activemonitor" "$passivemonitor" && hyprctl dispatch workspace "$workspace"
         echo $activemonitor $passivemonitor
       else
         hyprctl dispatch moveworkspacetomonitor "$workspace $activemonitor" && hyprctl dispatch workspace "$workspace"
@@ -286,6 +289,10 @@
   programs.waybar = {
     enable = true;
     package = pkgs.waybar.overrideAttrs (oldAttrs: {
+      postPatch = ''
+        # use hyprctl to switch workspaces
+        sed -i 's/zext_workspace_handle_v1_activate(workspace_handle_);/const std::string command = "hyprworkspace " + name_;\n\tsystem(command.c_str());/g' src/modules/wlr/workspace_manager.cpp
+      '';
       mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
     });
     settings = {
@@ -331,6 +338,9 @@
             "8" = [ ];
             "9" = [ ];
           };
+          "on-click" = "activate";
+          "on-scroll-up" = "hyprctl dispatch workspace e+1";
+          "on-scroll-down" = "hyprctl dispatch workspace e-1";
         };
 
         "idle_inhibitor" = {
@@ -355,7 +365,6 @@
         };
         cpu = {
           "format" = "{usage}% ";
-          "tooltip" = false;
         };
         memory = { "format" = "{}% "; };
         backlight = {
