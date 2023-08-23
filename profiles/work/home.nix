@@ -55,6 +55,7 @@
 
     # Media
     gimp-with-plugins
+    pinta
     krita
     musikcube
     vlc
