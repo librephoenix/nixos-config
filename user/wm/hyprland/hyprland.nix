@@ -192,7 +192,7 @@
     wev
     grim
     slurp
-    qt5.qtwayland
+    libsForQt5.qt5.qtwayland
     qt6.qtwayland
     xdg-utils
     xdg-desktop-portal
