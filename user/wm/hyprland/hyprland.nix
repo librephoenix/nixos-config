@@ -15,12 +15,13 @@
     plugins = [ ];
     settings = { };
     extraConfig = ''
+      exec-once = dbus-update-activation-environment DISPLAY XAUTHORITY WAYLAND_DISPLAY
       exec-once = pypr
       exec-once = nm-applet
       exec-once = GOMAXPROCS=1 syncthing --no-browser
       exec-once = protonmail-bridge --noninteractive
-      exec-once = gnome-keyring-daemon --daemonize --login
-      exec-once = gnome-keyring-daemon --start --components=secrets
+      exec-once = waybar
+      exec-once = emacs --daemon
 
       exec-once = ~/.swayidle-stylix
       exec = ~/.swaybg-stylix
@@ -181,7 +182,15 @@
     hyprland-protocols
     hyprpicker
     swayidle
-    swaylock-effects
+    (pkgs.swaylock-effects.overrideAttrs (oldAttrs: {
+      version = "1.6.4-1";
+      src = fetchFromGitHub {
+        owner = "mortie";
+        repo = "swaylock-effects";
+        rev = "20ecc6a0a5b61bb1a66cfb513bc357f74d040868";
+        sha256 = "sha256-nYA8W7iabaepiIsxDrCkG/WIFNrVdubk/AtFhIvYJB8=";
+      };
+    }))
     swaybg
     fnott
     #hyprpaper

@@ -4,7 +4,6 @@ let
   dashboardLogo = ./. + "/nix-" + themePolarity + ".png";
 in
 {
-  services.emacs.enable = true;
   programs.doom-emacs = {
     enable = true;
     emacsPackage = pkgs.emacs29-pgtk;
