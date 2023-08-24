@@ -46,14 +46,14 @@ let
         pushd ''+dotfilesDir+'' &> /dev/null;
         if [ "$1" = "verbose" ]; then
           echo "Syncing system configuration (stack traces will be shown):"
-          sudo nixos-rebuild switch --flake .#system --show-trace;
+          sudo systemd-run --no-ask-password --uid=0 --system --scope -p MemoryLimit=16000M -p CPUQuota=60% nixos-rebuild switch --flake .#system --show-trace;
         else
           sudo bash -c '
                   RED="\033[0;31m";
                   GREEN="\033[0;32m";
                   NC="\033[0m"
                   FRAMES="/ | \\ -";
-                  nixos-rebuild switch --flake .#system &> /dev/null &
+                  systemd-run --no-ask-password --uid=0 --system --scope -p MemoryLimit=16000M -p CPUQuota=60% nixos-rebuild switch --flake .#system &> /dev/null &
                   pid=$!;
                   while ps -p $pid > /dev/null;
                   do
@@ -85,13 +85,13 @@ let
         if [ "$1" = "verbose" ]; then
           echo "Syncing user configuration (stack traces will be shown):"
           echo "Running home-manager switch --flake .#user --show-trace"
-          home-manager switch --flake .#user --show-trace;
+          systemd-run --no-ask-password --uid=1000 --user --scope -p MemoryLimit=16000M -p CPUQuota=60% home-manager switch --flake .#user --show-trace;
           which xmobar &> /dev/null && echo "Killing old xmobar instances" && echo "Running killall xmobar" && killall xmobar &> /dev/null;
           which xmonad &> /dev/null && echo "Recompiling xmonad" && echo "Running xmonad --recompile && xmonad --restart" && xmonad --recompile && xmonad --restart;
           which emacsclient &> /dev/null && echo "Reloading emacs stylix theme" && echo "Running emacsclient --no-wait --eval \"(load-theme 'doom-stylix t nil)\"" && emacsclient --no-wait --eval "(load-theme 'doom-stylix t nil)";
           [ -f ~/.fehbg-stylix ] &> /dev/null && echo "Reapplying background from stylix via feh" && echo "Running ~/.fehbg-stylix" && ~/.fehbg-stylix;
         else
-          home-manager switch --flake .#user &> /dev/null &
+          systemd-run --no-ask-password --uid=1000 --user --scope -p MemoryLimit=16000M -p CPUQuota=60% home-manager switch --flake .#user &> /dev/null &
           animate_msg "Syncing user configuration..."
           which xmobar &> /dev/null && killall xmobar &> /dev/null &
           which xmonad &> /dev/null && xmonad --recompile &> /dev/null &
