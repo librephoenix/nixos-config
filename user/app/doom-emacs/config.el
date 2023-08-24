@@ -683,7 +683,8 @@ same directory as the org-buffer and insert a link to this file."
 ;                                    (window-width . 50)
 ;))
 
-(setq org-roam-ui-browser-function 'eaf-open-browser)
+;;(setq org-roam-ui-browser-function 'eaf-open-browser) ; xorg
+(setq org-roam-ui-browser-function 'browse-url) ; wayland
 
 (defun open-org-roam-ui ()
   (interactive)
@@ -693,15 +694,22 @@ same directory as the org-buffer and insert a link to this file."
 
 (defun kill-org-roam-ui ()
   (interactive)
-  (delete-window (get-buffer-window "ORUI" t))
-  (kill-buffer "ORUI")
+;;  (delete-window (get-buffer-window "ORUI" t)) ; xorg
+;;  (kill-buffer "ORUI") ; xorg
   (kill-buffer "*httpd*")
 )
 
+; xorg
+;;(map! :leader
+;;      :prefix ("N" . "org-roam notes")
+;;      :desc "Visualize org-roam database with org-roam-ui"
+;;      "v" 'open-org-roam-ui)
+
+; wayland
 (map! :leader
       :prefix ("N" . "org-roam notes")
       :desc "Visualize org-roam database with org-roam-ui"
-      "v" 'open-org-roam-ui)
+      "v" 'org-roam-ui-open)
 
 (map! :leader
       :prefix ("N" . "org-roam notes")

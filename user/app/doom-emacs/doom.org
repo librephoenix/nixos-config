@@ -801,6 +801,7 @@ This needs fixing on NixOS:
 #+END_SRC
 *** Org Roam UI Setup
 I want this to be able to automatically open ORUI in EAF Browser in a split to the right.  This kinda works now?
+On Wayland, EAF doesn't work.
 #+BEGIN_SRC emacs-lisp :tangle config.el
 ;(add-to-list 'display-buffer-alist '("^\\ORUI" display-buffer-in-side-window
 ;                                    '(side . right)
@@ -811,7 +812,8 @@ I want this to be able to automatically open ORUI in EAF Browser in a split to t
 ;                                    (window-width . 50)
 ;))
 
-(setq org-roam-ui-browser-function 'eaf-open-browser)
+;;(setq org-roam-ui-browser-function 'eaf-open-browser) ; xorg
+(setq org-roam-ui-browser-function 'browse-url) ; wayland
 
 (defun open-org-roam-ui ()
   (interactive)
@@ -821,15 +823,22 @@ I want this to be able to automatically open ORUI in EAF Browser in a split to t
 
 (defun kill-org-roam-ui ()
   (interactive)
-  (delete-window (get-buffer-window "ORUI" t))
-  (kill-buffer "ORUI")
+;;  (delete-window (get-buffer-window "ORUI" t)) ; xorg
+;;  (kill-buffer "ORUI") ; xorg
   (kill-buffer "*httpd*")
 )
 
+; xorg
+;;(map! :leader
+;;      :prefix ("N" . "org-roam notes")
+;;      :desc "Visualize org-roam database with org-roam-ui"
+;;      "v" 'open-org-roam-ui)
+
+; wayland
 (map! :leader
       :prefix ("N" . "org-roam notes")
       :desc "Visualize org-roam database with org-roam-ui"
-      "v" 'open-org-roam-ui)
+      "v" 'org-roam-ui-open)
 
 (map! :leader
       :prefix ("N" . "org-roam notes")
