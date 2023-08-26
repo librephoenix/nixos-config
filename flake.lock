@@ -589,6 +589,22 @@
         "type": "github"
       }
     },
+    "phscroll": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1691993740,
+        "narHash": "sha256-r5lmBpkhmWVzOIHJH8eitC4Vk9c1JKpMeHm8aAbzo1M=",
+        "owner": "misohena",
+        "repo": "phscroll",
+        "rev": "7f60f69af31e6fcebcf51d0be6bb3f9b9d569ef6",
+        "type": "github"
+      },
+      "original": {
+        "owner": "misohena",
+        "repo": "phscroll",
+        "type": "github"
+      }
+    },
     "revealjs": {
       "flake": false,
       "locked": {
@@ -614,6 +630,7 @@
         "nix-doom-emacs": "nix-doom-emacs",
         "nixpkgs": "nixpkgs_2",
         "org-nursery": "org-nursery",
+        "phscroll": "phscroll",
         "rust-overlay": "rust-overlay",
         "stylix": "stylix"
       }

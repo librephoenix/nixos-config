@@ -19,3 +19,5 @@
 (package! ob-mermaid)
 (package! focus)
 (package! olivetti)
+(package! good-scroll)
+(package! async)

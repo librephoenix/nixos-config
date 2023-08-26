@@ -1,7 +1,7 @@
 {
   description = "Flake of LibrePhoenix";
 
-  outputs = { self, nixpkgs, home-manager, nix-doom-emacs, stylix, eaf, eaf-browser, org-nursery, blocklist-hosts, rust-overlay, ... }@inputs:
+  outputs = { self, nixpkgs, home-manager, nix-doom-emacs, stylix, eaf, eaf-browser, org-nursery, phscroll, blocklist-hosts, rust-overlay, ... }@inputs:
   let
     # ---- SYSTEM SETTINGS ---- #
     system = "x86_64-linux"; # system arch
@@ -67,6 +67,7 @@
             inherit (inputs) eaf;
             inherit (inputs) eaf-browser;
             inherit (inputs) org-nursery;
+            inherit (inputs) phscroll;
           };
       };
     };
@@ -109,6 +110,10 @@
     };
     org-nursery = {
       url = "github:chrisbarrett/nursery";
+      flake = false;
+    };
+    phscroll = {
+      url = "github:misohena/phscroll";
       flake = false;
     };
     blocklist-hosts = {

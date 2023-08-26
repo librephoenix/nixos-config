@@ -28,8 +28,8 @@
 (remove-hook 'doom-init-ui-hook '+unicode-init-fonts-h)
 
 ;; Transparent background
-(set-frame-parameter (selected-frame) 'alpha '(90 . 90))
-(add-to-list 'default-frame-alist '(alpha . (90 . 90)))
+(set-frame-parameter nil 'alpha-background 90)
+(add-to-list 'default-frame-alist '(alpha-background . 90))
 
 ;; Icons in completion buffers
 (add-hook 'marginalia-mode-hook #'all-the-icons-completion-marginalia-setup)
@@ -104,7 +104,7 @@
 ;; Garbage collection to speed things up
 (add-hook 'after-init-hook
           #'(lambda ()
-              (setq gc-cons-threshold (* 100 1000 1000))))
+              (setq gc-cons-threshold (* 100 1024 1024))))
 (add-hook 'focus-out-hook 'garbage-collect)
 (run-with-idle-timer 5 t 'garbage-collect)
 
@@ -226,6 +226,24 @@
    (transient . t)
    (no-other-window . t)))
  display-buffer-alist)
+
+;; Horizontal scrolling tables
+(add-load-path! "~/.emacs.d/phscroll")
+(setq org-startup-truncated nil)
+(with-eval-after-load "org"
+  (require 'org-phscroll))
+(setq phscroll-calculate-in-pixels t)
+
+;; Smooth scrolling
+(good-scroll-mode 1)
+(setq good-scroll-duration 0.5
+      good-scroll-step 270
+      good-scroll-render-rate 0.03)
+
+
+
+(global-set-key (kbd "<next>") #'good-scroll-up-full-screen)
+(global-set-key (kbd "<prior>") #'good-scroll-down-full-screen)
 
 (require 'org-download)
 
@@ -989,36 +1007,6 @@ https://github.com/magit/magit/issues/460 (@cpitclaudel)."
   "j" 'evil-next-visual-line
   "k" 'evil-previous-visual-line
   "q" 'helpful-kill-buffers)
-
-;;;-- Load emacs application framework;;;--
-(use-package! eaf
-  :load-path "~/.emacs.d/eaf/"
-  :init
-  :custom
-  (eaf-browser-continue-where-left-off t)
-  (eaf-browser-enable-adblocker t)
-  (browse-url-browser-function 'eaf-open-browser) ;; Make EAF Browser my default browser
-  :config
-  (defalias 'browse-web #'eaf-open-browser)
-
-  (require 'eaf-browser)
-
-  (require 'eaf-evil)
-  (define-key key-translation-map (kbd "SPC")
-    (lambda (prompt)
-      (if (derived-mode-p 'eaf-mode)
-          (pcase eaf--buffer-app-name
-            ("browser" (if  (string= (eaf-call-sync "eval_function" eaf--buffer-id "is_focus") "True")
-                           (kbd "SPC")
-                         (kbd eaf-evil-leader-key)))
-            (_  (kbd "SPC")))
-        (kbd "SPC")))))
-
-(setq browse-url-browser-function 'browse-url-default-browser)
-
-(map! :leader
-      :desc "Open web browser"
-      "o w" #'eaf-open-browser-with-history)
 
 ;;;-- Load emacs direnv;;;--
 (require 'direnv)

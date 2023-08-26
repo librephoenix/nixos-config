@@ -77,9 +77,9 @@ Doom Emacs is traditionally installed by cloning the repository ([[https://githu
 ;; I also like evil mode visual movement
 (map! :map evil-normal-state-map
       :desc "Move to next visual line"
-      "j" 'evil-next-visual-line
+      "j" 'evil-next-line
       :desc "Move to previous visual line"
-      "k" 'evil-previous-visual-line)
+      "k" 'evil-previous-line)
 
 ;; Theme and font
 (setq custom-theme-directory "~/.emacs.d/themes")
@@ -89,8 +89,8 @@ Doom Emacs is traditionally installed by cloning the repository ([[https://githu
 (remove-hook 'doom-init-ui-hook '+unicode-init-fonts-h)
 
 ;; Transparent background
-(set-frame-parameter (selected-frame) 'alpha '(90 . 90))
-(add-to-list 'default-frame-alist '(alpha . (90 . 90)))
+(set-frame-parameter nil 'alpha-background 90)
+(add-to-list 'default-frame-alist '(alpha-background . 90))
 
 ;; Icons in completion buffers
 (add-hook 'marginalia-mode-hook #'all-the-icons-completion-marginalia-setup)
@@ -165,7 +165,7 @@ Doom Emacs is traditionally installed by cloning the repository ([[https://githu
 ;; Garbage collection to speed things up
 (add-hook 'after-init-hook
           #'(lambda ()
-              (setq gc-cons-threshold (* 100 1000 1000))))
+              (setq gc-cons-threshold (* 100 1024 1024))))
 (add-hook 'focus-out-hook 'garbage-collect)
 (run-with-idle-timer 5 t 'garbage-collect)
 
@@ -294,6 +294,24 @@ Doom Emacs is traditionally installed by cloning the repository ([[https://githu
    (transient . t)
    (no-other-window . t)))
  display-buffer-alist)
+
+;; Horizontal scrolling tables
+(add-load-path! "~/.emacs.d/phscroll")
+(setq org-startup-truncated nil)
+(with-eval-after-load "org"
+  (require 'org-phscroll))
+(setq phscroll-calculate-in-pixels t)
+
+;; Smooth scrolling
+(good-scroll-mode 1)
+(setq good-scroll-duration 0.5
+      good-scroll-step 270
+      good-scroll-render-rate 0.03)
+
+
+
+(global-set-key (kbd "<next>") #'good-scroll-up-full-screen)
+(global-set-key (kbd "<prior>") #'good-scroll-down-full-screen)
 
 #+END_SRC
 *** Org Download, Image Capture, and Opening Files in External Programs
@@ -1172,7 +1190,8 @@ I don't have this active right now since it's kinda weird with pgtk...
 
 #+END_SRC
 ** EAF
-#+BEGIN_SRC emacs-lisp :tangle config.el
+EAF doesn't work on Wayland :(
+#+BEGIN_SRC emacs-lisp
 ;;;-- Load emacs application framework;;;--
 (use-package! eaf
   :load-path "~/.emacs.d/eaf/"
@@ -1476,11 +1495,13 @@ Any git package can be configured for a particular commit or branch:
 (package! ob-mermaid)
 (package! focus)
 (package! olivetti)
+(package! good-scroll)
+(package! async)
 #+END_SRC
 * Nix Integration
 In order to have Nix load my Doom Emacs configuration [[./doom.nix][doom.nix]], which I source in the =imports= block of my [[../../home.nix][home.nix]].
 #+BEGIN_SRC nix :tangle doom.nix
-{ config, lib, pkgs, eaf, eaf-browser, org-nursery, theme, ... }:
+{ config, lib, pkgs, eaf, eaf-browser, org-nursery, phscroll, theme, ... }:
 let
   themePolarity = lib.removeSuffix "\n" (builtins.readFile (./. + "../../../../themes"+("/"+theme)+"/polarity.txt"));
   dashboardLogo = ./. + "/nix-" + themePolarity + ".png";
@@ -1568,6 +1589,9 @@ in
   home.file.".emacs.d/scripts/copy-link-or-file/copy-link-or-file-to-clipboard.sh" = {
     source = ./scripts/copy-link-or-file/copy-link-or-file-to-clipboard.sh;
     executable = true;
+  };
+  home.file.".emacs.d/phscroll" = {
+    source = "${phscroll}";
   };
 }
 #+END_SRC

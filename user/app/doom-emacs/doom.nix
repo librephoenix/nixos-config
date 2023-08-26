@@ -1,4 +1,4 @@
-{ config, lib, pkgs, eaf, eaf-browser, org-nursery, theme, ... }:
+{ config, lib, pkgs, eaf, eaf-browser, org-nursery, phscroll, theme, ... }:
 let
   themePolarity = lib.removeSuffix "\n" (builtins.readFile (./. + "../../../../themes"+("/"+theme)+"/polarity.txt"));
   dashboardLogo = ./. + "/nix-" + themePolarity + ".png";
@@ -86,5 +86,8 @@ in
   home.file.".emacs.d/scripts/copy-link-or-file/copy-link-or-file-to-clipboard.sh" = {
     source = ./scripts/copy-link-or-file/copy-link-or-file-to-clipboard.sh;
     executable = true;
+  };
+  home.file.".emacs.d/phscroll" = {
+    source = "${phscroll}";
   };
 }
