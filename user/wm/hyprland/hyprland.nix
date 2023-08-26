@@ -215,7 +215,7 @@
       killall wlsunset
       temphigh=$(( $1 + 1 ))
       templow=$1
-      wlsunset -t $templow -T $temphigh &
+      wlsunset -t $templow -T $temphigh &> /dev/null &
     '')
     (pkgs.writeScriptBin "hyprworkspace" ''
       #!/bin/sh
