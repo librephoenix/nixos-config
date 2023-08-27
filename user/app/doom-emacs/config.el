@@ -28,8 +28,8 @@
 (remove-hook 'doom-init-ui-hook '+unicode-init-fonts-h)
 
 ;; Transparent background
-(set-frame-parameter nil 'alpha-background 90)
-(add-to-list 'default-frame-alist '(alpha-background . 90))
+(set-frame-parameter nil 'alpha-background 65)
+(add-to-list 'default-frame-alist '(alpha-background . 65))
 
 ;; Icons in completion buffers
 (add-hook 'marginalia-mode-hook #'all-the-icons-completion-marginalia-setup)
@@ -64,38 +64,63 @@
 ;; Disables custom.el
 (setq custom-file null-device)
 
-;; Fancy splash image
-(setq fancy-splash-image "~/.emacs.d/dashboard-logo.png")
-
-(setq +doom-dashboard-menu-sections
-'(("Open org roam overview" :icon
-  (all-the-icons-octicon "globe" :face 'doom-dashboard-menu-title)
-  :face
-  (:inherit
-   (doom-dashboard-menu-title bold))
-  :action org-roam-default-overview)
- ("Roam to another db" :icon
-  (all-the-icons-fileicon "org" :face 'doom-dashboard-menu-title)
-  :action org-roam-switch-db)
- ("Open agenda" :icon
-  (all-the-icons-octicon "calendar" :face 'doom-dashboard-menu-title)
-  :when
-  (fboundp 'org-agenda)
-  :action org-agenda-list
-  :key "SPC o A a")
- ("Open private configuration" :icon
-  (all-the-icons-octicon "tools" :face 'doom-dashboard-menu-title)
-  :when
-  (file-directory-p doom-user-dir)
-  :action doom/open-private-config)
- ("Open documentation" :icon
-  (all-the-icons-octicon "book" :face 'doom-dashboard-menu-title)
-  :action doom/help)
- ("Quit emacs" :icon
-  (all-the-icons-faicon "level-down" :face 'doom-dashboard-menu-title)
-  :action save-buffers-kill-terminal)
- )
-)
+;; Emacs dashboard
+(require 'all-the-icons)
+(require 'dashboard)
+(setq initial-buffer-choice (lambda () (get-buffer-create "*dashboard*")))
+(setq doom-fallback-buffer-name "*dashboard*")
+(setq dashboard-banner-logo-title "Welcome to Nix Doom Emacs")
+(setq dashboard-startup-banner 2)
+(setq dashboard-icon-type 'all-the-icons) ;; use `all-the-icons' package
+(setq dashboard-set-heading-icons t)
+(setq dashboard-set-file-icons t)
+(setq dashboard-set-navigator t)
+(setq dashboard-items '((projects . 3)))
+(setq dashboard-center-content t)
+(setq dashboard-footer-messages '("Here to do customizing, or actual work?"
+                                  "M-x insert-inspiring-message"
+                                  "My software never has bugs. It just develops random features."
+                                  "Give a man a program and you will frustrate him for a day.
+Teach him how to program and you will frustrate him for a lifetime."
+                                  "Dad, what are clouds made of? Linux servers, mostly."
+                                  "There is no place like ~"
+                                  "~ sweet ~"
+                                  "sudo chown -R us ./allyourbase"
+                                  "I’ll tell you a DNS joke but it could take 24 hours for everyone to get it."
+                                  "I'd tell you a UDP joke, but you might not get it."
+                                  "I'll tell you a TCP joke. Do you want to hear it?"))
+(setq dashboard-navigator-buttons
+      `(;; line1
+        (
+         (,(all-the-icons-octicon "mark-github" :height 1.1 :v-adjust 0.0)
+           "GitHub" "" (lambda (&rest _) (browse-url "ext+container:name=Tech&url=https://github.com/librephoenix")))
+         (,(all-the-icons-faicon "gitlab" :height 1.1 :v-adjust 0.0)
+           "GitLab" "" (lambda (&rest _) (browse-url "ext+container:name=Tech&url=https://gitlab.com/librephoenix")))
+         (,(all-the-icons-faicon "coffee" :height 1.1 :v-adjust 0.0)
+           "Gitea" "" (lambda (&rest _) (browse-url my-gitea-domain)))
+        )
+        ;; line 2
+        (
+         (,(all-the-icons-octicon "globe" :height 1.1 :v-adjust 0.0)
+          "Notes overview" "" (lambda (&rest _) (org-roam-default-overview)))
+         (,(all-the-icons-fileicon "org" :height 1.1 :v-adjust 0.0)
+          "Switch roam db" "" (lambda (&rest _) (org-roam-switch-db)))
+         (,(all-the-icons-octicon "calendar" :height 1.1 :v-adjust 0.0)
+          "Org roam agenda" "" (lambda (&rest _) (org-agenda-list)))
+        )
+        ;; line 3
+        (
+         (,(all-the-icons-faicon "cogs" :height 1.1 :v-adjust 0.0)
+          "System config" "" (lambda (&rest _) (projectile-switch-project-by-name "~/.dotfiles" t)))
+         (,(all-the-icons-material "help" :height 1.1 :v-adjust 0.0)
+          "Doom documentation" "" (lambda (&rest _) (doom/help)))
+        )
+       ))
+(setq dashboard-footer-icon (all-the-icons-octicon "dashboard"
+                                                   :height 1.1
+                                                   :v-adjust -0.05
+                                                   :face 'font-lock-keyword-face))
+(dashboard-setup-startup-hook)
 
 ;; Requires for faster loading
 (require 'org-agenda)

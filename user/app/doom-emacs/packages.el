@@ -1,3 +1,4 @@
+(package! dashboard)
 (package! direnv)
 (package! org-modern)
 (package! org-super-agenda)

@@ -424,7 +424,7 @@
 
       window#waybar {
           background-color: #'' + config.lib.stylix.colors.base00 + '';
-          opacity: 0.87;
+          opacity: 0.94;
           border-radius: 8px;
           color: #'' + config.lib.stylix.colors.base07 + '';
           transition-property: background-color;
@@ -433,7 +433,7 @@
 
       window > box {
           border-radius: 8px;
-          opacity: 0.87;
+          opacity: 0.94;
       }
 
       window#waybar.hidden {

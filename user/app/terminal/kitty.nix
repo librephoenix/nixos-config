@@ -6,6 +6,6 @@
   ];
   programs.kitty.enable = true;
   programs.kitty.settings = {
-    background_opacity = lib.mkForce "0.9";
+    background_opacity = lib.mkForce "0.65";
   };
 }
