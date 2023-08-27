@@ -63,8 +63,13 @@ Doom Emacs is traditionally installed by cloning the repository ([[https://githu
 
 ;;;------ User configuration ------;;;
 
-;; My default user identity as my yt alias
-(setq user-full-name "Emmet")
+;; Import relevant system variables from flake (see doom.nix)
+;; includes variables like user-full-name, user-email-address, doom-font, and a few other custom variables I use later
+(load! "~/.emacs.d/system-vars.el")
+;; custom variables include:
+;; dotfiles-dir, absolute path to home directory
+;; system-nix-profile, profile selected from my dotfiles ("personal" "work" "wsl" etc...)
+;; system-wm-type, wayland or x11? only should be considered if system-nix-profile is "personal" or "work"
 
 ;; I prefer visual lines
 (setq display-line-numbers-type 'visual
@@ -81,10 +86,9 @@ Doom Emacs is traditionally installed by cloning the repository ([[https://githu
       :desc "Move to previous visual line"
       "k" 'evil-previous-visual-line)
 
-;; Theme and font
+;; Theme
 (setq custom-theme-directory "~/.emacs.d/themes")
 (setq doom-theme 'doom-stylix)
-(setq doom-font (font-spec :family "Inconsolata" :size 20))
 ;; +unicode-init-fonts-h often errors out
 (remove-hook 'doom-init-ui-hook '+unicode-init-fonts-h)
 
@@ -1527,7 +1531,7 @@ Any git package can be configured for a particular commit or branch:
 * Nix Integration
 In order to have Nix load my Doom Emacs configuration [[./doom.nix][doom.nix]], which I source in the =imports= block of my [[../../home.nix][home.nix]].
 #+BEGIN_SRC nix :tangle doom.nix
-{ config, lib, pkgs, eaf, eaf-browser, org-nursery, phscroll, theme, ... }:
+{ config, lib, pkgs, eaf, eaf-browser, org-nursery, phscroll, theme, font, name, username, email, dotfilesDir, profile, wmType, ... }:
 let
   themePolarity = lib.removeSuffix "\n" (builtins.readFile (./. + "../../../../themes"+("/"+theme)+"/polarity.txt"));
   dashboardLogo = ./. + "/nix-" + themePolarity + ".png";
@@ -1619,5 +1623,18 @@ in
   home.file.".emacs.d/phscroll" = {
     source = "${phscroll}";
   };
+  home.file.".emacs.d/system-vars.el".text = ''
+  ;;; ~/.emacs.d/config.el -*- lexical-binding: t; -*-
+
+  ;; Import relevant variables from flake into emacs
+
+  (setq user-full-name "''+name+''") ; name
+  (setq user-mail-address "''+email+''") ; email
+  (setq user-home-directory "/home/''+username+''") ; absolute path to home directory as string
+  (setq system-nix-profile "''+profile+''") ; what profile am I using?
+  (setq system-wm-type "''+wmType+''") ; wayland or x11?
+  (setq doom-font (font-spec :family "''+font+''" :size 20)) ; import font
+  (setq dotfiles-dir "''+dotfilesDir+''") ; import location of dotfiles directory
+ '';
 }
 #+END_SRC

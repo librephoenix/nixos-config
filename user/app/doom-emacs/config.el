@@ -2,8 +2,13 @@
 
 ;;;------ User configuration ------;;;
 
-;; My default user identity as my yt alias
-(setq user-full-name "Emmet")
+;; Import relevant system variables from flake (see doom.nix)
+;; includes variables like user-full-name, user-email-address, doom-font, and a few other custom variables I use later
+(load! "~/.emacs.d/system-vars.el")
+;; custom variables include:
+;; dotfiles-dir, absolute path to home directory
+;; system-nix-profile, profile selected from my dotfiles ("personal" "work" "wsl" etc...)
+;; system-wm-type, wayland or x11? only should be considered if system-nix-profile is "personal" or "work"
 
 ;; I prefer visual lines
 (setq display-line-numbers-type 'visual
@@ -20,10 +25,9 @@
       :desc "Move to previous visual line"
       "k" 'evil-previous-visual-line)
 
-;; Theme and font
+;; Theme
 (setq custom-theme-directory "~/.emacs.d/themes")
 (setq doom-theme 'doom-stylix)
-(setq doom-font (font-spec :family "Inconsolata" :size 20))
 ;; +unicode-init-fonts-h often errors out
 (remove-hook 'doom-init-ui-hook '+unicode-init-fonts-h)
 

@@ -1,4 +1,4 @@
-{ config, lib, pkgs, eaf, eaf-browser, org-nursery, phscroll, theme, ... }:
+{ config, lib, pkgs, eaf, eaf-browser, org-nursery, phscroll, theme, font, name, username, email, dotfilesDir, profile, wmType, ... }:
 let
   themePolarity = lib.removeSuffix "\n" (builtins.readFile (./. + "../../../../themes"+("/"+theme)+"/polarity.txt"));
   dashboardLogo = ./. + "/nix-" + themePolarity + ".png";
@@ -90,4 +90,17 @@ in
   home.file.".emacs.d/phscroll" = {
     source = "${phscroll}";
   };
+  home.file.".emacs.d/system-vars.el".text = ''
+  ;;; ~/.emacs.d/config.el -*- lexical-binding: t; -*-
+
+  ;; Import relevant variables from flake into emacs
+
+  (setq user-full-name "''+name+''") ; name
+  (setq user-mail-address "''+email+''") ; email
+  (setq user-home-directory "/home/''+username+''") ; absolute path to home directory as string
+  (setq system-nix-profile "''+profile+''") ; what profile am I using?
+  (setq system-wm-type "''+wmType+''") ; wayland or x11?
+  (setq doom-font (font-spec :family "''+font+''" :size 20)) ; import font
+  (setq dotfiles-dir "''+dotfilesDir+''") ; import location of dotfiles directory
+ '';
 }

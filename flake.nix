@@ -51,6 +51,7 @@
             inherit username;
             inherit name;
             inherit hostname;
+            inherit profile;
             inherit email;
             inherit dotfilesDir;
             inherit theme;
