@@ -126,6 +126,15 @@ Teach him how to program and you will frustrate him for a lifetime."
                                                    :face 'font-lock-keyword-face))
 (dashboard-setup-startup-hook)
 
+;; Smooth scrolling
+(good-scroll-mode 1)
+(setq good-scroll-duration 0.5
+      good-scroll-step 270
+      good-scroll-render-rate 0.03)
+
+(global-set-key (kbd "<next>") #'good-scroll-up-full-screen)
+(global-set-key (kbd "<prior>") #'good-scroll-down-full-screen)
+
 ;; Requires for faster loading
 (require 'org-agenda)
 (require 'dired)
@@ -262,17 +271,6 @@ Teach him how to program and you will frustrate him for a lifetime."
 (with-eval-after-load "org"
   (require 'org-phscroll))
 (setq phscroll-calculate-in-pixels t)
-
-;; Smooth scrolling
-(good-scroll-mode 1)
-(setq good-scroll-duration 0.5
-      good-scroll-step 270
-      good-scroll-render-rate 0.03)
-
-
-
-(global-set-key (kbd "<next>") #'good-scroll-up-full-screen)
-(global-set-key (kbd "<prior>") #'good-scroll-down-full-screen)
 
 (require 'org-download)
 
@@ -705,6 +703,9 @@ same directory as the org-buffer and insert a link to this file."
   (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
   :unnarrowed t))))
 
+(setq olivetti-style 'fancy
+      olivetti-margin-width 100)
+(setq-default olivetti-body-width 100)
 (defun org-roam-olivetti-mode ()
   (interactive)
   (if (org-roam-file-p)
