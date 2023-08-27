@@ -156,34 +156,39 @@ Teach him how to program and you will frustrate him for a lifetime."
                                   "I'll tell you a TCP joke. Do you want to hear it?"))
 (setq dashboard-navigator-buttons
       `(;; line1
-        (
-         (,(all-the-icons-octicon "mark-github" :height 1.1 :v-adjust 0.0)
-           "GitHub" "" (lambda (&rest _) (browse-url "ext+container:name=Tech&url=https://github.com/librephoenix")))
-         (,(all-the-icons-faicon "gitlab" :height 1.1 :v-adjust 0.0)
-           "GitLab" "" (lambda (&rest _) (browse-url "ext+container:name=Tech&url=https://gitlab.com/librephoenix")))
-         (,(all-the-icons-faicon "coffee" :height 1.1 :v-adjust 0.0)
-           "Gitea" "" (lambda (&rest _) (browse-url my-gitea-domain)))
+        ( (,"Roam" "" "" (lambda (&rest _)) 'magit-head)
+         (,(all-the-icons-octicon "globe" :height 1.0 :v-adjust 0.0)
+          "Notes overview" "" (lambda (&rest _) (org-roam-default-overview)) 'magit-head)
+         (,(all-the-icons-fileicon "org" :height 1.0 :v-adjust 0.0)
+          "Switch roam db" "" (lambda (&rest _) (org-roam-switch-db)) 'magit-head)
         )
         ;; line 2
-        (
-         (,(all-the-icons-octicon "globe" :height 1.1 :v-adjust 0.0)
-          "Notes overview" "" (lambda (&rest _) (org-roam-default-overview)))
-         (,(all-the-icons-fileicon "org" :height 1.1 :v-adjust 0.0)
-          "Switch roam db" "" (lambda (&rest _) (org-roam-switch-db)))
-         (,(all-the-icons-octicon "calendar" :height 1.1 :v-adjust 0.0)
-          "Org roam agenda" "" (lambda (&rest _) (org-agenda-list)))
+        ( (,"Git" "" "" (lambda (&rest _)) 'magit-keyword)
+         (,(all-the-icons-octicon "mark-github" :height 1.0 :v-adjust 0.0)
+           "GitHub" "" (lambda (&rest _) (browse-url "ext+container:name=Tech&url=https://github.com/librephoenix")) 'magit-keyword)
+         (,(all-the-icons-faicon "gitlab" :height 1.0 :v-adjust 0.0)
+           "GitLab" "" (lambda (&rest _) (browse-url "ext+container:name=Tech&url=https://gitlab.com/librephoenix")) 'magit-keyword)
+         (,(all-the-icons-faicon "coffee" :height 1.0 :v-adjust 0.0)
+           "Gitea" "" (lambda (&rest _) (browse-url my-gitea-domain)) 'magit-keyword)
         )
         ;; line 3
-        (
-         (,(all-the-icons-faicon "cogs" :height 1.1 :v-adjust 0.0)
-          "System config" "" (lambda (&rest _) (projectile-switch-project-by-name "~/.dotfiles" t)))
-         (,(all-the-icons-material "help" :height 1.1 :v-adjust 0.0)
-          "Doom documentation" "" (lambda (&rest _) (doom/help)))
+        ( (,"Agenda" "" "" (lambda (&rest _)) 'magit-tag)
+         (,(all-the-icons-octicon "checklist" :height 1.0 :v-adjust 0.0)
+          "Agenda todos" "" (lambda (&rest _) (org-agenda-list)) 'magit-tag)
+         (,(all-the-icons-octicon "calendar" :height 1.0 :v-adjust 0.0)
+          "Agenda calendar" "" (lambda (&rest _) (cfw:open-org-calendar)) 'magit-tag)
+        )
+        ;; line 4
+        ( (,"Config" "" "" (lambda (&rest _)) 'magit-signature-error)
+         (,(all-the-icons-faicon "cogs" :height 1.0 :v-adjust 0.0)
+          "System config" "" (lambda (&rest _) (projectile-switch-project-by-name "~/.dotfiles" t)) 'magit-signature-error)
+         (,(all-the-icons-material "help" :height 1.0 :v-adjust -0.2)
+          "Doom documentation" "" (lambda (&rest _) (doom/help)) 'magit-signature-error)
         )
        ))
-(setq dashboard-footer-icon (all-the-icons-octicon "dashboard"
-                                                   :height 1.1
-                                                   :v-adjust -0.05
+(setq dashboard-footer-icon (all-the-icons-faicon "list-alt"
+                                                   :height 1.0
+                                                   :v-adjust -0.15
                                                    :face 'font-lock-keyword-face))
 (dashboard-setup-startup-hook)
 
@@ -583,7 +588,6 @@ exit
 *** Standard Org Roam Configuration
 #+BEGIN_SRC emacs-lisp :tangle config.el
 ;;;------ Org roam configuration ------;;;
-
 (require 'org-roam)
 (require 'org-roam-dailies)
 
@@ -770,13 +774,11 @@ exit
 ;; Build agenda for first time during this session
 (org-roam-refresh-agenda-list)
 
-
 (map! :leader
       :prefix ("o a")
 
       :desc "Refresh org agenda from roam dbs"
       "r" 'org-roam-refresh-agenda-list)
-
 
 #+END_SRC
 *** Org Roam Keybindings
