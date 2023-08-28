@@ -179,11 +179,11 @@ Teach him how to program and you will frustrate him for a lifetime."
           "Agenda calendar" "" (lambda (&rest _) (cfw:open-org-calendar)) 'magit-tag)
         )
         ;; line 4
-        ( (,"Config" "" "" (lambda (&rest _)) 'magit-signature-error)
+        ( (,"Config" "" "" (lambda (&rest _)) 'dired-mark)
          (,(all-the-icons-faicon "cogs" :height 1.0 :v-adjust 0.0)
-          "System config" "" (lambda (&rest _) (projectile-switch-project-by-name "~/.dotfiles" t)) 'magit-signature-error)
+          "System config" "" (lambda (&rest _) (projectile-switch-project-by-name "~/.dotfiles" t)) 'dired-mark)
          (,(all-the-icons-material "help" :height 1.0 :v-adjust -0.2)
-          "Doom documentation" "" (lambda (&rest _) (doom/help)) 'magit-signature-error)
+          "Doom documentation" "" (lambda (&rest _) (doom/help)) 'dired-mark)
         )
        ))
 (setq dashboard-footer-icon (all-the-icons-faicon "list-alt"
