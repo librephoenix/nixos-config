@@ -584,6 +584,27 @@ exit
 ;      "r" 'org-simple-print-region)
 
 #+END_SRC
+*** Org Inline Macros
+#+BEGIN_SRC emacs-lisp :tangle config.el
+;; Display macros inline in buffers
+(add-to-list 'font-lock-extra-managed-props 'display)
+
+(font-lock-add-keywords
+ 'org-mode
+ '(("\\({{{[a-zA-Z#%)(_-+0-9]+}}}\\)" 0
+    `(face nil display
+           ,(format "%s"
+                    (let* ((input-str (match-string 0))
+                          (el (with-temp-buffer
+                                (insert input-str)
+                                (goto-char (point-min))
+                                (org-element-context)))
+                          (text (org-macro-expand el org-macro-templates)))
+                      (if text
+                          text
+                        input-str)))))))
+
+#+END_SRC
 ** Org Roam Configuration
 *** Standard Org Roam Configuration
 #+BEGIN_SRC emacs-lisp :tangle config.el

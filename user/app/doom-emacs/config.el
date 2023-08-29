@@ -489,6 +489,24 @@ same directory as the org-buffer and insert a link to this file."
 ;      :desc "Simple print region in web browser"
 ;      "r" 'org-simple-print-region)
 
+;; Display macros inline in buffers
+(add-to-list 'font-lock-extra-managed-props 'display)
+
+(font-lock-add-keywords
+ 'org-mode
+ '(("\\({{{[a-zA-Z#%)(_-+0-9]+}}}\\)" 0
+    `(face nil display
+           ,(format "%s"
+                    (let* ((input-str (match-string 0))
+                          (el (with-temp-buffer
+                                (insert input-str)
+                                (goto-char (point-min))
+                                (org-element-context)))
+                          (text (org-macro-expand el org-macro-templates)))
+                      (if text
+                          text
+                        input-str)))))))
+
 ;;;------ Org roam configuration ------;;;
 (require 'org-roam)
 (require 'org-roam-dailies)
