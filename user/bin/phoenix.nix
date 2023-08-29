@@ -90,6 +90,7 @@ let
           which xmonad &> /dev/null && echo "Recompiling xmonad" && echo "Running xmonad --recompile && xmonad --restart" && xmonad --recompile && xmonad --restart;
           which emacsclient &> /dev/null && echo "Reloading emacs stylix theme" && echo "Running emacsclient --no-wait --eval \"(load-theme 'doom-stylix t nil)\"" && emacsclient --no-wait --eval "(load-theme 'doom-stylix t nil)";
           [ -f ~/.fehbg-stylix ] &> /dev/null && echo "Reapplying background from stylix via feh" && echo "Running ~/.fehbg-stylix" && ~/.fehbg-stylix;
+          [ -f ~/.swaybg-stylix ] &> /dev/null && echo "Reapplying background from stylix via swaybg" && echo "Running ~/.swaybg-stylix" && ~/.swaybg-stylix;
         else
           systemd-run --no-ask-password --uid=1000 --user --scope -p MemoryLimit=16000M -p CPUQuota=60% home-manager switch --flake .#user &> /dev/null &
           animate_msg "Syncing user configuration..."
@@ -97,9 +98,9 @@ let
           which xmonad &> /dev/null && xmonad --recompile &> /dev/null &
           animate_msg "Refreshing xmonad..."
           which emacsclient &> /dev/null && emacsclient --no-wait --eval "(load-theme 'doom-stylix t nil)" &> /dev/null &
-          animate_msg "Reloading emacs stylix theme..."
+          animate_msg "Reloading stylix theme..."
           [ -f ~/.fehbg-stylix ] &> /dev/null && ~/.fehbg-stylix &> /dev/null &
-          animate_msg "Reapplying background from stylix via feh..."
+          [ -f ~/.swaybg-stylix ] &> /dev/null && ~/.swaybg-stylix &> /dev/null &
         fi
         popd &> /dev/null;
         echo -e "$BLUE### User configuration sync finished ###$NC"
