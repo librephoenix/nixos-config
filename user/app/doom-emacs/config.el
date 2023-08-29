@@ -507,6 +507,16 @@ same directory as the org-buffer and insert a link to this file."
                           text
                         input-str)))))))
 
+;; Org transclusion
+(use-package! org-transclusion
+  :after org
+  :init
+  (map!
+   :map global-map "<f12>" #'org-transclusion-add
+   :leader
+   :prefix "n"
+   :desc "Org Transclusion Mode" "t" #'org-transclusion-mode))
+
 ;;;------ Org roam configuration ------;;;
 (require 'org-roam)
 (require 'org-roam-dailies)

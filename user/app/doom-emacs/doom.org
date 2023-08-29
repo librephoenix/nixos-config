@@ -605,6 +605,19 @@ exit
                         input-str)))))))
 
 #+END_SRC
+*** Org Transclusion
+#+BEGIN_SRC emacs-lisp :tangle config.el
+;; Org transclusion
+(use-package! org-transclusion
+  :after org
+  :init
+  (map!
+   :map global-map "<f12>" #'org-transclusion-add
+   :leader
+   :prefix "n"
+   :desc "Org Transclusion Mode" "t" #'org-transclusion-mode))
+
+#+END_SRC
 ** Org Roam Configuration
 *** Standard Org Roam Configuration
 #+BEGIN_SRC emacs-lisp :tangle config.el
@@ -1532,7 +1545,7 @@ Any git package can be configured for a particular commit or branch:
 (package! org-super-agenda)
 (package! emacsql :pin "c1a4407")
 (package! org-roam-ui)
-;;(package! org-roam-nursery :recipe (:repo "https://github.com/chrisbarrett/nursery"))
+(package! org-transclusion)
 (package! lister)
 (package! org-download)
 (package! org-yt)
