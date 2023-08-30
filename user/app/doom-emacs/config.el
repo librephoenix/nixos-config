@@ -132,13 +132,17 @@ Teach him how to program and you will frustrate him for a lifetime."
 (dashboard-setup-startup-hook)
 
 ;; Smooth scrolling
-(good-scroll-mode 1)
-(setq good-scroll-duration 0.5
-      good-scroll-step 270
-      good-scroll-render-rate 0.03)
+;; requires good-scroll.el
+;;(good-scroll-mode 1)
+;;(setq good-scroll-duration 0.4
+;;      good-scroll-step 270
+;;      good-scroll-render-rate 0.03)
+;;
+;;(global-set-key (kbd "<next>") #'good-scroll-up-full-screen)
+;;(global-set-key (kbd "<prior>") #'good-scroll-down-full-screen)
 
-(global-set-key (kbd "<next>") #'good-scroll-up-full-screen)
-(global-set-key (kbd "<prior>") #'good-scroll-down-full-screen)
+(setq scroll-margin 30)
+(setq hscroll-margin 10)
 
 ;; Requires for faster loading
 (require 'org-agenda)
