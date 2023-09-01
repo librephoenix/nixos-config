@@ -747,6 +747,36 @@ exit
   (with-current-buffer (get-file-buffer the-daily-node-filename) (kill-buffer))
 )
 
+(defun org-current-buffer-has-todos ()
+  "Return non-nil if current buffer has any todo entry.
+
+TODO entries marked as done are ignored, meaning the this
+function returns nil if current buffer contains only completed
+tasks."
+  (org-element-map                          ; (2)
+       (org-element-parse-buffer 'headline) ; (1)
+       'headline
+     (lambda (h)
+       (eq (org-element-property :todo-type h)
+           'todo))
+     nil 'first-match))                     ; (3)
+
+(defun org-has-recent-timestamps (OLD-DAYS)
+  "Return non-nil only if current buffer has entries with timestamps
+   more recent than OLD-DAYS days"
+  (interactive)
+  (if (org-element-map (org-element-parse-buffer) 'timestamp
+    (lambda (h)
+      (org-element-property :raw-value h)))
+      (org-element-map                          ; (2)
+         (org-element-parse-buffer) ; (1)
+          'timestamp
+         (lambda (h)
+           (time-less-p (time-subtract (current-time) (* 60 60 24 OLD-DAYS)) (date-to-time (org-element-property :raw-value h))))
+         nil 'first-match) nil))
+
+(setq org-timestamp-days-for-old 21)
+
 ; This has a bug where it won't sync a new agenda file
 ; if I'm editing an org roam node file while set to another
 ; org roam db
@@ -755,7 +785,7 @@ exit
   (when (string= (message "%s" major-mode) "org-mode")
     (if (org-roam-node-p (org-roam-node-at-point))
     (funcall (lambda()
-      (if (or (text-in-buffer-p "SCHEDULED: <") (text-in-buffer-p "DEADLINE: <"))
+      (if (or (org-current-buffer-has-todos) (org-has-recent-timestamps org-timestamps-days-for-old))
         (org-roam-tag-add '("todos"))
         (org-roam-tag-remove '("todos"))
       )
