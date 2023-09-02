@@ -1,9 +1,20 @@
 #!/bin/sh
-if [[ -f "$1" ]]; then
-  TYPE=$(file -b --mime-type "$1")
-  xclip -selection clipboard -t "$TYPE" -i "$1"
+if [ $(echo $XDG_SESSION_TYPE) == "wayland" ]; then
+  FILENAME="$(wl-paste)"
+  FILTEREDFILENAME=$(echo "$FILENAME" | sed "s+file:+./+")
+  echo "$FILTEREDFILENAME"
+  if [[ -f "$FILTEREDFILENAME" ]]; then
+    wl-copy < "$FILTEREDFILENAME"
+  fi
+elif [ $(echo $XDG_SESSION_TYPE) == "x11" ]; then
+  FILENAME="$(xclip -o)"
+  FILTEREDFILENAME=$(echo "$FILENAME" | sed "s+file:+./+")
+  if [[ -f "$FILTEREDFILENAME" ]]; then
+    TYPE=$(file -b --mime-type "$FILTEREDFILENAME")
+    xclip -selection clipboard -t "$TYPE" -i "$FILTEREDFILENAME"
+    exit
+  fi
 else
-  echo $1 | xclip -selection clipboard -t text/plain &> /dev/null
   exit
 fi
 exit

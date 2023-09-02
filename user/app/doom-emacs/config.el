@@ -68,11 +68,13 @@
 ;; Disables custom.el
 (setq custom-file null-device)
 
-;; Emacs dashboard
+;; emacs-dashboard setup
 (require 'all-the-icons)
 (require 'dashboard)
-(setq initial-buffer-choice (lambda () (get-buffer-create "*dashboard*")))
-(setq doom-fallback-buffer-name "*dashboard*")
+(setq initial-buffer-choice (lambda () (get-buffer-create "*dashboard*"))
+      doom-fallback-buffer-name "*dashboard*")
+
+;; emacs-dashboard variables
 (setq dashboard-banner-logo-title "Welcome to Nix Doom Emacs")
 (setq dashboard-startup-banner 2)
 (setq dashboard-icon-type 'all-the-icons) ;; use `all-the-icons' package
@@ -84,8 +86,6 @@
 (setq dashboard-footer-messages '("Here to do customizing, or actual work?"
                                   "M-x insert-inspiring-message"
                                   "My software never has bugs. It just develops random features."
-                                  "Give a man a program and you will frustrate him for a day.
-Teach him how to program and you will frustrate him for a lifetime."
                                   "Dad, what are clouds made of? Linux servers, mostly."
                                   "There is no place like ~"
                                   "~ sweet ~"
@@ -94,41 +94,42 @@ Teach him how to program and you will frustrate him for a lifetime."
                                   "I'd tell you a UDP joke, but you might not get it."
                                   "I'll tell you a TCP joke. Do you want to hear it?"))
 (setq dashboard-navigator-buttons
-      `(;; line1
-        ( (,"Roam" "" "" (lambda (&rest _)) 'org-formula)
-         (,(all-the-icons-octicon "globe" :height 1.0 :v-adjust 0.0)
-          "Notes overview" "" (lambda (&rest _) (org-roam-default-overview)) 'org-formula)
-         (,(all-the-icons-fileicon "org" :height 1.0 :v-adjust 0.0)
-          "Switch roam db" "" (lambda (&rest _) (org-roam-switch-db)) 'org-formula)
-        )
-        ;; line 2
-        ( (,"Git" "" "" (lambda (&rest _)) 'match)
-         (,(all-the-icons-octicon "mark-github" :height 1.0 :v-adjust 0.0)
-           "GitHub" "" (lambda (&rest _) (browse-url "ext+container:name=Tech&url=https://github.com/librephoenix")) 'match)
-         (,(all-the-icons-faicon "gitlab" :height 1.0 :v-adjust 0.0)
-           "GitLab" "" (lambda (&rest _) (browse-url "ext+container:name=Tech&url=https://gitlab.com/librephoenix")) 'match)
-         (,(all-the-icons-faicon "coffee" :height 1.0 :v-adjust 0.0)
-           "Gitea" "" (lambda (&rest _) (browse-url my-gitea-domain)) 'match)
-        )
-        ;; line 3
-        ( (,"Agenda" "" "" (lambda (&rest _)) 'dired-warning)
-         (,(all-the-icons-octicon "checklist" :height 1.0 :v-adjust 0.0)
-          "Agenda todos" "" (lambda (&rest _) (org-agenda-list)) 'dired-warning)
-         (,(all-the-icons-octicon "calendar" :height 1.0 :v-adjust 0.0)
-          "Agenda calendar" "" (lambda (&rest _) (cfw:open-org-calendar)) 'dired-warning)
-        )
-        ;; line 4
-        ( (,"Config" "" "" (lambda (&rest _)) 'dired-mark)
-         (,(all-the-icons-faicon "cogs" :height 1.0 :v-adjust 0.0)
-          "System config" "" (lambda (&rest _) (projectile-switch-project-by-name "~/.dotfiles" t)) 'dired-mark)
-         (,(all-the-icons-material "help" :height 1.0 :v-adjust -0.2)
-          "Doom documentation" "" (lambda (&rest _) (doom/help)) 'dired-mark)
-        )
-       ))
-(setq dashboard-footer-icon (all-the-icons-faicon "list-alt"
-                                                   :height 1.0
-                                                   :v-adjust -0.15
-                                                   :face 'font-lock-keyword-face))
+  `(;; line1
+    ( (,"Roam" "" "" (lambda (&rest _)) 'org-formula)
+     (,(all-the-icons-octicon "globe" :height 1.0 :v-adjust 0.0)
+      "Notes overview" "" (lambda (&rest _) (org-roam-default-overview)) 'org-formula)
+     (,(all-the-icons-fileicon "org" :height 1.0 :v-adjust 0.0)
+      "Switch roam db" "" (lambda (&rest _) (org-roam-switch-db)) 'org-formula)
+    )
+    ;; line 2
+    ( (,"Git" "" "" (lambda (&rest _)) 'match)
+     (,(all-the-icons-octicon "mark-github" :height 1.0 :v-adjust 0.0)
+       "GitHub" "" (lambda (&rest _) (browse-url "ext+container:name=Tech&url=https://github.com/librephoenix")) 'match)
+     (,(all-the-icons-faicon "gitlab" :height 1.0 :v-adjust 0.0)
+       "GitLab" "" (lambda (&rest _) (browse-url "ext+container:name=Tech&url=https://gitlab.com/librephoenix")) 'match)
+     (,(all-the-icons-faicon "coffee" :height 1.0 :v-adjust 0.0)
+       "Gitea" "" (lambda (&rest _) (browse-url my-gitea-domain)) 'match)
+    )
+    ;; line 3
+    ( (,"Agenda" "" "" (lambda (&rest _)) 'dired-warning)
+     (,(all-the-icons-octicon "checklist" :height 1.0 :v-adjust 0.0)
+      "Agenda todos" "" (lambda (&rest _) (org-agenda-list)) 'dired-warning)
+     (,(all-the-icons-octicon "calendar" :height 1.0 :v-adjust 0.0)
+      "Agenda calendar" "" (lambda (&rest _) (cfw:open-org-calendar)) 'dired-warning)
+    )
+    ;; line 4
+    ( (,"Config" "" "" (lambda (&rest _)) 'dired-mark)
+     (,(all-the-icons-faicon "cogs" :height 1.0 :v-adjust 0.0)
+      "System config" "" (lambda (&rest _) (projectile-switch-project-by-name "~/.dotfiles" t)) 'dired-mark)
+     (,(all-the-icons-material "help" :height 1.0 :v-adjust -0.2)
+      "Doom documentation" "" (lambda (&rest _) (doom/help)) 'dired-mark)
+    )))
+
+(setq dashboard-footer-icon
+  (all-the-icons-faicon "list-alt"
+    :height 1.0
+    :v-adjust -0.15
+    :face 'font-lock-keyword-face))
 (dashboard-setup-startup-hook)
 
 ;; Smooth scrolling
@@ -205,8 +206,8 @@ Teach him how to program and you will frustrate him for a lifetime."
 
 ;; Add frame borders and window dividers
 (modify-all-frames-parameters
- '((right-divider-width . 10)
-   (internal-border-width . 10)))
+ '((right-divider-width . 5)
+   (internal-border-width . 5)))
 (dolist (face '(window-divider
                 window-divider-first-pixel
                 window-divider-last-pixel))
@@ -215,19 +216,19 @@ Teach him how to program and you will frustrate him for a lifetime."
 (set-face-background 'fringe (face-attribute 'default :background))
 
 (setq
- ;; Edit settings
- org-auto-align-tags nil
- org-tags-column 0
- org-catch-invisible-edits 'show-and-error
- org-special-ctrl-a/e t
- org-insert-heading-respect-content t
+  ;; Edit settings
+  org-auto-align-tags nil
+  org-tags-column 0
+  org-catch-invisible-edits 'show-and-error
+  org-special-ctrl-a/e t
+  org-insert-heading-respect-content t
 
- ;; Org styling, hide markup etc.
- org-hide-emphasis-markers t
- org-pretty-entities t
- org-ellipsis "…")
+  ;; Org styling, hide markup etc.
+  org-hide-emphasis-markers t
+  org-pretty-entities t
+  org-ellipsis "…")
 
-(setq-default line-spacing 0.1)
+(setq-default line-spacing 0.15)
 
 ; Automatic table of contents is nice
 (if (require 'toc-org nil t)
@@ -254,25 +255,6 @@ Teach him how to program and you will frustrate him for a lifetime."
 ;; Better for org source blocks
 (setq electric-indent-mode nil)
 (setq org-src-window-setup 'current-window)
-(delete
-  '("^\\*Org Src"
-  (+popup-buffer)
-  (actions)
-  (side . bottom)
-  (size . 0.42)
-  (window-width . 40)
-  (window-height . 0.42)
-  (slot)
-  (vslot)
-  (window-parameters
-   (ttl)
-   (quit)
-   (select . t)
-   (modeline . t)
-   (autosave . t)
-   (transient . t)
-   (no-other-window . t)))
- display-buffer-alist)
 
 ;; Horizontal scrolling tables
 (add-load-path! "~/.emacs.d/phscroll")
@@ -286,7 +268,12 @@ Teach him how to program and you will frustrate him for a lifetime."
 ;; Drag-and-drop to `dired`
 (add-hook 'dired-mode-hook 'org-download-enable)
 
-(setq org-download-screenshot-method "flameshot gui -p %s")
+;; system-wm-type, wayland or x11? only should be considered if system-nix-profile is "personal" or "work"
+(if (string= system-wm-type "wayland")
+  (setq org-download-screenshot-method "grim -g \"$(slurp)\" %s")
+  (setq org-download-screenshot-method "flameshot gui -p %s")
+)
+
 (after! org-download
    (setq org-download-method 'directory))
 
@@ -294,37 +281,24 @@ Teach him how to program and you will frustrate him for a lifetime."
   (setq-default org-download-image-dir "img/"
         org-download-heading-lvl nil))
 
-(defun my-org-screenshot ()
-  "Take a screenshot into a time stamped unique-named file in the
-same directory as the org-buffer and insert a link to this file."
-  (interactive)
-  (setq filename
-        (concat
-         (make-temp-name
-          (concat (buffer-file-name)
-                  "_"
-                  (format-time-string "%Y%m%d_%H%M%S_")) ) ".png"))
-  (shell-command (concat "emacs-wayshot " filename))
-  (insert (concat "[[" filename "]]"))
-  (org-display-inline-images))
+(add-to-list 'display-buffer-alist '("^*Async Shell Command*" . (display-buffer-no-window)))
 
-(defun my-org-paste()
-  "Take an image from the clipboard into a time stamped unique-named file in the
-same directory as the org-buffer and insert a link to this file."
+(defun org-download-clipboard-basename ()
   (interactive)
-  (setq filename
-        (concat
-         (make-temp-name
-          (concat (file-name-directory (buffer-file-name))
-                  "img/"
-                  (file-name-nondirectory (buffer-file-name))
-                  "_"
-                  (format-time-string "%Y%m%d_%H%M%S_")) ) ".png"))
-  (shell-command (concat "wl-paste > " filename))
-  (insert (concat "[[" filename "]]"))
-  (org-display-inline-images))
+  (setq org-download-path-last-dir org-download-image-dir)
+  (setq org-download-image-dir (completing-read "directory: " (-filter #'f-directory-p (directory-files-recursively "." "" t)) nil t))
+  (org-download-clipboard (completing-read "basename: " '() nil nil))
+  (setq org-download-image-dir org-download-path-last-dir)
+)
 
-(defun my-org-new-file-from-template()
+(map! :leader
+      :desc "Insert a screenshot"
+      "i s" 'org-download-screenshot
+      :desc "Insert image from clipboard"
+      "i p" 'org-download-clipboard
+      "i P" 'org-download-clipboard-basename)
+
+(defun org-new-file-from-template()
   "Copy a template from ~/Templates into a time stamped unique-named file in the
 same directory as the org-buffer and insert a link to this file."
   (interactive)
@@ -342,75 +316,56 @@ same directory as the org-buffer and insert a link to this file."
   (insert (concat "[[./files/" (file-name-nondirectory filename) "][" prettyname "]]"))
   (org-display-inline-images))
 
-(when (require 'openwith nil 'noerror)
-   (setq openwith-associations
-         (list
-         (list (openwith-make-extension-regexp
-                '("mpg" "mpeg" "mp3" "mp4"
-                  "avi" "wmv" "wav" "mov" "flv"
-                  "ogm" "ogg" "mkv"))
-                  "mpv"
-                  '(file))
-         (list (openwith-make-extension-regexp
-                '("doc" "xls" "ppt" "odt" "ods" "odg" "odp"))
-                  "libreoffice"
-                  '(file))
-             '("\\.lyx" "lyx" (file))
-             '("\\.chm" "kchmviewer" (file))
-         (list (openwith-make-extension-regexp
-                '("pdf" "ps" "ps.gz" "dvi"))
-                  "atril"
-                  '(file))
-         (list (openwith-make-extension-regexp
-                '("kdenlive"))
-                  "kdenlive"
-                  '(file))
-         (list (openwith-make-extension-regexp
-                '("kra"))
-                  "krita"
-                  '(file))
-         (list (openwith-make-extension-regexp
-                '("blend" "blend1"))
-                  "blender"
-                  '(file))
-         (list (openwith-make-extension-regexp
-                '("helio"))
-                  "helio"
-                  '(file))
-         (list (openwith-make-extension-regexp
-                '("svg"))
-                  "inkscape"
-                  '(file))
-         (list (openwith-make-extension-regexp
-                '("flp"))
-                  "~/.local/bin/flstudio"
-                  '(file))
-             ))
-   (openwith-mode 1))
-
-(add-to-list 'display-buffer-alist '("^*Async Shell Command*" . (display-buffer-no-window)))
-
-(map! :leader
-      :desc "Insert a screenshot"
-;;      "i s" 'my-org-screenshot)
-      "i s" 'org-download-screenshot)
-
-(defun org-download-clipboard-basename ()
-  (interactive)
-  (setq org-download-path-last-dir org-download-image-dir)
-  (setq org-download-image-dir (completing-read "directory: " (-filter #'f-directory-p (directory-files-recursively "." "" t)) nil t))
-  (org-download-clipboard (completing-read "basename: " '() nil nil))
-  (setq org-download-image-dir org-download-path-last-dir)
-)
-
-(map! :leader
-      :desc "Insert image from clipboard"
-      "i p" 'org-download-clipboard
-      "i P" 'org-download-clipboard-basename)
-
 (map! :leader
       :desc "Create a new file from a template and insert a link at point"
       "i t" 'my-org-new-file-from-template)
+
+(if (not (string= system-nix-profile "wsl"))
+  (when (require 'openwith nil 'noerror)
+     (setq openwith-associations
+           (list
+           (list (openwith-make-extension-regexp
+                  '("mpg" "mpeg" "mp3" "mp4"
+                    "avi" "wmv" "wav" "mov" "flv"
+                    "ogm" "ogg" "mkv"))
+                    "mpv"
+                    '(file))
+           (list (openwith-make-extension-regexp
+                  '("doc" "xls" "ppt" "odt" "ods" "odg" "odp"))
+                    "libreoffice"
+                    '(file))
+               '("\\.lyx" "lyx" (file))
+               '("\\.chm" "kchmviewer" (file))
+           (list (openwith-make-extension-regexp
+                  '("pdf" "ps" "ps.gz" "dvi"))
+                    "atril"
+                    '(file))
+           (list (openwith-make-extension-regexp
+                  '("kdenlive"))
+                    "kdenlive"
+                    '(file))
+           (list (openwith-make-extension-regexp
+                  '("kra"))
+                    "krita"
+                    '(file))
+           (list (openwith-make-extension-regexp
+                  '("blend" "blend1"))
+                    "blender"
+                    '(file))
+           (list (openwith-make-extension-regexp
+                  '("helio"))
+                    "helio"
+                    '(file))
+           (list (openwith-make-extension-regexp
+                  '("svg"))
+                    "inkscape"
+                    '(file))
+           (list (openwith-make-extension-regexp
+                  '("flp"))
+                    "~/.local/bin/flstudio"
+                    '(file))
+               ))
+     (openwith-mode 1)))
 
 (defun org-copy-link-to-clipboard-at-point ()
   "Copy current link at point into clipboard (useful for images and links)"
@@ -425,7 +380,7 @@ same directory as the org-buffer and insert a link to this file."
   (if (eq major-mode #'image-mode)
       (image-mode-copy-file-name-as-kill)
   )
-  (shell-command (concat "~/.emacs.d/scripts/copy-link-or-file/copy-link-or-file-to-clipboard.sh " (gui-get-selection 'CLIPBOARD)) nil nil)
+  (shell-command "~/.emacs.d/scripts/copy-link-or-file/copy-link-or-file-to-clipboard.sh " nil nil)
 )
 
 (map! :leader
@@ -520,6 +475,9 @@ same directory as the org-buffer and insert a link to this file."
    :leader
    :prefix "n"
    :desc "Org Transclusion Mode" "t" #'org-transclusion-mode))
+(map! :leader :prefix "n" "l" #'org-transclusion-live-sync-start)
+
+(add-hook 'org-mode-hook #'org-transclusion-mode)
 
 ;;;------ Org roam configuration ------;;;
 (require 'org-roam)
