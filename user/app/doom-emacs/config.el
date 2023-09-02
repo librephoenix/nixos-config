@@ -255,6 +255,9 @@
 ;; Better for org source blocks
 (setq electric-indent-mode nil)
 (setq org-src-window-setup 'current-window)
+(set-popup-rule! "^\\*Org Src"
+  :side 'top'
+  :size 0.9)
 
 ;; Horizontal scrolling tables
 (add-load-path! "~/.emacs.d/phscroll")
