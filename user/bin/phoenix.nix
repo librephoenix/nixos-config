@@ -194,10 +194,13 @@ let
       elif [ "$1" = "gc" ]; then
         if [ "$2" = "full" ]; then
           sudo nix-collect-garbage --delete-old;
+          nix-collect-garbage --delete-old;
         elif [ "$2" ]; then
           sudo nix-collect-garbage --delete-older-than $2;
+          nix-collect-garbage --delete-older-than $2;
         else
           sudo nix-collect-garbage --delete-older-than 30d;
+          nix-collect-garbage --delete-older-than 30d;
         fi
       fi
     '';
