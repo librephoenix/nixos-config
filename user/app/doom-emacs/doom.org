@@ -222,6 +222,17 @@ Doom Emacs is traditionally installed by cloning the repository ([[https://githu
 (setq global-auto-revert-mode nil)
 (setq auto-revert-use-notify t)
 
+(defun neotree-snipe-dir ()
+  (interactive)
+  (if (projectile-project-root)
+    (neotree-dir (projectile-project-root))
+    (neotree-dir (file-name-directory (file-truename (buffer-name))))
+  )
+)
+
+(map! :leader :desc "Open neotree here" "o n" #'neotree-snipe-dir
+              :desc "Hide neotree" "o N" #'neotree-hide)
+
 #+END_SRC
 ** Registers
 #+BEGIN_SRC emacs-lisp :tangle config.el
@@ -1339,6 +1350,20 @@ EAF doesn't work on Wayland :(
 (use-package gdscript-mode
   :hook (gdscript-mode . lsp-deferred)
   :ensure t)
+
+(setq lsp-treemacs-deps-position-params
+  '((side . right)
+   (slot . 1)
+   (window-width . 35)))
+
+(setq lsp-treemacs-symbols-position-params
+'((side . right)
+ (slot . 2)
+ (window-width . 35)))
+
+(map! :leader :desc "Open treemacs symbol outliner" "o s" #'lsp-treemacs-symbols
+              :desc "Hide neotree" "o S" #'treemacs-quit)
+
 #+END_SRC
 ** Terminal
 #+BEGIN_SRC emacs-lisp :tangle config.el
