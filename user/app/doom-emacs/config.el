@@ -3,7 +3,8 @@
 ;;;------ User configuration ------;;;
 
 ;; Import relevant system variables from flake (see doom.nix)
-;; includes variables like user-full-name, user-email-address, doom-font, and a few other custom variables I use later
+;; includes variables like user-full-name, user-username, user-home-directory, user-email-address, doom-font,
+;; and a few other custom variables I use later
 (load! "~/.emacs.d/system-vars.el")
 ;; custom variables include:
 ;; dotfiles-dir, absolute path to home directory
@@ -178,11 +179,9 @@
       :desc "Jump to register"
       "r" 'jump-to-register)
 
-(set-register ?f '(file . "/home/emmet/Org/Family.s/Notes/hledger.org"))
-(set-register ?h '(file . "/home/emmet"))
-(set-register ?r '(file . "/home/emmet/.dotfiles/README.org"))
-(set-register ?x '(file . "/home/emmet/.dotfiles/user/wm/xmonad/xmonad.org"))
-(set-register ?d '(file . "/home/emmet/.dotfiles/user/app/doom-emacs/doom.org"))
+(if (string= system-nix-profile "personal") (set-register ?f (cons 'file (concat user-home-directory "/Org/Family.s/Notes/hledger.org"))))
+(set-register ?h (cons 'file user-home-directory))
+(set-register ?r (cons 'file (concat dotfiles-dir "/README.org")))
 
 ;;;------ Org mode configuration ------;;;
 
@@ -325,7 +324,7 @@ same directory as the org-buffer and insert a link to this file."
                   (file-name-nondirectory (buffer-file-name))
                   "_"
                   (format-time-string "%Y%m%d_%H%M%S_")) ) (file-name-extension template-file t)))
-  (copy-file (concat "/home/emmet/Templates/" template-file) filename)
+  (copy-file (concat user-home-directory "/Templates/" template-file) filename)
   (setq prettyname (read-from-minibuffer "Pretty name:"))
   (insert (concat "[[./files/" (file-name-nondirectory filename) "][" prettyname "]]"))
   (org-display-inline-images))
@@ -517,7 +516,7 @@ same directory as the org-buffer and insert a link to this file."
 (dolist (item full-org-roam-db-list)
   (setq full-org-roam-db-list-pretty
        (append (list
-             (replace-regexp-in-string "\\/home\\/emmet\\/Org\\/" "" item)) full-org-roam-db-list-pretty)))
+             (replace-regexp-in-string (concat "\\/home\\/" user-username "\\/Org\\/") "" item)) full-org-roam-db-list-pretty)))
 
 (defun org-roam-open-dashboard ()
   "Open ${org-roam-directory}/dashboard.org (I use this naming convention to create dashboards for each of my org roam maps)"
@@ -1018,7 +1017,7 @@ https://github.com/magit/magit/issues/460 (@cpitclaudel)."
 (add-to-list 'auto-mode-alist '("\\.journal\\'" . hledger-mode))
 
 ;; The default journal location is too opinionated.
-(setq hledger-jfile "/home/emmet/Org/Family.s/Notes/hledger.journal")
+(setq hledger-jfile (concat user-home-directory "/Org/Family.s/Notes/hledger.journal"))
 
 ;;; Auto-completion for account names
 ;; For company-mode users:
@@ -1104,7 +1103,7 @@ https://github.com/magit/magit/issues/460 (@cpitclaudel)."
   :hook (nix-mode . lsp-deferred)
   :ensure t)
 
-(setq lsp-java-workspace-dir "/home/emmet/.local/share/doom/java-workspace")
+(setq lsp-java-workspace-dir (concat user-home-directory "/.local/share/doom/java-workspace"))
 
 (require 'gdscript-mode)
 (use-package gdscript-mode

@@ -96,6 +96,7 @@ in
   ;; Import relevant variables from flake into emacs
 
   (setq user-full-name "''+name+''") ; name
+  (setq user-username "''+username+''") ; username
   (setq user-mail-address "''+email+''") ; email
   (setq user-home-directory "/home/''+username+''") ; absolute path to home directory as string
   (setq system-nix-profile "''+profile+''") ; what profile am I using?
