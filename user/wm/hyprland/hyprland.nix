@@ -41,6 +41,27 @@
             gaps_out = 7
        }
 
+       plugin {
+         hyprbars {
+           bar_height = 20
+           bar_color = 0xee''+ config.lib.stylix.colors.base00 + ''
+
+           col.text = 0xff''+ config.lib.stylix.colors.base05 + ''
+
+           bar_text_font = '' + font + ''
+
+           bar_text_size = 12
+
+           buttons {
+             button_size = 20
+             col.maximize = 0xff''+ config.lib.stylix.colors.base0A +''
+
+             col.close = 0xff''+ config.lib.stylix.colors.base08 +''
+
+           }
+         }
+       }
+
        bind=SUPER,SPACE,fullscreen,1
        bind=ALT,TAB,cyclenext
        bind=ALT,TAB,bringactivetotop
