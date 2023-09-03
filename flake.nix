@@ -1,7 +1,7 @@
 {
   description = "Flake of LibrePhoenix";
 
-  outputs = { self, nixpkgs, home-manager, nix-doom-emacs, stylix, eaf, eaf-browser, org-nursery, phscroll, blocklist-hosts, rust-overlay, ... }@inputs:
+  outputs = { self, nixpkgs, home-manager, nix-doom-emacs, stylix, eaf, eaf-browser, org-nursery, phscroll, blocklist-hosts, rust-overlay, hyprland-plugins, ... }@inputs:
   let
     # ---- SYSTEM SETTINGS ---- #
     system = "x86_64-linux"; # system arch
@@ -15,7 +15,7 @@
     name = "Emmet"; # name/identifier
     email = "librephoenix3@pm.me"; # email (used for certain configurations)
     dotfilesDir = "~/.dotfiles"; # absolute path of the local repo
-    theme = "ayu-dark"; # selcted theme from my themes directory (./themes/)
+    theme = "spaceduck"; # selcted theme from my themes directory (./themes/)
     wm = "hyprland"; # Selected window manager or desktop environment; must select one in both ./user/wm/ and ./system/wm/
     wmType = "wayland"; # x11 or wayland
     browser = "librewolf"; # Default browser; must select one from ./user/app/browser/
@@ -69,6 +69,7 @@
             inherit (inputs) eaf-browser;
             inherit (inputs) org-nursery;
             inherit (inputs) phscroll;
+            inherit (inputs) hyprland-plugins;
           };
       };
     };
@@ -119,6 +120,10 @@
     };
     blocklist-hosts = {
       url = "github:StevenBlack/hosts";
+      flake = false;
+    };
+    hyprland-plugins = {
+      url = "github:hyprwm/hyprland-plugins";
       flake = false;
     };
   };

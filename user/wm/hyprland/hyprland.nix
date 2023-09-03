@@ -1,4 +1,4 @@
-{ config, lib, pkgs, browser, term, spawnEditor, font, ... }:
+{ config, lib, pkgs, stdenv, browser, term, spawnEditor, font, hyprland-plugins, ... }:
 
 {
   imports = [
@@ -12,7 +12,9 @@
 
   wayland.windowManager.hyprland = {
     enable = true;
-    plugins = [ ];
+    plugins = [
+      (pkgs.callPackage ./hyprbars.nix { inherit hyprland-plugins; } )
+    ];
     settings = { };
     extraConfig = ''
       exec-once = dbus-update-activation-environment DISPLAY XAUTHORITY WAYLAND_DISPLAY
@@ -44,6 +46,7 @@
        bind=ALT,TAB,bringactivetotop
        bind=ALTSHIFT,TAB,cyclenext,prev
        bind=ALTSHIFT,TAB,bringactivetotop
+       bind=SUPER,Y,workspaceopt,allfloat
 
        bind=SUPER,RETURN,exec,'' + term + ''
 
@@ -112,11 +115,11 @@
        bind=SUPERSHIFT,8,movetoworkspace,8
        bind=SUPERSHIFT,9,movetoworkspace,9
 
-       bind=SUPER,Z,exec,pypr toggle term
-       bind=SUPER,F,exec,pypr toggle ranger
-       bind=SUPER,N,exec,pypr toggle musikcube
-       bind=SUPER,B,exec,pypr toggle btm
-       bind=SUPER,E,exec,pypr toggle geary
+       bind=SUPER,Z,exec,pypr toggle term && hyprctl dispatch bringactivetotop
+       bind=SUPER,F,exec,pypr toggle ranger && hyprctl dispatch bringactivetotop
+       bind=SUPER,N,exec,pypr toggle musikcube && hyprctl dispatch bringactivetotop
+       bind=SUPER,B,exec,pypr toggle btm && hyprctl dispatch bringactivetotop
+       bind=SUPER,E,exec,pypr toggle geary && hyprctl dispatch bringactivetotop
        $scratchpadsize = size 80% 85%
 
        $scratchpad = class:^(scratchpad)$
