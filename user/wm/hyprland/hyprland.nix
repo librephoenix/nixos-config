@@ -77,6 +77,9 @@
        bind=ALTSHIFT,TAB,bringactivetotop
        bind=SUPER,Y,workspaceopt,allfloat
 
+       bind = SUPER,R,pass,^(com\.obsproject\.Studio)$
+       bind = SUPERSHIFT,R,pass,^(com\.obsproject\.Studio)$
+
        bind=SUPER,RETURN,exec,'' + term + ''
 
        bind=SUPER,A,exec,'' + spawnEditor + ''
