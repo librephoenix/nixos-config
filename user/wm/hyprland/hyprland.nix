@@ -1,4 +1,4 @@
-{ config, lib, pkgs, stdenv, browser, term, spawnEditor, font, hyprland-plugins, ... }:
+{ config, lib, pkgs, stdenv, toString, browser, term, spawnEditor, font, hyprland-plugins, ... }:
 
 {
   imports = [
@@ -10,6 +10,12 @@
     })
   ];
 
+  gtk.cursorTheme = {
+    package = pkgs.quintom-cursor-theme;
+    name = if (config.stylix.polarity == "light") then "Quintom_Ink" else "Quintom_Snow";
+    size = 36;
+  };
+
   wayland.windowManager.hyprland = {
     enable = true;
     plugins = [
@@ -18,6 +24,8 @@
     settings = { };
     extraConfig = ''
       exec-once = dbus-update-activation-environment DISPLAY XAUTHORITY WAYLAND_DISPLAY
+      exec-once = hyprctl setcursor '' + config.gtk.cursorTheme.name + " " + builtins.toString config.gtk.cursorTheme.size + ''
+
       exec-once = pypr
       exec-once = nm-applet
       exec-once = GOMAXPROCS=1 syncthing --no-browser
