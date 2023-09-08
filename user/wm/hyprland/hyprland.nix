@@ -166,6 +166,9 @@
        windowrulev2 = workspace special silent,$gearyscratchpad
        windowrulev2 = center,$gearyscratchpad
 
+       windowrulev2 = opacity 0.75,$gearyscratchpad
+       windowrulev2 = opacity 0.65,title:ORUI
+
        bind=SUPER,code:21,exec,pypr zoom
        bind=SUPER,code:21,exec,hyprctl reload
 
@@ -196,7 +199,16 @@
 
        decoration {
          rounding = 8
+         blur {
+           enabled = true
+           size = 5
+           passes = 2
+           ignore_opacity = true
+           contrast = 1.17
+           brightness = 0.9
+         }
        }
+
     '';
     xwayland = { enable = true; };
     systemdIntegration = true;
