@@ -38,6 +38,26 @@ I have my modules separated into two groups:
 
 More detailed information on these specific modules are in the [[./system][system directory]] and [[./user][user directory]] respectively.
 
+** Patches
+In some cases, since I use =nixpgs-unstable=, I must patch nixpkgs. This can be done inside of a flake via:
+#+BEGIN_SRC nix
+    nixpkgs-patched = (import nixpkgs { inherit system; }).applyPatches {
+      name = "nixpkgs-patched";
+      src = nixpkgs;
+      patches = [ ./example-patch.nix ];
+    };
+
+    # configure pkgs
+    pkgs = import nixpkgs-patched { inherit system; };
+
+    # configure lib
+    lib = nixpkgs.lib;
+#+END_SRC
+
+Patches can either be local or remote, so you can even import unmerged pull requests by using =fetchpatch= and the raw patch url, i.e: https://github.com/NixOS/nixpkgs/pull/example.patch.
+
+I currently curate patches local to this repo in the [[./patches][patches]] directory.
+
 ** Profiles
 I separate my configurations into [[./profiles][profiles]] (essentially system templates), i.e:
 - [[./profiles/personal][Personal]] - What I would run on a personal laptop/desktop

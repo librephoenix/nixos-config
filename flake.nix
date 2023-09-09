@@ -31,6 +31,7 @@
     spawnEditor = if (editor == "emacsclient") then "emacsclient -c -a 'emacs'"
                   else (if (editor == ("vim" || "nvim" || "nano")) then "$TERM -e $EDITOR" else editor);
 
+    # create patched nixpkgs
     nixpkgs-patched = (import nixpkgs { inherit system; }).applyPatches {
       name = "nixpkgs-patched";
       src = nixpkgs;
