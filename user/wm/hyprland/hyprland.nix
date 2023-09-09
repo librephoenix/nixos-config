@@ -51,7 +51,7 @@
 
        plugin {
          hyprbars {
-           bar_height = 20
+           bar_height = 0
            bar_color = 0xee''+ config.lib.stylix.colors.base00 + ''
 
            col.text = 0xff''+ config.lib.stylix.colors.base05 + ''
@@ -61,7 +61,7 @@
            bar_text_size = 12
 
            buttons {
-             button_size = 20
+             button_size = 0
              col.maximize = 0xff''+ config.lib.stylix.colors.base0A +''
 
              col.close = 0xff''+ config.lib.stylix.colors.base08 +''
