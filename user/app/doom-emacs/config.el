@@ -33,8 +33,18 @@
 (remove-hook 'doom-init-ui-hook '+unicode-init-fonts-h)
 
 ;; Transparent background
-(set-frame-parameter nil 'alpha-background 65)
-(add-to-list 'default-frame-alist '(alpha-background . 65))
+(if (string= system-nix-profile "wsl")
+  ;; Can't be that tranparent under wsl because no blur
+  (funcall (lambda ()
+    (set-frame-parameter nil 'alpha-background 98)
+    (add-to-list 'default-frame-alist '(alpha-background . 98))
+  ))
+  ;; On Linux I can enable blur, however
+  (funcall (lambda ()
+    (set-frame-parameter nil 'alpha-background 65)
+    (add-to-list 'default-frame-alist '(alpha-background . 65))
+  ))
+)
 
 ;; Icons in completion buffers
 (add-hook 'marginalia-mode-hook #'all-the-icons-completion-marginalia-setup)
@@ -541,7 +551,7 @@ same directory as the org-buffer and insert a link to this file."
   (dolist (item full-org-roam-db-list)
     (setq full-org-roam-db-list-pretty
         (append (list
-                 (replace-regexp-in-string "\\/home\\/emmet\\/Org\\/" "" item)) full-org-roam-db-list-pretty)))
+                 (replace-regexp-in-string (concat "\\/home\\/" user-username "\\/Org\\/") "" item)) full-org-roam-db-list-pretty)))
 
   (setq org-roam-db-choice (completing-read "Select org roam database: "
                           full-org-roam-db-list-pretty nil t)))
