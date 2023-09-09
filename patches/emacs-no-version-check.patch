@@ -1,0 +1,37 @@
+diff -crB nixpkgs/pkgs/build-support/emacs/generic.nix nixpkgs-patched/pkgs/build-support/emacs/generic.nix
+*** nixpkgs/pkgs/build-support/emacs/generic.nix	2023-09-08 20:42:24.476059868 -0500
+--- nixpkgs-patched/pkgs/build-support/emacs/generic.nix	2023-09-08 21:12:46.637645595 -0500
+***************
+*** 3,9 ****
+  { lib, stdenv, emacs, texinfo, writeText, gcc, ... }:
+  
+  { pname
+! , version
+  , buildInputs ? []
+  , packageRequires ? []
+  , meta ? {}
+--- 3,9 ----
+  { lib, stdenv, emacs, texinfo, writeText, gcc, ... }:
+  
+  { pname
+! , version ? null
+  , buildInputs ? []
+  , packageRequires ? []
+  , meta ? {}
+***************
+*** 20,26 ****
+  in
+  
+  stdenv.mkDerivation (finalAttrs: ({
+!   name = "emacs-${pname}-${finalAttrs.version}";
+  
+    unpackCmd = ''
+      case "$curSrc" in
+--- 20,26 ----
+  in
+  
+  stdenv.mkDerivation (finalAttrs: ({
+!   name = "emacs-${pname}${lib.optionalString (version != null) "-${version}"}";
+  
+    unpackCmd = ''
+      case "$curSrc" in

@@ -31,8 +31,14 @@
     spawnEditor = if (editor == "emacsclient") then "emacsclient -c -a 'emacs'"
                   else (if (editor == ("vim" || "nvim" || "nano")) then "$TERM -e $EDITOR" else editor);
 
+    nixpkgs-patched = (import nixpkgs { inherit system; }).applyPatches {
+      name = "nixpkgs-patched";
+      src = nixpkgs;
+      patches = [ ./patches/emacs-no-version-check.patch ];
+    };
+
     # configure pkgs
-    pkgs = import nixpkgs {
+    pkgs = import nixpkgs-patched {
       inherit system;
       config = { allowUnfree = true; };
       overlays = [ rust-overlay.overlays.default ];
