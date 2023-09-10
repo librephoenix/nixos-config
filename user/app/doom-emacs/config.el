@@ -812,9 +812,27 @@ tasks."
 
 ;;;------ Org agenda configuration ------;;;
 
-;; Set span for agenda
+;; Set span for agenda to be just daily
 (setq org-agenda-span 1
-      org-agenda-start-day "+0d")
+      org-agenda-start-day "+0d"
+      org-agenda-skip-timestamp-if-done t
+      org-agenda-skip-deadline-if-done t
+      org-agenda-skip-scheduled-if-done t
+      org-agenda-skip-scheduled-if-deadline-is-shown t
+      org-agenda-skip-timestamp-if-deadline-is-shown t)
+
+;; Toggle comopleted entries function
+(defun org-agenda-toggle-completed ()
+  (interactive)
+  (setq org-agenda-skip-timestamp-if-done (not org-agenda-skip-timestamp-if-done)
+        org-agenda-skip-deadline-if-done (not org-agenda-skip-timestamp-if-done)
+        org-agenda-skip-scheduled-if-done (not org-agenda-skip-timestamp-if-done))
+  (org-agenda-redo))
+
+(map!
+  :map evil-org-agenda-mode-map
+  :after org-agenda
+  :nvmeg "s d" #'org-agenda-toggle-completed)
 
 ;; Ricing org agenda
 (setq org-agenda-current-time-string "")
