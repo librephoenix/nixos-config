@@ -169,6 +169,9 @@
        windowrulev2 = opacity 0.85,$gearyscratchpad
        windowrulev2 = opacity 0.80,title:ORUI
        windowrulev2 = opacity 0.80,title:Heimdall
+       windowrulev2 = opacity 0.80,title:^(LibreWolf)$
+       windowrulev2 = opacity 0.80,title:^(New Tab - LibreWolf)$
+       windowrulev2 = opacity 0.80,title:^(New Tab - Brave)$
 
        bind=SUPER,code:21,exec,pypr zoom
        bind=SUPER,code:21,exec,hyprctl reload
