@@ -877,10 +877,6 @@ tasks."
       :desc "Switch to specific org agenda file"
       "o a s" 'list-and-switch-to-agenda-file)
 
-(map! :leader
-      :desc "Open org calendar"
-      "o c" #'cfw:open-org-calendar)
-
 (defun org-agenda-switch-with-roam ()
   "Switches to org roam node file and database from org agenda view"
   (interactive)
