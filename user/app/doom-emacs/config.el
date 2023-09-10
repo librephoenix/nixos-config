@@ -646,7 +646,7 @@ tasks."
            (time-less-p (time-subtract (current-time) (* 60 60 24 OLD-DAYS)) (date-to-time (org-element-property :raw-value h))))
          nil 'first-match) nil))
 
-(setq org-timestamp-days-for-old 21)
+(setq org-timestamps-days-for-old 21)
 
 ; This has a bug where it won't sync a new agenda file
 ; if I'm editing an org roam node file while set to another
