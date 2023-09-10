@@ -922,7 +922,7 @@ tasks."
                 :order 3)
 
          (:name "School Side Projects"
-                :and(:file-path "Teaching.p" :tag "tech" :not (:tag "planning") :not (:tag "event"))
+                :and(:file-path "Teaching.p" :tag "project" :not (:tag "planning") :not (:tag "event"))
                 :order 3)
 
          (:name "Gamedev Current Projects"
