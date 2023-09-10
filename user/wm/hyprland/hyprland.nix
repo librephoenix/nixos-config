@@ -166,8 +166,9 @@
        windowrulev2 = workspace special silent,$gearyscratchpad
        windowrulev2 = center,$gearyscratchpad
 
-       windowrulev2 = opacity 0.75,$gearyscratchpad
-       windowrulev2 = opacity 0.65,title:ORUI
+       windowrulev2 = opacity 0.85,$gearyscratchpad
+       windowrulev2 = opacity 0.80,title:ORUI
+       windowrulev2 = opacity 0.80,title:Heimdall
 
        bind=SUPER,code:21,exec,pypr zoom
        bind=SUPER,code:21,exec,hyprctl reload
