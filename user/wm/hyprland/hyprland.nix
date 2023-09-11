@@ -40,6 +40,7 @@
         layout = master
         cursor_inactive_timeout = 30
         border_size = 4
+        no_cursor_warps = true
         col.active_border = 0xff'' + config.lib.stylix.colors.base08 + ''
 
         col.inactive_border = 0x33'' + config.lib.stylix.colors.base00 + ''
@@ -152,6 +153,8 @@
        bind=SUPER,N,exec,pypr toggle musikcube && hyprctl dispatch bringactivetotop
        bind=SUPER,B,exec,pypr toggle btm && hyprctl dispatch bringactivetotop
        bind=SUPER,E,exec,pypr toggle geary && hyprctl dispatch bringactivetotop
+       bind=SUPER,C,exec,pypr toggle agendasidebar && hyprctl dispatch bringactivetotop
+       bind=SUPER,code:172,exec,pypr toggle pavucontrol && hyprctl dispatch bringactivetotop
        $scratchpadsize = size 80% 85%
 
        $scratchpad = class:^(scratchpad)$
@@ -165,6 +168,19 @@
        windowrulev2 = $scratchpadsize,$gearyscratchpad
        windowrulev2 = workspace special silent,$gearyscratchpad
        windowrulev2 = center,$gearyscratchpad
+
+       $agendasidebar = class:^(agenda-sidebar)$
+       windowrulev2 = float,$agendasidebar
+       windowrulev2 = size 30% 90%,$agendasidebar
+       windowrulev2 = move 69% 6%,$agendasidebar
+       windowrulev2 = workspace special silent,$agendasidebar
+
+       $pavucontrol = class:^(pavucontrol)$
+       windowrulev2 = float,$pavucontrol
+       windowrulev2 = size 86% 40%,$pavucontrol
+       windowrulev2 = move 50% 6%,$pavucontrol
+       windowrulev2 = workspace special silent,$pavucontrol
+       windowrulev2 = opacity 0.80,$pavucontrol
 
        windowrulev2 = opacity 0.85,$gearyscratchpad
        windowrulev2 = opacity 0.80,title:ORUI
@@ -319,28 +335,35 @@
       "scratchpads": {
         "term": {
           "command": "alacritty --class scratchpad",
-          "margin": 50,
-          "unfocus": true
+          "margin": 50
         },
         "ranger": {
           "command": "kitty --class scratchpad -e ranger",
-          "margin": 50,
-          "unfocus": true
+          "margin": 50
         },
         "musikcube": {
           "command": "alacritty --class scratchpad -e musikcube",
-          "margin": 50,
-          "unfocus": true
+          "margin": 50
         },
         "btm": {
           "command": "alacritty --class scratchpad -e btm",
-          "margin": 50,
-          "unfocus": true
+          "margin": 50
         },
         "geary": {
           "command": "geary",
+          "margin": 50
+        },
+        "agendasidebar": {
+          "command": "emacs --name 'agenda-sidebar'",
           "margin": 50,
-          "unfocus": true
+          "unfocus": "hide",
+          "animation": "fromRight"
+        },
+        "pavucontrol": {
+          "command": "pavucontrol",
+          "margin": 50,
+          "unfocus": "hide",
+          "animation": "fromTop"
         }
       }
     }
@@ -366,7 +389,7 @@
 
         modules-left = [ "custom/os" "battery" "backlight" "pulseaudio" "cpu" "memory" ];
         modules-center = [ "wlr/workspaces" ];
-        modules-right = [ "idle_inhibitor" "clock" "tray" ];
+        modules-right = [ "idle_inhibitor" "tray" "clock" ];
 
         "custom/os" = {
           "format" = " {} ";
@@ -421,7 +444,7 @@
           "tooltip-format" = ''
             <big>{:%Y %B}</big>
             <tt><small>{calendar}</small></tt>'';
-          "format-alt" = "{:%I:%M:%S %p}";
+          "on-click" = "pypr toggle agendasidebar && hyprctl dispatch bringactivetotop";
         };
         cpu = {
           "format" = "{usage}% ";
@@ -440,7 +463,6 @@
           "format" = "{capacity}% {icon}";
           "format-charging" = "{capacity}% ";
           "format-plugged" = "{capacity}% ";
-          "format-alt" = "{time} {icon}";
           #"format-good" = ""; # An empty format will hide the module
           #"format-full" = "";
           "format-icons" = [ "" "" "" "" "" ];
@@ -462,7 +484,7 @@
             "car" = "";
             "default" = [ "" "" "" ];
           };
-          "on-click" = "pavucontrol";
+          "on-click" = "pypr toggle pavucontrol && hyprctl dispatch bringactivetotop";
         };
       };
     };
