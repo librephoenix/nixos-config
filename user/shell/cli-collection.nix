@@ -9,7 +9,7 @@
     gnugrep gnused
     killall
     libnotify
-    bat exa fd bottom ripgrep
+    bat eza fd bottom ripgrep
     rsync
     tmux
     htop

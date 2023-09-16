@@ -3,7 +3,7 @@ let
 
   # My shell aliases
   myAliases = {
-    ls = "exa --icons -l -T -L=1";
+    ls = "eza --icons -l -T -L=1";
     cat = "bat";
     htop = "btm";
     fd = "fd -Lu";
@@ -36,7 +36,7 @@ in
   home.packages = with pkgs; [
     neofetch lolcat cowsay
     gnugrep gnused
-    bat exa bottom fd
+    bat eza bottom fd
     direnv nix-direnv
   ];
 
