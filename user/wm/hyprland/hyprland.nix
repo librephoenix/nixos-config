@@ -244,8 +244,8 @@
     gsettings-desktop-schemas
     wlr-randr
     wtype
-    hyprland-share-picker
     wl-clipboard
+    hyprland-share-picker
     hyprland-protocols
     hyprpicker
     swayidle
@@ -264,7 +264,7 @@
     #wofi
     fuzzel
     keepmenu
-    pinentry_gnome
+    pinentry-gnome
     wev
     grim
     slurp
@@ -396,7 +396,6 @@
           "exec" = ''echo "" '';
           "interval" = "once";
         };
-
         "wlr/workspaces" = {
           "format" = "{icon}";
           "format-icons" = {
