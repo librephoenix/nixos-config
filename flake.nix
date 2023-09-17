@@ -20,6 +20,7 @@
     wmType = "wayland"; # x11 or wayland
     browser = "librewolf"; # Default browser; must select one from ./user/app/browser/
     editor = "emacsclient"; # Default editor;
+    defaultRoamDir = "Personal.p"; # Default org roam directory relative to ~/Org
     term = "alacritty"; # Default terminal command;
     font = "Inconsolata"; # Selected font
     fontPkg = pkgs.inconsolata; # Font package
@@ -61,6 +62,7 @@
             inherit profile;
             inherit email;
             inherit dotfilesDir;
+            inherit defaultRoamDir;
             inherit theme;
             inherit font;
             inherit fontPkg;

@@ -8,6 +8,7 @@
 (load! "~/.emacs.d/system-vars.el")
 ;; custom variables include:
 ;; dotfiles-dir, absolute path to home directory
+;; user-default-roam-dir, name of default org-roam directory for the machine (relative to ~/Org)
 ;; system-nix-profile, profile selected from my dotfiles ("personal" "work" "wsl" etc...)
 ;; system-wm-type, wayland or x11? only should be considered if system-nix-profile is "personal" or "work"
 
@@ -506,8 +507,8 @@ same directory as the org-buffer and insert a link to this file."
 (require 'org-roam)
 (require 'org-roam-dailies)
 
-(setq org-roam-directory "~/Org/Personal/Notes"
-      org-roam-db-location "~/Org/Personal/Notes/org-roam.db")
+(setq org-roam-directory (concat "~/Org/" user-default-roam-dir "/Notes")
+      org-roam-db-location (concat "~/Org/" user-default-roam-dir "/Notes/org-roam.db"))
 
 (setq org-roam-node-display-template
       "${title:65}📝${tags:*}")
@@ -521,8 +522,8 @@ same directory as the org-buffer and insert a link to this file."
   (setq full-org-roam-db-list
         (append (directory-files item t "\\.[p,s]$") full-org-roam-db-list)))
 
-(setq org-roam-db-choice "Default")
-(setq full-org-roam-db-list-pretty (list "Default"))
+(setq org-roam-db-choice user-default-roam-dir)
+(setq full-org-roam-db-list-pretty (list))
 (dolist (item full-org-roam-db-list)
   (setq full-org-roam-db-list-pretty
        (append (list
@@ -547,7 +548,7 @@ same directory as the org-buffer and insert a link to this file."
     (setq full-org-roam-db-list
         (append (directory-files item t "\\.[p,s]$") full-org-roam-db-list)))
 
-  (setq full-org-roam-db-list-pretty (list "Default"))
+  (setq full-org-roam-db-list-pretty (list))
   (dolist (item full-org-roam-db-list)
     (setq full-org-roam-db-list-pretty
         (append (list
@@ -558,13 +559,9 @@ same directory as the org-buffer and insert a link to this file."
   (when arg
     (setq org-roam-db-choice arg))
 
-  (if (string= org-roam-db-choice "Default")
-      (setq org-roam-directory (file-truename "~/Org/Personal/Notes")
-            org-roam-db-location (file-truename "~/Org/Personal/Notes/org-roam.db")
-            org-directory (file-truename"~/Org/Personal/Notes"))
       (setq org-roam-directory (file-truename (concat "~/Org/" org-roam-db-choice "/Notes"))
             org-roam-db-location (file-truename (concat "~/Org/" org-roam-db-choice "/Notes/org-roam.db"))
-            org-directory (file-truename (concat "~/Org/" org-roam-db-choice "/Notes"))))
+            org-directory (file-truename (concat "~/Org/" org-roam-db-choice "/Notes")))
   (when (not silent)
   (org-roam-open-dashboard))
 
@@ -574,7 +571,7 @@ same directory as the org-buffer and insert a link to this file."
 
 (defun org-roam-default-overview ()
   (interactive)
-  (org-roam-switch-db "Default"))
+  (org-roam-switch-db user-default-roam-dir))
 
 (defun org-roam-switch-db-id-open (arg ID &optional switchpersist)
   "Switch to another org-roam db and visit file with id arg"
@@ -847,15 +844,26 @@ tasks."
 (setq org-agenda-hide-tags-regexp ".*")
 
 (setq org-agenda-category-icon-alist
-      `(("Teaching" ,(list (all-the-icons-faicon "graduation-cap" :height 0.8)) nil nil :ascent center)
-        ("Family" ,(list (all-the-icons-faicon "home" :v-adjust 0.005)) nil nil :ascent center)
-        ("Producer" ,(list (all-the-icons-faicon "youtube-play" :height 0.9)) nil nil :ascent center)
-        ("Bard" ,(list (all-the-icons-faicon "music" :height 0.9)) nil nil :ascent center)
-        ("Story" ,(list (all-the-icons-faicon "book" :height 0.9)) nil nil :ascent center)
-        ("Author" ,(list (all-the-icons-faicon "pencil" :height 0.9)) nil nil :ascent center)
-        ("Gamedev" ,(list (all-the-icons-faicon "gamepad" :height 0.9)) nil nil :ascent center)
-        ("Tech" ,(list (all-the-icons-faicon "laptop" :height 0.9)) nil nil :ascent center)
+      `(("Teaching.p" ,(list (all-the-icons-faicon "graduation-cap" :height 0.8)) nil nil :ascent center)
+        ("Family.s" ,(list (all-the-icons-faicon "home" :v-adjust 0.005)) nil nil :ascent center)
+        ("Producer.p" ,(list (all-the-icons-faicon "youtube-play" :height 0.9)) nil nil :ascent center)
+        ("Bard.p" ,(list (all-the-icons-faicon "music" :height 0.9)) nil nil :ascent center)
+        ("Stories.s" ,(list (all-the-icons-faicon "book" :height 0.9)) nil nil :ascent center)
+        ("Author.p" ,(list (all-the-icons-faicon "pencil" :height 0.9)) nil nil :ascent center)
+        ("Gamedev.s" ,(list (all-the-icons-faicon "gamepad" :height 0.9)) nil nil :ascent center)
+        ("Knowledge.p" ,(list (all-the-icons-faicon "database" :height 0.8)) nil nil :ascent center)
+        ("Personal.p" ,(list (all-the-icons-material "person" :height 0.9)) nil nil :ascent center)
 ))
+
+(defun org-categorize-by-roam-db-on-save ()
+  (interactive)
+  (when
+    (string-prefix-p (concat "/home/" user-username "/Org") (expand-file-name (buffer-file-name)))
+    (org-set-property "CATEGORY" (substring (string-trim-left (expand-file-name (buffer-file-name)) (concat "/home/" user-username "/Org/")) 0 (string-match "/" (string-trim-left (expand-file-name (buffer-file-name)) (concat "/home/" user-username "/Org/")))))
+  )
+)
+
+(add-hook 'after-save-hook 'org-categorize-by-roam-db-on-save)
 
 ;; Function to be run when org-agenda is opened
 (defun org-agenda-open-hook ()

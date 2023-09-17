@@ -69,6 +69,7 @@ Doom Emacs is traditionally installed by cloning the repository ([[https://githu
 (load! "~/.emacs.d/system-vars.el")
 ;; custom variables include:
 ;; dotfiles-dir, absolute path to home directory
+;; user-default-roam-dir, name of default org-roam directory for the machine (relative to ~/Org)
 ;; system-nix-profile, profile selected from my dotfiles ("personal" "work" "wsl" etc...)
 ;; system-wm-type, wayland or x11? only should be considered if system-nix-profile is "personal" or "work"
 
@@ -625,8 +626,8 @@ exit
 (require 'org-roam)
 (require 'org-roam-dailies)
 
-(setq org-roam-directory "~/Org/Personal/Notes"
-      org-roam-db-location "~/Org/Personal/Notes/org-roam.db")
+(setq org-roam-directory (concat "~/Org/" user-default-roam-dir "/Notes")
+      org-roam-db-location (concat "~/Org/" user-default-roam-dir "/Notes/org-roam.db"))
 
 (setq org-roam-node-display-template
       "${title:65}📝${tags:*}")
@@ -643,8 +644,8 @@ exit
   (setq full-org-roam-db-list
         (append (directory-files item t "\\.[p,s]$") full-org-roam-db-list)))
 
-(setq org-roam-db-choice "Default")
-(setq full-org-roam-db-list-pretty (list "Default"))
+(setq org-roam-db-choice user-default-roam-dir)
+(setq full-org-roam-db-list-pretty (list))
 (dolist (item full-org-roam-db-list)
   (setq full-org-roam-db-list-pretty
        (append (list
@@ -669,7 +670,7 @@ exit
     (setq full-org-roam-db-list
         (append (directory-files item t "\\.[p,s]$") full-org-roam-db-list)))
 
-  (setq full-org-roam-db-list-pretty (list "Default"))
+  (setq full-org-roam-db-list-pretty (list))
   (dolist (item full-org-roam-db-list)
     (setq full-org-roam-db-list-pretty
         (append (list
@@ -680,13 +681,9 @@ exit
   (when arg
     (setq org-roam-db-choice arg))
 
-  (if (string= org-roam-db-choice "Default")
-      (setq org-roam-directory (file-truename "~/Org/Personal/Notes")
-            org-roam-db-location (file-truename "~/Org/Personal/Notes/org-roam.db")
-            org-directory (file-truename"~/Org/Personal/Notes"))
       (setq org-roam-directory (file-truename (concat "~/Org/" org-roam-db-choice "/Notes"))
             org-roam-db-location (file-truename (concat "~/Org/" org-roam-db-choice "/Notes/org-roam.db"))
-            org-directory (file-truename (concat "~/Org/" org-roam-db-choice "/Notes"))))
+            org-directory (file-truename (concat "~/Org/" org-roam-db-choice "/Notes")))
   (when (not silent)
   (org-roam-open-dashboard))
 
@@ -696,7 +693,7 @@ exit
 
 (defun org-roam-default-overview ()
   (interactive)
-  (org-roam-switch-db "Default"))
+  (org-roam-switch-db user-default-roam-dir))
 
 (defun org-roam-switch-db-id-open (arg ID &optional switchpersist)
   "Switch to another org-roam db and visit file with id arg"
@@ -960,7 +957,8 @@ On Wayland, EAF doesn't work.
 
 #+END_SRC
 ** Org Agenda Configuration
-*** Standard Org Agenda Configuration
+*** TODO Standard Org Agenda Configuration
+I need to automate categories being added to org roam agenda files.
 #+BEGIN_SRC emacs-lisp :tangle config.el
 ;;;------ Org agenda configuration ------;;;
 
@@ -999,15 +997,26 @@ On Wayland, EAF doesn't work.
 (setq org-agenda-hide-tags-regexp ".*")
 
 (setq org-agenda-category-icon-alist
-      `(("Teaching" ,(list (all-the-icons-faicon "graduation-cap" :height 0.8)) nil nil :ascent center)
-        ("Family" ,(list (all-the-icons-faicon "home" :v-adjust 0.005)) nil nil :ascent center)
-        ("Producer" ,(list (all-the-icons-faicon "youtube-play" :height 0.9)) nil nil :ascent center)
-        ("Bard" ,(list (all-the-icons-faicon "music" :height 0.9)) nil nil :ascent center)
-        ("Story" ,(list (all-the-icons-faicon "book" :height 0.9)) nil nil :ascent center)
-        ("Author" ,(list (all-the-icons-faicon "pencil" :height 0.9)) nil nil :ascent center)
-        ("Gamedev" ,(list (all-the-icons-faicon "gamepad" :height 0.9)) nil nil :ascent center)
-        ("Tech" ,(list (all-the-icons-faicon "laptop" :height 0.9)) nil nil :ascent center)
+      `(("Teaching.p" ,(list (all-the-icons-faicon "graduation-cap" :height 0.8)) nil nil :ascent center)
+        ("Family.s" ,(list (all-the-icons-faicon "home" :v-adjust 0.005)) nil nil :ascent center)
+        ("Producer.p" ,(list (all-the-icons-faicon "youtube-play" :height 0.9)) nil nil :ascent center)
+        ("Bard.p" ,(list (all-the-icons-faicon "music" :height 0.9)) nil nil :ascent center)
+        ("Stories.s" ,(list (all-the-icons-faicon "book" :height 0.9)) nil nil :ascent center)
+        ("Author.p" ,(list (all-the-icons-faicon "pencil" :height 0.9)) nil nil :ascent center)
+        ("Gamedev.s" ,(list (all-the-icons-faicon "gamepad" :height 0.9)) nil nil :ascent center)
+        ("Knowledge.p" ,(list (all-the-icons-faicon "database" :height 0.8)) nil nil :ascent center)
+        ("Personal.p" ,(list (all-the-icons-material "person" :height 0.9)) nil nil :ascent center)
 ))
+
+(defun org-categorize-by-roam-db-on-save ()
+  (interactive)
+  (when
+    (string-prefix-p (concat "/home/" user-username "/Org") (expand-file-name (buffer-file-name)))
+    (org-set-property "CATEGORY" (substring (string-trim-left (expand-file-name (buffer-file-name)) (concat "/home/" user-username "/Org/")) 0 (string-match "/" (string-trim-left (expand-file-name (buffer-file-name)) (concat "/home/" user-username "/Org/")))))
+  )
+)
+
+(add-hook 'after-save-hook 'org-categorize-by-roam-db-on-save)
 
 ;; Function to be run when org-agenda is opened
 (defun org-agenda-open-hook ()
@@ -1053,7 +1062,8 @@ On Wayland, EAF doesn't work.
   :nvmeg "<return>" #'org-agenda-switch-with-roam)
 
 #+END_SRC
-*** Org Super Agenda Configuration
+*** TODO Org Super Agenda Configuration
+I need to fix =org-super-agenda-groups= to be more useful and less spread out.
 #+BEGIN_SRC emacs-lisp :tangle config.el
 (require 'org-super-agenda)
 
@@ -1624,7 +1634,7 @@ Any git package can be configured for a particular commit or branch:
 * Nix Integration
 In order to have Nix load my Doom Emacs configuration [[./doom.nix][doom.nix]], which I source in the =imports= block of my [[../../../profiles/work/home.nix][home.nix]].
 #+BEGIN_SRC nix :tangle doom.nix
-{ config, lib, pkgs, eaf, eaf-browser, org-nursery, phscroll, theme, font, name, username, email, dotfilesDir, profile, wmType, ... }:
+{ config, lib, pkgs, eaf, eaf-browser, org-nursery, phscroll, theme, font, name, username, email, dotfilesDir, profile, wmType, defaultRoamDir, ... }:
 let
   themePolarity = lib.removeSuffix "\n" (builtins.readFile (./. + "../../../../themes"+("/"+theme)+"/polarity.txt"));
   dashboardLogo = ./. + "/nix-" + themePolarity + ".png";
@@ -1725,6 +1735,7 @@ in
   (setq user-username "''+username+''") ; username
   (setq user-mail-address "''+email+''") ; email
   (setq user-home-directory "/home/''+username+''") ; absolute path to home directory as string
+  (setq user-default-roam-dir "''+defaultRoamDir+''") ; absolute path to home directory as string
   (setq system-nix-profile "''+profile+''") ; what profile am I using?
   (setq system-wm-type "''+wmType+''") ; wayland or x11?
   (setq doom-font (font-spec :family "''+font+''" :size 20)) ; import font

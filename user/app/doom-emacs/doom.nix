@@ -1,4 +1,4 @@
-{ config, lib, pkgs, eaf, eaf-browser, org-nursery, phscroll, theme, font, name, username, email, dotfilesDir, profile, wmType, ... }:
+{ config, lib, pkgs, eaf, eaf-browser, org-nursery, phscroll, theme, font, name, username, email, dotfilesDir, profile, wmType, defaultRoamDir, ... }:
 let
   themePolarity = lib.removeSuffix "\n" (builtins.readFile (./. + "../../../../themes"+("/"+theme)+"/polarity.txt"));
   dashboardLogo = ./. + "/nix-" + themePolarity + ".png";
@@ -99,6 +99,7 @@ in
   (setq user-username "''+username+''") ; username
   (setq user-mail-address "''+email+''") ; email
   (setq user-home-directory "/home/''+username+''") ; absolute path to home directory as string
+  (setq user-default-roam-dir "''+defaultRoamDir+''") ; absolute path to home directory as string
   (setq system-nix-profile "''+profile+''") ; what profile am I using?
   (setq system-wm-type "''+wmType+''") ; wayland or x11?
   (setq doom-font (font-spec :family "''+font+''" :size 20)) ; import font
