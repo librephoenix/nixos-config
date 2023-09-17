@@ -357,7 +357,8 @@
           "command": "emacs --name 'agenda-sidebar'",
           "margin": 50,
           "unfocus": "hide",
-          "animation": "fromRight"
+          "animation": "fromRight",
+          "lazy": true
         },
         "pavucontrol": {
           "command": "pavucontrol",
