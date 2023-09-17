@@ -189,6 +189,8 @@
        windowrulev2 = opacity 0.80,title:^(New Tab - LibreWolf)$
        windowrulev2 = opacity 0.80,title:^(New Tab - Brave)$
 
+       layerrule = blur,waybar
+
        bind=SUPER,code:21,exec,pypr zoom
        bind=SUPER,code:21,exec,hyprctl reload
 
@@ -497,7 +499,7 @@
 
       window#waybar {
           background-color: #'' + config.lib.stylix.colors.base00 + '';
-          opacity: 0.94;
+          opacity: 0.75;
           border-radius: 8px;
           color: #'' + config.lib.stylix.colors.base07 + '';
           transition-property: background-color;
