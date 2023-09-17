@@ -358,7 +358,7 @@
           "margin": 50,
           "unfocus": "hide",
           "animation": "fromRight",
-          "lazy": true
+          "lazy": "true"
         },
         "pavucontrol": {
           "command": "pavucontrol",
