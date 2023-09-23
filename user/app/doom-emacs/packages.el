@@ -21,3 +21,4 @@
 (package! focus)
 (package! olivetti)
 (package! async)
+(package! centered-cursor-mode)

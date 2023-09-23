@@ -1,4 +1,4 @@
-{ config, lib, pkgs, eaf, eaf-browser, org-nursery, phscroll, theme, font, name, username, email, dotfilesDir, profile, wmType, defaultRoamDir, ... }:
+{ config, lib, pkgs, eaf, eaf-browser, org-nursery, phscroll, org-yaap, theme, font, name, username, email, dotfilesDir, profile, wmType, defaultRoamDir, ... }:
 let
   themePolarity = lib.removeSuffix "\n" (builtins.readFile (./. + "../../../../themes"+("/"+theme)+"/polarity.txt"));
   dashboardLogo = ./. + "/nix-" + themePolarity + ".png";
@@ -69,6 +69,12 @@ in
     source = "${eaf}";
     recursive = true;
   };
+
+  home.file.".emacs.d/org-yaap" = {
+    source = "${org-yaap}";
+    recursive = true;
+  };
+
   home.file.".emacs.d/eaf/app/browser" = {
     source = "${eaf-browser}";
     recursive = true;

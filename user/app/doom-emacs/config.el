@@ -818,7 +818,16 @@ tasks."
       org-agenda-skip-scheduled-if-deadline-is-shown t
       org-agenda-skip-timestamp-if-deadline-is-shown t)
 
-;; Toggle comopleted entries function
+;; Custom styles for dates in agenda
+(custom-set-faces!
+  '(org-agenda-date :inherit outline-1 :height 1.15)
+  '(org-agenda-date-today :inherit diary :height 1.15)
+  '(org-agenda-date-weekend :ineherit outline-2 :height  1.15)
+  '(org-agenda-date-weekend-today :inherit outline-4 :height 1.15)
+  )
+
+
+;; Toggle completed entries function
 (defun org-agenda-toggle-completed ()
   (interactive)
   (setq org-agenda-skip-timestamp-if-done (not org-agenda-skip-timestamp-if-done)
@@ -909,47 +918,48 @@ tasks."
 
 (setq org-super-agenda-groups
        '(;; Each group has an implicit boolean OR operator between its selectors.
-         (:name "Home Tech"
-                :and(:file-path "emmet/Agenda" :not (:tag "event"))
+         (:name "Personal"
+                :and(:file-path "Personal.p" :not (:tag "event"))
                 :order 3)
 
          (:name "Family"
-                :and(:file-path "Family" :not (:tag "event"))
+                :and(:file-path "Family.s" :not (:tag "event"))
                 :order 3)
 
-         (:name "Teaching Prep"
-                :and(:file-path "Teaching.p" :tag "planning" :not (:tag "grading") :not (:tag "event"))
+         (:name "Teaching"
+                :and(:file-path "Teaching.p" :not (:tag "event"))
                 :order 3)
 
-         (:name "Teaching Secretarial"
-                :and(:file-path "Teaching.p" :tag "secretarial" :not (:tag "grading") :not (:tag "event"))
+         (:name "Gamedev"
+                :and(:file-path "Gamedev.s" :not (:tag "event"))
                 :order 3)
-
-         (:name "Teaching Grading"
-                :and(:file-path "Teaching.p" :tag "grading" :not (:tag "planning") :not (:tag "event"))
-                :order 3)
-
-         (:name "School Side Projects"
-                :and(:file-path "Teaching.p" :tag "project" :not (:tag "planning") :not (:tag "event"))
-                :order 3)
-
-         (:name "Gamedev Current Projects"
-                :and (:file-path "Gamedev" :todo "STRT")
-                :order 5)
 
          (:name "Youtube"
-                :tag "youtube"
-                :order 6)
+                :and(:file-path "Producer.p" :not (:tag "event"))
+                :order 3)
+
+         (:name "Music"
+                :and(:file-path "Bard.p" :not (:tag "event"))
+                :order 3)
+
+         (:name "Storywriting"
+                :and(:file-path "Stories.s" :not (:tag "event"))
+                :order 3)
+
+         (:name "Writing"
+                :and(:file-path "Author.p" :not (:tag "event"))
+                :order 3)
 
          (:name "Learning"
-                :tag "learning"
-                :order 7)
+                :and(:file-path "Knowledge.p" :not (:tag "event"))
+                :order 3)
 
-          (:name "Today"  ; Optionally specify section name
+          (:name " Today"  ; Optionally specify section name
                 :time-grid t
                 :date today
                 :scheduled today
-                :order 1)
+                :order 1
+                :face 'warning)
 ))
 
 (org-super-agenda-mode t)
@@ -961,6 +971,15 @@ tasks."
 (map! :desc "Next line"
       :map org-super-agenda-header-map
       "k" 'org-agenda-previous-line)
+
+(add-load-path! "~/.emacs.d/org-yaap")
+(require 'org-yaap)
+(setq org-yaap-alert-title "Org Agenda")
+(setq org-yaap-overdue-alerts 20)
+(setq org-yaap-alert-before 20)
+(setq org-yaap-daily-alert '(7 30))
+(setq org-yaap-daemon-idle-time 30)
+(org-yaap-mode 1)
 
 ;;;------ magit configuration ------;;;
 
