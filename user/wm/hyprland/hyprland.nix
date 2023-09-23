@@ -387,15 +387,24 @@
         "wlr/workspaces" = {
           "format" = "{icon}";
           "format-icons" = {
-            "1" = "󱚌 ¹";
-            "2" = "󰈹 ²";
-            "3" = "󰈮 ³";
-            "4" = "󱍙 ⁴";
-            "5" = "⁵";
-            "6" = "󰄄 ⁶";
-            "7" = "⁷";
-            "8" = "⁸";
-            "9" = "⁹";
+            "1" = "notes¹";
+            "2" = "web²";
+            "3" = "dev³";
+            "4" = "music⁴";
+            "5" = "art⁵";
+            "6" = "rec⁶";
+            "7" = "money⁷";
+            "8" = "edu⁸";
+            "9" = "games⁹";
+#            "1" = "¹󱚌";
+#            "2" = "²󰈹";
+#            "3" = "³󰈮";
+#            "4" = "⁴󱍙";
+#            "5" = "⁵";
+#            "6" = "⁶󰄄";
+#            "7" = "⁷";
+#            "8" = "⁸";
+#            "9" = "⁹";
           };
           "persistent_workspaces" = {
             "1" = [ ];
@@ -477,7 +486,8 @@
     style = ''
       * {
           /* `otf-font-awesome` is required to be installed for icons */
-          font-family: FontAwesome, Inconsolata;
+          font-family: FontAwesome, ''+font+'';
+
           font-size: 20px;
       }
 
