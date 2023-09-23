@@ -826,6 +826,7 @@ tasks."
   '(org-agenda-date-today :inherit diary :height 1.15)
   '(org-agenda-date-weekend :ineherit outline-2 :height  1.15)
   '(org-agenda-date-weekend-today :inherit outline-4 :height 1.15)
+  '(org-super-agenda-header :inherit custom-button :weight bold :height 1.05)
   )
 
 
@@ -920,48 +921,48 @@ tasks."
 
 (setq org-super-agenda-groups
        '(;; Each group has an implicit boolean OR operator between its selectors.
-         (:name " Overdue"  ; Optionally specify section name
+         (:name " Overdue "  ; Optionally specify section name
                 :scheduled past
                 :order 2
                 :face 'error)
 
-         (:name "Personal"
+         (:name "Personal "
                 :and(:file-path "Personal.p" :not (:tag "event"))
                 :order 3)
 
-         (:name "Family"
+         (:name "Family "
                 :and(:file-path "Family.s" :not (:tag "event"))
                 :order 3)
 
-         (:name "Teaching"
+         (:name "Teaching "
                 :and(:file-path "Teaching.p" :not (:tag "event"))
                 :order 3)
 
-         (:name "Gamedev"
+         (:name "Gamedev "
                 :and(:file-path "Gamedev.s" :not (:tag "event"))
                 :order 3)
 
-         (:name "Youtube"
+         (:name "Youtube "
                 :and(:file-path "Producer.p" :not (:tag "event"))
                 :order 3)
 
-         (:name "Music"
+         (:name "Music "
                 :and(:file-path "Bard.p" :not (:tag "event"))
                 :order 3)
 
-         (:name "Storywriting"
+         (:name "Storywriting "
                 :and(:file-path "Stories.s" :not (:tag "event"))
                 :order 3)
 
-         (:name "Writing"
+         (:name "Writing "
                 :and(:file-path "Author.p" :not (:tag "event"))
                 :order 3)
 
-         (:name "Learning"
+         (:name "Learning "
                 :and(:file-path "Knowledge.p" :not (:tag "event"))
                 :order 3)
 
-          (:name " Today"  ; Optionally specify section name
+          (:name " Today "  ; Optionally specify section name
                 :time-grid t
                 :date today
                 :scheduled today
@@ -1181,5 +1182,7 @@ https://github.com/magit/magit/issues/460 (@cpitclaudel)."
 
 (map! :leader :desc "Open treemacs symbol outliner" "o s" #'lsp-treemacs-symbols
               :desc "Hide neotree" "o S" #'treemacs-quit)
+
+(setq +format-on-save-enabled-modes '(not emacs-lisp-mode sql-mode tex-mode latex-mode org-msg-edit-mode nix-mode))
 
 
