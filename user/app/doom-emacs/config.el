@@ -920,6 +920,11 @@ tasks."
 
 (setq org-super-agenda-groups
        '(;; Each group has an implicit boolean OR operator between its selectors.
+         (:name " Overdue"  ; Optionally specify section name
+                :scheduled past
+                :order 2
+                :face 'error)
+
          (:name "Personal"
                 :and(:file-path "Personal.p" :not (:tag "event"))
                 :order 3)
@@ -962,6 +967,7 @@ tasks."
                 :scheduled today
                 :order 1
                 :face 'warning)
+
 ))
 
 (org-super-agenda-mode t)
