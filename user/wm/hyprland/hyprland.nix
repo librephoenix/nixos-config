@@ -247,7 +247,6 @@
     wlr-randr
     wtype
     wl-clipboard
-    hyprland-share-picker
     hyprland-protocols
     hyprpicker
     swayidle

@@ -1,7 +1,7 @@
 {
   description = "Flake of LibrePhoenix";
 
-  outputs = { self, nixpkgs, home-manager, nix-doom-emacs, stylix, eaf, eaf-browser, org-nursery, phscroll, blocklist-hosts, rust-overlay, hyprland-plugins, ... }@inputs:
+  outputs = { self, nixpkgs, home-manager, nix-doom-emacs, stylix, eaf, eaf-browser, org-nursery, org-yaap, phscroll, blocklist-hosts, rust-overlay, hyprland-plugins, ... }@inputs:
   let
     # ---- SYSTEM SETTINGS ---- #
     system = "x86_64-linux"; # system arch
@@ -77,6 +77,7 @@
             inherit (inputs) eaf;
             inherit (inputs) eaf-browser;
             inherit (inputs) org-nursery;
+            inherit (inputs) org-yaap;
             inherit (inputs) phscroll;
             inherit (inputs) hyprland-plugins;
           };
@@ -121,6 +122,10 @@
     };
     org-nursery = {
       url = "github:chrisbarrett/nursery";
+      flake = false;
+    };
+    org-yaap = {
+      url = "gitlab:tygrdev/org-yaap";
       flake = false;
     };
     phscroll = {
