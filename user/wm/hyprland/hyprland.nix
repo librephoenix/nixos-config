@@ -364,7 +364,6 @@
         # use hyprctl to switch workspaces
         sed -i 's/zext_workspace_handle_v1_activate(workspace_handle_);/const std::string command = "hyprworkspace " + name_;\n\tsystem(command.c_str());/g' src/modules/wlr/workspace_manager.cpp
       '';
-      mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
     });
     settings = {
       mainBar = {
@@ -376,7 +375,7 @@
         spacing = 2;
 
         modules-left = [ "custom/os" "battery" "backlight" "pulseaudio" "cpu" "memory" ];
-        modules-center = [ "wlr/workspaces" ];
+        modules-center = [ "hyprland/workspaces" ];
         modules-right = [ "idle_inhibitor" "tray" "clock" ];
 
         "custom/os" = {
@@ -384,7 +383,7 @@
           "exec" = ''echo "" '';
           "interval" = "once";
         };
-        "wlr/workspaces" = {
+        "hyprland/workspaces" = {
           "format" = "{icon}";
           "format-icons" = {
             "1" = "notes¹";
