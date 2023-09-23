@@ -71,7 +71,9 @@
 (bind-key* "M-n" #'next-buffer)
 (bind-key* "M-p" #'previous-buffer)
 (bind-key* "M-z" #'+vterm/toggle)
+(bind-key* "M-e" #'+eshell/toggle)
 (bind-key* (kbd "M-<return>") #'+vterm/here)
+(bind-key* (kbd "M-E") #'+eshell/here)
 
 ;; Buffer management
 (bind-key* "<mouse-9>" #'next-buffer)
