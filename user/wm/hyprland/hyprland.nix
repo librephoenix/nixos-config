@@ -153,7 +153,6 @@
        bind=SUPER,N,exec,pypr toggle musikcube && hyprctl dispatch bringactivetotop
        bind=SUPER,B,exec,pypr toggle btm && hyprctl dispatch bringactivetotop
        bind=SUPER,E,exec,pypr toggle geary && hyprctl dispatch bringactivetotop
-       bind=SUPER,C,exec,pypr toggle agendasidebar && hyprctl dispatch bringactivetotop
        bind=SUPER,code:172,exec,pypr toggle pavucontrol && hyprctl dispatch bringactivetotop
        $scratchpadsize = size 80% 85%
 
@@ -168,12 +167,6 @@
        windowrulev2 = $scratchpadsize,$gearyscratchpad
        windowrulev2 = workspace special silent,$gearyscratchpad
        windowrulev2 = center,$gearyscratchpad
-
-       $agendasidebar = class:^(agenda-sidebar)$
-       windowrulev2 = float,$agendasidebar
-       windowrulev2 = size 30% 90%,$agendasidebar
-       windowrulev2 = move 69% 6%,$agendasidebar
-       windowrulev2 = workspace special silent,$agendasidebar
 
        $pavucontrol = class:^(pavucontrol)$
        windowrulev2 = float,$pavucontrol
@@ -354,13 +347,6 @@
           "command": "geary",
           "margin": 50
         },
-        "agendasidebar": {
-          "command": "emacs --name 'agenda-sidebar'",
-          "margin": 50,
-          "unfocus": "hide",
-          "animation": "fromRight",
-          "lazy": "true"
-        },
         "pavucontrol": {
           "command": "pavucontrol",
           "margin": 50,
@@ -445,7 +431,6 @@
           "tooltip-format" = ''
             <big>{:%Y %B}</big>
             <tt><small>{calendar}</small></tt>'';
-          "on-click" = "pypr toggle agendasidebar && hyprctl dispatch bringactivetotop";
         };
         cpu = {
           "format" = "{usage}% ";
