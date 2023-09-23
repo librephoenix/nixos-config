@@ -22,8 +22,8 @@
     editor = "emacsclient"; # Default editor;
     defaultRoamDir = "Personal.p"; # Default org roam directory relative to ~/Org
     term = "alacritty"; # Default terminal command;
-    font = "Inconsolata"; # Selected font
-    fontPkg = pkgs.inconsolata; # Font package
+    font = "Intel One Mono"; # Selected font
+    fontPkg = pkgs.intel-one-mono; # Font package
 
     # editor spawning translator
     # generates a command that can be used to spawn editor inside a gui

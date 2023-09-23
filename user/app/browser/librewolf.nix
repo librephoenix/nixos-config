@@ -1,4 +1,4 @@
-{ config, lib, pkgs, wmType, ... }:
+{ config, lib, pkgs, wmType, font, ... }:
 
 {
   # Module installing librewolf as default browser
@@ -11,7 +11,8 @@
                             { DEFAULT_BROWSER = "${pkgs.librewolf}/bin/librewolf";};
 
   home.file.".librewolf/librewolf.overrides.cfg".text = ''
-    defaultPref("font.name.serif.x-western","Inconsolata");
+    defaultPref("font.name.serif.x-western","''+font+''");
+
     defaultPref("font.size.variable.x-western",20);
     defaultPref("browser.toolbars.bookmarks.visibility","always");
     defaultPref("privacy.resisttFingerprinting.letterboxing", true);
@@ -21,7 +22,8 @@
     defaultPref("privacy.clearOnShutdown.cookies",true);
     defaultPref("gfx.webrender.software.opengl",false);
     defaultPref("webgl.disabled",true);
-    pref("font.name.serif.x-western","Inconsolata");
+    pref("font.name.serif.x-western","''+font+''");
+
     pref("font.size.variable.x-western",20);
     pref("browser.toolbars.bookmarks.visibility","always");
     pref("privacy.resisttFingerprinting.letterboxing", true);
