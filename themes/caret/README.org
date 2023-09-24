@@ -1,0 +1,8 @@
+#+title: Caret Dark
+#+author: Emmet
+
+"Caret Dark" is a Neovim theme originally by projeckt0n ([[https://github.com/projekt0n/caret.nvim]]).
+
+[[https://gitlab.com/librephoenix/nixos-config-screenshots/-/raw/main/hyprland/caret.png]]
+
+[[https://raw.githubusercontent.com/D3Ext/aesthetic-wallpapers/main/images/gruvbox_retrocity.png][Background Link]]
