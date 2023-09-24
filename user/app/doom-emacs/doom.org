@@ -177,13 +177,13 @@ Doom Emacs is traditionally installed by cloning the repository ([[https://githu
       "Switch roam db" "" (lambda (&rest _) (org-roam-switch-db)) 'org-formula)
     )
     ;; line 2
-    ( (,"Git" "" "" (lambda (&rest _)) 'match)
+    ( (,"Git" "" "" (lambda (&rest _)) 'diredfl-exec-priv)
      (,(all-the-icons-octicon "mark-github" :height 1.0 :v-adjust 0.0)
-       "GitHub" "" (lambda (&rest _) (browse-url "ext+container:name=Tech&url=https://github.com/librephoenix")) 'match)
+       "GitHub" "" (lambda (&rest _) (browse-url "ext+container:name=Tech&url=https://github.com/librephoenix")) 'diredfl-exec-priv)
      (,(all-the-icons-faicon "gitlab" :height 1.0 :v-adjust 0.0)
-       "GitLab" "" (lambda (&rest _) (browse-url "ext+container:name=Tech&url=https://gitlab.com/librephoenix")) 'match)
+       "GitLab" "" (lambda (&rest _) (browse-url "ext+container:name=Tech&url=https://gitlab.com/librephoenix")) 'diredfl-exec-priv)
      (,(all-the-icons-faicon "coffee" :height 1.0 :v-adjust 0.0)
-       "Gitea" "" (lambda (&rest _) (browse-url my-gitea-domain)) 'match)
+       "Gitea" "" (lambda (&rest _) (browse-url my-gitea-domain)) 'diredfl-exec-priv)
     )
     ;; line 3
     ( (,"Agenda" "" "" (lambda (&rest _)) 'dired-warning)
