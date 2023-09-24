@@ -40,7 +40,7 @@
         layout = master
         cursor_inactive_timeout = 30
         border_size = 4
-        no_cursor_warps = true
+        no_cursor_warps = false
         col.active_border = 0xff'' + config.lib.stylix.colors.base08 + ''
 
         col.inactive_border = 0x33'' + config.lib.stylix.colors.base00 + ''
@@ -395,17 +395,6 @@
             "7" = "󰄖";
             "8" = "󰑴";
             "9" = "󱎓";
-          };
-          "persistent_workspaces" = {
-            "1" = [ "eDP-1" "HDMI-A-1" "DP-1"];
-            "2" = [ "eDP-1" "HDMI-A-1" "DP-1"];
-            "3" = [ "eDP-1" "HDMI-A-1" "DP-1"];
-            "4" = [ "eDP-1" "HDMI-A-1" "DP-1"];
-            "5" = [ "eDP-1" "HDMI-A-1" "DP-1"];
-            "6" = [ "eDP-1" "HDMI-A-1" "DP-1"];
-            "7" = [ "eDP-1" "HDMI-A-1" "DP-1"];
-            "8" = [ "eDP-1" "HDMI-A-1" "DP-1"];
-            "9" = [ "eDP-1" "HDMI-A-1" "DP-1"];
           };
           "on-click" = "activate";
           "on-scroll-up" = "hyprctl dispatch workspace e+1";
