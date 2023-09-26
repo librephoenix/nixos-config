@@ -517,6 +517,16 @@ same directory as the org-buffer and insert a link to this file."
 
 (org-roam-db-autosync-mode)
 
+(setq mode-line-misc-info '((which-function-mode
+  (which-func-mode
+   ("" which-func-format " ")))
+ ("" so-long-mode-line-info)
+ (global-mode-string
+  ("" global-mode-string))
+ " "
+ org-roam-db-choice)
+)
+
 (setq full-org-roam-db-list nil)
 
 (setq full-org-roam-db-list (directory-files "~/Org" t "\\.[p,s]$"))
@@ -538,6 +548,20 @@ same directory as the org-buffer and insert a link to this file."
       (org-open-file (concat org-roam-directory "/dashboard.org"))
       (dired org-roam-directory))
 )
+
+(defun org-roam-open-inbox ()
+  "Capture info in ${org-roam-directory}/inbox.org (I use this naming convention to create dashboards for each of my org roam maps)"
+  (interactive)
+  (if (file-exists-p (concat org-roam-directory "/inbox.org"))
+      (org-open-file (concat org-roam-directory "/inbox.org"))
+      (message "No inbox found, capture something with M-x org-roam-capture-inbox"))
+)
+
+(defun org-roam-capture-inbox ()
+  (interactive)
+  (org-roam-capture- :node (org-roam-node-create)
+                     :templates '(("i" "inbox" plain "* %?"
+                                  :if-new (file+head "inbox.org" "#+title: Inbox\n")))))
 
 (defun org-roam-switch-db (&optional arg silent)
   "Switch to a different org-roam database, arg"
@@ -720,6 +744,12 @@ tasks."
 
       :desc "Capture new roam node"
       "c" 'org-roam-capture
+
+      :desc "Open org roam inbox"
+      "I o" 'org-roam-open-inbox
+
+      :desc "Capture stuff in inbox"
+      "I c" 'org-roam-capture-inbox
 
       :desc "Insert roam node link at point"
       "i" 'org-roam-node-insert
