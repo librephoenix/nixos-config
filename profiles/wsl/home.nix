@@ -30,7 +30,7 @@
     syncthing
 
     # Office
-    libreoffice-fresh-unwrapped
+    libreoffice-fresh
 
     # Various dev packages
     texinfo
