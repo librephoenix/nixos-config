@@ -156,7 +156,7 @@ Doom Emacs is traditionally installed by cloning the repository ([[https://githu
 (setq dashboard-set-heading-icons t)
 (setq dashboard-set-file-icons t)
 (setq dashboard-set-navigator t)
-(setq dashboard-items '((projects . 3)))
+(setq dashboard-items '())
 (setq dashboard-center-content t)
 (setq dashboard-footer-messages '("Here to do customizing, or actual work?"
                                   "M-x insert-inspiring-message"
