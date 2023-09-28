@@ -36,6 +36,7 @@
     alacritty
     librewolf
     brave
+    qutebrowser
     dmenu
     rofi
     git

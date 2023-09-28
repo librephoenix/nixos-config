@@ -15,10 +15,10 @@
     name = "Emmet"; # name/identifier
     email = "librephoenix3@pm.me"; # email (used for certain configurations)
     dotfilesDir = "~/.dotfiles"; # absolute path of the local repo
-    theme = "caret"; # selcted theme from my themes directory (./themes/)
+    theme = "uwunicorn"; # selcted theme from my themes directory (./themes/)
     wm = "hyprland"; # Selected window manager or desktop environment; must select one in both ./user/wm/ and ./system/wm/
     wmType = "wayland"; # x11 or wayland
-    browser = "librewolf"; # Default browser; must select one from ./user/app/browser/
+    browser = "qutebrowser"; # Default browser; must select one from ./user/app/browser/
     editor = "emacsclient"; # Default editor;
     defaultRoamDir = "Personal.p"; # Default org roam directory relative to ~/Org
     term = "alacritty"; # Default terminal command;
