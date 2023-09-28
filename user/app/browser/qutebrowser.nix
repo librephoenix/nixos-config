@@ -162,4 +162,85 @@ c.colors.webpage.bg = base00
 
 # TODO Configure fonts
   '';
+
+  home.file.".config/qutebrowser/qute-home.html".text = ''
+    <!DOCTYPE html>
+    <html>
+
+    <head>
+      <title>Home</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <style>
+        /*body*/
+        body {
+            background-color: #''+config.lib.stylix.colors.base00+''
+
+        }
+        /*paragraphs*/
+        p {
+            font-family:''+font+'';
+
+            font-size:24px;
+            text-align:center;
+            color: #''+config.lib.stylix.colors.base0A+''
+
+        }
+        /*xmp tag style for ascii art*/
+        xmp {
+            font-family:''+font+'';
+
+            font-size:22px;
+            color: #''+config.lib.stylix.colors.base01+''
+            text-align:center;
+        }
+        /*div*/
+        div {
+            margin:auto;
+            width:50%;
+            text-align:center;
+        }
+        /*class made for ascii art icon*/
+        .icon {
+            line-height:15%
+        }
+      </style>
+    </head>
+
+    <body>
+      <!--start with cool qutebrowser ascii art-->
+      <div class="icon">
+           <xmp>       ..--------..        </xmp>
+           <xmp>    .``            "'.     </xmp>
+           <xmp>  .`  _.---.. /--|    '.   </xmp>
+           <xmp>   /``      ||   |         </xmp>
+           <xmp> /`  /--|   ||   |         </xmp>
+           <xmp>/   /   |   ||   `/----\,  </xmp>
+           <xmp>|   |   | .-`.-/- __.    \ </xmp>
+           <xmp>|   \   `-.`` ..-`   \    |</xmp>
+           <xmp>\    ````   ~.^` |    |   |</xmp>
+           <xmp> \.____.-``'||   |   /   / </xmp>
+           <xmp>        |   ||   |_.-   /  </xmp>
+           <xmp>        |   ||         /   </xmp>
+           <xmp>   .    |_-` `------~``.   </xmp>
+           <xmp>    `..             ..`    </xmp>
+           <xmp>       ``--______-'`       </xmp>
+      </div>
+      <br>
+      <!--qutebrowser title-->
+      <p style="color:#''+config.lib.stylix.colors.base01+''">Qutebrowser</p>
+      <br>
+      <br>
+      <!--basic keyboard commands-->
+      <div>
+        <p> Open - o </p>
+        <p> Quickmarks - b </p>
+        <p> History - S h </p>
+        <p> New tab - t </p>
+        <p> Close tab - x </p>
+      </div>
+    </body>
+
+    </html>
+    
+  '';
 }
