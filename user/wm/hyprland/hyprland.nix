@@ -181,7 +181,7 @@
        windowrulev2 = opacity 0.80,title:^(LibreWolf)$
        windowrulev2 = opacity 0.80,title:^(New Tab - LibreWolf)$
        windowrulev2 = opacity 0.80,title:^(New Tab - Brave)$
-       windowrulev2 = opacity 0.80,title:^(Home - qutebrowser)$
+       windowrulev2 = opacity 0.65,title:^(Home - qutebrowser)$
 
        layerrule = blur,waybar
 

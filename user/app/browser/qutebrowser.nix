@@ -182,15 +182,40 @@ c.colors.webpage.bg = base00
 
             font-size:24px;
             text-align:center;
-            color: #''+config.lib.stylix.colors.base0A+''
+            color: #''+config.lib.stylix.colors.base08+'';
 
+            line-height: 1.35;
+            margin-top: 0;
+            margin-bottom: 0;
         }
+        .open {
+          color: #''+config.lib.stylix.colors.base09+'';
+          font-weight: bold;
+        }
+        .quickmarks {
+          color: #''+config.lib.stylix.colors.base0A+'';
+          font-weight: bold;
+        }
+        .history {
+          color: #''+config.lib.stylix.colors.base0B+'';
+          font-weight: bold;
+        }
+        .newtab {
+          color: #''+config.lib.stylix.colors.base0C+'';
+          font-weight: bold;
+        }
+        .close {
+          color: #''+config.lib.stylix.colors.base0D+'';
+          font-weight: bold;
+        }
+
         /*xmp tag style for ascii art*/
         xmp {
             font-family:''+font+'';
 
             font-size:22px;
             color: #''+config.lib.stylix.colors.base01+''
+
             text-align:center;
         }
         /*div*/
@@ -201,7 +226,7 @@ c.colors.webpage.bg = base00
         }
         /*class made for ascii art icon*/
         .icon {
-            line-height:15%
+            line-height:10%
         }
       </style>
     </head>
@@ -227,16 +252,16 @@ c.colors.webpage.bg = base00
       </div>
       <br>
       <!--qutebrowser title-->
-      <p style="color:#''+config.lib.stylix.colors.base01+''">Qutebrowser</p>
+      <p style="color:#''+config.lib.stylix.colors.base01+''">Welcome to Qutebrowser</p>
       <br>
       <br>
       <!--basic keyboard commands-->
       <div>
-        <p> Open - o </p>
-        <p> Quickmarks - b </p>
-        <p> History - S h </p>
-        <p> New tab - t </p>
-        <p> Close tab - x </p>
+        <p class="open"> [o] [Search] </p>
+        <p class="quickmarks"> [b] [Quickmarks] </p>
+        <p class="history"> [S h] [History] </p>
+        <p class="newtab"> [t] [New tab] </p>
+        <p class="close"> [x] [Close tab] </p>
       </div>
     </body>
 
