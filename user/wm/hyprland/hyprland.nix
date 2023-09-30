@@ -33,7 +33,8 @@
       exec-once = waybar
       exec-once = emacs --daemon
 
-      exec-once = ~/.swayidle-stylix
+      exec-once = swayidle -w timeout 300 'gtklock -d' timeout 600 'hyprctl dispatch dpms off' resume 'gtklock -d' before-sleep "gtklock -d"
+
       exec = ~/.swaybg-stylix
 
       general {
@@ -116,7 +117,7 @@
        bind=,code:255,exec,airplane-mode
 
        bind=SUPERSHIFT,S,exec,systemctl suspend
-       bind=SUPERCTRL,L,exec,swaylock --indicator-radius 200 --screenshots --effect-blur 10x10
+       bind=SUPERCTRL,L,exec,gtklock
 
        bind=SUPER,H,movefocus,l
        bind=SUPER,J,movefocus,d
@@ -243,7 +244,7 @@
     wl-clipboard
     hyprland-protocols
     hyprpicker
-    swayidle
+    gtklock
     (pkgs.swaylock-effects.overrideAttrs (oldAttrs: {
       version = "1.6.4-1";
       src = fetchFromGitHub {
@@ -635,6 +636,12 @@
       }
       '';
   };
+  home.file.".config/gtklock/style.css".text = ''
+    window {
+      background-image: url("''+config.stylix.image+''");
+      background-size: auto 100%;
+    }
+  '';
   programs.fuzzel.enable = true;
   programs.fuzzel.settings = {
     main = {
