@@ -183,6 +183,7 @@
        windowrulev2 = opacity 0.80,title:^(New Tab - LibreWolf)$
        windowrulev2 = opacity 0.80,title:^(New Tab - Brave)$
        windowrulev2 = opacity 0.65,title:^(Home - qutebrowser)$
+       windowrulev2 = opacity 0.9,class:^(org.keepassxc.KeePassXC)$
 
        layerrule = blur,waybar
 
@@ -204,6 +205,7 @@
        }
 
        env = WLR_DRM_DEVICES,/dev/dri/card1:/dev/dri/card0
+       env = QT_QPA_PLATFORM_THEME,qt5ct
 
        input {
          kb_layout = us
