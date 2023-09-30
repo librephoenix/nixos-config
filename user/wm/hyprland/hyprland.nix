@@ -88,6 +88,8 @@
 
        bind=SUPER,S,exec,'' + browser + ''
 
+       bind=SUPERCTRL,S,exec,container-open # qutebrowser only
+
        bind=SUPER,code:47,exec,fuzzel
        bind=SUPER,X,exec,fnottctl dismiss
        bind=SUPERSHIFT,X,exec,fnottctl dismiss all
@@ -183,6 +185,7 @@
        windowrulev2 = opacity 0.80,title:^(New Tab - LibreWolf)$
        windowrulev2 = opacity 0.80,title:^(New Tab - Brave)$
        windowrulev2 = opacity 0.65,title:^(Home - qutebrowser)$
+       windowrulev2 = opacity 0.65,title:\[.*\] - Home
        windowrulev2 = opacity 0.9,class:^(org.keepassxc.KeePassXC)$
 
        layerrule = blur,waybar
