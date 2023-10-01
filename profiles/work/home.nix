@@ -74,8 +74,10 @@
     (pkgs.makeDesktopItem {
       name = "flstudio";
       desktopName = "FL Studio 64";
-      exec = "flstudio";
+      exec = "flstudio %U";
       terminal = false;
+      type = "Application";
+      mimeTypes = ["application/flstudio"];
     })
 
     # Media
