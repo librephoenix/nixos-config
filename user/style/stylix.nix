@@ -97,6 +97,12 @@ in
   home.sessionVariables = {
     QT_QPA_PLATFORMTHEME="qt5ct";
   };
+  programs.zsh.sessionVariables = {
+    QT_QPA_PLATFORMTHEME="qt5ct";
+  };
+  programs.bash.sessionVariables = {
+    QT_QPA_PLATFORMTHEME="qt5ct";
+  };
   qt = {
     enable = true;
     style.package = pkgs.libsForQt5.breeze-qt5;

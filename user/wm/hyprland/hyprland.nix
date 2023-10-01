@@ -210,7 +210,7 @@
        }
 
        env = WLR_DRM_DEVICES,/dev/dri/card1:/dev/dri/card0
-       env = QT_QPA_PLATFORM_THEME,qt5ct
+       env = QT_QPA_PLATFORMTHEME,qt5ct
 
        input {
          kb_layout = us
