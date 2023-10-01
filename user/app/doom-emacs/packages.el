@@ -22,3 +22,5 @@
 (package! olivetti)
 (package! async)
 (package! centered-cursor-mode)
+(package! elfeed)
+(package! elfeed-protocol)

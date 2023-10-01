@@ -1216,3 +1216,27 @@ https://github.com/magit/magit/issues/460 (@cpitclaudel)."
 (setq +format-on-save-enabled-modes '(not emacs-lisp-mode sql-mode tex-mode latex-mode org-msg-edit-mode nix-mode))
 
 
+
+;; I source my rss from my freshrss instance
+;; I login with a private elisp file: ~/.emacs.d/freshrss-elfeed.el
+;; freshrss-elfeed.el looks like this:
+;;(elfeed-protocol-enable)
+;;(setq elfeed-use-curl t)
+;;(setq elfeed-set-timeout 36000)
+;;(setq elfeed-log-level 'debug)
+;;(setq elfeed-feeds (list
+;;                    (list "fever+https://user@freshrss.example.com"
+;;                      :api-url "https://user@freshrss.example.com/api/fever.php"
+;;                      :password "mYsUpErCoMpLiCaTeDp@s$w0rD"))))
+;;(setq main-elfeed-feed "https://user@freshrss.example.com/api/fever.php")
+
+(if (file-exists-p "~/.emacs.d/freshrss-elfeed.el") (load! "~/.emacs.d/freshrss-elfeed.el"))
+(setq elfeed-search-filter "@6-months-ago +unread")
+(setq browse-url-chromium-program "mpv")
+(setq browse-url-handlers '(("youtube.com" . browse-url-chrome) ("." . browse-url)))
+(map! :leader :desc "Open elfeed" "O n" #'elfeed)
+(defun elfeed-full-update ()
+  (interactive)
+  (elfeed-protocol-fever-update main-elfeed-feed)
+  (elfeed-update))
+(map! :map 'elfeed-search-mode-map :desc "Update elfeed" :n "g R" #'elfeed-full-update)
