@@ -283,10 +283,14 @@
     pamixer
     (pkgs.writeScriptBin "sct" ''
       #!/bin/sh
-      killall wlsunset
-      temphigh=$(( $1 + 1 ))
-      templow=$1
-      wlsunset -t $templow -T $temphigh &> /dev/null &
+      killall wlsunset &> /dev/null;
+      if [ $# -eq 1 ]; then
+        temphigh=$(( $1 + 1 ))
+        templow=$1
+        wlsunset -t $templow -T $temphigh &> /dev/null &
+      else
+        killall wlsunset &> /dev/null;
+      fi
     '')
     (pkgs.writeScriptBin "hyprworkspace" ''
       #!/bin/sh
