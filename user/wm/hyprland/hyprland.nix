@@ -33,7 +33,7 @@
       exec-once = waybar
       exec-once = emacs --daemon
 
-      exec-once = swayidle -w timeout 300 'gtklock -d' timeout 600 'hyprctl dispatch dpms off' resume 'gtklock -d' before-sleep "gtklock -d"
+      exec-once = swayidle -w timeout 300 'gtklock -d' timeout 600 'hyprctl dispatch dpms off' resume 'hyprctl dispatch dpms on' before-sleep "gtklock -d"
 
       exec = ~/.swaybg-stylix
 
@@ -120,7 +120,7 @@
        bind=,code:238,exec,brightnessctl --device='asus::kbd_backlight' set +1
        bind=,code:255,exec,airplane-mode
 
-       bind=SUPERSHIFT,S,exec,systemctl suspend
+       bind=SUPERSHIFT,S,exec,gtklock & sleep 1 && systemctl suspend
        bind=SUPERCTRL,L,exec,gtklock
 
        bind=SUPER,H,movefocus,l
@@ -251,6 +251,7 @@
     wl-clipboard
     hyprland-protocols
     hyprpicker
+    swayidle
     gtklock
     (pkgs.swaylock-effects.overrideAttrs (oldAttrs: {
       version = "1.6.4-1";
