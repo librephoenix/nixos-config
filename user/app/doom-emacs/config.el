@@ -899,9 +899,6 @@ tasks."
 
 (defun org-categorize-by-roam-db-on-save ()
   (interactive)
-  (when
-    (string-prefix-p (concat "/home/" user-username "/Org") (expand-file-name (buffer-file-name)))
-    (org-set-property "CATEGORY" (substring (string-trim-left (expand-file-name (buffer-file-name)) (concat "/home/" user-username "/Org/")) 0 (string-match "/" (string-trim-left (expand-file-name (buffer-file-name)) (concat "/home/" user-username "/Org/")))))
   (when (string= (message "%s" major-mode) "org-mode")
     (when
       (string-prefix-p (concat "/home/" user-username "/Org") (expand-file-name (buffer-file-name)))
@@ -1232,6 +1229,7 @@ https://github.com/magit/magit/issues/460 (@cpitclaudel)."
 ;;(setq elfeed-use-curl t)
 ;;(setq elfeed-set-timeout 36000)
 ;;(setq elfeed-log-level 'debug)
+;;(setq freshrss-hostname "https://freshrss.example.com")
 ;;(setq elfeed-feeds (list
 ;;                    (list "fever+https://user@freshrss.example.com"
 ;;                      :api-url "https://user@freshrss.example.com/api/fever.php"
@@ -1245,8 +1243,20 @@ https://github.com/magit/magit/issues/460 (@cpitclaudel)."
                             ("odcyn.com" . browse-url-chrome)
                             ("tilvids.com" . browse-url-chrome)))
 (map! :leader :desc "Open elfeed" "O n" #'elfeed)
+
+(defun freshrss-network-connection-p ()
+  (not (condition-case nil
+        (delete-process
+         (make-network-process
+          :name freshrss-hostname
+          :host "elpa.gnu.org"
+          :service 443))
+      (error t))))
+
 (defun elfeed-full-update ()
   (interactive)
+  (if (freshrss-network-connection-p) (delete-directory "~/.cache/doom/elfeed" t))
+  (setq elfeed-db nil)
   (elfeed-protocol-fever-update main-elfeed-feed)
   (elfeed-update))
 (map! :map 'elfeed-search-mode-map :desc "Update elfeed" :n "g R" #'elfeed-full-update)
