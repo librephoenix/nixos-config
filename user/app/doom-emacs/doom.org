@@ -358,7 +358,20 @@ Doom Emacs is traditionally installed by cloning the repository ([[https://githu
   (require 'org-phscroll))
 (setq phscroll-calculate-in-pixels t)
 
+;; Org side tree outline
+(add-load-path! "~/.emacs.d/org-side-tree")
+(require 'org-side-tree)
+(setq org-side-tree-persistent nil)
+(setq org-side-tree-fontify t)
+(setq org-side-tree-enable-folding t)
+(map! :leader
+      "O t" #'org-side-tree-toggle)
+(map! :map org-side-tree-mode-map
+      "SPC" nil)
+
 #+END_SRC
+
+#+RESULTS:
 
 *** Org Download and Image Capture
 #+BEGIN_SRC emacs-lisp :tangle config.el
@@ -1747,7 +1760,7 @@ Any git package can be configured for a particular commit or branch:
 * Nix Integration
 In order to have Nix load my Doom Emacs configuration [[./doom.nix][doom.nix]], which I source in the =imports= block of my [[../../../profiles/work/home.nix][home.nix]].
 #+BEGIN_SRC nix :tangle doom.nix
-{ config, lib, pkgs, eaf, eaf-browser, org-nursery, phscroll, org-yaap, theme, font, name, username, email, dotfilesDir, profile, wmType, defaultRoamDir, ... }:
+{ config, lib, pkgs, eaf, eaf-browser, org-nursery, phscroll, org-yaap, org-side-tree, theme, font, name, username, email, dotfilesDir, profile, wmType, defaultRoamDir, ... }:
 let
   themePolarity = lib.removeSuffix "\n" (builtins.readFile (./. + "../../../../themes"+("/"+theme)+"/polarity.txt"));
   dashboardLogo = ./. + "/nix-" + themePolarity + ".png";
@@ -1821,6 +1834,11 @@ in
 
   home.file.".emacs.d/org-yaap" = {
     source = "${org-yaap}";
+    recursive = true;
+  };
+
+  home.file.".emacs.d/org-side-tree" = {
+    source = "${org-side-tree}";
     recursive = true;
   };
 

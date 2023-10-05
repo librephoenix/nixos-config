@@ -78,6 +78,7 @@
             inherit (inputs) eaf-browser;
             inherit (inputs) org-nursery;
             inherit (inputs) org-yaap;
+            inherit (inputs) org-side-tree;
             inherit (inputs) phscroll;
             inherit (inputs) hyprland-plugins;
           };
@@ -126,6 +127,10 @@
     };
     org-yaap = {
       url = "gitlab:tygrdev/org-yaap";
+      flake = false;
+    };
+    org-side-tree = {
+      url = "github:localauthor/org-side-tree";
       flake = false;
     };
     phscroll = {

@@ -573,6 +573,22 @@
         "type": "github"
       }
     },
+    "org-side-tree": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1696520645,
+        "narHash": "sha256-ywuBB1/VYreMCy+8DMjJEU9YCzSKFLVBh3IDcW8od6k=",
+        "owner": "localauthor",
+        "repo": "org-side-tree",
+        "rev": "6933c186388304602344b83ceae77769f0673e63",
+        "type": "github"
+      },
+      "original": {
+        "owner": "localauthor",
+        "repo": "org-side-tree",
+        "type": "github"
+      }
+    },
     "org-yaap": {
       "flake": false,
       "locked": {
@@ -663,6 +679,7 @@
         "nix-doom-emacs": "nix-doom-emacs",
         "nixpkgs": "nixpkgs_2",
         "org-nursery": "org-nursery",
+        "org-side-tree": "org-side-tree",
         "org-yaap": "org-yaap",
         "phscroll": "phscroll",
         "rust-overlay": "rust-overlay",

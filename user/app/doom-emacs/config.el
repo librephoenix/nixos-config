@@ -289,6 +289,17 @@
   (require 'org-phscroll))
 (setq phscroll-calculate-in-pixels t)
 
+;; Org side tree outline
+(add-load-path! "~/.emacs.d/org-side-tree")
+(require 'org-side-tree)
+(setq org-side-tree-persistent nil)
+(setq org-side-tree-fontify t)
+(setq org-side-tree-enable-folding t)
+(map! :leader
+      "O t" #'org-side-tree-toggle)
+(map! :map org-side-tree-mode-map
+      "SPC" nil)
+
 (require 'org-download)
 
 ;; Drag-and-drop to `dired`
