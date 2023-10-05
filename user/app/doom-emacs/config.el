@@ -902,6 +902,14 @@ tasks."
   (when
     (string-prefix-p (concat "/home/" user-username "/Org") (expand-file-name (buffer-file-name)))
     (org-set-property "CATEGORY" (substring (string-trim-left (expand-file-name (buffer-file-name)) (concat "/home/" user-username "/Org/")) 0 (string-match "/" (string-trim-left (expand-file-name (buffer-file-name)) (concat "/home/" user-username "/Org/")))))
+  (when (string= (message "%s" major-mode) "org-mode")
+    (when
+      (string-prefix-p (concat "/home/" user-username "/Org") (expand-file-name (buffer-file-name)))
+      (setq categorizer-old-line (line-number-at-pos))
+      (evil-goto-first-line)
+      (org-set-property "CATEGORY" (substring (string-trim-left (expand-file-name (buffer-file-name)) (concat "/home/" user-username "/Org/")) 0 (string-match "/" (string-trim-left (expand-file-name (buffer-file-name)) (concat "/home/" user-username "/Org/")))))
+      (evil-goto-line categorizer-old-line)
+    )
   )
 )
 
