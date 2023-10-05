@@ -47,6 +47,7 @@
     mate.atril
     xournalpp
     glib
+    gnome.nautilus
     gnome.geary
     gnome.gnome-calendar
     gnome.seahorse
@@ -77,7 +78,7 @@
       exec = "flstudio %U";
       terminal = false;
       type = "Application";
-      mimeTypes = ["application/flstudio"];
+      mimeTypes = ["application/octet-stream"];
     })
 
     # Media
@@ -130,6 +131,9 @@
   };
   xdg.mime.enable = true;
   xdg.mimeApps.enable = true;
+  xdg.mimeApps.associations.added = {
+    "application/octet-stream" = "flstudio.desktop;";
+  };
 
   home.sessionVariables = {
     EDITOR = editor;

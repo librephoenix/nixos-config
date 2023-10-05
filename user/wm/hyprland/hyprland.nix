@@ -189,6 +189,7 @@
        windowrulev2 = opacity 0.65,title:^(Home - qutebrowser)$
        windowrulev2 = opacity 0.65,title:\[.*\] - Home
        windowrulev2 = opacity 0.9,class:^(org.keepassxc.KeePassXC)$
+       windowrulev2 = opacity 0.75,class:^(org.gnome.Nautilus)$
 
        layerrule = blur,waybar
 
