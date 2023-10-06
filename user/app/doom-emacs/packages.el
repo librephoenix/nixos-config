@@ -24,3 +24,4 @@
 (package! centered-cursor-mode)
 (package! elfeed)
 (package! elfeed-protocol)
+(package! docker-tramp :disable t)
