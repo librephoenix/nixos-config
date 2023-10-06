@@ -34,6 +34,7 @@
       exec-once = emacs --daemon
 
       exec-once = swayidle -w timeout 300 'gtklock -d' timeout 600 'hyprctl dispatch dpms off' resume 'hyprctl dispatch dpms on' before-sleep "gtklock -d"
+      exec-once = obs-notification-mute-daemon
 
       exec = ~/.swaybg-stylix
 
@@ -292,6 +293,16 @@
       else
         killall wlsunset &> /dev/null;
       fi
+    '')
+    (pkgs.writeScriptBin "obs-notification-mute-daemon" ''
+      #!/bin/sh
+      while true; do
+        if pgrep -x .obs-wrapped > /dev/null;
+          then pkill -STOP fnott;
+          else pkill -CONT fnott;
+        fi
+        sleep 10;
+      done
     '')
     (pkgs.writeScriptBin "hyprworkspace" ''
       #!/bin/sh
