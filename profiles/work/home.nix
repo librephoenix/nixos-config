@@ -26,6 +26,7 @@
               ../../user/lang/cc/cc.nix # C and C++ tools
               ../../user/lang/godot/godot.nix # Game development
               ../../user/pkgs/blockbench.nix # Blockbench
+              ../../user/hardware/bluetooth.nix # Bluetooth
             ];
 
   home.stateVersion = "22.11"; # Please read the comment before changing.
