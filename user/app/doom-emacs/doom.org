@@ -371,8 +371,6 @@ Doom Emacs is traditionally installed by cloning the repository ([[https://githu
 
 #+END_SRC
 
-#+RESULTS:
-
 *** Org Download and Image Capture
 #+BEGIN_SRC emacs-lisp :tangle config.el
 (require 'org-download)
@@ -1189,8 +1187,6 @@ On Wayland, EAF doesn't work.
       "k" 'org-agenda-previous-line)
 
 #+END_SRC
-
-#+RESULTS:
 
 *** Org Agenda Notifications
 #+BEGIN_SRC emacs-lisp :tangle config.el
