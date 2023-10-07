@@ -295,8 +295,13 @@
 (setq org-side-tree-persistent nil)
 (setq org-side-tree-fontify t)
 (setq org-side-tree-enable-folding t)
+(defun org-side-tree-create-or-toggle ()
+  (interactive)
+  (if (or (org-side-tree-has-tree-p) (eq major-mode 'org-side-tree-mode))
+      (org-side-tree-toggle)
+      (org-side-tree)))
 (map! :leader
-      "O t" #'org-side-tree-toggle)
+      "O t" #'org-side-tree-create-or-toggle)
 (map! :map org-side-tree-mode-map
       "SPC" nil)
 
