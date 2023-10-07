@@ -8,6 +8,9 @@
       dmenu_command = "fuzzel -d";
       inherit config lib pkgs;
     })
+    (import ./hyprprofiles/hyprprofiles.nix {
+      dmenuCmd = "fuzzel -d"; inherit config lib pkgs;
+    })
   ];
 
   gtk.cursorTheme = {
@@ -25,6 +28,7 @@
     extraConfig = ''
       exec-once = dbus-update-activation-environment DISPLAY XAUTHORITY WAYLAND_DISPLAY
       exec-once = hyprctl setcursor '' + config.gtk.cursorTheme.name + " " + builtins.toString config.gtk.cursorTheme.size + ''
+      exec-once = hyprprofile Personal
 
       exec-once = pypr
       exec-once = nm-applet
@@ -202,6 +206,7 @@
 
        bind=SUPER,I,exec,networkmanager_dmenu
        bind=SUPER,P,exec,keepmenu
+       bind=SUPERSHIFT,P,exec,hyprprofile-dmenu
 
        monitor=eDP-1,1920x1080,1000x1200,1
        monitor=HDMI-A-1,1920x1200,1920x0,1
@@ -298,8 +303,12 @@
       #!/bin/sh
       while true; do
         if pgrep -x .obs-wrapped > /dev/null;
-          then pkill -STOP fnott;
-          else pkill -CONT fnott;
+          then
+            pkill -STOP fnott;
+            emacsclient --eval "(org-yaap-mode 0)";
+          else
+            pkill -CONT fnott;
+            emacsclient --eval "(if (not org-yaap-mode) (org-yaap-mode 1))";
         fi
         sleep 10;
       done
@@ -400,7 +409,7 @@
         # width = 1280;
         spacing = 2;
 
-        modules-left = [ "custom/os" "battery" "backlight" "pulseaudio" "cpu" "memory" ];
+        modules-left = [ "custom/os" "custom/hyprprofile" "battery" "backlight" "pulseaudio" "cpu" "memory" ];
         modules-center = [ "hyprland/workspaces" ];
         modules-right = [ "idle_inhibitor" "tray" "clock" ];
 
@@ -408,6 +417,12 @@
           "format" = " {} ";
           "exec" = ''echo "" '';
           "interval" = "once";
+        };
+        "custom/hyprprofile" = {
+          "format" = "   {}";
+          "exec" = ''cat ~/.hyprprofile'';
+          "interval" = 3;
+          "on-click" = "hyprprofile-dmenu";
         };
         "hyprland/workspaces" = {
           "format" = "{icon}";
@@ -516,6 +531,10 @@
 
       button {
           border: none;
+      }
+
+      #custom-hyprprofile {
+          color: #'' + config.lib.stylix.colors.base0D + '';
       }
 
       /* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
