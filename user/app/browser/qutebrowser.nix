@@ -67,10 +67,15 @@ c.url.start_pages = str(config.configdir)+'/qute-home.html'
 
 c.url.searchengines = {'DEFAULT': 'https://startpage.com/do/search?query={}',
                        'd'   : 'https://duckduckgo.com/?q={}&ia=web',
-                       'sb'     : 'https://www.serebii.net/search.shtml?q={}&sa=Search',
-                       'bp'     : 'https://bulbapedia.bulbagarden.net/wiki/index.php?title=Special%3ASearch&search={}&go=Go',
+                       'az'     : 'https://www.amazon.com/s?k={}',
                        'aw'     : 'https://wiki.archlinux.org/index.php?search={}&title=Special%3ASearch&wprov=acrw1',
-                       'az'     : 'https://www.amazon.com/s?k={}'}
+                       'nw'     : 'https://nixos.wiki/index.php?search={}&go=Go',
+                       'mn'     : 'https://mynixos.com/search?q={}',
+                       'sb'     : 'https://www.serebii.net/search.shtml?q={}&sa=Search',
+                       'bp'     : 'https://bulbapedia.bulbagarden.net/wiki/index.php?title=Special%3ASearch&search={}&go=Go'
+                      }
+
+config.set('completion.open_categories',["searchengines","quickmarks","bookmarks"])
 
 config.bind('t', 'open -t')
 config.bind('x', 'tab-close')
@@ -173,7 +178,17 @@ c.colors.tabs.selected.even.fg = base05
 c.colors.tabs.selected.even.bg = base02
 c.colors.webpage.bg = base00
 
-# TODO Configure fonts
+font = "''+font+''"
+
+c.fonts.default_family = font
+c.fonts.default_size = '14pt'
+
+c.fonts.web.family.standard = font
+c.fonts.web.family.serif = font
+c.fonts.web.family.sans_serif = font
+c.fonts.web.family.fixed = font
+c.fonts.web.family.fantasy = font
+c.fonts.web.family.cursive = font
   '';
 
   home.file.".config/qutebrowser/qute-home.html".text = ''
