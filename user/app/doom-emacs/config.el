@@ -175,6 +175,7 @@
 (setq global-auto-revert-mode nil)
 (setq auto-revert-use-notify t)
 
+;; Neotree fun
 (defun neotree-snipe-dir ()
   (interactive)
   (if (projectile-project-root)
@@ -185,6 +186,9 @@
 
 (map! :leader :desc "Open neotree here" "o n" #'neotree-snipe-dir
               :desc "Hide neotree" "o N" #'neotree-hide)
+
+;; For camelCase
+(global-subword-mode 1)
 
 ;;;------ Registers ------;;;
 
