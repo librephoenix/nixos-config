@@ -95,6 +95,10 @@
     blockbench-electron
     obs-studio
     libsForQt5.kdenlive
+    (pkgs.writeScriptBin "kdenlive-accel" ''
+      #!/bin/sh
+      DRI_PRIME=1 kdenlive "$1"
+    '')
     movit
     mediainfo
     libmediainfo
