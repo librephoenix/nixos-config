@@ -1284,7 +1284,7 @@ https://github.com/magit/magit/issues/460 (@cpitclaudel)."
                             ("odysee.com" . browse-url-chrome)
                             ("tilvids.com" . browse-url-chrome)))
 (map! :leader :desc "Open elfeed" "O n" #'elfeed)
-(map! :map 'elfeed-search-mode-map "g o" #'elfeed-search-browse-url)
+(map! :map 'elfeed-search-mode-map :desc "Open url" :n "g o" #'elfeed-search-browse-url)
 
 (defun freshrss-network-connection-p ()
   (not (condition-case nil
