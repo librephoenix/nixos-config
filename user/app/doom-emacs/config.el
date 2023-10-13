@@ -429,9 +429,13 @@ same directory as the org-buffer and insert a link to this file."
   (shell-command "~/.emacs.d/scripts/copy-link-or-file/copy-link-or-file-to-clipboard.sh " nil nil)
 )
 
-(map! :leader
-      :desc "Copy link/file at point into system clipbord (C-g to escape if copying a file)"
-      "y y" 'org-copy-link-to-clipboard-at-point)
+(if (string= system-nix-profile "wsl")
+    (map! :leader
+          :desc "Copy link at point"
+          "y y" 'link-hint-copy-link-at-point)
+    (map! :leader
+          :desc "Copy link/file at point into system clipbord (C-g to escape if copying a file)"
+          "y y" 'org-copy-link-to-clipboard-at-point))
 
 ;; Online images inside of org mode is pretty cool
 ;; This snippit is from Tobias on Stack Exchange
