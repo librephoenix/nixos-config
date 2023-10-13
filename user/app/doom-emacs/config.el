@@ -1045,6 +1045,25 @@ tasks."
 (setq org-yaap-daemon-idle-time 30)
 (org-yaap-mode 1)
 
+(add-load-path! "~/.emacs.d/org-timeblock")
+(require 'org-timeblock)
+
+(map! :leader :desc "Open org timeblock"
+      "O c" 'org-timeblock)
+
+(map! :desc "Next day"
+      :map org-timeblock-mode-map
+      :nvmeg "l" 'org-timeblock-day-later)
+(map! :desc "Previous day"
+      :map org-timeblock-mode-map
+      :nvmeg "h" 'org-timeblock-day-earlier)
+(map! :desc "Schedule event"
+      :map org-timeblock-mode-map
+      :nvmeg "m" 'org-timeblock-schedule)
+(map! :desc "Event duration"
+      :map org-timeblock-mode-map
+      :nvmeg "d" 'org-timeblock-set-duration)
+
 ;;;------ magit configuration ------;;;
 
 ;; Need the following two blocks to make magit work with git bare repos

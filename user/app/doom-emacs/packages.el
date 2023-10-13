@@ -25,3 +25,5 @@
 (package! elfeed)
 (package! elfeed-protocol)
 (package! docker-tramp :disable t)
+(package! org-ql)
+(package! persist)

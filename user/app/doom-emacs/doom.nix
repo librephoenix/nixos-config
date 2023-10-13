@@ -1,4 +1,4 @@
-{ config, lib, pkgs, eaf, eaf-browser, org-nursery, phscroll, org-yaap, org-side-tree, theme, font, name, username, email, dotfilesDir, profile, wmType, defaultRoamDir, ... }:
+{ config, lib, pkgs, eaf, eaf-browser, org-nursery, phscroll, org-yaap, org-side-tree, org-timeblock, theme, font, name, username, email, dotfilesDir, profile, wmType, defaultRoamDir, ... }:
 let
   themePolarity = lib.removeSuffix "\n" (builtins.readFile (./. + "../../../../themes"+("/"+theme)+"/polarity.txt"));
   dashboardLogo = ./. + "/nix-" + themePolarity + ".png";
@@ -80,6 +80,11 @@ in
     recursive = true;
   };
 
+  home.file.".emacs.d/org-timeblock" = {
+    source = "${org-timeblock}";
+    recursive = true;
+  };
+
   home.file.".emacs.d/eaf/app/browser" = {
     source = "${eaf-browser}";
     recursive = true;
@@ -90,17 +95,21 @@ in
       popd;
     ";
   };
+
   home.file.".emacs.d/org-nursery" = {
     source = "${org-nursery}";
   };
+
   home.file.".emacs.d/dashboard-logo.png".source = dashboardLogo;
   home.file.".emacs.d/scripts/copy-link-or-file/copy-link-or-file-to-clipboard.sh" = {
     source = ./scripts/copy-link-or-file/copy-link-or-file-to-clipboard.sh;
     executable = true;
   };
+
   home.file.".emacs.d/phscroll" = {
     source = "${phscroll}";
   };
+
   home.file.".emacs.d/system-vars.el".text = ''
   ;;; ~/.emacs.d/config.el -*- lexical-binding: t; -*-
 

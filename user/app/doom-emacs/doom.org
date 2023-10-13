@@ -1208,6 +1208,28 @@ On Wayland, EAF doesn't work.
 (setq org-yaap-daemon-idle-time 30)
 (org-yaap-mode 1)
 #+END_SRC
+*** Org Timeblock
+#+begin_src emacs-lisp :tangle config.el
+(add-load-path! "~/.emacs.d/org-timeblock")
+(require 'org-timeblock)
+
+(map! :leader :desc "Open org timeblock"
+      "O c" 'org-timeblock)
+
+(map! :desc "Next day"
+      :map org-timeblock-mode-map
+      :nvmeg "l" 'org-timeblock-day-later)
+(map! :desc "Previous day"
+      :map org-timeblock-mode-map
+      :nvmeg "h" 'org-timeblock-day-earlier)
+(map! :desc "Schedule event"
+      :map org-timeblock-mode-map
+      :nvmeg "m" 'org-timeblock-schedule)
+(map! :desc "Event duration"
+      :map org-timeblock-mode-map
+      :nvmeg "d" 'org-timeblock-set-duration)
+
+#+end_src
 ** Magit Configuration
 #+BEGIN_SRC emacs-lisp :tangle config.el
 ;;;------ magit configuration ------;;;
@@ -1532,6 +1554,7 @@ EAF doesn't work on Wayland :(
   (elfeed-update))
 (map! :map 'elfeed-search-mode-map :desc "Update elfeed" :n "g R" #'elfeed-full-update)
 #+END_SRC
+
 * My init.el
 This section is the [[./init.el][init.el]] section, which controls which Doom modules are loaded.
 
@@ -1765,11 +1788,13 @@ Any git package can be configured for a particular commit or branch:
 (package! elfeed)
 (package! elfeed-protocol)
 (package! docker-tramp :disable t)
+(package! org-ql)
+(package! persist)
 #+END_SRC
 * Nix Integration
 In order to have Nix load my Doom Emacs configuration [[./doom.nix][doom.nix]], which I source in the =imports= block of my [[../../../profiles/work/home.nix][home.nix]].
 #+BEGIN_SRC nix :tangle doom.nix
-{ config, lib, pkgs, eaf, eaf-browser, org-nursery, phscroll, org-yaap, org-side-tree, theme, font, name, username, email, dotfilesDir, profile, wmType, defaultRoamDir, ... }:
+{ config, lib, pkgs, eaf, eaf-browser, org-nursery, phscroll, org-yaap, org-side-tree, org-timeblock, theme, font, name, username, email, dotfilesDir, profile, wmType, defaultRoamDir, ... }:
 let
   themePolarity = lib.removeSuffix "\n" (builtins.readFile (./. + "../../../../themes"+("/"+theme)+"/polarity.txt"));
   dashboardLogo = ./. + "/nix-" + themePolarity + ".png";
@@ -1851,6 +1876,11 @@ in
     recursive = true;
   };
 
+  home.file.".emacs.d/org-timeblock" = {
+    source = "${org-timeblock}";
+    recursive = true;
+  };
+
   home.file.".emacs.d/eaf/app/browser" = {
     source = "${eaf-browser}";
     recursive = true;
@@ -1861,17 +1891,21 @@ in
       popd;
     ";
   };
+
   home.file.".emacs.d/org-nursery" = {
     source = "${org-nursery}";
   };
+
   home.file.".emacs.d/dashboard-logo.png".source = dashboardLogo;
   home.file.".emacs.d/scripts/copy-link-or-file/copy-link-or-file-to-clipboard.sh" = {
     source = ./scripts/copy-link-or-file/copy-link-or-file-to-clipboard.sh;
     executable = true;
   };
+
   home.file.".emacs.d/phscroll" = {
     source = "${phscroll}";
   };
+
   home.file.".emacs.d/system-vars.el".text = ''
   ;;; ~/.emacs.d/config.el -*- lexical-binding: t; -*-
 

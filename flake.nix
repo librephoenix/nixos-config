@@ -1,7 +1,7 @@
 {
   description = "Flake of LibrePhoenix";
 
-  outputs = { self, nixpkgs, home-manager, nix-doom-emacs, stylix, eaf, eaf-browser, org-nursery, org-yaap, phscroll, blocklist-hosts, rust-overlay, hyprland-plugins, ... }@inputs:
+  outputs = { self, nixpkgs, home-manager, nix-doom-emacs, stylix, eaf, eaf-browser, org-nursery, org-yaap, org-timeblock, phscroll, blocklist-hosts, rust-overlay, hyprland-plugins, ... }@inputs:
   let
     # ---- SYSTEM SETTINGS ---- #
     system = "x86_64-linux"; # system arch
@@ -79,6 +79,7 @@
             inherit (inputs) org-nursery;
             inherit (inputs) org-yaap;
             inherit (inputs) org-side-tree;
+            inherit (inputs) org-timeblock;
             inherit (inputs) phscroll;
             inherit (inputs) hyprland-plugins;
           };
@@ -131,6 +132,10 @@
     };
     org-side-tree = {
       url = "github:localauthor/org-side-tree";
+      flake = false;
+    };
+    org-timeblock = {
+      url = "github:ichernyshovvv/org-timeblock";
       flake = false;
     };
     phscroll = {

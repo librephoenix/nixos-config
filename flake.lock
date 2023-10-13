@@ -589,6 +589,22 @@
         "type": "github"
       }
     },
+    "org-timeblock": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1696926758,
+        "narHash": "sha256-EtFnMyXoZN+BRzPcHzqJ53q94xY/WwmnB25dENju3IY=",
+        "owner": "ichernyshovvv",
+        "repo": "org-timeblock",
+        "rev": "0c7bd445800569a87eff5284ceef1ebcf13f281b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ichernyshovvv",
+        "repo": "org-timeblock",
+        "type": "github"
+      }
+    },
     "org-yaap": {
       "flake": false,
       "locked": {
@@ -680,6 +696,7 @@
         "nixpkgs": "nixpkgs_2",
         "org-nursery": "org-nursery",
         "org-side-tree": "org-side-tree",
+        "org-timeblock": "org-timeblock",
         "org-yaap": "org-yaap",
         "phscroll": "phscroll",
         "rust-overlay": "rust-overlay",
