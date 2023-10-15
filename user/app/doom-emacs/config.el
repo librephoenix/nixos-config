@@ -961,7 +961,9 @@ tasks."
   (interactive)
   (org-agenda-switch-to)
   (if (f-exists-p (concat (dir!) "/org-roam.db"))
-    (org-roam-switch-db (f-filename (f-parent (dir!))) t))
+    (org-roam-switch-db (replace-regexp-in-string (concat "\\/home\\/" user-username "\\/Org\\/") "" (f-parent (dir!))) t))
+  (if (f-exists-p (concat (f-parent (dir!)) "/org-roam.db"))
+    (org-roam-switch-db (replace-regexp-in-string (concat "\\/home\\/" user-username "\\/Org\\/") "" (f-parent (f-parent (dir!)))) t))
   (org-roam-olivetti-mode)
 )
 
