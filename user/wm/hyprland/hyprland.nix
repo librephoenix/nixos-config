@@ -399,6 +399,7 @@
       postPatch = ''
         # use hyprctl to switch workspaces
         sed -i 's/zext_workspace_handle_v1_activate(workspace_handle_);/const std::string command = "hyprworkspace " + name_;\n\tsystem(command.c_str());/g' src/modules/wlr/workspace_manager.cpp
+        sed -i 's/gIPC->getSocket1Reply("dispatch workspace " + std::to_string(id()));/const std::string command = "hyprworkspace " + std::to_string(id());\n\tsystem(command.c_str());/g' src/modules/hyprland/workspaces.cpp
       '';
     });
     settings = {
@@ -441,6 +442,24 @@
           "on-click" = "activate";
           "on-scroll-up" = "hyprctl dispatch workspace e+1";
           "on-scroll-down" = "hyprctl dispatch workspace e-1";
+          "all-outputs" = true;
+          "active-only" = true;
+          "ignore-workspaces" = "-";
+          "persistent-workspaces" = {
+              # this block doesn't seem to work for whatever reason
+              "eDP-1" = [1 2 3 4 5 6 7 8 9];
+              "DP-1" = [1 2 3 4 5 6 7 8 9];
+              "HDMI-A-1" = [1 2 3 4 5 6 7 8 9];
+              "1" = ["eDP-1" "DP-1" "HDMI-A-1"];
+              "2" = ["eDP-1" "DP-1" "HDMI-A-1"];
+              "3" = ["eDP-1" "DP-1" "HDMI-A-1"];
+              "4" = ["eDP-1" "DP-1" "HDMI-A-1"];
+              "5" = ["eDP-1" "DP-1" "HDMI-A-1"];
+              "6" = ["eDP-1" "DP-1" "HDMI-A-1"];
+              "7" = ["eDP-1" "DP-1" "HDMI-A-1"];
+              "8" = ["eDP-1" "DP-1" "HDMI-A-1"];
+              "9" = ["eDP-1" "DP-1" "HDMI-A-1"];
+          };
         };
 
         "idle_inhibitor" = {
