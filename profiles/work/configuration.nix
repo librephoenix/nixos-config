@@ -85,6 +85,8 @@
   users.defaultUserShell = pkgs.zsh;
   programs.zsh.enable = true;
 
+  fonts.fontDir.enable = true;
+
   xdg.portal = {
     enable = true;
     extraPortals = [

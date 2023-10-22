@@ -94,10 +94,12 @@
     blender
     blockbench-electron
     obs-studio
-    libsForQt5.kdenlive
+    #install kdenlive via flatpak due to missing plugins
+    #kdenlive
+    ffmpeg
     (pkgs.writeScriptBin "kdenlive-accel" ''
       #!/bin/sh
-      DRI_PRIME=1 kdenlive "$1"
+      DRI_PRIME=0 flatpak run org.kde.kdenlive "$1"
     '')
     movit
     mediainfo
