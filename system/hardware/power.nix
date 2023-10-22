@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 {
-  environment.systemPackages = with pkgs; [ auto-cpufreq thermald ];
+  environment.systemPackages = with pkgs; [ auto-cpufreq ];
   systemd.services.auto-cpufreq.enable = true;
   services.auto-cpufreq.enable = true;
   services.auto-cpufreq.settings = {
@@ -11,14 +11,9 @@
     };
     battery = {
       governor = "schedutil";
-      scaling_min_freq = 1200000;
-      scaling_max_freq = 2800000;
+      scaling_max_freq = 3800000;
       turbo = "never";
     };
   };
 
-  services.thermald.enable = true;
-
-  services.upower.enable = true;
-  systemd.services.upower.enable = true;
 }
