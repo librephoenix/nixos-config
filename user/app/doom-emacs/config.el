@@ -944,6 +944,30 @@ tasks."
 ;; Adds hook to org agenda mode, making follow mode active in org agenda
 (add-hook 'org-agenda-mode-hook 'org-agenda-open-hook)
 
+;; Auto updates agenda on syncthing changes
+;; from https://www.reddit.com/r/orgmode/comments/mu6n5b/org_agenda_auto_updating/
+(defadvice org-agenda-list (before refresh-org-agenda-on-revert activate)
+  (mapc (lambda (file)
+          (unless (verify-visited-file-modtime (get-file-buffer file))
+          (with-current-buffer (get-file-buffer file)
+            (when (eq major-mode 'org-mode)
+              (revert-buffer nil 'noconfirm)))))
+        (org-agenda-files)))
+(defadvice org-agenda-redo (before refresh-org-agenda-on-revert activate)
+  (mapc (lambda (file)
+          (unless (verify-visited-file-modtime (get-file-buffer file))
+          (with-current-buffer (get-file-buffer file)
+            (when (eq major-mode 'org-mode)
+              (revert-buffer nil 'noconfirm)))))
+        (org-agenda-files)))
+(defadvice org-agenda-redo-all (before refresh-org-agenda-on-revert activate)
+  (mapc (lambda (file)
+          (unless (verify-visited-file-modtime (get-file-buffer file))
+          (with-current-buffer (get-file-buffer file)
+            (when (eq major-mode 'org-mode)
+              (revert-buffer nil 'noconfirm)))))
+        (org-agenda-files)))
+
 ;; Function to list all my available org agenda files and switch to them
 (defun list-and-switch-to-agenda-file ()
   "Lists all available agenda files and switches to desired one"
