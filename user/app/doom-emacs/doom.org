@@ -1097,8 +1097,9 @@ On Wayland, EAF doesn't work.
 ;; Adds hook to org agenda mode, making follow mode active in org agenda
 (add-hook 'org-agenda-mode-hook 'org-agenda-open-hook)
 
-;; Auto updates agenda on syncthing changes
-;; from https://www.reddit.com/r/orgmode/comments/mu6n5b/org_agenda_auto_updating/
+;; Easy refreshes on org agenda for syncthing file changes
+;; adapted from https://www.reddit.com/r/orgmode/comments/mu6n5b/org_agenda_auto_updating/
+;; and https://lists.gnu.org/archive/html/help-gnu-emacs/2008-12/msg00435.html
 (defadvice org-agenda-list (before refresh-org-agenda-on-revert activate)
   (mapc (lambda (file)
           (unless (verify-visited-file-modtime (get-file-buffer file))
