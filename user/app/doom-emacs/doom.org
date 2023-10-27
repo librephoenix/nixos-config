@@ -1764,6 +1764,7 @@ Any git package can be configured for a particular commit or branch:
 - =(unpin! pinned-package another-pinned-package)= to get bleeding edge instead of Doom's stability
 
 #+BEGIN_SRC emacs-lisp :tangle packages.el
+(package! embark :pin "0908eea")
 (package! dashboard)
 (package! direnv)
 (package! org-modern)
@@ -1771,10 +1772,10 @@ Any git package can be configured for a particular commit or branch:
 (package! emacsql :pin "c1a4407")
 (package! org-roam-ui)
 (package! org-transclusion)
-(package! lister)
 (package! org-download)
 (package! org-yt)
 (package! toc-org)
+(package! lister)
 (package! all-the-icons-dired)
 (package! all-the-icons-completion)
 (package! ox-reveal)
