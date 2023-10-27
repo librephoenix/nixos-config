@@ -1096,7 +1096,6 @@ tasks."
       :nvmeg "d" 'org-timeblock-set-duration)
 
 ;;;------ magit configuration ------;;;
-
 ;; Need the following two blocks to make magit work with git bare repos
 (defun ~/magit-process-environment (env)
   "Add GIT_DIR and GIT_WORK_TREE to ENV when in a special directory.
@@ -1112,36 +1111,6 @@ https://github.com/magit/magit/issues/460 (@cpitclaudel)."
 (advice-add 'magit-process-environment
             :filter-return #'~/magit-process-environment)
 
-(evil-set-initial-state 'magit-status-mode 'motion)
-(evil-set-initial-state 'magit-log-mode 'motion)
-(evil-set-initial-state 'magit-diff-mode 'motion)
-(evil-set-initial-state 'magit-refs-mode 'motion)
-(evil-define-key 'motion magit-status-mode-map
-  "j" 'evil-next-visual-line
-  "k" 'evil-previous-visual-line
-  "c" 'magit-commit
-  "s" 'magit-stage
-  "u" 'magit-unstage
-  "l" 'magit-log
-  "F" 'magit-pull
-  "p" 'magit-push
-  "q" '+magit/quit
-  (kbd "<return>") 'magit-diff-visit-file-worktree)
-(evil-define-key 'motion magit-log-mode-map
-  "j" 'evil-next-visual-line
-  "k" 'evil-previous-visual-line
-  "q" '+magit/quit
-  (kbd "<return>") 'magit-visit-ref)
-(evil-define-key 'motion magit-diff-mode-map
-  "j" 'evil-next-visual-line
-  "k" 'evil-previous-visual-line
-  "q" '+magit/quit
-  (kbd "<return>") 'magit-visit-ref)
-(evil-define-key 'motion magit-refs-mode-map
-  "j" 'evil-next-visual-line
-  "k" 'evil-previous-visual-line
-  "q" '+magit/quit
-  (kbd "<return>") 'magit-visit-ref)
 (require 'magit-todos)
 (magit-todos-mode 1)
 
