@@ -12,6 +12,7 @@
 (package! all-the-icons-dired)
 (package! all-the-icons-completion)
 (package! ox-reveal)
+(package! magit-todos)
 (package! hledger-mode)
 (package! rainbow-mode)
 (package! crdt)

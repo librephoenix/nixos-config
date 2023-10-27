@@ -1142,6 +1142,8 @@ https://github.com/magit/magit/issues/460 (@cpitclaudel)."
   "k" 'evil-previous-visual-line
   "q" '+magit/quit
   (kbd "<return>") 'magit-visit-ref)
+(require 'magit-todos)
+(magit-todos-mode 1)
 
 (evil-set-initial-state 'ibuffer-mode 'motion)
 (evil-define-key 'motion 'ibuffer-mode

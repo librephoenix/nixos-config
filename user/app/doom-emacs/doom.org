@@ -1310,6 +1310,8 @@ https://github.com/magit/magit/issues/460 (@cpitclaudel)."
   "k" 'evil-previous-visual-line
   "q" '+magit/quit
   (kbd "<return>") 'magit-visit-ref)
+(require 'magit-todos)
+(magit-todos-mode 1)
 
 #+END_SRC
 ** Ibuffer Configuration
@@ -1615,7 +1617,7 @@ This section is the [[./init.el][init.el]] section, which controls which Doom mo
        ;;doom-dashboard    ; a nifty splash screen for Emacs
        doom-quit         ; DOOM quit-message prompts when you quit Emacs
        (emoji +unicode)  ; 🙂
-       hl-todo           ; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW
+       hl-todo           ; highlight todo/fixme/note/deprecated/hack/review
        ;;hydra
        ;;indent-guides     ; highlighted indent columns
        ;;ligatures         ; ligatures and symbols to make your code pretty again
@@ -1669,7 +1671,7 @@ This section is the [[./init.el][init.el]] section, which controls which Doom mo
        :tools
        ;;ansible
        ;;biblio            ; Writes a PhD for you (citation needed)
-       ;;debugger          ; FIXME stepping through code, to help you add bugs
+       ;;debugger          ; stepping through code, to help you add bugs
        ;;direnv
        docker
        ;;editorconfig      ; let someone else argue about tabs vs spaces
@@ -1682,7 +1684,7 @@ This section is the [[./init.el][init.el]] section, which controls which Doom mo
        ;;make              ; run make tasks from Emacs
        ;;pass              ; password manager for nerds
        ;;pdf               ; pdf enhancements
-       ;;prodigy           ; FIXME managing external services & code builders
+       ;;prodigy           ; managing external services & code builders
        rgb               ; creating color strings
        ;;taskrunner        ; taskrunner for all your projects
        ;;terraform         ; infrastructure as code
@@ -1807,6 +1809,7 @@ Any git package can be configured for a particular commit or branch:
 (package! all-the-icons-dired)
 (package! all-the-icons-completion)
 (package! ox-reveal)
+(package! magit-todos)
 (package! hledger-mode)
 (package! rainbow-mode)
 (package! crdt)
