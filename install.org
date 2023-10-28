@@ -18,6 +18,8 @@ sudo nixos-generate-config --show-hardware-config > system/hardware-configuratio
 Also, if you have a differently named user account than my default (=emmet=), you /must/ update the following lines in the let binding near the top of the [[./flake.nix][flake.nix]]:
 #+BEGIN_SRC nix :noeval
 ...
+let
+  ...
   # ----- USER SETTINGS ----- #
   username = "YOURUSERNAME"; # username
   name = "YOURNAME"; # name/identifier
