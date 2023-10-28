@@ -4,18 +4,29 @@
 These are just some simple install notes for myself (in-case I have to reinstall unexpectedly).
 
 ** Install Notes for Myself
-To get this running on a NixOS system, I will start by cloning the repo:
+To get this running on a NixOS system, start by cloning the repo:
 #+BEGIN_SRC sh :noeval
 git clone https://gitlab.com/librephoenix/nixos-config.git ~/.dotfiles
 #+END_SRC
 
-To get the hardware configuration on a new system, I can other copy from =/etc/nixos/hardware-configuration.nix= or run:
+To get the hardware configuration on a new system, either copy from =/etc/nixos/hardware-configuration.nix= or run:
 #+BEGIN_SRC sh :noeval
 cd ~/.dotfiles
 sudo nixos-generate-config --show-hardware-config > system/hardware-configuration.nix
 #+END_SRC
 
-Then, I can switch into the system configuration by running:
+Also, if you have a differently named user account than my default (=emmet=), you /must/ update the following lines in the let binding near the top of the [[./flake.nix][flake.nix]]:
+#+BEGIN_SRC nix :noeval
+...
+  # ----- USER SETTINGS ----- #
+  username = "YOURUSERNAME"; # username
+  name = "YOURNAME"; # name/identifier
+...
+#+END_SRC
+
+There are many more config options there that you may also want to change as well.
+
+Once the variables are set, then switch into the system configuration by running:
 #+BEGIN_SRC sh :noeval
 cd ~/.dotfiles
 sudo nixos-rebuild switch --flake .#system
@@ -41,7 +52,7 @@ cd ~/.dotfiles
 home-manager switch --flake .#user
 #+END_SRC
 
-This loads in my convenience script =phoenix=, which replaces frequently used nix and nixos commands with more user friendly ones, namely:
+This loads in my convenience script =phoenix= (still a WIP), which replaces frequently used nix and nixos commands with more user friendly ones, namely:
 - =phoenix sync= to build and switch system and home configuration
   - =phoenix sync system= to build and switch only system configuration
   - =phoenix sync user= to build and switch only home configuration
