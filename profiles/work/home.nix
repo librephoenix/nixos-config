@@ -90,9 +90,9 @@
     vlc
     mpv
     yt-dlp
-    freetube
+    #freetube
     blender
-    blockbench-electron
+    #blockbench-electron
     cura
     obs-studio
     #install kdenlive via flatpak due to missing plugins
