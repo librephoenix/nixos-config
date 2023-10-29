@@ -44,6 +44,7 @@ nix-shell '<home-manager>' -A install
 If home-manager starts to not cooperate, it may be because the unstable branch of nixpkgs is in the Nix channel list.  This can be fixed via:
 #+BEGIN_SRC sh :noeval
 nix-channel --add https://nixos.org/channels/nixpkgs-unstable
+nix-channel --update
 #+END_SRC
 
 Home-manager may also not work without re-logging back in after it has been installed.
