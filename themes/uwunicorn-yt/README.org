@@ -1,0 +1,8 @@
+#+title: Uwunicorn (Youtube ver.)
+#+author: Emmet
+
+"Uwunicorn" base-16 theme originally by Fernando Marques ([[https://github.com/RakkiUwU]]) and Gabriel Fontes ([[https://github.com/Misterio77]])
+
+[[https://gitlab.com/librephoenix/nixos-config-screenshots/-/raw/main/hyprland/uwunicorn.png]]
+
+[[https://www.freepik.com/free-ai-image/digital-art-moon-wallpaper_77361154.htm#page=5&query=ai%20pink%20red%20teal%20forest%20dark&position=27&from_view=search&track=ais][Background Link]]

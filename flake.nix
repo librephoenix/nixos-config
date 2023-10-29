@@ -15,7 +15,7 @@
     name = "Emmet"; # name/identifier
     email = "librephoenix3@pm.me"; # email (used for certain configurations)
     dotfilesDir = "~/.dotfiles"; # absolute path of the local repo
-    theme = "uwunicorn"; # selcted theme from my themes directory (./themes/)
+    theme = "uwunicorn-yt"; # selcted theme from my themes directory (./themes/)
     wm = "hyprland"; # Selected window manager or desktop environment; must select one in both ./user/wm/ and ./system/wm/
     wmType = "wayland"; # x11 or wayland
     browser = "qutebrowser"; # Default browser; must select one from ./user/app/browser/
