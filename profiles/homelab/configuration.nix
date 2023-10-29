@@ -15,8 +15,11 @@
                   "/nix/var/nix/profiles/per-user/root/channels"
                 ];
 
-  # Experimental features
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  # Ensure nix flakes are enabled
+  nix.package = pkgs.nixFlakes;
+  nix.extraOptions = ''
+    experimental-features = nix-command flakes
+  '';
 
   # I'm sorry Stallman-taichou
   nixpkgs.config.allowUnfree = true;
