@@ -13,6 +13,7 @@
       ../../system/hardware/bluetooth.nix
       (./. + "../../../system/wm"+("/"+wm)+".nix") # My window manager
       ../../system/app/flatpak.nix
+      ../../system/app/virtualization.nix
       ../../system/security/doas.nix
       ../../system/security/gpg.nix
       ../../system/security/blocklist.nix
