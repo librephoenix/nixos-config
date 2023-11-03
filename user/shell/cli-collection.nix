@@ -21,8 +21,8 @@
     fzf
     pandoc
     pciutils
-    (pkgs.callPackage ../pkgs/ytsub.nix { })
-    (pkgs.callPackage ../pkgs/russ.nix { })
+    #(pkgs.callPackage ../pkgs/ytsub.nix { })
+    #(pkgs.callPackage ../pkgs/russ.nix { })
     (pkgs.callPackage ../pkgs/pokemon-colorscripts.nix { })
     (pkgs.writeShellScriptBin "airplane-mode" ''
       #!/bin/sh
