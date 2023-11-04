@@ -3,6 +3,6 @@
 
 "Ember" base-16 theme originally by me ([[https://gitlab.com/librephoenix]], [[https://github.com/librephoenix]]).
 
-[[https://gitlab.com/librephoenix/nixos-config-screenshots/-/raw/main/hyprland/ember.png]]
+[[https://raw.githubusercontent.com/librephoenix/nixos-config-screenshots/main/hyprland/ember.png]]
 
 [[https://w.wallhaven.cc/full/x8/wallhaven-x82ldl.jpg][Background Link]]

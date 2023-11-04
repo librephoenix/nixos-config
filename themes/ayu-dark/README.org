@@ -3,6 +3,6 @@
 
 "Ayu Dark" base-16 theme originally by Khue Nguyen ([[mailto:Z5483Y@gmail.com][Z5483Y@gmail.com]]).
 
-[[https://gitlab.com/librephoenix/nixos-config-screenshots/-/raw/main/hyprland/ayu-dark.png]]
+[[https://raw.githubusercontent.com/librephoenix/nixos-config-screenshots/main/hyprland/ayu-dark.png]]
 
 [[https://w.wallhaven.cc/full/zy/wallhaven-zy8wwo.jpg][Background Link]]

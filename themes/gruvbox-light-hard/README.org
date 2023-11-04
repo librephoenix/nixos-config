@@ -3,6 +3,6 @@
 
 "Gruvbox Light Hard" base-16 theme originally by Dawid Kurek ([[mailto:dawikur@gmail.com][dawikur@gmail.com]]) and morhetz ([[https://github.com/morhetz/gruvbox]]).
 
-[[https://gitlab.com/librephoenix/nixos-config-screenshots/-/raw/main/hyprland/gruvbox-light-hard.png]]
+[[https://raw.githubusercontent.com/librephoenix/nixos-config-screenshots/main/hyprland/gruvbox-light-hard.png]]
 
 [[https://w.wallhaven.cc/full/dp/wallhaven-dppjk3.jpg][Background Link]]

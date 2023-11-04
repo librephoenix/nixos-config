@@ -3,6 +3,6 @@
 
 "Selenized Light" base-16 theme originally by Jan Warchol ([[https://github.com/jan-warchol/selenized]]) and adapted by ali.
 
-[[https://gitlab.com/librephoenix/nixos-config-screenshots/-/raw/main/xmonad/selenized-light.png]]
+[[https://raw.githubusercontent.com/librephoenix/nixos-config-screenshots/main/xmonad/selenized-light.png]]
 
 [[https://r4.wallpaperflare.com/wallpaper/790/734/537/landscape-digital-art-coast-sky-wallpaper-2fbce811ee788644e4f742a5f338be69.jpg][Background Link]]

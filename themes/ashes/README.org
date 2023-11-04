@@ -3,6 +3,6 @@
 
 "Ashes" base-16 theme originally by Jannik Siebert ([[https://github.com/janniks]]).
 
-[[https://gitlab.com/librephoenix/nixos-config-screenshots/-/raw/main/xmonad/ashes.png]]
+[[https://raw.githubusercontent.com/librephoenix/nixos-config-screenshots/main/xmonad/ashes.png]]
 
 [[https://images.hdqwalls.com/wallpapers/anime-road-to-city-everlasting-summer-4k-ep.jpg][Background Link]]

@@ -3,6 +3,6 @@
 
 "Selenized Dark" base-16 theme originally by Jan Warchol ([[https://github.com/jan-warchol/selenized]]) and adapted by ali.
 
-[[https://gitlab.com/librephoenix/nixos-config-screenshots/-/raw/main/xmonad/selenized-dark.png]]
+[[https://raw.githubusercontent.com/librephoenix/nixos-config-screenshots/main/xmonad/selenized-dark.png]]
 
 [[https://r4.wallpaperflare.com/wallpaper/474/140/1011/stars-sea-clouds-night-wallpaper-7bede9caa0ccfc6d8a1eb0759c9972b0.jpg][Background Link]]

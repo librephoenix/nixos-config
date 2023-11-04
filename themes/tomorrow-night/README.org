@@ -3,6 +3,6 @@
 
 "Tomorrow Night" base-16 theme originally by Chris Kempson ([[http://chriskempson.com]]).
 
-[[https://gitlab.com/librephoenix/nixos-config-screenshots/-/raw/main/xmonad/tomorrow-night.png]]
+[[https://raw.githubusercontent.com/librephoenix/nixos-config-screenshots/main/xmonad/tomorrow-night.png]]
 
 [[https://w.wallhaven.cc/full/28/wallhaven-28867y.png][Background Link]]

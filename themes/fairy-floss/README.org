@@ -3,6 +3,6 @@
 
 "Fairy Floss" base-16 theme originally by sailorhg ([[https://github.com/sailorhg/fairyfloss]]).
 
-[[https://gitlab.com/librephoenix/nixos-config-screenshots/-/raw/main/hyprland/fairy-floss.png]]
+[[https://raw.githubusercontent.com/librephoenix/nixos-config-screenshots/main/hyprland/fairy-floss.png]]
 
 [[https://w.wallhaven.cc/full/rr/wallhaven-rrgydw.jpg][Background Link]]

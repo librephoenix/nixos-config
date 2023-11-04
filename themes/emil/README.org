@@ -3,6 +3,6 @@
 
 "Emil" base-16 theme originally by limelier.
 
-[[https://gitlab.com/librephoenix/nixos-config-screenshots/-/raw/main/hyprland/emil.png]]
+[[https://raw.githubusercontent.com/librephoenix/nixos-config-screenshots/main/hyprland/emil.png]]
 
 [[https://r4.wallpaperflare.com/wallpaper/535/845/69/digital-art-artwork-fantasy-art-planet-sun-hd-wallpaper-d866fd38b0b06cd800cc016ed8d284fa.jpg][Background Link]]

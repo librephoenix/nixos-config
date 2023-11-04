@@ -3,6 +3,6 @@
 
 "Atelier Sulphurpool" base-16 theme originally by Bram de Haan ([[http://atelierbramdehaan.nl]]).
 
-[[https://gitlab.com/librephoenix/nixos-config-screenshots/-/raw/main/xmonad/atelier-sulphurpool.png]]
+[[https://raw.githubusercontent.com/librephoenix/nixos-config-screenshots/main/xmonad/atelier-sulphurpool.png]]
 
 [[https://r4.wallpaperflare.com/wallpaper/13/960/9/digital-art-fantasy-art-colorful-space-art-wallpaper-99330d2ae61a6c661d5ea4793fc17511.jpg][Background Link]]

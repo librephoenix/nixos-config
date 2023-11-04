@@ -3,6 +3,6 @@
 
 "Horizon Dark" base-16 theme originally by Michaël Ball ([[https://github.com/michael-ball]]).
 
-[[https://gitlab.com/librephoenix/nixos-config-screenshots/-/raw/main/hyprland/horizon-dark.png]]
+[[https://raw.githubusercontent.com/librephoenix/nixos-config-screenshots/main/hyprland/horizon-dark.png]]
 
 [[https://r4.wallpaperflare.com/wallpaper/966/951/802/digital-digital-art-artwork-illustration-fantasy-art-hd-wallpaper-4856fd282030fc78505c71cea802646a.jpg][Background Link]]

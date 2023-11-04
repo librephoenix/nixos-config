@@ -3,6 +3,6 @@
 
 "Dracula" base-16 theme ([[https://github.com/dracula]]).
 
-[[https://gitlab.com/librephoenix/nixos-config-screenshots/-/raw/main/hyprland/dracula.png]]
+[[https://raw.githubusercontent.com/librephoenix/nixos-config-screenshots/main/hyprland/dracula.png]]
 
 [[https://images.hdqwalls.com/wallpapers/heights-are-not-scary-5k-7s.jpg][Background Link]]

@@ -3,6 +3,6 @@
 
 "Catppuccin Frappe" base-16 theme ([[https://github.com/catppuccin/catppuccin]]).
 
-[[https://gitlab.com/librephoenix/nixos-config-screenshots/-/raw/main/xmonad/catppuccin-frappe.png]]
+[[https://raw.githubusercontent.com/librephoenix/nixos-config-screenshots/main/xmonad/catppuccin-frappe.png]]
 
 [[https://images3.alphacoders.com/126/1266078.jpg][Background Link]]

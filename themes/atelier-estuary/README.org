@@ -3,6 +3,6 @@
 
 "Atelier Estuary" base-16 theme originally by Bram de Haan ([[http://atelierbramdehaan.nl]]).
 
-[[https://gitlab.com/librephoenix/nixos-config-screenshots/-/raw/main/hyprland/atelier-estuary.png]]
+[[https://raw.githubusercontent.com/librephoenix/nixos-config-screenshots/main/hyprland/atelier-estuary.png]]
 
 [[https://r4.wallpaperflare.com/wallpaper/352/194/322/digital-art-artwork-dragon-skeleton-wallpaper-15f339ed090d16293ff528ba738d87f9.jpg][Background Link]]

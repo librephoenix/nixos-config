@@ -3,6 +3,6 @@
 
 "Monokai" base-16 theme originally by Wimer Hazenberg ([[http://www.monokai.nl]]).
 
-[[https://gitlab.com/librephoenix/nixos-config-screenshots/-/raw/main/xmonad/monokai.png]]
+[[https://raw.githubusercontent.com/librephoenix/nixos-config-screenshots/main/xmonad/monokai.png]]
 
 [[https://w.wallhaven.cc/full/xl/wallhaven-xl225z.png][Background Link]]

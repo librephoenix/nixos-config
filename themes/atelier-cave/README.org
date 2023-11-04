@@ -3,6 +3,6 @@
 
 "Atelier Cave" base-16 theme originally by Bram de Haan ([[http://atelierbramdehaan.nl]]).
 
-[[https://gitlab.com/librephoenix/nixos-config-screenshots/-/raw/main/hyprland/atelier-cave.png]]
+[[https://raw.githubusercontent.com/librephoenix/nixos-config-screenshots/main/hyprland/atelier-cave.png]]
 
 [[https://images.hdqwalls.com/wallpapers/anime-girl-angel-ring-5k-7c.jpg][Background Link]]

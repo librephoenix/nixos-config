@@ -3,6 +3,6 @@
 
 "Eva" base-16 theme originally by kjakapat ([[https://github.com/kjakapat]])
 
-[[https://gitlab.com/librephoenix/nixos-config-screenshots/-/raw/main/xmonad/eva.png]]
+[[https://raw.githubusercontent.com/librephoenix/nixos-config-screenshots/main/xmonad/eva.png]]
 
 [[https://w.wallhaven.cc/full/13/wallhaven-13m9z9.jpg][Background Link]]
