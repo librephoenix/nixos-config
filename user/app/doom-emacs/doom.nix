@@ -61,10 +61,6 @@ in
     markdown
   ]))];
 
-  home.sessionVariables = {
-    EDITOR = "emacsclient";
-  };
-
   home.file.".emacs.d/eaf" = {
     source = "${eaf}";
     recursive = true;
