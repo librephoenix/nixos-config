@@ -1067,15 +1067,6 @@ tasks."
       :map org-super-agenda-header-map
       "k" 'org-agenda-previous-line)
 
-(add-load-path! "~/.emacs.d/org-yaap")
-(require 'org-yaap)
-(setq org-yaap-alert-title "Org Agenda")
-(setq org-yaap-overdue-alerts 20)
-(setq org-yaap-alert-before 20)
-(setq org-yaap-daily-alert '(7 30))
-(setq org-yaap-daemon-idle-time 30)
-(org-yaap-mode 1)
-
 (add-load-path! "~/.emacs.d/org-timeblock")
 (require 'org-timeblock)
 

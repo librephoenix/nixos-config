@@ -1229,7 +1229,7 @@ On Wayland, EAF doesn't work.
 #+END_SRC
 
 *** Org Agenda Notifications
-#+BEGIN_SRC emacs-lisp :tangle config.el
+#+BEGIN_SRC emacs-lisp
 (add-load-path! "~/.emacs.d/org-yaap")
 (require 'org-yaap)
 (setq org-yaap-alert-title "Org Agenda")

@@ -307,10 +307,10 @@
         if pgrep -x .obs-wrapped > /dev/null;
           then
             pkill -STOP fnott;
-            emacsclient --eval "(org-yaap-mode 0)";
+            #emacsclient --eval "(org-yaap-mode 0)";
           else
             pkill -CONT fnott;
-            emacsclient --eval "(if (not org-yaap-mode) (org-yaap-mode 1))";
+            #emacsclient --eval "(if (not org-yaap-mode) (org-yaap-mode 1))";
         fi
         sleep 10;
       done
