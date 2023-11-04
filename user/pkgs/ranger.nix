@@ -17,9 +17,16 @@
           # fixes a bug for kitty users that use image previews
           substituteInPlace ranger/ext/img_display.py \
             --replace "self.image_id -= 1" "self.image_id = max(0, self.image_id - 1)"
+
+          # fixes the .desktop file
+          substituteInPlace doc/ranger.desktop \
+            --replace "Terminal=true" "Terminal=false"
+          substituteInPlace doc/ranger.desktop \
+            --replace "Exec=ranger" "Exec=kitty -e ranger %U"
         '';
         });
       }
     )
   ];
+
 }

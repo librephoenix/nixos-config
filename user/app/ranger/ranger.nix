@@ -1,5 +1,6 @@
 { config, lib, pkgs, ... }:
 let myCbxScript = ''
+  # TODO fix this for wayland
   #!/bin/sh
   if [ "$#" -le "2" ]; then
     if [ "$1" = "copy" -o "$1" = "cut" ]; then
@@ -14,10 +15,13 @@ in
 
   home.packages = with pkgs; [
     ranger
-    xdragon
+    ripdrag
     highlight
     (pkgs.writeScriptBin "cbx" myCbxScript)
   ];
+  xdg.mimeApps.associations.added = {
+    "inode/directory" = "ranger.desktop";
+  };
   home.file.".config/ranger/rc.conf".source = ./rc.conf;
   home.file.".config/ranger/rifle.conf".source = ./rifle.conf;
   home.file.".config/ranger/scope.sh" = {

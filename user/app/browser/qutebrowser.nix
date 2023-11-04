@@ -82,6 +82,13 @@ c.url.searchengines = {'DEFAULT': 'https://startpage.com/do/search?query={}',
 
 config.set('completion.open_categories',["searchengines","quickmarks","bookmarks"])
 
+config.set('downloads.location.directory', '~/Downloads')
+
+config.set('fileselect.handler', 'external')
+config.set('fileselect.single_file.command', ['kitty','-e','ranger','--choosefile={}'])
+config.set('fileselect.multiple_files.command', ['kitty','-e','ranger','--choosefiles={}'])
+config.set('fileselect.folder.command', ['kitty','-e','ranger','--choosedir={}'])
+
 config.bind('t', 'open -t')
 config.bind('x', 'tab-close')
 config.bind('yf', 'hint links yank')
