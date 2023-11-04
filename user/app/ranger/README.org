@@ -4,7 +4,7 @@
 * What is Ranger?
 [[https://ranger.github.io/][Ranger]] is a minimalistic TUI file manager controlled with vim keybindings (making it /extremely/ efficient).
 
-[[https://gitlab.com/librephoenix/nixos-config-screenshots/-/raw/main/app/ranger.png]]
+[[https://raw.githubusercontent.com/librephoenix/nixos-config-screenshots/main/app/ranger.png]]
 
 If you've never tried a terminal file manager, I suggest you try it out. Here's a quick overview of how to work with it:
 - =j= and =k= - Move up and down
