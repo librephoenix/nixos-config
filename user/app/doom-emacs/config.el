@@ -1201,6 +1201,30 @@ https://github.com/magit/magit/issues/460 (@cpitclaudel)."
   "k" 'evil-previous-visual-line
   "q" 'helpful-kill-buffers)
 
+;;;------ helpful configuration ------;;;
+(add-load-path! "~/.nix-profile/share/emacs/site-lisp/elpa/mu4e-1.10.7")
+(require 'mu4e-contrib)
+(setq mu4e-sent-folder "/Sent")
+(setq mu4e-drafts-folder "/Drafts")
+(setq mu4e-trash-folder "/Trash")
+(map! :map 'mu4e-main-mode-map :desc "Jump to maildir" :ge "J" #'mu4e-search-maildir)
+(map! :map 'mu4e-main-mode-map :desc "Next line" :ge "j" #'evil-next-visual-line)
+(map! :map 'mu4e-main-mode-map :desc "Prev line" :ge "k" #'evil-previous-visual-line)
+(map! :map 'mu4e-headers-mode-map :desc "Jump to maildir" :ge "J" #'mu4e-search-maildir)
+(map! :map 'mu4e-headers-mode-map :desc "Next line" :ge "j" #'evil-next-visual-line)
+(map! :map 'mu4e-headers-mode-map :desc "Prev line" :ge "k" #'evil-previous-visual-line)
+(map! :map 'mu4e-view-mode-map :desc "Jump to maildir" :ge "J" #'mu4e-search-maildir)
+(map! :map 'mu4e-view-mode-map :desc "Next line" :ge "j" #'evil-next-visual-line)
+(map! :map 'mu4e-view-mode-map :desc "Prev line" :ge "k" #'evil-previous-visual-line)
+(setq mu4e-headers-fields
+  '((:account-stripe . 1)
+   (:human-date . 12)
+   (:flags . 6)
+   (:maildir . 30)
+   (:from-or-to . 20)
+   (:subject)))
+(load "~/.emacs.d/mu4e-private.el")
+
 ;;;-- Load emacs direnv;;;--
 (require 'direnv)
 (direnv-mode)

@@ -19,6 +19,7 @@
   - [[#tab-bar-configuration][Tab Bar Configuration]]
   - [[#focus-mode-configuration][Focus Mode Configuration]]
   - [[#helpful-mode-configuration][Helpful Mode Configuration]]
+  - [[#mu4e-configuration][mu4e Configuration]]
   - [[#eaf][EAF]]
   - [[#direnv][Direnv]]
   - [[#projectile][Projectile]]
@@ -1418,6 +1419,32 @@ I don't have this active right now since it's kinda weird with pgtk...
   "q" 'helpful-kill-buffers)
 
 #+END_SRC
+** mu4e Configuration
+#+BEGIN_SRC emacs-lisp :tangle config.el
+;;;------ helpful configuration ------;;;
+(add-load-path! "~/.nix-profile/share/emacs/site-lisp/elpa/mu4e-1.10.7")
+(require 'mu4e-contrib)
+(setq mu4e-sent-folder "/Sent")
+(setq mu4e-drafts-folder "/Drafts")
+(setq mu4e-trash-folder "/Trash")
+(map! :map 'mu4e-main-mode-map :desc "Jump to maildir" :ge "J" #'mu4e-search-maildir)
+(map! :map 'mu4e-main-mode-map :desc "Next line" :ge "j" #'evil-next-visual-line)
+(map! :map 'mu4e-main-mode-map :desc "Prev line" :ge "k" #'evil-previous-visual-line)
+(map! :map 'mu4e-headers-mode-map :desc "Jump to maildir" :ge "J" #'mu4e-search-maildir)
+(map! :map 'mu4e-headers-mode-map :desc "Next line" :ge "j" #'evil-next-visual-line)
+(map! :map 'mu4e-headers-mode-map :desc "Prev line" :ge "k" #'evil-previous-visual-line)
+(map! :map 'mu4e-view-mode-map :desc "Jump to maildir" :ge "J" #'mu4e-search-maildir)
+(map! :map 'mu4e-view-mode-map :desc "Next line" :ge "j" #'evil-next-visual-line)
+(map! :map 'mu4e-view-mode-map :desc "Prev line" :ge "k" #'evil-previous-visual-line)
+(setq mu4e-headers-fields
+  '((:account-stripe . 1)
+   (:human-date . 12)
+   (:flags . 6)
+   (:maildir . 30)
+   (:from-or-to . 20)
+   (:subject)))
+(load "~/.emacs.d/mu4e-private.el")
+#+END_SRC
 ** EAF
 EAF doesn't work on Wayland :(
 #+BEGIN_SRC emacs-lisp
@@ -1728,7 +1755,7 @@ This section is the [[./init.el][init.el]] section, which controls which Doom mo
        ;;zig               ; C, but simpler
 
        :email
-       ;;(mu4e +org)
+       (mu4e +org)
        ;;notmuch
        ;;(wanderlust +gmail)
 
@@ -1841,26 +1868,37 @@ in
   };
 
   home.packages = with pkgs; [
-  nil
-  nixfmt
-  git
-  file
-  nodejs
-  wmctrl
-  jshon
-  aria
-  hledger
-  hunspell hunspellDicts.en_US-large
-  pandoc
-  nodePackages.mermaid-cli
-  (python3.withPackages (p: with p; [
-    pandas
-    requests
-    pyqt6 sip qtpy qt6.qtwebengine epc lxml pyqt6-webengine
-    pysocks
-    #pymupdf TODO pymupdf fails to build
-    markdown
-  ]))];
+    nil
+    nixfmt
+    git
+    file
+    nodejs
+    wmctrl
+    jshon
+    aria
+    hledger
+    hunspell hunspellDicts.en_US-large
+    pandoc
+    nodePackages.mermaid-cli
+    (pkgs.mu.override { emacs = emacs29-pgtk; })
+    emacsPackages.mu4e
+    isync
+    msmtp
+    (python3.withPackages (p: with p; [
+      pandas
+      requests
+      pyqt6 sip qtpy qt6.qtwebengine epc lxml pyqt6-webengine
+      pysocks
+      #pymupdf TODO pymupdf fails to build
+      markdown
+    ]))
+  ];
+
+  services.mbsync = {
+    enable = true;
+    package = pkgs.isync;
+    frequency = "*:0/5";
+  };
 
   home.file.".emacs.d/eaf" = {
     source = "${eaf}";

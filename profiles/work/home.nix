@@ -49,7 +49,6 @@
     xournalpp
     glib
     gnome.nautilus
-    gnome.geary
     gnome.gnome-calendar
     gnome.seahorse
     gnome.gnome-maps

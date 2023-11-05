@@ -40,26 +40,37 @@ in
   };
 
   home.packages = with pkgs; [
-  nil
-  nixfmt
-  git
-  file
-  nodejs
-  wmctrl
-  jshon
-  aria
-  hledger
-  hunspell hunspellDicts.en_US-large
-  pandoc
-  nodePackages.mermaid-cli
-  (python3.withPackages (p: with p; [
-    pandas
-    requests
-    pyqt6 sip qtpy qt6.qtwebengine epc lxml pyqt6-webengine
-    pysocks
-    #pymupdf TODO pymupdf fails to build
-    markdown
-  ]))];
+    nil
+    nixfmt
+    git
+    file
+    nodejs
+    wmctrl
+    jshon
+    aria
+    hledger
+    hunspell hunspellDicts.en_US-large
+    pandoc
+    nodePackages.mermaid-cli
+    (pkgs.mu.override { emacs = emacs29-pgtk; })
+    emacsPackages.mu4e
+    isync
+    msmtp
+    (python3.withPackages (p: with p; [
+      pandas
+      requests
+      pyqt6 sip qtpy qt6.qtwebengine epc lxml pyqt6-webengine
+      pysocks
+      #pymupdf TODO pymupdf fails to build
+      markdown
+    ]))
+  ];
+
+  services.mbsync = {
+    enable = true;
+    package = pkgs.isync;
+    frequency = "*:0/5";
+  };
 
   home.file.".emacs.d/eaf" = {
     source = "${eaf}";
