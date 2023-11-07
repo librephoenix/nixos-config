@@ -1280,6 +1280,17 @@ https://github.com/magit/magit/issues/460 (@cpitclaudel)."
       :desc "Projectile grep"
       "/" #'projectile-grep)
 
+;;;-- projectile wrapper commands ;;;--
+(require 'sudo-edit)
+(setq sudo-edit-local-method "doas")
+
+(map! :leader
+      :desc "Open current file as root"
+      "f U" #'sudo-edit-current-file)
+(map! :leader
+      :desc "Find a file and open as root"
+      "f u" #'sudo-edit-find-file)
+
 ;;;-- LSP stuff ;;;--
 (use-package lsp-mode
   :ensure t)

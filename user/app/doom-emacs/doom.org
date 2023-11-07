@@ -23,6 +23,7 @@
   - [[#eaf][EAF]]
   - [[#direnv][Direnv]]
   - [[#projectile][Projectile]]
+  - [[#sudo-edit][sudo-edit]]
   - [[#lsp][LSP]]
   - [[#terminal][Terminal]]
   - [[#elfeed][Elfeed]]
@@ -1538,6 +1539,20 @@ EAF doesn't work on Wayland :(
 (map! :leader
       :desc "Projectile grep"
       "/" #'projectile-grep)
+#+END_SRC
+** sudo-edit
+#+BEGIN_SRC emacs-lisp :tangle config.el
+;;;-- projectile wrapper commands ;;;--
+(require 'sudo-edit)
+(setq sudo-edit-local-method "doas")
+
+(map! :leader
+      :desc "Open current file as root"
+      "f U" #'sudo-edit-current-file)
+(map! :leader
+      :desc "Find a file and open as root"
+      "f u" #'sudo-edit-find-file)
+
 #+END_SRC
 ** LSP
 #+BEGIN_SRC emacs-lisp :tangle config.el
