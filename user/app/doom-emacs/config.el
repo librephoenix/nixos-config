@@ -1224,6 +1224,11 @@ https://github.com/magit/magit/issues/460 (@cpitclaudel)."
    (:from-or-to . 20)
    (:subject)))
 (load "~/.emacs.d/mu4e-private.el")
+(setq sendmail-program "~/.nix-profile/bin/msmtp"
+      send-mail-function 'smtpmail-send-it
+      message-sendmail-f-is-evil t
+      message-sendmail-extra-arguments '("--read-envelope-from")
+      message-send-mail-function 'message-send-mail-with-sendmail)
 
 ;;;-- Load emacs direnv;;;--
 (require 'direnv)
