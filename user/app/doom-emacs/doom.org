@@ -1443,12 +1443,42 @@ I don't have this active right now since it's kinda weird with pgtk...
    (:maildir . 30)
    (:from-or-to . 20)
    (:subject)))
-(load "~/.emacs.d/mu4e-private.el")
+
+(defun my-make-mu4e-context (context-name address catch-address full-name organization-name signature org-roam-db)
+  (make-mu4e-context
+          :name context-name
+          :enter-func (lambda () (mu4e-message (concat "Entering " context-name " context"))
+                                 (org-roam-switch-db org-roam-db t)
+                                 (setq user-mail-address address)
+                                 (setq user-full-name full-name)
+                                 (setq message-user-organization organization-name)
+                                 (setq mu4e-maildir (concat "~/.mail/" address))
+                                 (setq mu4e-drafts-folder (concat "/" user-mail-address "/Drafts"))
+                                 (setq mu4e-sent-folder (concat "/" user-mail-address "/Sent"))
+                                 (setq mu4e-trash-folder (concat "/" user-mail-address "/Trash"))
+                                 (setq mu4e-compose-signature signature)
+                                 )
+          :leave-func (lambda () (mu4e-message (concat "Leaving " context-name " context")))
+          ;; we match based on the contact-fields of the message
+          :match-func (lambda (msg)
+                        (when msg
+                          (mu4e-message-contact-field-matches msg
+                            :to catch-address)))))
+
+(if (file-exists-p "~/.emacs.d/mu4e-private.el") (load! "~/.emacs.d/mu4e-private.el"))
+;;(setq mu4e-contexts
+;;   `(
+;;      ,(my-make-mu4e-context "example1" "user@example1.com" "user@example1.com" "John Doe" "Example Company" "John Doe\nThis is my signature" "Personal.p")
+;;      ,(my-make-mu4e-context "example2" "user@example1.com" "user@example2.com" "Johnny" "Example Organization" "John Doe\nThis is my other signature" "Personal.p")
+;;    ))
+;;(mu4e-context-switch t "example1")
+
 (setq sendmail-program "~/.nix-profile/bin/msmtp"
       send-mail-function 'smtpmail-send-it
       message-sendmail-f-is-evil t
       message-sendmail-extra-arguments '("--read-envelope-from")
       message-send-mail-function 'message-send-mail-with-sendmail)
+
 #+END_SRC
 ** EAF
 EAF doesn't work on Wayland :(
