@@ -29,3 +29,4 @@
 (package! docker-tramp :disable t)
 (package! org-ql)
 (package! persist)
+(package! sudo-edit)

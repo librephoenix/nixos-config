@@ -1857,6 +1857,7 @@ Any git package can be configured for a particular commit or branch:
 (package! docker-tramp :disable t)
 (package! org-ql)
 (package! persist)
+(package! sudo-edit)
 #+END_SRC
 * Nix Integration
 In order to have Nix load my Doom Emacs configuration [[./doom.nix][doom.nix]], which I source in the =imports= block of my [[../../../profiles/work/home.nix][home.nix]].
