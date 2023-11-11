@@ -1204,18 +1204,28 @@ https://github.com/magit/magit/issues/460 (@cpitclaudel)."
 ;;;------ helpful configuration ------;;;
 (add-load-path! "~/.nix-profile/share/emacs/site-lisp/elpa/mu4e-1.10.7")
 (require 'mu4e-contrib)
-(setq mu4e-sent-folder "/Sent")
-(setq mu4e-drafts-folder "/Drafts")
-(setq mu4e-trash-folder "/Trash")
+(require 'mu4e-actions)
+(setq mu4e-sent-folder (lambda (msg) (concat "/" (nth 1 (split-string (mu4e-message-field msg :maildir) "/" )) "/Sent")))
+(setq mu4e-drafts-folder (lambda (msg) (concat "/" (nth 1 (split-string (mu4e-message-field msg :maildir) "/" )) "/Drafts")))
+(setq mu4e-trash-folder (lambda (msg) (concat "/" (nth 1 (split-string (mu4e-message-field msg :maildir) "/" )) "/Trash")))
+(setq mu4e-refile-folder (lambda (msg) (concat "/" (nth 1 (split-string (mu4e-message-field msg :maildir) "/" )) "/Archive")))
+(setq mu4e-index-lazy-check t)
+(setq mu4e-index-cleanup t)
 (map! :map 'mu4e-main-mode-map :desc "Jump to maildir" :ge "J" #'mu4e-search-maildir)
 (map! :map 'mu4e-main-mode-map :desc "Next line" :ge "j" #'evil-next-visual-line)
 (map! :map 'mu4e-main-mode-map :desc "Prev line" :ge "k" #'evil-previous-visual-line)
 (map! :map 'mu4e-headers-mode-map :desc "Jump to maildir" :ge "J" #'mu4e-search-maildir)
 (map! :map 'mu4e-headers-mode-map :desc "Next line" :ge "j" #'evil-next-visual-line)
 (map! :map 'mu4e-headers-mode-map :desc "Prev line" :ge "k" #'evil-previous-visual-line)
+(map! :map 'mu4e-headers-mode-map :desc "Update mail and index" :ge "U" #'mu4e-update-mail-and-index)
+(map! :map 'mu4e-headers-mode-map :desc "Compose reply" :ge "r" #'mu4e-compose-reply)
+(map! :map 'mu4e-headers-mode-map :desc "Archive message" :ge "e" #'mu4e-headers-mark-for-refile)
 (map! :map 'mu4e-view-mode-map :desc "Jump to maildir" :ge "J" #'mu4e-search-maildir)
 (map! :map 'mu4e-view-mode-map :desc "Next line" :ge "j" #'evil-next-visual-line)
 (map! :map 'mu4e-view-mode-map :desc "Prev line" :ge "k" #'evil-previous-visual-line)
+(map! :map 'mu4e-view-mode-map :desc "Update mail and index" :ge "U" #'mu4e-update-mail-and-index)
+(map! :map 'mu4e-view-mode-map :desc "Compose reply" :ge "r" #'mu4e-compose-reply)
+(map! :map 'mu4e-headers-mode-map :desc "Archive message" :ge "e" #'mu4e-view-mark-for-refile)
 (setq mu4e-headers-fields
   '((:account-stripe . 1)
    (:human-date . 12)
@@ -1224,26 +1234,24 @@ https://github.com/magit/magit/issues/460 (@cpitclaudel)."
    (:from-or-to . 20)
    (:subject)))
 
-(defun my-make-mu4e-context (context-name address catch-address full-name organization-name signature org-roam-db)
-  (make-mu4e-context
-          :name context-name
-          :enter-func (lambda () (mu4e-message (concat "Entering " context-name " context"))
-                                 (org-roam-switch-db org-roam-db t)
-                                 (setq user-mail-address address)
-                                 (setq user-full-name full-name)
-                                 (setq message-user-organization organization-name)
-                                 (setq mu4e-maildir (concat "~/.mail/" address))
-                                 (setq mu4e-drafts-folder (concat "/" user-mail-address "/Drafts"))
-                                 (setq mu4e-sent-folder (concat "/" user-mail-address "/Sent"))
-                                 (setq mu4e-trash-folder (concat "/" user-mail-address "/Trash"))
-                                 (setq mu4e-compose-signature signature)
-                                 )
-          :leave-func (lambda () (mu4e-message (concat "Leaving " context-name " context")))
-          ;; we match based on the contact-fields of the message
-          :match-func (lambda (msg)
-                        (when msg
-                          (mu4e-message-contact-field-matches msg
-                            :to catch-address)))))
+;; TODO fix my make-mu4e-context wrapper
+;;(defun my-make-mu4e-context (context-name address catch-address full-name organization-name signature org-roam-db)
+;;  (make-mu4e-context
+;;          :name context-name
+;;          :enter-func `(lambda () ,(mu4e-message (concat "Entering " context-name " context"))
+;;                                 (org-roam-switch-db org-roam-db t)
+;;                                 ,(setq user-mail-address address)
+;;                                 ,(setq user-full-name full-name)
+;;                                 ,(setq message-user-organization organization-name)
+;;                                 ,(setq mu4e-maildir (concat "~/.mail/" address))
+;;                                 ,(setq mu4e-compose-signature signature)
+;;                                 )
+;;          :leave-func `(lambda () ,(mu4e-message (concat "Leaving " context-name " context")))
+;;          ;; we match based on the contact-fields of the message
+;;          :match-func `(lambda (msg)
+;;                        (when msg
+;;                          (mu4e-message-contact-field-matches msg
+;;                            :to ,catch-address)))))
 
 (if (file-exists-p "~/.emacs.d/mu4e-private.el") (load! "~/.emacs.d/mu4e-private.el"))
 ;;(setq mu4e-contexts
