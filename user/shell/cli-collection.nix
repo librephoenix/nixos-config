@@ -4,7 +4,7 @@
   # Collection of useful CLI apps
   home.packages = with pkgs; [
     # Command Line
-    neofetch lolcat cowsay
+    disfetch neofetch lolcat cowsay onefetch starfetch
     cava
     gnugrep gnused
     killall

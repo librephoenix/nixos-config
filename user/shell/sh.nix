@@ -8,6 +8,9 @@ let
     htop = "btm";
     fd = "fd -Lu";
     w3m = "w3m -no-cookie -v";
+    neofetch = "disfetch";
+    fetch = "disfetch";
+    gitfetch = "onefetch";
     nixos-rebuild = "systemd-run --no-ask-password --uid=0 --system --scope -p MemoryLimit=16000M -p CPUQuota=60% nixos-rebuild";
     home-manager = "systemd-run --no-ask-password --uid=1000 --user --scope -p MemoryLimit=16000M -p CPUQuota=60% home-manager";
   };
@@ -34,7 +37,7 @@ in
   };
 
   home.packages = with pkgs; [
-    neofetch lolcat cowsay
+    disfetch lolcat cowsay onefetch
     gnugrep gnused
     bat eza bottom fd
     direnv nix-direnv
