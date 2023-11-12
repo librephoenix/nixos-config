@@ -10,10 +10,9 @@ let
 in
 {
   imports =
-    [ #"${modulesPath}/profiles/minimal.nix"
-      nixos-wsl.nixosModules.wsl
-      #../../system/hardware-configuration.nix
+    [ nixos-wsl.nixosModules.wsl
       ../../system/hardware/kernel.nix # Kernel config
+      ../../system/hardware/systemd.nix # systemd config
       ../../system/hardware/opengl.nix
       ../../system/hardware/printing.nix
       ../../system/hardware/bluetooth.nix
