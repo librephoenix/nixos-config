@@ -1205,27 +1205,58 @@ https://github.com/magit/magit/issues/460 (@cpitclaudel)."
 (add-load-path! "~/.nix-profile/share/emacs/site-lisp/elpa/mu4e-1.10.7")
 (require 'mu4e-contrib)
 (require 'mu4e-actions)
+
 (setq mu4e-sent-folder (lambda (msg) (concat "/" (nth 1 (split-string (mu4e-message-field msg :maildir) "/" )) "/Sent")))
 (setq mu4e-drafts-folder (lambda (msg) (concat "/" (nth 1 (split-string (mu4e-message-field msg :maildir) "/" )) "/Drafts")))
 (setq mu4e-trash-folder (lambda (msg) (concat "/" (nth 1 (split-string (mu4e-message-field msg :maildir) "/" )) "/Trash")))
 (setq mu4e-refile-folder (lambda (msg) (concat "/" (nth 1 (split-string (mu4e-message-field msg :maildir) "/" )) "/Archive")))
+
 (setq mu4e-index-lazy-check t)
 (setq mu4e-index-cleanup t)
+
+(define-key mu4e-main-mode-map (kbd "<SPC>") #'doom/leader)
+(define-key mu4e-headers-mode-map (kbd "<SPC>") #'doom/leader)
+(define-key mu4e-view-mode-map (kbd "<SPC>") #'doom/leader)
+
+(define-key mu4e-main-mode-map (kbd "g g") #'evil-goto-first-line)
+(define-key mu4e-main-mode-map (kbd "G") #'evil-goto-line)
+(define-key mu4e-main-mode-map (kbd "h") #'evil-backward-char)
+(define-key mu4e-main-mode-map (kbd "l") #'evil-forward-char)
+(define-key mu4e-main-mode-map (kbd "w") #'evil-forward-word-begin)
+
+(unbind-key "g" mu4e-headers-mode-map)
+(define-key mu4e-headers-mode-map (kbd "g g") #'evil-goto-first-line)
+(define-key mu4e-headers-mode-map (kbd "G") #'evil-goto-line)
+(define-key mu4e-headers-mode-map (kbd "h") #'evil-backward-char)
+(define-key mu4e-headers-mode-map (kbd "l") #'evil-forward-char)
+(define-key mu4e-headers-mode-map (kbd "w") #'evil-forward-word-begin)
+
+(unbind-key "g" mu4e-view-mode-map)
+(define-key mu4e-view-mode-map (kbd "g g") #'evil-goto-first-line)
+(define-key mu4e-view-mode-map (kbd "G") #'evil-goto-line)
+(define-key mu4e-view-mode-map (kbd "h") #'evil-backward-char)
+(define-key mu4e-view-mode-map (kbd "l") #'evil-forward-char)
+(define-key mu4e-view-mode-map (kbd "w") #'evil-forward-word-begin)
+
 (map! :map 'mu4e-main-mode-map :desc "Jump to maildir" :ge "J" #'mu4e-search-maildir)
 (map! :map 'mu4e-main-mode-map :desc "Next line" :ge "j" #'evil-next-visual-line)
 (map! :map 'mu4e-main-mode-map :desc "Prev line" :ge "k" #'evil-previous-visual-line)
+
 (map! :map 'mu4e-headers-mode-map :desc "Jump to maildir" :ge "J" #'mu4e-search-maildir)
 (map! :map 'mu4e-headers-mode-map :desc "Next line" :ge "j" #'evil-next-visual-line)
 (map! :map 'mu4e-headers-mode-map :desc "Prev line" :ge "k" #'evil-previous-visual-line)
+(map! :map 'mu4e-headers-mode-map :desc "Next char" :ge "l" #'evil-forward-char)
 (map! :map 'mu4e-headers-mode-map :desc "Update mail and index" :ge "U" #'mu4e-update-mail-and-index)
 (map! :map 'mu4e-headers-mode-map :desc "Compose reply" :ge "r" #'mu4e-compose-reply)
 (map! :map 'mu4e-headers-mode-map :desc "Archive message" :ge "e" #'mu4e-headers-mark-for-refile)
+
 (map! :map 'mu4e-view-mode-map :desc "Jump to maildir" :ge "J" #'mu4e-search-maildir)
 (map! :map 'mu4e-view-mode-map :desc "Next line" :ge "j" #'evil-next-visual-line)
 (map! :map 'mu4e-view-mode-map :desc "Prev line" :ge "k" #'evil-previous-visual-line)
 (map! :map 'mu4e-view-mode-map :desc "Update mail and index" :ge "U" #'mu4e-update-mail-and-index)
 (map! :map 'mu4e-view-mode-map :desc "Compose reply" :ge "r" #'mu4e-compose-reply)
-(map! :map 'mu4e-headers-mode-map :desc "Archive message" :ge "e" #'mu4e-view-mark-for-refile)
+(map! :map 'mu4e-view-mode-map :desc "Archive message" :ge "e" #'mu4e-view-mark-for-refile)
+
 (after! mu4e
   (add-to-list 'mu4e-header-info-custom
     '(:maildir-folder-no-account .
