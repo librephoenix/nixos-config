@@ -1447,13 +1447,25 @@ I don't have this active right now since it's kinda weird with pgtk...
 (map! :map 'mu4e-view-mode-map :desc "Update mail and index" :ge "U" #'mu4e-update-mail-and-index)
 (map! :map 'mu4e-view-mode-map :desc "Compose reply" :ge "r" #'mu4e-compose-reply)
 (map! :map 'mu4e-headers-mode-map :desc "Archive message" :ge "e" #'mu4e-view-mark-for-refile)
-(setq mu4e-headers-fields
-  '((:account-stripe . 1)
-   (:human-date . 12)
-   (:flags . 6)
-   (:maildir . 30)
-   (:from-or-to . 20)
-   (:subject)))
+(after! mu4e
+  (add-to-list 'mu4e-header-info-custom
+    '(:maildir-folder-no-account .
+       ( :name "Maildir folder without account"  ;; long name, as seen in the message-view
+         :shortname "Folder"           ;; short name, as seen in the headers view
+         :help "Name of the subfolder without the maildir" ;; tooltip
+         :function (lambda (msg) (substring (mu4e-message-field msg :maildir) (+ 2 (length (nth 1 (split-string (mu4e-message-field msg :maildir) "/" )))))))))
+  (add-to-list 'mu4e-bookmarks
+    '( :name  "Unified inbox"
+       :query "maildir://.*/INBOX/"
+       :key   ?i))
+    (setq mu4e-headers-fields
+      '((:account-stripe . 1)
+       (:account . 25)
+       (:human-date . 12)
+       (:flags . 6)
+       (:from-or-to . 20)
+       (:maildir-folder-no-account . 30)
+     (:subject))))
 
 ;; TODO fix my make-mu4e-context wrapper
 ;;(defun my-make-mu4e-context (context-name address catch-address full-name organization-name signature org-roam-db)
