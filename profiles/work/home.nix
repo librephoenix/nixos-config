@@ -48,6 +48,7 @@
     mate.atril
     xournalpp
     glib
+    newsflash
     gnome.nautilus
     gnome.gnome-calendar
     gnome.seahorse
