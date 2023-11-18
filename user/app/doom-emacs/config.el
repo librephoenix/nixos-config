@@ -1304,11 +1304,11 @@ https://github.com/magit/magit/issues/460 (@cpitclaudel)."
 ;;    ))
 ;;(mu4e-context-switch t "example1")
 
-(setq sendmail-program "~/.nix-profile/bin/msmtp"
-      send-mail-function 'smtpmail-send-it
-      message-sendmail-f-is-evil t
-      message-sendmail-extra-arguments '("--read-envelope-from")
-      message-send-mail-function 'message-send-mail-with-sendmail)
+(setq sendmail-program "~/.nix-profile/bin/msmtp")
+(setq send-mail-function 'smtpmail-send-it)
+(setq message-sendmail-f-is-evil t)
+(setq message-sendmail-extra-arguments '("--read-envelope-from"))
+(setq message-send-mail-function 'message-send-mail-with-sendmail)
 
 ;;;-- Load emacs direnv;;;--
 (require 'direnv)
