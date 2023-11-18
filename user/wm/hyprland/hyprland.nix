@@ -193,8 +193,8 @@
        windowrulev2 = opacity 0.80,title:^(LibreWolf)$
        windowrulev2 = opacity 0.80,title:^(New Tab - LibreWolf)$
        windowrulev2 = opacity 0.80,title:^(New Tab - Brave)$
-       windowrulev2 = opacity 0.65,title:^(Home - qutebrowser)$
-       windowrulev2 = opacity 0.65,title:\[.*\] - Home
+       windowrulev2 = opacity 0.65,title:^(My Local Dashboard Awesome Homepage - qutebrowser)$
+       windowrulev2 = opacity 0.65,title:\[.*\] - My Local Dashboard Awesome Homepage
        windowrulev2 = opacity 0.9,class:^(org.keepassxc.KeePassXC)$
        windowrulev2 = opacity 0.75,class:^(org.gnome.Nautilus)$
 

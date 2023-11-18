@@ -208,7 +208,7 @@ c.fonts.web.family.cursive = font
     <html>
 
     <head>
-      <title>Home</title>
+      <title>My Local Dashboard Awesome Homepage</title>
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <style>
         /*body*/
@@ -326,7 +326,7 @@ Bard
   <html>
 
   <head>
-    <title>Home</title>
+    <title>My Local Dashboard Awesome Homepage</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
       /*body*/
@@ -433,7 +433,7 @@ Bard
   <html>
 
   <head>
-    <title>Home</title>
+    <title>My Local Dashboard Awesome Homepage</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
       /*body*/
@@ -540,7 +540,7 @@ Bard
   <html>
 
   <head>
-    <title>Home</title>
+    <title>My Local Dashboard Awesome Homepage</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
       /*body*/
@@ -647,7 +647,7 @@ Bard
   <html>
 
   <head>
-    <title>Home</title>
+    <title>My Local Dashboard Awesome Homepage</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
       /*body*/
@@ -754,7 +754,7 @@ Bard
   <html>
 
   <head>
-    <title>Home</title>
+    <title>My Local Dashboard Awesome Homepage</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
       /*body*/
@@ -861,7 +861,7 @@ Bard
   <html>
 
   <head>
-    <title>Home</title>
+    <title>My Local Dashboard Awesome Homepage</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
       /*body*/
