@@ -86,6 +86,7 @@
     gimp-with-plugins
     pinta
     krita
+    inkscape
     musikcube
     vlc
     mpv
