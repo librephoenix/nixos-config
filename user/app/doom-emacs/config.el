@@ -1275,7 +1275,20 @@ https://github.com/magit/magit/issues/460 (@cpitclaudel)."
        (:flags . 6)
        (:from-or-to . 20)
        (:maildir-folder-no-account . 30)
-     (:subject))))
+     (:subject)))
+  (setq sendmail-program "~/.nix-profile/bin/msmtp")
+  (setq send-mail-function 'smtpmail-send-it)
+  (setq message-sendmail-f-is-evil t)
+  (setq message-sendmail-extra-arguments '("--read-envelope-from"))
+  (setq message-send-mail-function 'message-send-mail-with-sendmail)
+  (if (file-exists-p "~/.emacs.d/mu4e-private.el") (load! "~/.emacs.d/mu4e-private.el"))
+  ;;(setq mu4e-contexts
+  ;;   `(
+  ;;      ,(my-make-mu4e-context "example1" "user@example1.com" "user@example1.com" "John Doe" "Example Company" "John Doe\nThis is my signature" "Personal.p")
+  ;;      ,(my-make-mu4e-context "example2" "user@example1.com" "user@example2.com" "Johnny" "Example Organization" "John Doe\nThis is my other signature" "Personal.p")
+  ;;    ))
+  ;;(mu4e-context-switch t "example1")
+)
 
 ;; TODO fix my make-mu4e-context wrapper
 ;;(defun my-make-mu4e-context (context-name address catch-address full-name organization-name signature org-roam-db)
@@ -1295,20 +1308,6 @@ https://github.com/magit/magit/issues/460 (@cpitclaudel)."
 ;;                        (when msg
 ;;                          (mu4e-message-contact-field-matches msg
 ;;                            :to ,catch-address)))))
-
-(if (file-exists-p "~/.emacs.d/mu4e-private.el") (load! "~/.emacs.d/mu4e-private.el"))
-;;(setq mu4e-contexts
-;;   `(
-;;      ,(my-make-mu4e-context "example1" "user@example1.com" "user@example1.com" "John Doe" "Example Company" "John Doe\nThis is my signature" "Personal.p")
-;;      ,(my-make-mu4e-context "example2" "user@example1.com" "user@example2.com" "Johnny" "Example Organization" "John Doe\nThis is my other signature" "Personal.p")
-;;    ))
-;;(mu4e-context-switch t "example1")
-
-(setq sendmail-program "~/.nix-profile/bin/msmtp")
-(setq send-mail-function 'smtpmail-send-it)
-(setq message-sendmail-f-is-evil t)
-(setq message-sendmail-extra-arguments '("--read-envelope-from"))
-(setq message-send-mail-function 'message-send-mail-with-sendmail)
 
 ;;;-- Load emacs direnv;;;--
 (require 'direnv)
