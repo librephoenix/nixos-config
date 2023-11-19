@@ -36,7 +36,8 @@
     nixpkgs-patched = (import nixpkgs { inherit system; }).applyPatches {
       name = "nixpkgs-patched";
       src = nixpkgs;
-      patches = [ ./patches/emacs-no-version-check.patch ];
+      patches = [ ./patches/emacs-no-version-check.patch
+                  ./patches/nixos-nixpkgs-268027.patch ];
     };
 
     # configure pkgs
