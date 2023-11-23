@@ -39,7 +39,7 @@
       exec-once = waybar
       exec-once = emacs --daemon
 
-      exec-once = swayidle -w timeout 300 'gtklock -d' timeout 600 'hyprctl dispatch dpms off' resume 'hyprctl dispatch dpms on' before-sleep "gtklock -d"
+      exec-once = swayidle -w timeout 90 '${pkgs.gtklock}/bin/gtklock -d' timeout 210 'suspend-unless-render' resume '${pkgs.hyprland}/bin/hyprctl dispatch dpms on' before-sleep "${pkgs.gtklock}/bin/gtklock -d"
       exec-once = obs-notification-mute-daemon
 
       exec = ~/.swaybg-stylix
@@ -127,8 +127,8 @@
        bind=,code:238,exec,brightnessctl --device='asus::kbd_backlight' set +1
        bind=,code:255,exec,airplane-mode
 
-       bind=SUPERSHIFT,S,exec,gtklock & sleep 1 && systemctl suspend
-       bind=SUPERCTRL,L,exec,gtklock
+       bind=SUPERSHIFT,S,exec,gtklock -d & sleep 1 && systemctl suspend
+       bind=SUPERCTRL,L,exec,gtklock -d
 
        bind=SUPER,H,movefocus,l
        bind=SUPER,J,movefocus,d
@@ -230,6 +230,9 @@
          follow_mouse = 2
        }
 
+       misc {
+         mouse_move_enables_dpms = false
+       }
        decoration {
          rounding = 8
          blur {
@@ -262,15 +265,16 @@
     hyprpicker
     swayidle
     gtklock
-    (pkgs.swaylock-effects.overrideAttrs (oldAttrs: {
-      version = "1.6.4-1";
-      src = fetchFromGitHub {
-        owner = "mortie";
-        repo = "swaylock-effects";
-        rev = "20ecc6a0a5b61bb1a66cfb513bc357f74d040868";
-        sha256 = "sha256-nYA8W7iabaepiIsxDrCkG/WIFNrVdubk/AtFhIvYJB8=";
-      };
-    }))
+    #swaylock
+    #(pkgs.swaylock-effects.overrideAttrs (oldAttrs: {
+    #  version = "1.6.4-1";
+    #  src = fetchFromGitHub {
+    #    owner = "mortie";
+    #    repo = "swaylock-effects";
+    #    rev = "20ecc6a0a5b61bb1a66cfb513bc357f74d040868";
+    #    sha256 = "sha256-nYA8W7iabaepiIsxDrCkG/WIFNrVdubk/AtFhIvYJB8=";
+    #  };
+    #}))
     swaybg
     fnott
     #hyprpaper
@@ -314,6 +318,11 @@
         fi
         sleep 10;
       done
+    '')
+    (pkgs.writeScriptBin "suspend-unless-render" ''
+      #!/bin/sh
+      if pgrep -x nixos-rebuild > /dev/null || pgrep -x home-manager > /dev/null || pgrep -x kdenlive > /dev/null || pgrep -x FL64.exe > /dev/null || pgrep -x blender > /dev/null || pgrep -x flatpak > /dev/null;
+      then echo "Shouldn't suspend"; sleep 10; else echo "Should suspend"; systemctl suspend; fi
     '')
     (pkgs.writeScriptBin "hyprworkspace" ''
       #!/bin/sh
@@ -706,6 +715,12 @@
       background-size: auto 100%;
     }
   '';
+  #programs.swaylock = {
+  #  enable = true;
+  #  settings = {
+  #    color = "#"+config.lib.stylix.colors.base00;
+  #  };
+  #};
   programs.fuzzel.enable = true;
   programs.fuzzel.settings = {
     main = {
