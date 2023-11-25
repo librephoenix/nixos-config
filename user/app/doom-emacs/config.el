@@ -532,13 +532,16 @@ same directory as the org-buffer and insert a link to this file."
 (defun org-jekyll-new-post ()
   (interactive)
   (setq new-blog-post-title (read-from-minibuffer "Post name: "))
+  (setq new-blog-post-date (format-time-string "%Y-%m-%d" (date-to-time (org-read-date))))
   (setq new-blog-post-slug (downcase (replace-regexp-in-string "[^[:alpha:][:digit:]_-]" "" (string-replace " " "-" new-blog-post-title))))
-  (setq new-blog-post-file (concat (projectile-project-root) "org/_posts/" (format-time-string "%Y-%m-%d") "-" new-blog-post-slug ".org"))
+  (setq new-blog-post-file (concat (projectile-project-root) "org/_posts/"  new-blog-post-date "-" new-blog-post-slug ".org"))
   (let ((org-capture-templates
         `(("p" "New Jekyll blog post" plain (file new-blog-post-file)
-           ,(concat "#+title: " new-blog-post-title "\n#+options: toc:nil num:nil\n#+begin_export: html\n---\nlayout: post\ntitle: " new-blog-post-title "\nexcerpt: %?\ntags: \npermalink: " new-blog-post-slug "\n---\n#+end_export\n")))
+           ,(concat "#+title: " new-blog-post-title "\n#+options: toc:nil num:nil\n#+begin_export html\n---\nlayout: post\ntitle: " new-blog-post-title "\nexcerpt: %?\ntags: \npermalink: " new-blog-post-date "-" new-blog-post-slug "\n---\n#+end_export\n\n#+attr_html: :alt " new-blog-post-title " :align center\n[[../assets/" new-blog-post-date "-" new-blog-post-slug ".png]]")))
    )) (org-capture))
 )
+
+;; TODO make function to edit title or date post post creation
 
 (map! :leader
       :prefix ("N")
