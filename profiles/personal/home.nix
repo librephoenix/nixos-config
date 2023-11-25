@@ -26,7 +26,6 @@
     syncthing
 
     # Media
-    gtkcord4
     tuxpaint
   ];
 
