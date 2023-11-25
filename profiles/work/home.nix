@@ -55,6 +55,7 @@
     gnome.gnome-maps
     openvpn
     protonmail-bridge
+    texliveSmall
 
     wine
     bottles
