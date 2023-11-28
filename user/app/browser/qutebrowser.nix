@@ -60,12 +60,16 @@ config.set('content.javascript.enabled', True, 'chrome-devtools://*')
 config.set('content.javascript.enabled', True, 'devtools://*')
 config.set('content.javascript.enabled', True, 'chrome://*/*')
 config.set('content.javascript.enabled', True, 'qute://*/*')
+
+config.set('content.javascript.enabled', True, 'qute://*/*')
+
 c.tabs.favicons.scale = 1.0
 c.tabs.last_close = 'close'
 c.tabs.position = 'left'
 c.tabs.width = '3%'
 c.window.transparent = True
 c.colors.webpage.darkmode.enabled = True
+c.colors.webpage.darkmode.policy.images = 'never'
 
 c.url.default_page = str(config.configdir)+'/qute-home.html'
 c.url.start_pages = str(config.configdir)+'/qute-home.html'
