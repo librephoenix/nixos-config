@@ -24,8 +24,8 @@ I wrote some reinstall notes for myself [[./install.org][here (install.org)]].
 ** Modules
 Separate Nix files can be imported as modules using an import block:
 #+BEGIN_SRC nix
-imports = [ import1.nix
-            import2.nix
+imports = [ ./import1.nix
+            ./import2.nix
             ...
           ];
 #+END_SRC
