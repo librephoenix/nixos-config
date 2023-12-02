@@ -662,13 +662,32 @@ exit
    )) (org-capture))
 )
 
+(defun org-jekyll-rename-post ()
+  (interactive)
+  (setq new-blog-post-title (read-from-minibuffer "Post name: "))
+  (setq new-blog-post-date (format-time-string "%Y-%m-%d" (date-to-time (org-read-date))))
+  (setq new-blog-post-slug (downcase (replace-regexp-in-string "[^[:alpha:][:digit:]_-]" "" (string-replace " " "-" new-blog-post-title))))
+  (org-roam-set-keyword "title" new-blog-post-title)
+  (replace-regexp "permalink: .*\n" (concat "permalink: " new-blog-post-date "-" new-blog-post-slug "\n") nil (point-min) (point-max))
+  (replace-regexp "title: .*\n" (concat "title: " new-blog-post-title "\n") nil (point-min) (point-max))
+  (setq prev-blog-post-filename-base (file-name-base (buffer-file-name)))
+  (doom/move-this-file (concat new-blog-post-date "-" new-blog-post-slug ".org"))
+  (shell-command (concat "sed -i s/" prev-blog-post-filename-base "/" (file-name-base (buffer-file-name)) "/g *.org") nil)
+  (replace-regexp prev-blog-post-filename-base (file-name-base (buffer-file-name)) nil (point-min) (point-max))
+  (save-buffer)
+)
+
 ;; TODO make function to edit title or date post post creation
 
 (map! :leader
       :prefix ("N")
 
       :desc "New blog post"
-      "p" #'org-jekyll-new-post)
+      "p" #'org-jekyll-new-post
+
+      :desc "Rename or redate blog post and update links accordingly"
+      "e" #'org-jekyll-rename-post
+)
 
 #+end_src
 ** Org Roam Configuration
