@@ -43,7 +43,8 @@
     # configure pkgs
     pkgs = import nixpkgs-patched {
       inherit system;
-      config = { allowUnfree = true; };
+      config = { allowUnfree = true;
+                 allowUnfreePredicate = (_: true); };
       overlays = [ rust-overlay.overlays.default ];
     };
 
