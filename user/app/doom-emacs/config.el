@@ -1332,6 +1332,15 @@ https://github.com/magit/magit/issues/460 (@cpitclaudel)."
   ;;      ,(my-make-mu4e-context "example2" "user@example1.com" "user@example2.com" "Johnny" "Example Organization" "John Doe\nThis is my other signature" "Personal.p")
   ;;    ))
   ;;(mu4e-context-switch t "example1")
+
+  (org-msg-mode 0)
+
+  ;; https://emacs.stackexchange.com/questions/3061/how-to-stop-mu4e-from-inserting-line-breaks
+  (defun no-auto-fill ()
+    "Turn off auto-fill-mode."
+    (auto-fill-mode -1))
+  (add-hook 'mu4e-compose-mode-hook #'no-auto-fill)
+
 )
 
 ;; TODO fix my make-mu4e-context wrapper
