@@ -37,4 +37,9 @@ in
   };
   # To get steam to import into gamehub, first install it as a flatpak, then
   # Set steam directory to ~/.var/app/com.valvesoftware.Steam/.steam
+
+  #services.flatpak.packages = [
+  #  "com.discordapp.Discord"
+  #  "com.jaquadro.NBTExplorer"
+  #];
 }

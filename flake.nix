@@ -55,7 +55,9 @@
     homeConfigurations = {
       user = home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
-          modules = [ (./. + "/profiles"+("/"+profile)+"/home.nix") ]; # load home.nix from selected PROFILE
+          modules = [ (./. + "/profiles"+("/"+profile)+"/home.nix") # load home.nix from selected PROFILE
+                    #  inputs.nix-flatpak.homeManagerModules.nix-flatpak # Declarative flatpaks
+                    ];
           extraSpecialArgs = {
             # pass config variables from above
             inherit username;
@@ -75,6 +77,7 @@
             inherit term;
             inherit spawnEditor;
             inherit (inputs) nix-doom-emacs;
+            #inherit (inputs) nix-flatpak;
             inherit (inputs) stylix;
             inherit (inputs) eaf;
             inherit (inputs) eaf-browser;
@@ -116,6 +119,7 @@
     nix-doom-emacs.url = "github:librephoenix/nix-doom-emacs?ref=pgtk-patch";
     stylix.url = "github:danth/stylix";
     rust-overlay.url = "github:oxalica/rust-overlay";
+    #nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=v0.2.0";
     eaf = {
       url = "github:emacs-eaf/emacs-application-framework";
       flake = false;
