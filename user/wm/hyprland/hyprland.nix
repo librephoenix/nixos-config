@@ -39,7 +39,8 @@
       exec-once = waybar
       exec-once = emacs --daemon
 
-      exec-once = swayidle -w timeout 90 '${pkgs.gtklock}/bin/gtklock -d' timeout 210 'suspend-unless-render' resume '${pkgs.hyprland}/bin/hyprctl dispatch dpms on' before-sleep "${pkgs.gtklock}/bin/gtklock -d"
+      #exec-once = swayidle -w timeout 90 '${pkgs.gtklock}/bin/gtklock -d' timeout 210 'suspend-unless-render' resume '${pkgs.hyprland}/bin/hyprctl dispatch dpms on' before-sleep "${pkgs.gtklock}/bin/gtklock -d"
+      exec-once = swayidle -w timeout 90 '${pkgs.swaylock}/bin/swaylock' timeout 210 'suspend-unless-render' resume '${pkgs.hyprland}/bin/hyprctl dispatch dpms on' before-sleep "${pkgs.swaylock}/bin/swaylock"
       exec-once = obs-notification-mute-daemon
 
       exec = ~/.swaybg-stylix
@@ -127,8 +128,8 @@
        bind=,code:238,exec,brightnessctl --device='asus::kbd_backlight' set +1
        bind=,code:255,exec,airplane-mode
 
-       bind=SUPERSHIFT,S,exec,gtklock -d & sleep 1 && systemctl suspend
-       bind=SUPERCTRL,L,exec,gtklock -d
+       bind=SUPERSHIFT,S,exec,swaylock & sleep 1 && systemctl suspend
+       bind=SUPERCTRL,L,exec,swaylock
 
        bind=SUPER,H,movefocus,l
        bind=SUPER,J,movefocus,d
@@ -721,12 +722,12 @@
       background-size: auto 100%;
     }
   '';
-  #programs.swaylock = {
-  #  enable = true;
-  #  settings = {
-  #    color = "#"+config.lib.stylix.colors.base00;
-  #  };
-  #};
+  programs.swaylock = {
+    enable = true;
+    settings = {
+      color = "#"+config.lib.stylix.colors.base00;
+    };
+  };
   programs.fuzzel.enable = true;
   programs.fuzzel.settings = {
     main = {

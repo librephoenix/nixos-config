@@ -1241,7 +1241,7 @@ https://github.com/magit/magit/issues/460 (@cpitclaudel)."
   "q" 'helpful-kill-buffers)
 
 ;;;------ helpful configuration ------;;;
-(add-load-path! "~/.nix-profile/share/emacs/site-lisp/elpa/mu4e-1.10.8")
+(add-load-path! "~/.nix-profile/share/emacs/site-lisp/elpa/mu4e-1.10.7")
 (require 'mu4e)
 (require 'mu4e-contrib)
 (require 'mu4e-actions)
@@ -1385,7 +1385,7 @@ https://github.com/magit/magit/issues/460 (@cpitclaudel)."
 
 ;;;-- projectile wrapper commands ;;;--
 (require 'sudo-edit)
-(setq sudo-edit-local-method "doas")
+(setq sudo-edit-local-method "su")
 
 (map! :leader
       :desc "Open current file as root"

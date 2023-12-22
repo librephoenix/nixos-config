@@ -1465,7 +1465,7 @@ I don't have this active right now since it's kinda weird with pgtk...
 ** mu4e Configuration
 #+BEGIN_SRC emacs-lisp :tangle config.el
 ;;;------ helpful configuration ------;;;
-(add-load-path! "~/.nix-profile/share/emacs/site-lisp/elpa/mu4e-1.10.8")
+(add-load-path! "~/.nix-profile/share/emacs/site-lisp/elpa/mu4e-1.10.7")
 (require 'mu4e)
 (require 'mu4e-contrib)
 (require 'mu4e-actions)
@@ -1650,7 +1650,7 @@ EAF doesn't work on Wayland :(
 #+BEGIN_SRC emacs-lisp :tangle config.el
 ;;;-- projectile wrapper commands ;;;--
 (require 'sudo-edit)
-(setq sudo-edit-local-method "doas")
+(setq sudo-edit-local-method "su")
 
 (map! :leader
       :desc "Open current file as root"
@@ -2049,6 +2049,23 @@ in
       #pymupdf TODO pymupdf fails to build
       markdown
     ]))
+  ];
+
+  nixpkgs.overlays = [
+    (self: super:
+      {
+        mu = super.mu.overrideAttrs (oldAttrs: rec {
+        pname = "mu";
+        version = "1.10.7";
+        src = super.fetchFromGitHub {
+          owner = "djcb";
+          repo = "mu";
+          rev = "v1.10.7";
+          hash = "sha256-x1TsyTOK5U6/Y3QInm+XQ7T32X49iwa+4UnaHdiyqCI=";
+        };
+        });
+      }
+    )
   ];
 
   services.mbsync = {

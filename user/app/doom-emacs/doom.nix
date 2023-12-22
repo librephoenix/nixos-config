@@ -66,6 +66,23 @@ in
     ]))
   ];
 
+  nixpkgs.overlays = [
+    (self: super:
+      {
+        mu = super.mu.overrideAttrs (oldAttrs: rec {
+        pname = "mu";
+        version = "1.10.7";
+        src = super.fetchFromGitHub {
+          owner = "djcb";
+          repo = "mu";
+          rev = "v1.10.7";
+          hash = "sha256-x1TsyTOK5U6/Y3QInm+XQ7T32X49iwa+4UnaHdiyqCI=";
+        };
+        });
+      }
+    )
+  ];
+
   services.mbsync = {
     enable = true;
     package = pkgs.isync;

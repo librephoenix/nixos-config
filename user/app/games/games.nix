@@ -3,7 +3,7 @@ let
   myRetroarch =
     (pkgs.retroarch.override {
       cores = with pkgs.libretro; [
-        mgba
+        vba-m
         desmume
         dolphin
         citra
