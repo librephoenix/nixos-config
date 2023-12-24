@@ -1,5 +1,5 @@
 { config, lib, pkgs, ... }:
 
 {
-  services.ntp.enable = true;
+  services.timesyncd.enable = true;
 }
