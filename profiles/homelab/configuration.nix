@@ -3,6 +3,7 @@
 {
   imports =
     [ ../../system/hardware-configuration.nix
+      ../../system/hardware/time.nix # Network time sync
       ../../system/security/doas.nix
       ../../system/security/gpg.nix
       ../../system/security/sshd.nix

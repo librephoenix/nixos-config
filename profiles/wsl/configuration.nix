@@ -13,6 +13,7 @@ in
     [ nixos-wsl.nixosModules.wsl
       ../../system/hardware/kernel.nix # Kernel config
       ../../system/hardware/systemd.nix # systemd config
+      ../../system/hardware/time.nix # Network time sync
       ../../system/hardware/opengl.nix
       ../../system/hardware/printing.nix
       ../../system/hardware/bluetooth.nix
