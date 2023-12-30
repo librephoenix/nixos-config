@@ -20,6 +20,16 @@ in
     qjoypad
     superTux
     superTuxKart
+
+    # I installed these in distrobox
+    # and exported using distrobox-export
+    (pkgs.makeDesktopItem {
+      name = "pokefinder";
+      desktopName = "PokeFinder";
+      exec = "/home/emmet/.local/bin/pokefinder";
+      terminal = false;
+      type = "Application";
+    })
   ];
 
   nixpkgs.config = {

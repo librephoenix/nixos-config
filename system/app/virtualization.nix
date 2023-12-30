@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 {
-  environment.systemPackages = with pkgs; [ virt-manager virtualbox ];
+  environment.systemPackages = with pkgs; [ virt-manager virtualbox distrobox ];
   virtualisation.libvirtd = {
     allowedBridges = [
       "nm-bridge"

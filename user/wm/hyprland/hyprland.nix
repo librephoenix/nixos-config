@@ -188,6 +188,10 @@
        windowrulev2 = workspace special silent,$pavucontrol
        windowrulev2 = opacity 0.80,$pavucontrol
 
+       windowrulev2 = float,title:^(Kdenlive)$
+
+       windowrulev2 = float,class:^(pokefinder)$
+
        windowrulev2 = opacity 0.85,$gearyscratchpad
        windowrulev2 = opacity 0.80,title:ORUI
        windowrulev2 = opacity 0.80,title:Heimdall

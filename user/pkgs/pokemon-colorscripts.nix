@@ -8,12 +8,10 @@ in
 
     src = fetchFromGitLab {
       owner = "phoneybadger";
-      repo = "pokemon-colorscripts";
+      repo = name;
       rev = "0483c85b93362637bdd0632056ff986c07f30868";
       sha256 = "sha256-rj0qKYHCu9SyNsj1PZn1g7arjcHuIDGHwubZg/yJt7A=";
     };
-
-    phases = "installPhase";
 
     installPhase = ''
       mkdir -p $out $out/bin $out/opt
@@ -24,7 +22,7 @@ in
     '';
 
     meta = {
-      homepage = "https://gitlab.com/phoneybadger/pokemon-colorscripts";
+      homepage = "https://github.com/Admiral-Fish/PokeFinder";
       description = "CLI utility to print out images of pokemon to terminal";
       license = lib.licenses.mit;
       maintainers = [];
