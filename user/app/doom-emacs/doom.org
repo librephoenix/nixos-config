@@ -1061,7 +1061,6 @@ On Wayland, EAF doesn't work.
 *** Standard Org Agenda Configuration
 #+BEGIN_SRC emacs-lisp :tangle config.el
 ;;;------ Org agenda configuration ------;;;
-
 ;; Set span for agenda to be just daily
 (setq org-agenda-span 1
       org-agenda-start-day "+0d"
@@ -1079,7 +1078,6 @@ On Wayland, EAF doesn't work.
   '(org-agenda-date-weekend-today :inherit outline-4 :height 1.15)
   '(org-super-agenda-header :inherit custom-button :weight bold :height 1.05)
   )
-
 
 ;; Toggle completed entries function
 (defun org-agenda-toggle-completed ()
@@ -1118,6 +1116,9 @@ On Wayland, EAF doesn't work.
         ("Personal.p" ,(list (all-the-icons-material "person" :height 0.9)) nil nil :ascent center)
 ))
 
+#+END_SRC
+*** Org Agenda Convenience Functions
+#+BEGIN_SRC emacs-lisp :tangle config.el
 (defun org-categorize-by-roam-db-on-save ()
   (interactive)
   (when (string= (message "%s" major-mode) "org-mode")
@@ -1166,9 +1167,6 @@ On Wayland, EAF doesn't work.
               (revert-buffer nil 'noconfirm)))))
         (org-agenda-files)))
 
-#+END_SRC
-*** Org Agenda Convenience Functions
-#+BEGIN_SRC emacs-lisp :tangle config.el
 ;; Function to list all my available org agenda files and switch to them
 (defun list-and-switch-to-agenda-file ()
   "Lists all available agenda files and switches to desired one"

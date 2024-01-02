@@ -903,7 +903,6 @@ tasks."
       "V" 'kill-org-roam-ui)
 
 ;;;------ Org agenda configuration ------;;;
-
 ;; Set span for agenda to be just daily
 (setq org-agenda-span 1
       org-agenda-start-day "+0d"
@@ -921,7 +920,6 @@ tasks."
   '(org-agenda-date-weekend-today :inherit outline-4 :height 1.15)
   '(org-super-agenda-header :inherit custom-button :weight bold :height 1.05)
   )
-
 
 ;; Toggle completed entries function
 (defun org-agenda-toggle-completed ()
