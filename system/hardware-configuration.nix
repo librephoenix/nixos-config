@@ -13,10 +13,15 @@
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
 
+  services.btrfs.autoScrub = {
+    enable = true;
+    interval = "weekly";
+  };
+
   fileSystems."/" =
     { device = "/dev/disk/by-uuid/637d8261-0650-4ece-a35b-59d97baf64a7";
       fsType = "btrfs";
-      options = [ "noatime,compress=lzo,space_cache=v2,subvol=@" ];
+      options = [ "noatime,compress=zstd:2,space_cache=v2,subvol=@" ];
     };
 
   boot.initrd.luks.devices."luks-385106b5-71f7-460e-9a2b-2416f3b54cb6".device = "/dev/disk/by-uuid/385106b5-71f7-460e-9a2b-2416f3b54cb6";
