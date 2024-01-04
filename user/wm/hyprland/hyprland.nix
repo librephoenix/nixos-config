@@ -32,6 +32,8 @@
       exec-once = hyprprofile Personal
 
       exec-once = pypr
+      exec-once = ydotoold
+      exec-once = STEAM_FRAME_FORCE_CLOSE=1 steam -silent
       exec-once = nm-applet
       exec-once = blueman-applet
       exec-once = GOMAXPROCS=1 syncthing --no-browser
@@ -263,8 +265,10 @@
     polkit_gnome
     libva-utils
     gsettings-desktop-schemas
+    gnome.zenity
     wlr-randr
     wtype
+    ydotool
     wl-clipboard
     hyprland-protocols
     hyprpicker

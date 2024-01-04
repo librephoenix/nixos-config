@@ -25,8 +25,9 @@ in
 {
   home.packages = with pkgs; [
     # Games
-    gamehub
+    pegasus-frontend
     myRetroarch
+    libfaketime
     airshipper
     qjoypad
     superTux
@@ -38,6 +39,13 @@ in
       name = "pokefinder";
       desktopName = "PokeFinder";
       exec = "/home/emmet/.local/bin/pokefinder";
+      terminal = false;
+      type = "Application";
+    })
+    (pkgs.makeDesktopItem {
+      name = "eontimer";
+      desktopName = "EonTimer";
+      exec = "/home/emmet/.local/bin/eontimer";
       terminal = false;
       type = "Application";
     })
