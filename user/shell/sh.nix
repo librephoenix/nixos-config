@@ -39,7 +39,7 @@ in
   home.packages = with pkgs; [
     disfetch lolcat cowsay onefetch
     gnugrep gnused
-    bat eza bottom fd
+    bat eza bottom fd bc
     direnv nix-direnv
   ];
 

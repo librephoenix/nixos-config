@@ -5,8 +5,7 @@
     ../../app/terminal/alacritty.nix
     ../../app/terminal/kitty.nix
     (import ../../app/dmenu-scripts/networkmanager-dmenu.nix {
-      dmenu_command = "fuzzel -d";
-      inherit config lib pkgs;
+      dmenu_command = "fuzzel -d"; inherit config lib pkgs;
     })
     (import ./hyprprofiles/hyprprofiles.nix {
       dmenuCmd = "fuzzel -d"; inherit config lib pkgs;
@@ -110,6 +109,7 @@
        bindm=SUPER,mouse:272,movewindow
        bindm=SUPER,mouse:273,resizewindow
        bind=SUPER,T,togglefloating
+       bind=SUPER,G,exec,hyprworkspace 9; pegasus-fe;
 
        bind=,code:107,exec,grim -g "$(slurp)"
        bind=SHIFT,code:107,exec,grim -g "$(slurp -o)"
