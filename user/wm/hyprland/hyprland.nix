@@ -730,6 +730,8 @@
       background-size: auto 100%;
     }
   '';
+  services.udiskie.enable = true;
+  services.udiskie.tray = "always";
   programs.swaylock = {
     enable = true;
     settings = {

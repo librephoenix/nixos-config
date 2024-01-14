@@ -22,6 +22,7 @@
       ../../system/security/firewall.nix
       ../../system/security/firejail.nix
       ../../system/security/openvpn.nix
+      ../../system/security/automount.nix
       ../../system/style/stylix.nix
     ];
 
