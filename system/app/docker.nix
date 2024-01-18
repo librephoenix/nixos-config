@@ -1,4 +1,4 @@
-{ config, lib, pkgs, username, storageDriver ? null, ... }:
+{ lib, userSettings, storageDriver ? null, ... }:
 
 assert lib.asserts.assertOneOf "storageDriver" storageDriver [
   null
@@ -17,5 +17,5 @@ assert lib.asserts.assertOneOf "storageDriver" storageDriver [
     storageDriver = storageDriver;
     autoPrune.enable = true;
   };
-  users.users.${username}.extraGroups = [ "docker" ];
+  users.users.${userSettings.username}.extraGroups = [ "docker" ];
 }

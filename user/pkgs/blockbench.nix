@@ -1,4 +1,4 @@
-{ config, stdenv, fetchurl, appimageTools, makeWrapper, electron_22, lib, pkgs, ... }:
+{ lib, pkgs, ... }:
 
 {
   nixpkgs.overlays = [
@@ -53,4 +53,6 @@
       }
     )
   ];
+
+  home.packages = [ pkgs.blockbench-electron ];
 }

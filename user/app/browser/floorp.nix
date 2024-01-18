@@ -1,4 +1,4 @@
-{ config, lib, pkgs, wmType, font, ... }:
+{ pkgs, ... }:
 
 {
   # Module installing  as default browser

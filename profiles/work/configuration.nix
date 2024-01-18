@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, lib, pkgs, blocklist-hosts, username, name, hostname, timezone, locale, wm, theme, ... }:
+{ pkgs, lib, systemSettings, userSettings, ... }:
 {
   imports =
     [ ../../system/hardware-configuration.nix
@@ -16,6 +16,7 @@
       (./. + "../../../system/wm"+("/"+wm)+".nix") # My window manager
       ../../system/app/flatpak.nix
       ../../system/app/virtualization.nix
+      ( import ../../system/app/docker.nix {storageDriver = "btrfs"; inherit userSettings lib;} )
       ../../system/security/doas.nix
       ../../system/security/gpg.nix
       ../../system/security/blocklist.nix
@@ -50,28 +51,28 @@
   boot.loader.efi.efiSysMountPoint = "/boot/efi";
 
   # Networking
-  networking.hostName = hostname; # Define your hostname.
+  networking.hostName = systemSettings.hostname; # Define your hostname.
   networking.networkmanager.enable = true; # Use networkmanager
 
   # Timezone and locale
-  time.timeZone = timezone; # time zone
-  i18n.defaultLocale = locale;
+  time.timeZone = systemSettings.timezone; # time zone
+  i18n.defaultLocale = systemSettings.locale;
   i18n.extraLocaleSettings = {
-    LC_ADDRESS = locale;
-    LC_IDENTIFICATION = locale;
-    LC_MEASUREMENT = locale;
-    LC_MONETARY = locale;
-    LC_NAME = locale;
-    LC_NUMERIC = locale;
-    LC_PAPER = locale;
-    LC_TELEPHONE = locale;
-    LC_TIME = locale;
+    LC_ADDRESS = systemSettings.locale;
+    LC_IDENTIFICATION = systemSettings.locale;
+    LC_MEASUREMENT = systemSettings.locale;
+    LC_MONETARY = systemSettings.locale;
+    LC_NAME = systemSettings.locale;
+    LC_NUMERIC = systemSettings.locale;
+    LC_PAPER = systemSettings.locale;
+    LC_TELEPHONE = systemSettings.locale;
+    LC_TIME = systemSettings.locale;
   };
 
   # User account
-  users.users.${username} = {
+  users.users.${userSettings.username} = {
     isNormalUser = true;
-    description = name;
+    description = userSettings.name;
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [];
     uid = 1000;

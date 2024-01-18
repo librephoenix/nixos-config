@@ -1,4 +1,4 @@
-{ config, lib, pkgs, blocklist-hosts, username, hostname, timezone, locale, ... }:
+{ lib, pkgs, systemSettings, userSettings, ... }:
 
 {
   imports =
@@ -7,7 +7,7 @@
       ../../system/security/doas.nix
       ../../system/security/gpg.nix
       ../../system/security/sshd.nix
-      ( import ../../system/app/docker.nix {storageDriver = "btrfs"; inherit username pkgs config lib;} )
+      ( import ../../system/app/docker.nix {storageDriver = "btrfs"; inherit userSettings pkgs lib;} )
     ];
 
   # Fix nix path
@@ -34,28 +34,28 @@
   boot.loader.efi.efiSysMountPoint = "/boot/efi";
 
   # Networking
-  networking.hostName = hostname; # Define your hostname.
+  networking.hostName = systemSettings.hostname; # Define your hostname.
   networking.networkmanager.enable = true; # Use networkmanager
 
   # Timezone and locale
-  time.timeZone = timezone; # time zone
-  i18n.defaultLocale = locale;
+  time.timeZone = systemSettings.timezone; # time zone
+  i18n.defaultLocale = systemSettings.locale;
   i18n.extraLocaleSettings = {
-    LC_ADDRESS = locale;
-    LC_IDENTIFICATION = locale;
-    LC_MEASUREMENT = locale;
-    LC_MONETARY = locale;
-    LC_NAME = locale;
-    LC_NUMERIC = locale;
-    LC_PAPER = locale;
-    LC_TELEPHONE = locale;
-    LC_TIME = locale;
+    LC_ADDRESS = systemSettings.locale;
+    LC_IDENTIFICATION = systemSettings.locale;
+    LC_MEASUREMENT = systemSettings.locale;
+    LC_MONETARY = systemSettings.locale;
+    LC_NAME = systemSettings.locale;
+    LC_NUMERIC = systemSettings.locale;
+    LC_PAPER = systemSettings.locale;
+    LC_TELEPHONE = systemSettings.locale;
+    LC_TIME = systemSettings.locale;
   };
 
   # User account
-  users.users.${username} = {
+  users.users.${userSettings.username} = {
     isNormalUser = true;
-    description = "Emmet";
+    description = userSettings.name;
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [];
     uid = 1000;

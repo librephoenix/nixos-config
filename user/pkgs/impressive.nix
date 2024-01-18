@@ -1,5 +1,5 @@
 # THIS DOES NOT WORK YET!
-{ lib, stdenv, buildPythonPackage, pkgs, ... }:
+{ lib, buildPythonPackage, pkgs, ... }:
 
 let name = "Impressive";
     _name = "impressive";

@@ -1,4 +1,4 @@
-{ config, lib, pkgs, stdenv, toString, browser, term, spawnEditor, font, hyprland-plugins, ... }:
+{ config, lib, pkgs, userSettings, ... }:
 
 {
   imports = [
@@ -20,9 +20,7 @@
 
   wayland.windowManager.hyprland = {
     enable = true;
-    plugins = [
-    #  (pkgs.callPackage ./hyprbars.nix { inherit hyprland-plugins; } )
-    ];
+    plugins = [ ];
     settings = { };
     extraConfig = ''
       exec-once = dbus-update-activation-environment DISPLAY XAUTHORITY WAYLAND_DISPLAY
@@ -67,7 +65,7 @@
 
        #    col.text = 0xff''+ config.lib.stylix.colors.base05 + ''
 
-       #    bar_text_font = '' + font + ''
+       #    bar_text_font = '' + userSettings.font + ''
 
        #    bar_text_size = 12
 
@@ -91,11 +89,11 @@
        bind = SUPER,R,pass,^(com\.obsproject\.Studio)$
        bind = SUPERSHIFT,R,pass,^(com\.obsproject\.Studio)$
 
-       bind=SUPER,RETURN,exec,'' + term + ''
+       bind=SUPER,RETURN,exec,'' + userSettings.term + ''
 
-       bind=SUPER,A,exec,'' + spawnEditor + ''
+       bind=SUPER,A,exec,'' + userSettings.spawnEditor + ''
 
-       bind=SUPER,S,exec,'' + browser + ''
+       bind=SUPER,S,exec,'' + userSettings.browser + ''
 
        bind=SUPERCTRL,S,exec,container-open # qutebrowser only
 
@@ -551,7 +549,7 @@
     style = ''
       * {
           /* `otf-font-awesome` is required to be installed for icons */
-          font-family: FontAwesome, ''+font+'';
+          font-family: FontAwesome, ''+userSettings.font+'';
 
           font-size: 20px;
       }
@@ -741,7 +739,7 @@
   programs.fuzzel.enable = true;
   programs.fuzzel.settings = {
     main = {
-      font = font + ":size=13";
+      font = userSettings.font + ":size=13";
       terminal = "${pkgs.alacritty}/bin/alacritty";
     };
     colors = {
@@ -764,9 +762,9 @@
       anchor = "bottom-right";
       stacking-order = "top-down";
       min-width = 400;
-      title-font = font + ":size=14";
-      summary-font = font + ":size=12";
-      body-font = font + ":size=11";
+      title-font = userSettings.font + ":size=14";
+      summary-font = userSettings.font + ":size=12";
+      body-font = userSettings.font + ":size=11";
       border-size = 0;
     };
     low = {

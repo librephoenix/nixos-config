@@ -1,5 +1,5 @@
 # THIS DOES NOT WORK YET!
-{ lib, stdenv, pkgs, ... }:
+{ stdenv, pkgs, ... }:
 
 let name = "rogauracore";
     owner = "wroberts";

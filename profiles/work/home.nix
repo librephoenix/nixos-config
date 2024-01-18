@@ -1,17 +1,17 @@
-{ config, lib, pkgs, stdenv, fetchurl, nix-doom-emacs, stylix, username, email, dotfilesDir, theme, wm, browser, editor, spawnEditor, term, ... }:
+{ config, pkgs, nix-doom-emacs, stylix, userSettings, ... }:
 
 {
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
-  home.username = username;
-  home.homeDirectory = "/home/"+username;
+  home.username = userSettings.username;
+  home.homeDirectory = "/home/"+userSettings.username;
 
   programs.home-manager.enable = true;
 
   imports = [
-              nix-doom-emacs.hmModule
+              (if ((userSettings.editor == "emacs") || (userSettings.editor == "emacsclient")) then nix-doom-emacs.hmModule else null)
               stylix.homeManagerModules.stylix
-              (./. + "../../../user/wm"+("/"+wm+"/"+wm)+".nix") # My window manager selected from flake
+              (./. + "../../../user/wm"+("/"+userSettings.wm+"/"+userSettings.wm)+".nix") # My window manager selected from flake
               ../../user/shell/sh.nix # My zsh and bash config
               ../../user/shell/cli-collection.nix # Useful CLI apps
               ../../user/bin/phoenix.nix # My nix command wrapper
@@ -19,13 +19,13 @@
               ../../user/app/ranger/ranger.nix # My ranger file manager config
               ../../user/app/git/git.nix # My git config
               ../../user/app/keepass/keepass.nix # My password manager
-              (./. + "../../../user/app/browser"+("/"+browser)+".nix") # My default browser selected from flake
+              (./. + "../../../user/app/browser"+("/"+userSettings.browser)+".nix") # My default browser selected from flake
               ../../user/app/virtualization/virtualization.nix # Virtual machines
               ../../user/app/flatpak/flatpak.nix # Flatpaks
               ../../user/style/stylix.nix # Styling and themes for my apps
               ../../user/lang/cc/cc.nix # C and C++ tools
               ../../user/lang/godot/godot.nix # Game development
-              ../../user/pkgs/blockbench.nix # Blockbench
+              #../../user/pkgs/blockbench.nix # Blockbench ## marked as insecure
               ../../user/hardware/bluetooth.nix # Bluetooth
             ];
 
@@ -146,10 +146,10 @@
   };
 
   home.sessionVariables = {
-    EDITOR = editor;
-    SPAWNEDITOR = spawnEditor;
-    TERM = term;
-    BROWSER = browser;
+    EDITOR = userSettings.editor;
+    SPAWNEDITOR = userSettings.spawnEditor;
+    TERM = userSettings.term;
+    BROWSER = userSettings.browser;
   };
 
 }

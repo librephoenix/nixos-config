@@ -1,4 +1,4 @@
-{ config, lib, pkgs, font, qute-containers, ... }:
+{ config, pkgs, userSettings, ... }:
 
 {
 
@@ -194,7 +194,7 @@ c.colors.tabs.selected.even.fg = base05
 c.colors.tabs.selected.even.bg = base02
 c.colors.webpage.bg = base00
 
-font = "''+font+''"
+font = "''+userSettings.font+''"
 
 c.fonts.default_family = font
 c.fonts.default_size = '14pt'
@@ -222,7 +222,7 @@ c.fonts.web.family.cursive = font
         }
         /*paragraphs*/
         p {
-            font-family:''+font+'';
+            font-family:''+userSettings.font+'';
 
             font-size:24px;
             text-align:center;
@@ -255,7 +255,7 @@ c.fonts.web.family.cursive = font
 
         /*xmp tag style for ascii art*/
         xmp {
-            font-family:''+font+'';
+            font-family:''+userSettings.font+'';
 
             font-size:22px;
             color: #''+config.lib.stylix.colors.base01+''
@@ -340,7 +340,7 @@ Bard
       }
       /*paragraphs*/
       p {
-          font-family:''+font+'';
+          font-family:''+userSettings.font+'';
 
           font-size:24px;
           text-align:center;
@@ -373,7 +373,7 @@ Bard
 
       /*xmp tag style for ascii art*/
       xmp {
-          font-family:''+font+'';
+          font-family:''+userSettings.font+'';
 
           font-size:22px;
           color: #''+config.lib.stylix.colors.base01+''
@@ -447,7 +447,7 @@ Bard
       }
       /*paragraphs*/
       p {
-          font-family:''+font+'';
+          font-family:''+userSettings.font+'';
 
           font-size:24px;
           text-align:center;
@@ -480,7 +480,7 @@ Bard
 
       /*xmp tag style for ascii art*/
       xmp {
-          font-family:''+font+'';
+          font-family:''+userSettings.font+'';
 
           font-size:22px;
           color: #''+config.lib.stylix.colors.base01+''
@@ -554,7 +554,7 @@ Bard
       }
       /*paragraphs*/
       p {
-          font-family:''+font+'';
+          font-family:''+userSettings.font+'';
 
           font-size:24px;
           text-align:center;
@@ -587,7 +587,7 @@ Bard
 
       /*xmp tag style for ascii art*/
       xmp {
-          font-family:''+font+'';
+          font-family:''+userSettings.font+'';
 
           font-size:22px;
           color: #''+config.lib.stylix.colors.base01+''
@@ -661,7 +661,7 @@ Bard
       }
       /*paragraphs*/
       p {
-          font-family:''+font+'';
+          font-family:''+userSettings.font+'';
 
           font-size:24px;
           text-align:center;
@@ -694,7 +694,7 @@ Bard
 
       /*xmp tag style for ascii art*/
       xmp {
-          font-family:''+font+'';
+          font-family:''+userSettings.font+'';
 
           font-size:22px;
           color: #''+config.lib.stylix.colors.base01+''
@@ -768,7 +768,7 @@ Bard
       }
       /*paragraphs*/
       p {
-          font-family:''+font+'';
+          font-family:''+userSettings.font+'';
 
           font-size:24px;
           text-align:center;
@@ -801,7 +801,7 @@ Bard
 
       /*xmp tag style for ascii art*/
       xmp {
-          font-family:''+font+'';
+          font-family:''+userSettings.font+'';
 
           font-size:22px;
           color: #''+config.lib.stylix.colors.base01+''
@@ -875,7 +875,7 @@ Bard
       }
       /*paragraphs*/
       p {
-          font-family:''+font+'';
+          font-family:''+userSettings.font+'';
 
           font-size:24px;
           text-align:center;
@@ -908,7 +908,7 @@ Bard
 
       /*xmp tag style for ascii art*/
       xmp {
-          font-family:''+font+'';
+          font-family:''+userSettings.font+'';
 
           font-size:22px;
           color: #''+config.lib.stylix.colors.base01+''

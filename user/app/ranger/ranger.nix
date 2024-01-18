@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, pkgs, ... }:
 let myCbxScript = ''
   # TODO fix this for wayland
   #!/bin/sh

@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, lib, pkgs, blocklist-hosts, username, name, hostname, timezone, locale, wm, theme, ... }:
+{ lib, pkgs, systemSettings, userSettings, ... }:
 
 with lib;
 let
@@ -28,7 +28,7 @@ in
   wsl = {
     enable = true;
     automountPath = "/mnt";
-    defaultUser = username;
+    defaultUser = userSettings.username;
     startMenuLaunchers = true;
 
     # Enable native Docker support
@@ -61,27 +61,27 @@ in
   boot.kernelModules = [ "i2c-dev" "i2c-piix4" "cpufreq_powersave" ];
 
   # Networking
-  networking.hostName = hostname; # Define your hostname.
+  networking.hostName = systemSettings.hostname; # Define your hostname.
 
   # Timezone and locale
-  time.timeZone = timezone; # time zone
-  i18n.defaultLocale = locale;
+  time.timeZone = systemSettings.timezone; # time zone
+  i18n.defaultLocale = systemSettings.locale;
   i18n.extraLocaleSettings = {
-    LC_ADDRESS = locale;
-    LC_IDENTIFICATION = locale;
-    LC_MEASUREMENT = locale;
-    LC_MONETARY = locale;
-    LC_NAME = locale;
-    LC_NUMERIC = locale;
-    LC_PAPER = locale;
-    LC_TELEPHONE = locale;
-    LC_TIME = locale;
+    LC_ADDRESS = systemSettings.locale;
+    LC_IDENTIFICATION = systemSettings.locale;
+    LC_MEASUREMENT = systemSettings.locale;
+    LC_MONETARY = systemSettings.locale;
+    LC_NAME = systemSettings.locale;
+    LC_NUMERIC = systemSettings.locale;
+    LC_PAPER = systemSettings.locale;
+    LC_TELEPHONE = systemSettings.locale;
+    LC_TIME = systemSettings.locale;
   };
 
   # User account
-  users.users.${username} = {
+  users.users.${userSettings.username} = {
     isNormalUser = true;
-    description = name;
+    description = userSettings.name;
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [];
     uid = 1000;

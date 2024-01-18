@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchFromGitHub, pkgs, dmenuCmd ? "rofi -dmenu", ... }:
+{ lib, stdenv, fetchFromGitHub, dmenuCmd ? "rofi -dmenu", ... }:
 
 let name = "qute-containers";
     version = "unstable";

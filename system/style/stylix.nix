@@ -1,11 +1,11 @@
-{ config, lib, pkgs, stylix, theme, font, fontPkg, ... }:
+{ lib, pkgs, stylix, userSettings, ... }:
 
 let
-  themePath = "../../../themes/"+theme+"/"+theme+".yaml";
-  themePolarity = lib.removeSuffix "\n" (builtins.readFile (./. + "../../../themes"+("/"+theme)+"/polarity.txt"));
+  themePath = "../../../themes/"+userSettings.theme+"/"+userSettings.theme+".yaml";
+  themePolarity = lib.removeSuffix "\n" (builtins.readFile (./. + "../../../themes"+("/"+userSettings.theme)+"/polarity.txt"));
   myLightDMTheme = if themePolarity == "light" then "Adwaita" else "Adwaita-dark";
-  backgroundUrl = builtins.readFile (./. + "../../../themes"+("/"+theme)+"/backgroundurl.txt");
-  backgroundSha256 = builtins.readFile (./. + "../../../themes/"+("/"+theme)+"/backgroundsha256.txt");
+  backgroundUrl = builtins.readFile (./. + "../../../themes"+("/"+userSettings.theme)+"/backgroundurl.txt");
+  backgroundSha256 = builtins.readFile (./. + "../../../themes/"+("/"+userSettings.theme)+"/backgroundsha256.txt");
 in
 {
   imports = [ stylix.nixosModules.stylix ];
@@ -19,16 +19,16 @@ in
   stylix.base16Scheme = ./. + themePath;
   stylix.fonts = {
     monospace = {
-      name = font;
-      package = fontPkg;
+      name = userSettings.font;
+      package = userSettings.fontPkg;
     };
     serif = {
-      name = font;
-      package = fontPkg;
+      name = userSettings.font;
+      package = userSettings.fontPkg;
     };
     sansSerif = {
-      name = font;
-      package = fontPkg;
+      name = userSettings.font;
+      package = userSettings.fontPkg;
     };
     emoji = {
       name = "Noto Color Emoji";

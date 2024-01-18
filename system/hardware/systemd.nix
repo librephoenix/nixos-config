@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ ... }:
 
 {
   services.journald.extraConfig = "SystemMaxUse=50M\nSystemMaxFiles=5";

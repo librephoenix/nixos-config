@@ -1,4 +1,4 @@
-{ config, lib, pkgs, username, dotfilesDir, ... }:
+{ pkgs, userSettings, ... }:
 
 let
   # This sets up my "phoenix" script with my configuration paths
@@ -43,7 +43,7 @@ let
       }
       function sync_system {
         echo -e "$ORANGE### Syncing system configuration ###$NC"
-        pushd ''+dotfilesDir+'' &> /dev/null;
+        pushd ''+userSettings.dotfilesDir+'' &> /dev/null;
         if [ "$1" = "verbose" ]; then
           echo "Syncing system configuration (stack traces will be shown):"
           sudo systemd-run --no-ask-password --uid=0 --system --scope -p MemoryLimit=16000M -p CPUQuota=60% nixos-rebuild switch --flake .#system --show-trace;
@@ -81,7 +81,7 @@ let
       }
       function sync_user {
         echo -e "$BLUE### Syncing user configuration ###$NC"
-        pushd ''+dotfilesDir+'' &> /dev/null;
+        pushd ''+userSettings.dotfilesDir+'' &> /dev/null;
         if [ "$1" = "verbose" ]; then
           echo "Syncing user configuration (stack traces will be shown):"
           echo "Running home-manager switch --flake .#user --show-trace"
@@ -107,7 +107,7 @@ let
       }
       function update_flake {
         echo -e "$CYAN### Updating flake and other package managers$NC";
-        pushd ''+dotfilesDir+'' &> /dev/null;
+        pushd ''+userSettings.dotfilesDir+'' &> /dev/null;
         if [ "$1" = "verbose" ]; then
           echo "Updating flake inputs";
           echo "Running nix flake update";
@@ -123,7 +123,7 @@ let
             npm install darkreader @mozilla/readability;
             echo "Running rm package*.json";
             rm package*.json;
-            echo "Returning to ''+dotfilesDir+''"
+            echo "Returning to ''+userSettings.dotfilesDir+''"
             popd &> /dev/null;
           fi
           echo ""
@@ -173,7 +173,7 @@ let
         fi
         popd &> /dev/null;
         echo -e "$CYAN### Flake and other updates finished ###$NC";
-        echo -e "Please run$GREEN git$NC diff HEAD flake.lock inside ''+dotfilesDir+(" "+'' to see flake input changes";'')+
+        echo -e "Please run$GREEN git$NC diff HEAD flake.lock inside ''+userSettings.dotfilesDir+(" "+'' to see flake input changes";'')+
       ''}
       if [ "$1" = "sync" ]; then
         if [ "$#" = 1 ]; then
