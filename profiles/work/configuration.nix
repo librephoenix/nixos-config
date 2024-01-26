@@ -13,7 +13,7 @@
       ../../system/hardware/opengl.nix
       ../../system/hardware/printing.nix
       ../../system/hardware/bluetooth.nix
-      (./. + "../../../system/wm"+("/"+wm)+".nix") # My window manager
+      (./. + "../../../system/wm"+("/"+userSettings.wm)+".nix") # My window manager
       ../../system/app/flatpak.nix
       ../../system/app/virtualization.nix
       ( import ../../system/app/docker.nix {storageDriver = "btrfs"; inherit userSettings lib;} )
@@ -74,7 +74,7 @@
     isNormalUser = true;
     description = userSettings.name;
     extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [];
+    packages = [];
     uid = 1000;
   };
 
