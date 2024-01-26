@@ -9,6 +9,7 @@
     gnugrep gnused
     killall
     libnotify
+    timer
     bat eza fd bottom ripgrep
     rsync
     tmux
