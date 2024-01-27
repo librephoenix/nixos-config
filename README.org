@@ -70,3 +70,7 @@ I separate my configurations into [[./profiles][profiles]] (essentially system t
 My profile can be conveniently selected in [[./flake.nix][my flake.nix]] by setting the =profile= variable.
 
 More detailed information on these profiles is in the [[./profiles][profiles directory]].
+
+** Star History
+Didn't think this would get that many stars on GitHub, yet here we are:
+[[https://api.star-history.com/svg?repos=librephoenix/nixos-config&type=Date]]
