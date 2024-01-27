@@ -127,6 +127,7 @@
        bind=,code:237,exec,brightnessctl --device='asus::kbd_backlight' set 1-
        bind=,code:238,exec,brightnessctl --device='asus::kbd_backlight' set +1
        bind=,code:255,exec,airplane-mode
+       bind=SUPER,C,exec,wl-copy $(hyprpicker)
 
        bind=SUPERSHIFT,S,exec,swaylock & sleep 1 && systemctl suspend
        bind=SUPERCTRL,L,exec,swaylock
