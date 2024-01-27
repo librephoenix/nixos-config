@@ -1,7 +1,7 @@
 {
   description = "Flake of LibrePhoenix";
 
-  outputs = { self, nixpkgs, home-manager, nix-doom-emacs, stylix,
+  outputs = { self, nixpkgs, nixpkgs-stable, home-manager, nix-doom-emacs, stylix,
               blocklist-hosts, rust-overlay, hyprland-plugins,
               eaf, eaf-browser, org-nursery, org-yaap,
               org-side-tree, org-timeblock, phscroll, ... }@inputs:
@@ -58,6 +58,13 @@
       overlays = [ rust-overlay.overlays.default ];
     };
 
+    pkgs-stable = import nixpkgs-stable {
+      system = systemSettings.system;
+      config = { allowUnfree = true;
+                 allowUnfreePredicate = (_: true); };
+      overlays = [ rust-overlay.overlays.default ];
+    };
+
     # configure lib
     lib = nixpkgs.lib;
 
@@ -70,6 +77,7 @@
                     ];
           extraSpecialArgs = {
             # pass config variables from above
+            inherit pkgs-stable;
             inherit systemSettings;
             inherit userSettings;
             inherit (inputs) nix-doom-emacs;
@@ -103,6 +111,7 @@
 
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-unstable";
+    nixpkgs-stable.url = "nixpkgs/nixos-23.11";
 
     home-manager.url = "github:nix-community/home-manager/master";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";

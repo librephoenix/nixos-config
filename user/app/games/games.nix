@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, pkgs-stable, ... }:
 let
   myRetroarch =
     (pkgs.retroarch.override {
@@ -17,9 +17,8 @@ let
           '';
         }))
         dolphin
-        citra
         genesis-plus-gx
-      ];
+      ] ++ [pkgs-stable.libretro.citra];
     });
 in
 {
