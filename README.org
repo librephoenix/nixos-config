@@ -73,4 +73,4 @@ More detailed information on these profiles is in the [[./profiles][profiles dir
 
 ** Star History
 Didn't think this would get that many stars on GitHub, yet here we are:
-[[img:https://api.star-history.com/svg?repos=librephoenix/nixos-config&secret=Z2l0aHViX3BhdF8xMUE3UU5XVVkwUkJ0YWNVVHFMdFFsX0dQVzJmVm5ETUlqaWVsMzVMVjc0V2NWbnNNNlV4RlA2M2cybkc1amZ6TTc2NENESlJBRUNma2FFZnlO&type=Date]]
+https://api.star-history.com/svg?repos=librephoenix/nixos-config&secret=Z2l0aHViX3BhdF8xMUE3UU5XVVkwUkJ0YWNVVHFMdFFsX0dQVzJmVm5ETUlqaWVsMzVMVjc0V2NWbnNNNlV4RlA2M2cybkc1amZ6TTc2NENESlJBRUNma2FFZnlO&type=Date.svg
