@@ -73,4 +73,6 @@ More detailed information on these profiles is in the [[./profiles][profiles dir
 
 ** Star History
 Didn't think this would get that many stars on GitHub, yet here we are:
-[[https://api.star-history.com/svg?repos=librephoenix/nixos-config&type=Date]]
+#+begin_export html
+<img src="https://api.star-history.com/svg?repos=librephoenix/nixos-config&type=Date">
+#+end_export
