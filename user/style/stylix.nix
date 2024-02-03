@@ -85,7 +85,6 @@ in
     swaybg -m fill -i ''+config.stylix.image+'';
   '';
   home.file.".swaybg-stylix".executable = true;
-  # TODO add stylix colors to swaylock cmd
   home.file.".swayidle-stylix".text = ''
     #!/bin/sh
     swaylock_cmd='swaylock --indicator-radius 200 --screenshots --effect-blur 10x10'

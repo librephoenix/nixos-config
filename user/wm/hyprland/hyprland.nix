@@ -39,7 +39,7 @@
       exec-once = emacs --daemon
 
       #exec-once = swayidle -w timeout 90 '${pkgs.gtklock}/bin/gtklock -d' timeout 210 'suspend-unless-render' resume '${pkgs.hyprland}/bin/hyprctl dispatch dpms on' before-sleep "${pkgs.gtklock}/bin/gtklock -d"
-      exec-once = swayidle -w timeout 90 '${pkgs.swaylock}/bin/swaylock -f' timeout 210 'suspend-unless-render' resume '${pkgs.hyprland}/bin/hyprctl dispatch dpms on' before-sleep "${pkgs.swaylock}/bin/swaylock -f"
+      exec-once = swayidle -w timeout 90 '${config.programs.swaylock.package}/bin/swaylock -f' timeout 210 'suspend-unless-render' resume '${pkgs.hyprland}/bin/hyprctl dispatch dpms on' before-sleep "${config.programs.swaylock.package}/bin/swaylock -f"
       exec-once = obs-notification-mute-daemon
 
       exec = ~/.swaybg-stylix
@@ -129,7 +129,7 @@
        bind=,code:255,exec,airplane-mode
        bind=SUPER,C,exec,wl-copy $(hyprpicker)
 
-       bind=SUPERSHIFT,S,exec,swaylock & sleep 1 && systemctl suspend
+       bind=SUPERSHIFT,S,exec,swaylock --grace 0 & sleep 1 && systemctl suspend
        bind=SUPERCTRL,L,exec,swaylock
 
        bind=SUPER,H,movefocus,l
@@ -277,21 +277,8 @@
     hyprland-protocols
     hyprpicker
     swayidle
-    gtklock
-    #swaylock
-    #(pkgs.swaylock-effects.overrideAttrs (oldAttrs: {
-    #  version = "1.6.4-1";
-    #  src = fetchFromGitHub {
-    #    owner = "mortie";
-    #    repo = "swaylock-effects";
-    #    rev = "20ecc6a0a5b61bb1a66cfb513bc357f74d040868";
-    #    sha256 = "sha256-nYA8W7iabaepiIsxDrCkG/WIFNrVdubk/AtFhIvYJB8=";
-    #  };
-    #}))
     swaybg
     fnott
-    #hyprpaper
-    #wofi
     fuzzel
     keepmenu
     pinentry-gnome
@@ -738,8 +725,33 @@
   services.udiskie.tray = "always";
   programs.swaylock = {
     enable = true;
+    package = pkgs.swaylock-effects;
     settings = {
       color = "#"+config.lib.stylix.colors.base00;
+      inside-color = "#"+config.lib.stylix.colors.base00+"cc";
+      inside-caps-lock-color = "#"+config.lib.stylix.colors.base09;
+      inside-clear-color = "#"+config.lib.stylix.colors.base0A;
+      inside-wrong-color = "#"+config.lib.stylix.colors.base08;
+      inside-ver-color = "#"+config.lib.stylix.colors.base0D;
+      line-color = "#"+config.lib.stylix.colors.base00;
+      line-caps-lock-color = "#"+config.lib.stylix.colors.base00;
+      line-clear-color = "#"+config.lib.stylix.colors.base00;
+      line-wrong-color = "#"+config.lib.stylix.colors.base00;
+      line-ver-color = "#"+config.lib.stylix.colors.base00;
+      ring-color = "#"+config.lib.stylix.colors.base00;
+      ring-caps-lock-color = "#"+config.lib.stylix.colors.base09;
+      ring-clear-color = "#"+config.lib.stylix.colors.base0A;
+      ring-wrong-color = "#"+config.lib.stylix.colors.base08;
+      ring-ver-color = "#"+config.lib.stylix.colors.base0D;
+      text-color = "#"+config.lib.stylix.colors.base00;
+      key-hl-color = "#"+config.lib.stylix.colors.base0B;
+      font = config.stylix.fonts.monospace.name;
+      font-size = 20;
+      fade-in = 0.5;
+      grace = 5;
+      indicator-radius = 100;
+      screenshots = true;
+      effect-blur = "10x10";
     };
   };
   programs.fuzzel.enable = true;
