@@ -1335,7 +1335,7 @@ class cunmap(uncmap):
 
     Remove the given "console" mappings
 
-    DEPRECATED in favor of uncmap.
+    Deprecated in favor of uncmap.
     """
 
     def execute(self):
@@ -1356,7 +1356,7 @@ class punmap(unpmap):
 
     Remove the given "pager" mappings
 
-    DEPRECATED in favor of unpmap.
+    Deprecated in favor of unpmap.
     """
 
     def execute(self):
@@ -1377,7 +1377,7 @@ class tunmap(untmap):
 
     Remove the given "taskview" mappings
 
-    DEPRECATED in favor of untmap.
+    Deprecated in favor of untmap.
     """
 
     def execute(self):

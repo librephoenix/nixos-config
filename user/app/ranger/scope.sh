@@ -266,7 +266,7 @@ handle_image() {
     esac
 
     # openscad_image() {
-    #     TMPPNG="$(mktemp -t XXXXXX.png)"
+    #     TMPPNG="$(mktemp -t xxxxxx.png)"
     #     openscad --colorscheme="${OPENSCAD_COLORSCHEME}" \
     #         --imgsize="${OPENSCAD_IMGSIZE/x/,}" \
     #         -o "${TMPPNG}" "${1}"

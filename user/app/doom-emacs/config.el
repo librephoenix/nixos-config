@@ -556,8 +556,6 @@ same directory as the org-buffer and insert a link to this file."
   (save-buffer)
 )
 
-;; TODO make function to edit title or date post post creation
-
 (map! :leader
       :prefix ("N")
 
@@ -707,9 +705,6 @@ same directory as the org-buffer and insert a link to this file."
 (defun org-current-buffer-has-todos ()
   "Return non-nil if current buffer has any todo entry.
 
-TODO entries marked as done are ignored, meaning the this
-function returns nil if current buffer contains only completed
-tasks."
   (org-element-map                          ; (2)
        (org-element-parse-buffer 'headline) ; (1)
        'headline

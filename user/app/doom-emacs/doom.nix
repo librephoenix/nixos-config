@@ -63,7 +63,7 @@ in
       requests
       pyqt6 sip qtpy qt6.qtwebengine epc lxml pyqt6-webengine
       pysocks
-      #pymupdf TODO pymupdf fails to build
+      pymupdf
       markdown
     ]))
   ];
