@@ -130,7 +130,7 @@
        bind=SUPER,C,exec,wl-copy $(hyprpicker)
 
        bind=SUPERSHIFT,S,exec,swaylock --grace 0 & sleep 1 && systemctl suspend
-       bind=SUPERCTRL,L,exec,swaylock
+       bind=SUPERCTRL,L,exec,swaylock --grace 0
 
        bind=SUPER,H,movefocus,l
        bind=SUPER,J,movefocus,d
