@@ -703,7 +703,7 @@ same directory as the org-buffer and insert a link to this file."
 )
 
 (defun org-current-buffer-has-todos ()
-  "Return non-nil if current buffer has any todo entry.
+  "Return non-nil if current buffer has any todo entry."
 
   (org-element-map                          ; (2)
        (org-element-parse-buffer 'headline) ; (1)
