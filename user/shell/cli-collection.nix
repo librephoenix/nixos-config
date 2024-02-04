@@ -16,12 +16,13 @@
     htop
     hwinfo
     unzip
-    octave
     brightnessctl
     w3m
     fzf
     pandoc
     pciutils
+    (pkgs.callPackage ../pkgs/smartcalc.nix { })
+    (pkgs.writeShellScriptBin "sc" ''smartcalc'')
     #(pkgs.callPackage ../pkgs/ytsub.nix { })
     #(pkgs.callPackage ../pkgs/russ.nix { })
     #(pkgs.python3Packages.callPackage ../pkgs/impressive.nix { })
