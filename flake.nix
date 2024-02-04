@@ -1,8 +1,8 @@
 {
   description = "Flake of LibrePhoenix";
 
-  outputs = { self, nixpkgs, nixpkgs-stable, home-manager, nix-doom-emacs, stylix,
-              blocklist-hosts, rust-overlay, hyprland-plugins,
+  outputs = { self, nixpkgs, nixpkgs-stable, home-manager, nix-doom-emacs, nix-straight,
+              stylix, blocklist-hosts, rust-overlay, hyprland-plugins,
               eaf, eaf-browser, org-nursery, org-yaap,
               org-side-tree, org-timeblock, phscroll, ... }@inputs:
   let
@@ -116,7 +116,13 @@
     home-manager.url = "github:nix-community/home-manager/master";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-    nix-doom-emacs.url = "github:librephoenix/nix-doom-emacs?ref=pgtk-patch";
+    nix-doom-emacs.url = "github:nix-community/nix-doom-emacs";
+    nix-doom-emacs.inputs.nixpkgs.follows = "nixpkgs";
+
+    nix-straight.url = "github:librephoenix/nix-straight.el/pgtk-patch";
+    nix-straight.flake = false;
+    nix-doom-emacs.inputs.nix-straight.follows = "nix-straight";
+
     eaf = {
       url = "github:emacs-eaf/emacs-application-framework";
       flake = false;
