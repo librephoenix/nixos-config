@@ -100,6 +100,7 @@
         modules = [ (./. + "/profiles"+("/"+systemSettings.profile)+"/configuration.nix") ]; # load configuration.nix from selected PROFILE
         specialArgs = {
           # pass config variables from above
+          inherit pkgs-stable;
           inherit systemSettings;
           inherit userSettings;
           inherit (inputs) stylix;
