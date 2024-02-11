@@ -75,13 +75,16 @@ c.url.default_page = str(config.configdir)+'/qute-home.html'
 c.url.start_pages = str(config.configdir)+'/qute-home.html'
 
 c.url.searchengines = {'DEFAULT': 'https://startpage.com/do/search?query={}',
-                       'd'   : 'https://duckduckgo.com/?q={}&ia=web',
+                       'd'      : 'https://duckduckgo.com/?q={}&ia=web',
                        'az'     : 'https://www.amazon.com/s?k={}',
                        'aw'     : 'https://wiki.archlinux.org/index.php?search={}&title=Special%3ASearch&wprov=acrw1',
                        'nw'     : 'https://nixos.wiki/index.php?search={}&go=Go',
                        'mn'     : 'https://mynixos.com/search?q={}',
                        'sb'     : 'https://www.serebii.net/search.shtml?q={}&sa=Search',
-                       'bp'     : 'https://bulbapedia.bulbagarden.net/wiki/index.php?title=Special%3ASearch&search={}&go=Go'
+                       'bp'     : 'https://bulbapedia.bulbagarden.net/wiki/index.php?title=Special%3ASearch&search={}&go=Go',
+                       'yt'     : 'https://www.youtube.com/results?search_query={}',
+                       'od'     : 'https://odysee.com/$/search?q={}',
+                       'gd'     : 'https://drive.google.com/drive/search?q={}'
                       }
 
 config.set('completion.open_categories',["searchengines","quickmarks","bookmarks"])
