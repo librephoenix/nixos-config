@@ -46,7 +46,6 @@
       src = nixpkgs;
       patches = [
                   ./patches/emacs-no-version-check.patch
-                  ./patches/nixos-nixpkgs-268027.patch
                 ];
     };
 

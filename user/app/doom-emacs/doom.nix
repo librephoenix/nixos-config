@@ -1,6 +1,5 @@
-{ config, lib, pkgs, userSettings, systemSettings,
-  eaf, eaf-browser, org-nursery, org-yaap,
-  org-side-tree, org-timeblock, phscroll, ... }:
+{ config, lib, pkgs, pkgs-stable, userSettings, systemSettings,
+  org-nursery, org-yaap, org-side-tree, org-timeblock, phscroll, ... }:
 let
   themePolarity = lib.removeSuffix "\n" (builtins.readFile (./. + "../../../../themes"+("/"+userSettings.theme)+"/polarity.txt"));
   dashboardLogo = ./. + "/nix-" + themePolarity + ".png";
@@ -41,19 +40,17 @@ in
       extension = ".el";
   };
 
-  home.packages = with pkgs; [
+  home.packages = (with pkgs; [
     nil
     nixfmt
     git
     file
-    nodejs
     wmctrl
     jshon
     aria
     hledger
     hunspell hunspellDicts.en_US-large
     pandoc
-    nodePackages.mermaid-cli
     (pkgs.mu.override { emacs = emacs29-pgtk; })
     emacsPackages.mu4e
     isync
@@ -61,39 +58,20 @@ in
     (python3.withPackages (p: with p; [
       pandas
       requests
-      pyqt6 sip qtpy qt6.qtwebengine epc lxml pyqt6-webengine
+      epc lxml
       pysocks
       pymupdf
       markdown
     ]))
-  ];
-
-  nixpkgs.overlays = [
-    (self: super:
-      {
-        mu = super.mu.overrideAttrs (oldAttrs: rec {
-        pname = "mu";
-        version = "1.10.7";
-        src = super.fetchFromGitHub {
-          owner = "djcb";
-          repo = "mu";
-          rev = "v1.10.7";
-          hash = "sha256-x1TsyTOK5U6/Y3QInm+XQ7T32X49iwa+4UnaHdiyqCI=";
-        };
-        });
-      }
-    )
-  ];
+  ]) ++ (with pkgs-stable; [
+    nodejs
+    nodePackages.mermaid-cli
+  ]);
 
   services.mbsync = {
     enable = true;
     package = pkgs.isync;
     frequency = "*:0/5";
-  };
-
-  home.file.".emacs.d/eaf" = {
-    source = "${eaf}";
-    recursive = true;
   };
 
   home.file.".emacs.d/org-yaap" = {
@@ -109,17 +87,6 @@ in
   home.file.".emacs.d/org-timeblock" = {
     source = "${org-timeblock}";
     recursive = true;
-  };
-
-  home.file.".emacs.d/eaf/app/browser" = {
-    source = "${eaf-browser}";
-    recursive = true;
-    onChange = "
-      pushd ~/.emacs.d/eaf/app/browser;
-      rm package*.json;
-      npm install darkreader @mozilla/readability && rm package*.json;
-      popd;
-    ";
   };
 
   home.file.".emacs.d/org-nursery" = {

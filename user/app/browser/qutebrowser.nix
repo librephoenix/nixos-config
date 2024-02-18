@@ -2,10 +2,6 @@
 
 {
 
-  nixpkgs.config.packageOverrides = pkgs: {
-    qutebrowser = pkgs.qutebrowser.override { enableVulkan = false; };
-  };
-
   home.packages = [ pkgs.qutebrowser
                     (pkgs.callPackage ./qute-containers.nix { dmenuCmd = "fuzzel -d"; })
                   ];
