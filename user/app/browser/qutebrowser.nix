@@ -92,6 +92,7 @@ config.set('fileselect.single_file.command', ['kitty','-e','ranger','--choosefil
 config.set('fileselect.multiple_files.command', ['kitty','-e','ranger','--choosefiles={}'])
 config.set('fileselect.folder.command', ['kitty','-e','ranger','--choosedir={}'])
 
+config.bind('<Alt-x>', 'cmd-set-text :')
 config.bind('t', 'open -t')
 config.bind('x', 'tab-close')
 config.bind('yf', 'hint links yank')
