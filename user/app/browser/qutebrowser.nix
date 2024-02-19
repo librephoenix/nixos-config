@@ -80,7 +80,11 @@ c.url.searchengines = {'DEFAULT': 'https://startpage.com/do/search?query={}',
                        'bp'     : 'https://bulbapedia.bulbagarden.net/wiki/index.php?title=Special%3ASearch&search={}&go=Go',
                        'yt'     : 'https://www.youtube.com/results?search_query={}',
                        'od'     : 'https://odysee.com/$/search?q={}',
-                       'gd'     : 'https://drive.google.com/drive/search?q={}'
+                       'gd'     : 'https://drive.google.com/drive/search?q={}',
+                       'gh'     : 'https://github.com/search?q={}&type=repositories',
+                       'gl'     : 'https://gitlab.com/search?search={}&nav_source=navbar',
+                       'np'     : 'https://github.com/search?q=repo%3ANixOS%2Fnixpkgs%20{}&type=code',
+                       'wk'     : 'https://en.wikipedia.org/w/index.php?fulltext=1&search={}&title=Special%3ASearch&ns0=1'
                       }
 
 config.set('completion.open_categories',["searchengines","quickmarks","bookmarks"])
