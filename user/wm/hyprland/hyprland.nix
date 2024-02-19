@@ -79,11 +79,14 @@
        #}
 
        bind=SUPER,SPACE,fullscreen,1
+       bind=SUPERSHIFT,F,fullscreen,0
+       bind=SUPER,Y,workspaceopt,allfloat
        bind=ALT,TAB,cyclenext
        bind=ALT,TAB,bringactivetotop
        bind=ALTSHIFT,TAB,cyclenext,prev
        bind=ALTSHIFT,TAB,bringactivetotop
-       bind=SUPER,Y,workspaceopt,allfloat
+       bind=SUPER,V,exec,wl-copy $(wl-paste | tr '\n' ' ')
+       bind=SUPERSHIFT,T,exec,screenshot-ocr
 
        bind = SUPER,R,pass,^(com\.obsproject\.Studio)$
        bind = SUPERSHIFT,R,pass,^(com\.obsproject\.Studio)$
@@ -293,6 +296,16 @@
     wlsunset
     pavucontrol
     pamixer
+    tesseract4
+    (pkgs.writeScriptBin "screenshot-ocr" ''
+      #!/bin/sh
+      imgname="/tmp/screenshot-ocr-$(date +%Y%m%d%H%M%S).png"
+      txtname="/tmp/screenshot-ocr-$(date +%Y%m%d%H%M%S)"
+      txtfname="/tmp/screenshot-ocr-$(date +%Y%m%d%H%M%S).txt"
+      grim -g "$(slurp)" $imgname;
+      tesseract $imgname $txtname;
+      wl-copy -n < $txtfname
+    '')
     (pkgs.writeScriptBin "sct" ''
       #!/bin/sh
       killall wlsunset &> /dev/null;
