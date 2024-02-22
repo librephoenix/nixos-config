@@ -37,12 +37,6 @@ base0D = "#''+config.lib.stylix.colors.base0D+''"
 base0E = "#''+config.lib.stylix.colors.base0E+''"
 base0F = "#''+config.lib.stylix.colors.base0F+''"
 
-# TODO stylix user CSS
-# current_stylesheet_directory = '~/.config/qutebrowser/themes/'
-# current_stylesheet = base16_theme+'-all-sites.css'
-# current_stylesheet_path = current_stylesheet_directory + current_stylesheet
-# config.set('content.user_stylesheets', current_stylesheet_path)
-
 config.set('content.cookies.accept', 'no-3rdparty', 'chrome-devtools://*')
 config.set('content.cookies.accept', 'no-3rdparty', 'devtools://*')
 
@@ -96,16 +90,30 @@ config.set('fileselect.single_file.command', ['kitty','-e','ranger','--choosefil
 config.set('fileselect.multiple_files.command', ['kitty','-e','ranger','--choosefiles={}'])
 config.set('fileselect.folder.command', ['kitty','-e','ranger','--choosedir={}'])
 
+# bindings from doom emacs
 config.bind('<Alt-x>', 'cmd-set-text :')
+config.bind('<Ctrl-p>', 'completion-item-focus prev', mode='command')
+config.bind('<Ctrl-n>', 'completion-item-focus next', mode='command')
+
+# bindings from vimium
 config.bind('t', 'open -t')
 config.bind('x', 'tab-close')
 config.bind('yf', 'hint links yank')
+
+# spawn external programs
 config.bind(',m', 'hint links spawn mpv {hint-url}')
 config.bind(',co', 'spawn container-open')
 config.bind(',cf', 'hint links userscript container-open')
+
+# TODO stylix user CSS
+# current_stylesheet_directory = '~/.config/qutebrowser/themes/'
+# current_stylesheet = base16_theme+'-all-sites.css'
+# current_stylesheet_path = current_stylesheet_directory + current_stylesheet
+# config.set('content.user_stylesheets', current_stylesheet_path)
 #config.bind(',s', 'set content.user_stylesheets \'\' ')
 #config.bind(',S', 'set content.user_stylesheets '+current_stylesheet_path)
 
+# theming
 c.colors.completion.fg = base05
 c.colors.completion.odd.bg = base01
 c.colors.completion.even.bg = base00
