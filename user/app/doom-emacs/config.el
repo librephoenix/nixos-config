@@ -777,6 +777,7 @@ same directory as the org-buffer and insert a link to this file."
   (setq org-agenda-files (append org-agenda-files (org-roam-list-notes-by-tag "todos")))
 )
 
+;; Refreshing org roam agenda
 (defun org-roam-refresh-agenda-list ()
   (interactive)
   (setq prev-org-roam-db-choice org-roam-db-choice)
@@ -788,8 +789,19 @@ same directory as the org-buffer and insert a link to this file."
   (org-roam-switch-db prev-org-roam-db-choice 1)
 )
 
-;; Build agenda for first time during this session
-(org-roam-refresh-agenda-list)
+;; Build agenda only when org agenda first opened for session
+(setq org-roam-agenda-initialized nil)
+(defun org-roam-refresh-agenda-list-init ()
+  (if (not org-roam-agenda-initialized)
+    (funcall
+      (lambda ()
+        (org-roam-refresh-agenda-list)
+        (setq org-roam-agenda-initialized t)
+      )
+    )
+  )
+)
+(add-hook 'org-agenda-mode-hook 'org-roam-refresh-agenda-list-init)
 
 (map! :leader
       :prefix ("o a")
