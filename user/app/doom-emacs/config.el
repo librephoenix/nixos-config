@@ -1206,7 +1206,7 @@ https://github.com/magit/magit/issues/460 (@cpitclaudel)."
       :desc "Generate hledger balancesheet"
       "b" 'hledger-balancesheet*
 
-      :desc "Exec hledger command"
+      :desc "Generate hledger daily report"
       "d" 'hledger-daily-report*)
 
 (map! :localleader
