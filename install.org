@@ -64,3 +64,11 @@ This loads in my convenience script =phoenix= (still a WIP), which replaces freq
   - If no argument is given, it cleans anything older than 30 days
   - If a time argument is supplied (i.e. 10d), it cleans stuff older than that (10 days in this example)
   - If the argument =full= is given, it deletes /all/ previous generations
+
+** FAQ
+*** =home-manager switch --flake .#user= Command Fails
+If it fails with something to the effect of "could not download {some image file}" then that just means that one of my themes is having trouble downloading the background image. To conserve on space in the repo, my themes download the relevant wallpapers directly from their source, but that also means that if the link is broken, =home-manager switch= fails.
+
+I have included a script in the [[./themes][themes directory]] named [[./themes/background-test.sh][background-test.sh]] which performs a rough test on every theme background url, reporting which are broken.
+
+If you're having this error, navigate to the [[./flake.nix][flake.nix]] and select any theme with a good background wallpaper link. As long as it is able to download the new wallpaper, it should be able to build.
