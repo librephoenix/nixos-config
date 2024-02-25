@@ -5,7 +5,7 @@ These are just some simple install notes for myself (in-case I have to reinstall
 
 ** Automated Install Script (Experimental)
 *** Install Directly From Git
-I wrote a quick automated install script at [[./install.sh][install.sh]]. It essentially just runs the following manual install steps and hardens the security of the system-level (root configuration) files using [[./harden.sh][harden.sh]].
+I wrote a quick automated install script at [[./install.sh][install.sh]]. It essentially just runs [[Manual Install Procedure][the manual install steps]] and additionally hardens the security of the system-level (root configuration) files using [[./harden.sh][harden.sh]].
 
 I'll eventually™ add the ability to supply arguments to this script as well.
 
