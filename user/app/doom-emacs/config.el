@@ -1338,14 +1338,17 @@ https://github.com/magit/magit/issues/460 (@cpitclaudel)."
   ;;    ))
   ;;(mu4e-context-switch t "example1")
 
-  (org-msg-mode 0)
-
   ;; https://emacs.stackexchange.com/questions/3061/how-to-stop-mu4e-from-inserting-line-breaks
   (defun no-auto-fill ()
     "Turn off auto-fill-mode."
     (auto-fill-mode -1))
-  (add-hook 'mu4e-compose-mode-hook #'no-auto-fill)
 
+  (defun no-org-msg-mode ()
+  "Disable org-msg-mode since it doesn't respect multiline emails"
+    (org-msg-mode 0))
+
+  (add-hook 'mu4e-compose-mode-hook #'no-auto-fill)
+  (add-hook 'mu4e-compose-pre-hook #'no-org-msg-mode)
 )
 
 ;; TODO fix my make-mu4e-context wrapper
