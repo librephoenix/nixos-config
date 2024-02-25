@@ -127,7 +127,7 @@
       {
         default = self.packages.${system}.install;
 
-        install = pkgs.writeScriptBin "install" ./install.sh;
+        install = pkgs.writeScriptBin "install" (bultins.readFile ./install.sh);
       });
 
     apps = forAllSystems (system: {
