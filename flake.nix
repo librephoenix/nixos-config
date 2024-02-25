@@ -127,9 +127,7 @@
       {
         default = self.packages.${system}.install;
 
-        install = pkgs.writeScriptBin "install" ''
-          echo "echo works"
-        '';
+        install = pkgs.writeScriptBin "install" ./install.sh;
       });
 
     apps = forAllSystems (system: {
