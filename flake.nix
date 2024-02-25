@@ -127,19 +127,11 @@
       {
         default = self.packages.${system}.install;
 
-        install = pkgs.writeShellApplication {
-          name = "install";
-          text = builtins.readFile ./install.sh;
-        };
+        install = pkgs.writeScriptBin "install" ./install.sh;
       });
 
     apps = forAllSystems (system: {
       default = self.apps.${system}.install;
-
-      demo = {
-        type = "app";
-        program = "${self.packages.${system}.demo}/bin/run-plasma-demo-vm";
-      };
 
       install = {
         type = "app";
