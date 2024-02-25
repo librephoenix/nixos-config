@@ -4,30 +4,62 @@
 These are just some simple install notes for myself (in-case I have to reinstall unexpectedly).
 
 ** Automated Install Script (Experimental)
+*** Install Directly From Git
 I wrote a quick automated install script at [[./install.sh][install.sh]]. It essentially just runs the following manual install steps and hardens the security of the system-level (root configuration) files using [[./harden.sh][harden.sh]].
 
 I'll eventually™ add the ability to supply arguments to this script as well.
 
-It can either be run after cloning the dotfiles to =~/.dotfiles= with:
+The quickest way to install is running the install script directly from the remote git repo using =nix-run=, which is essentially just one of the following:
+#+BEGIN_SRC sh :noeval
+# Install from gitlab
+nix-run gitlab:librephoenix/nixos-config
+
+# Or install from github
+nix-run github:librephoenix/nixos-config
+
+# Or install from codeberg
+nix-run git+https://codeberg.org/librephoenix/nixos-config
+#+END_SRC
+
+The script will ask for sudo permissions at certain points, /but you should not run the script as root/.
+
+If the above =nix-run= command gives you an error, odds are you either don't have =git= installed, or you haven't enabled the experimental features in your Nix config (=nix-command= and =flakes=). To get the command to install properly, you can first enter a shell with =git= available using:
+#+begin_src sh :noeval
+nix-shell -p git
+#+end_src
+and then running:
+#+BEGIN_SRC sh :noeval
+nix-run gitlab:librephoenix/nixos-config --extra-experimental-features nix-command --extra-experimental-features flakes
+#+END_SRC
+
+And if you want a single copy-paste solution:
+#+begin_src sh :noeval
+nix-shell -p git --command "nix-run gitlab:librephoenix/nixos-config --extra-experimental-features nix-command --extra-experimental-features flakes"
+#+end_src
+
+At a certain point in the install script it will open =nano= (or whatever your $EDITOR is set to) and ask you to edit the =flake.nix=. You can edit as much or as little of the config variables as you like, and it will continue the install after you exit the editor.
+
+*** Install From Local Git Clone
+The dotfiles can be installed after cloning the repo into =~/.dotfiles= using:
 #+BEGIN_SRC sh :noeval
 git clone https://gitlab.com/librephoenix/nixos-config.git ~/.dotfiles
 ~/.dotfiles/install.sh
 #+END_SRC
 
-or it can be run directly from git using nix-run:
-#+BEGIN_SRC sh :noeval
-nix-run gitlab:librephoenix/nixos-config
-#+END_SRC
+At a certain point in the install script it will open =nano= (or whatever your $EDITOR is set to) and ask you to edit the =flake.nix=. You can edit as much or as little of the config variables as you like, and it will continue the install after you exit the editor.
 
-At this time, this only works on an existing NixOS install.
+*** Automatic Install Script Limitations
+At this time, this only works on an existing NixOS install. It also only works if the dotfiles are cloned into =~/.dotfiles=.
 
-Future plans:
+Future upgrade plans:
 - [ ] Be able to install directly from NixOS iso
 - [ ] Be able to install just home-manager config to a non-NixOS Linux distro
 - [ ] ??? (open up an issue if you think there is anything else I should try to figure out)
 
-** Manual Install Notes
-To get this running on a NixOS system, start by cloning the repo:
+** Manual Install Procedure
+If you instead want to install this manually to see all the steps (kind of like an Arch install before the archinstall script existed), you can follow this following procedure:
+
+Start by cloning the repo:
 #+BEGIN_SRC sh :noeval
 git clone https://gitlab.com/librephoenix/nixos-config.git ~/.dotfiles
 #+END_SRC
