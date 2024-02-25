@@ -91,7 +91,7 @@ sudo nixos-rebuild switch --flake ~/.dotfiles#system
 #+END_SRC
 
 The build will fail if you are booting from BIOS instead of UEFI.
-# TODO write instructions on how to fix that
+# TODO write instructions on how to fix install on bios instead of uefi
 
 *** Intall and Switch Home Manager Config
 Home manager can be installed and the configuration activated with:
