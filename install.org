@@ -3,7 +3,30 @@
 
 These are just some simple install notes for myself (in-case I have to reinstall unexpectedly).
 
-** Install Notes for Myself
+** Automated Install Script (Experimental)
+I wrote a quick automated install script at [[./install.sh][install.sh]]. It essentially just runs the following manual install steps and hardens the security of the system-level (root configuration) files using [[./harden.sh][harden.sh]].
+
+I'll eventually™ add the ability to supply arguments to this script as well.
+
+It can either be run after cloning the dotfiles to =~/.dotfiles= with:
+#+BEGIN_SRC sh :noeval
+git clone https://gitlab.com/librephoenix/nixos-config.git ~/.dotfiles
+~/.dotfiles/install.sh
+#+END_SRC
+
+or it can be run directly from git using nix-run:
+#+BEGIN_SRC sh :noeval
+nix-run gitlab:librephoenix/nixos-config
+#+END_SRC
+
+At this time, this only works on an existing NixOS install.
+
+Future plans:
+- [ ] Be able to install directly from NixOS iso
+- [ ] Be able to install just home-manager config to a non-NixOS Linux distro
+- [ ] ??? (open up an issue if you think there is anything else I should try to figure out)
+
+** Manual Install Notes
 To get this running on a NixOS system, start by cloning the repo:
 #+BEGIN_SRC sh :noeval
 git clone https://gitlab.com/librephoenix/nixos-config.git ~/.dotfiles
@@ -11,8 +34,7 @@ git clone https://gitlab.com/librephoenix/nixos-config.git ~/.dotfiles
 
 To get the hardware configuration on a new system, either copy from =/etc/nixos/hardware-configuration.nix= or run:
 #+BEGIN_SRC sh :noeval
-cd ~/.dotfiles
-sudo nixos-generate-config --show-hardware-config > system/hardware-configuration.nix
+sudo nixos-generate-config --show-hardware-config > ~/.dotfiles/system/hardware-configuration.nix
 #+END_SRC
 
 Also, if you have a differently named user account than my default (=emmet=), you /must/ update the following lines in the let binding near the top of the [[./flake.nix][flake.nix]]:
@@ -30,40 +52,13 @@ There are many more config options there that you may also want to change as wel
 
 Once the variables are set, then switch into the system configuration by running:
 #+BEGIN_SRC sh :noeval
-cd ~/.dotfiles
-sudo nixos-rebuild switch --flake .#system
+sudo nixos-rebuild switch --flake ~/.dotfiles#system
 #+END_SRC
 
-Home manager can be installed with:
+Home manager can be installed and the configuration activated with:
 #+BEGIN_SRC sh :noeval
-nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
-nix-channel --update
-nix-shell '<home-manager>' -A install
+nix run home-manager/master -- switch --flake ~/.dotfiles#user
 #+END_SRC
-
-If home-manager starts to not cooperate, it may be because the unstable branch of nixpkgs is in the Nix channel list.  This can be fixed via:
-#+BEGIN_SRC sh :noeval
-nix-channel --add https://nixos.org/channels/nixpkgs-unstable
-nix-channel --update
-#+END_SRC
-
-Home-manager may also not work without re-logging back in after it has been installed.
-
-Once home-manager is running, my home-manager configuration can be installed with:
-#+BEGIN_SRC sh :noeval
-cd ~/.dotfiles
-home-manager switch --flake .#user
-#+END_SRC
-
-This loads in my convenience script =phoenix= (still a WIP), which replaces frequently used nix and nixos commands with more user friendly ones, namely:
-- =phoenix sync= to build and switch system and home configuration
-  - =phoenix sync system= to build and switch only system configuration
-  - =phoenix sync user= to build and switch only home configuration
-- =phoenix update= to update flake inputs
-- =phoenix gc= to garbage collect
-  - If no argument is given, it cleans anything older than 30 days
-  - If a time argument is supplied (i.e. 10d), it cleans stuff older than that (10 days in this example)
-  - If the argument =full= is given, it deletes /all/ previous generations
 
 ** FAQ
 *** =home-manager switch --flake .#user= Command Fails
