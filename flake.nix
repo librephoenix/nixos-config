@@ -1,10 +1,10 @@
 {
   description = "Flake of LibrePhoenix";
 
-  outputs = { self, nixpkgs, nixpkgs-stable, home-manager, nix-doom-emacs, nix-straight,
+  outputs = inputs@{ self, nixpkgs, nixpkgs-stable, home-manager, nix-doom-emacs, nix-straight,
               stylix, blocklist-hosts, rust-overlay, hyprland-plugins,
               eaf, eaf-browser, org-nursery, org-yaap,
-              org-side-tree, org-timeblock, phscroll, ... }@inputs:
+              org-side-tree, org-timeblock, phscroll, ... }:
   let
     # ---- SYSTEM SETTINGS ---- #
     systemSettings = {
@@ -132,6 +132,20 @@
           text = builtins.readFile ./install.sh;
         };
       });
+
+    apps = forAllSystems (system: {
+      default = self.apps.${system}.install;
+
+      demo = {
+        type = "app";
+        program = "${self.packages.${system}.demo}/bin/run-plasma-demo-vm";
+      };
+
+      install = {
+        type = "app";
+        program = "${self.packages.${system}.install}/bin/install";
+      };
+    });
   };
 
   inputs = {
