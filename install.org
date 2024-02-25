@@ -72,3 +72,9 @@ If it fails with something to the effect of "could not download {some image file
 I have included a script in the [[./themes][themes directory]] named [[./themes/background-test.sh][background-test.sh]] which performs a rough test on every theme background url, reporting which are broken.
 
 If you're having this error, navigate to the [[./flake.nix][flake.nix]] and select any theme with a good background wallpaper link. As long as it is able to download the new wallpaper, it should be able to build.
+
+*** Do I have to put the configuration files in =~/.dotfiles=?
+No. You can put them in literally any directory you want. I just prefer to use =~/.dotfiles= as a convention. If you change the directory, do keep in mind that the above scripts must be modified, replacing =~/.dotfiles= with whatever directory you want to install them to.
+
+*** So I cloned these dotfiles into ~/.dotfiles, and now there are system-level files owned by my user account.. HOW IS THIS SECURE?!
+If you're worried about someone modifying your system-level (root configuration) files as your unpriveleged user, see [[./harden.sh][harden.sh]].
