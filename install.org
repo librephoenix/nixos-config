@@ -49,16 +49,18 @@ git clone https://gitlab.com/librephoenix/nixos-config.git ~/.dotfiles
 At a certain point in the install script it will open =nano= (or whatever your $EDITOR is set to) and ask you to edit the =flake.nix=. You can edit as much or as little of the config variables as you like, and it will continue the install after you exit the editor.
 
 *** Automatic Install Script Limitations
-At this time, this only works on an existing NixOS install. It also only works if the dotfiles are cloned into =~/.dotfiles=.
+At this time, this only works on an existing NixOS install. It also only works if the dotfiles are cloned into =~/.dotfiles=. It also only works on UEFI, not on BIOS :(
 
 Future upgrade plans:
 - [ ] Be able to install directly from NixOS iso
 - [ ] Be able to install just home-manager config to a non-NixOS Linux distro
+- [ ] Be able to detect UEFI or BIOS and switch config as needed
 - [ ] ??? (open up an issue if you think there is anything else I should try to figure out)
 
 ** Manual Install Procedure
 If you instead want to install this manually to see all the steps (kind of like an Arch install before the archinstall script existed), you can follow this following procedure:
 
+*** Clone Repo and Modify Configuration
 Start by cloning the repo:
 #+BEGIN_SRC sh :noeval
 git clone https://gitlab.com/librephoenix/nixos-config.git ~/.dotfiles
@@ -82,11 +84,16 @@ let
 
 There are many more config options there that you may also want to change as well.
 
+*** Rebuild and Switch System Config
 Once the variables are set, then switch into the system configuration by running:
 #+BEGIN_SRC sh :noeval
 sudo nixos-rebuild switch --flake ~/.dotfiles#system
 #+END_SRC
 
+The build will fail if you are booting from BIOS instead of UEFI.
+# TODO write instructions on how to fix that
+
+*** Intall and Switch Home Manager Config
 Home manager can be installed and the configuration activated with:
 #+BEGIN_SRC sh :noeval
 nix run home-manager/master -- switch --flake ~/.dotfiles#user
