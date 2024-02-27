@@ -1,4 +1,4 @@
-{ config, pkgs, pkgs-stable, ... }:
+{ pkgs, pkgs-stable, ... }:
 let
   myRetroarch =
     (pkgs.retroarch.override {
@@ -64,11 +64,5 @@ in
     url = "https://github.com/libretro/libretro-core-info/archive/refs/tags/v1.15.0.tar.gz";
     sha256 = "004kgbsgbk7hn1v01jg3vj4b6dfb2cp3kcp5hgjyl030wqg1r22q";
   };
-  # To get steam to import into gamehub, first install it as a flatpak, then
-  # Set steam directory to ~/.var/app/com.valvesoftware.Steam/.steam
 
-  #services.flatpak.packages = [
-  #  "com.discordapp.Discord"
-  #  "com.jaquadro.NBTExplorer"
-  #];
 }
