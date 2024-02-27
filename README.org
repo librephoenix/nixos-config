@@ -23,7 +23,7 @@ I wrote some reinstall notes for myself [[./install.org][here (install.org)]].
 
 TLDR: You should™ be able to install my dotfiles to an existing UEFI NixOS system with the following script:
 #+begin_src sh :noeval
-nix-shell -p git --command "nix-run gitlab:librephoenix/nixos-config --extra-experimental-features nix-command --extra-experimental-features flakes"
+nix-shell -p git --command "nix run gitlab:librephoenix/nixos-config --extra-experimental-features nix-command --extra-experimental-features flakes"
 #+end_src
 
 ** Modules
