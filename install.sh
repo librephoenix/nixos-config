@@ -4,8 +4,9 @@
 
 nix-shell -p git --command "git clone https://gitlab.com/librephoenix/nixos-config ~/.dotfiles"
 sudo nixos-generate-config --show-hardware-config > ~/.dotfiles/system/hardware-configuration.nix
-sed -i "0,/emmet/s//$(whoami)/" flake.nix
-sed -i "0,/Emmet/s//$(getent passwd $(whoami) | cut -d ':' -f 5 | cut -d ',' -f 1)/" flake.nix
+sed -i "0,/emmet/s//$(whoami)/" ~/.dotfiles/flake.nix
+sed -i "0,/Emmet/s//$(getent passwd $(whoami) | cut -d ':' -f 5 | cut -d ',' -f 1)/" ~/.dotfiles/flake.nix
+sed -i "s/emmet@librephoenix.com//" ~/.dotfiles/flake.nix
 if [ -z "$EDITOR" ]; then
     EDITOR=nano;
 fi
