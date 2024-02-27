@@ -13,4 +13,4 @@ fi
 $EDITOR ~/.dotfiles/flake.nix;
 sudo nixos-rebuild switch --flake ~/.dotfiles#system;
 nix run home-manager/master --extra-experimental-features nix-command --extra-experimental-features flakes -- switch --flake ~/.dotfiles#user;
-sudo ~/.dotfiles/harden.sh;
+sudo ~/.dotfiles/harden.sh ~/.dotfiles;
