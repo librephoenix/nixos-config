@@ -1,7 +1,7 @@
 #+title: Install
 #+author: Emmet
 
-These are just some simple install notes for myself (in-case I have to reinstall unexpectedly).
+These are just some simple install notes for myself (in-case I have to reinstall unexpectedly). You could also use these to try out my config in a VM.
 
 ** Automated Install Script (Experimental)
 *** Install Directly From Git
@@ -9,21 +9,21 @@ I wrote a quick automated install script at [[./install.sh][install.sh]]. It ess
 
 I'll eventually™ add the ability to supply arguments to this script as well.
 
-The quickest way to install is running the install script directly from the remote git repo using =nix-run=, which is essentially just one of the following:
+The quickest way to install is running the install script directly from the remote git repo using =nix run=, which is essentially just one of the following:
 #+BEGIN_SRC sh :noeval
 # Install from gitlab
-nix-run gitlab:librephoenix/nixos-config
+nix run gitlab:librephoenix/nixos-config
 
 # Or install from github
-nix-run github:librephoenix/nixos-config
+nix run github:librephoenix/nixos-config
 
 # Or install from codeberg
-nix-run git+https://codeberg.org/librephoenix/nixos-config
+nix run git+https://codeberg.org/librephoenix/nixos-config
 #+END_SRC
 
 The script will ask for sudo permissions at certain points, /but you should not run the script as root/.
 
-If the above =nix-run= command gives you an error, odds are you either don't have =git= installed, or you haven't enabled the experimental features in your Nix config (=nix-command= and =flakes=). To get the command to install properly, you can first enter a shell with =git= available using:
+If the above =nix run= command gives you an error, odds are you either don't have =git= installed, or you haven't enabled the experimental features in your Nix config (=nix-command= and =flakes=). To get the command to install properly, you can first enter a shell with =git= available using:
 #+begin_src sh :noeval
 nix-shell -p git
 #+end_src
@@ -34,10 +34,16 @@ nix-run gitlab:librephoenix/nixos-config --extra-experimental-features nix-comma
 
 And if you want a single copy-paste solution:
 #+begin_src sh :noeval
-nix-shell -p git --command "nix-run gitlab:librephoenix/nixos-config --extra-experimental-features nix-command --extra-experimental-features flakes"
+nix-shell -p git --command "nix run gitlab:librephoenix/nixos-config --extra-experimental-features nix-command --extra-experimental-features flakes"
 #+end_src
 
 At a certain point in the install script it will open =nano= (or whatever your $EDITOR is set to) and ask you to edit the =flake.nix=. You can edit as much or as little of the config variables as you like, and it will continue the install after you exit the editor.
+
+Note: If you're installing this to a VM, Hyprland won't work unless 3D acceleration is enabled.
+
+Disclaimer: If you install my =homelab= or =worklab= profiles /CHANGE THE PUBLIC SSH KEYS UNLESS YOU WANT ME TO BE ABLE TO SSH INTO YOUR SERVER. YOU CAN CHANGE OR REMOVE THE SSH KEY IN THE RELEVANT CONFIGURATION.NIX/:
+- [[./profiles/homelab/configuration.nix][configuration.nix]] for homelab profile
+- [[./profiles/worklab/configuration.nix][configuration.nix]] for worklab profile
 
 *** Install From Local Git Clone
 The dotfiles can be installed after cloning the repo into =~/.dotfiles= using:
@@ -46,7 +52,13 @@ git clone https://gitlab.com/librephoenix/nixos-config.git ~/.dotfiles
 ~/.dotfiles/install.sh
 #+END_SRC
 
-At a certain point in the install script it will open =nano= (or whatever your $EDITOR is set to) and ask you to edit the =flake.nix=. You can edit as much or as little of the config variables as you like, and it will continue the install after you exit the editor.
+At a certain point in the install script it will open =nano= (or whatever your =$EDITOR= is set to) and ask you to edit the =flake.nix=. You can edit as much or as little of the config variables as you like, and it will continue the install after you exit the editor.
+
+Note: If you're installing this to a VM, Hyprland won't work unless 3D acceleration is enabled.
+
+Disclaimer: If you install my =homelab= or =worklab= profiles /CHANGE THE PUBLIC SSH KEYS UNLESS YOU WANT ME TO BE ABLE TO SSH INTO YOUR SERVER. YOU CAN CHANGE OR REMOVE THE SSH KEY IN THE RELEVANT CONFIGURATION.NIX/:
+- [[./profiles/homelab/configuration.nix][configuration.nix]] for homelab profile
+- [[./profiles/worklab/configuration.nix][configuration.nix]] for worklab profile
 
 *** Automatic Install Script Limitations
 At this time, this only works on an existing NixOS install. It also only works if the dotfiles are cloned into =~/.dotfiles=. It also only works on UEFI, not on BIOS :(
@@ -84,6 +96,12 @@ let
 
 There are many more config options there that you may also want to change as well.
 
+Note: If you're installing this to a VM, Hyprland won't work unless 3D acceleration is enabled.
+
+Disclaimer: If you install my =homelab= or =worklab= profiles /CHANGE THE PUBLIC SSH KEYS UNLESS YOU WANT ME TO BE ABLE TO SSH INTO YOUR SERVER. YOU CAN CHANGE OR REMOVE THE SSH KEY IN THE RELEVANT CONFIGURATION.NIX/:
+- [[./profiles/homelab/configuration.nix][configuration.nix]] for homelab profile
+- [[./profiles/worklab/configuration.nix][configuration.nix]] for worklab profile
+
 *** Rebuild and Switch System Config
 Once the variables are set, then switch into the system configuration by running:
 #+BEGIN_SRC sh :noeval
@@ -112,3 +130,6 @@ No. You can put them in literally any directory you want. I just prefer to use =
 
 *** So I cloned these dotfiles into ~/.dotfiles, and now there are system-level files owned by my user account.. HOW IS THIS SECURE?!
 If you're worried about someone modifying your system-level (root configuration) files as your unpriveleged user, see [[./harden.sh][harden.sh]].
+
+*** I installed this to a VM and when I log in, it crashes and sends me back to the login manager (SDDM)?
+Enable 3D acceleration for your virtual machine. Hyprland doesn't work without it.

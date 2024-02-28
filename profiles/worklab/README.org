@@ -1,0 +1,3 @@
+#+title: Worklab Template
+
+This is literally just my homelab configuration, but setup to work with the ssh keys on my work computer. Used for small servers at work.
