@@ -8,7 +8,7 @@
       "virbr0"
     ];
     enable = true;
-    qemuRunAsRoot = false;
+    qemu.runAsRoot = false;
   };
   boot.extraModulePackages = with config.boot.kernelPackages; [ virtualbox ];
 }

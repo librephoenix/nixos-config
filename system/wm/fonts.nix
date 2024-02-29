@@ -2,7 +2,7 @@
 
 {
   # Fonts are nice to have
-  fonts.fonts = with pkgs; [
+  fonts.packages = with pkgs; [
     # Fonts
     (nerdfonts.override { fonts = [ "Inconsolata" ]; })
     powerline
