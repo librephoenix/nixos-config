@@ -19,11 +19,13 @@ else
     dotfilesDir=$(pwd);
 fi
 pushd $dotfilesDir &> /dev/null;
-chown -R root:root system;
-chown -R root:root patches;
-chown root:root flake.lock;
-chown root:root flake.nix
-chown root:root profiles/*/configuration.nix;
+chown 0:0 .;
+chown 0:0 profiles/*;
+chown -R 0:0 system;
+chown -R 0:0 patches;
+chown 0:0 flake.lock;
+chown 0:0 flake.nix
+chown 0:0 profiles/*/configuration.nix;
+chown 0:0 harden.sh;
 chown 1000:users **/README.org;
-chown root:root harden.sh;
 popd &> /dev/null;
