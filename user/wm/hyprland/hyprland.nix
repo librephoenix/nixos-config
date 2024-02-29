@@ -260,7 +260,7 @@
 
     '';
     xwayland = { enable = true; };
-    systemdIntegration = true;
+    systemd.enable = true;
   };
 
   home.packages = with pkgs; [
