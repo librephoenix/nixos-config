@@ -13,6 +13,7 @@
       profile = "personal"; # select a profile defined from my profiles directory
       timezone = "America/Chicago"; # select timezone
       locale = "en_US.UTF-8"; # select locale
+      bootMode = "uefi"; # uefi or bios
     };
 
     # ----- USER SETTINGS ----- #
