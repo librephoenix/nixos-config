@@ -37,9 +37,9 @@ And if you want a single copy-paste solution:
 nix-shell -p git --command "nix run gitlab:librephoenix/nixos-config --extra-experimental-features nix-command --extra-experimental-features flakes"
 #+end_src
 
-This will clone my dotfiles to =~/.dotfiles=, and switch into both the system and home-manager configurations. Right now it only works on UEFI, and only if your EFI partition is "/boot" (which is what NixOS sets up by default on UEFI). I will try to expand this at some point, but for now, that's all it is!
-
 At a certain point in the install script it will open =nano= (or whatever your $EDITOR is set to) and ask you to edit the =flake.nix=. You can edit as much or as little of the config variables as you like, and it will continue the install after you exit the editor.
+
+Potential Errors: I've only tested it working on UEFI with the default EFI mount point of =/boot=. I've added experimental legacy (BIOS) boot support, but it does rely on a quick and dirty script to find the grub device. If you are testing it using some weird boot configuration for whatever reason, try modifying =bootMountPath= (UEFI) or =grubDevice= (legacy BIOS) in =flake.nix= before install, or else it will complain about not being able to install the bootloader.
 
 Note: If you're installing this to a VM, Hyprland won't work unless 3D acceleration is enabled.
 
@@ -56,6 +56,8 @@ git clone https://gitlab.com/librephoenix/nixos-config.git ~/.dotfiles
 
 At a certain point in the install script it will open =nano= (or whatever your =$EDITOR= is set to) and ask you to edit the =flake.nix=. You can edit as much or as little of the config variables as you like, and it will continue the install after you exit the editor.
 
+Potential Errors: I've only tested it working on UEFI with the default EFI mount point of =/boot=. I've added experimental legacy (BIOS) boot support, but it does rely on a quick and dirty script to find the grub device. If you are testing it using some weird boot configuration for whatever reason, try modifying =bootMountPath= (UEFI) or =grubDevice= (legacy BIOS) in =flake.nix= before install, or else it will complain about not being able to install the bootloader.
+
 Note: If you're installing this to a VM, Hyprland won't work unless 3D acceleration is enabled.
 
 Disclaimer: If you install my =homelab= or =worklab= profiles /CHANGE THE PUBLIC SSH KEYS UNLESS YOU WANT ME TO BE ABLE TO SSH INTO YOUR SERVER. YOU CAN CHANGE OR REMOVE THE SSH KEY IN THE RELEVANT CONFIGURATION.NIX/:
@@ -68,8 +70,8 @@ At this time, this only works on an existing NixOS install. It also only works i
 Future upgrade plans:
 - [ ] Be able to install directly from NixOS iso
 - [ ] Be able to install just home-manager config to a non-NixOS Linux distro
-- [ ] Be able to detect UEFI or BIOS and switch config as needed
 - [ ] Be able to detect EFI mount point for systemd-boot?
+- [X] +Be able to detect UEFI or BIOS and switch config as needed+
 - [ ] ??? (open up an issue if you think there is anything else I should try to figure out)
 
 ** Manual Install Procedure
@@ -98,6 +100,8 @@ let
 #+END_SRC
 
 There are many more config options there that you may also want to change as well.
+
+Potential Errors: I've only tested it working on UEFI with the default EFI mount point of =/boot=. I've added experimental legacy (BIOS) boot support, but it does rely on a quick and dirty script to find the grub device. If you are testing it using some weird boot configuration for whatever reason, try modifying =bootMountPath= (UEFI) or =grubDevice= (legacy BIOS) in =flake.nix= before install, or else it will complain about not being able to install the bootloader.
 
 Note: If you're installing this to a VM, Hyprland won't work unless 3D acceleration is enabled.
 
@@ -129,10 +133,13 @@ I have included a script in the [[./themes][themes directory]] named [[./themes/
 If you're having this error, navigate to the [[./flake.nix][flake.nix]] and select any theme with a good background wallpaper link. As long as it is able to download the new wallpaper, it should be able to build.
 
 *** Do I have to put the configuration files in =~/.dotfiles=?
-No. You can put them in literally any directory you want. I just prefer to use =~/.dotfiles= as a convention. If you change the directory, do keep in mind that the above scripts must be modified, replacing =~/.dotfiles= with whatever directory you want to install them to.
+No. You can put them in literally any directory you want. I just prefer to use =~/.dotfiles= as a convention. If you change the directory, do keep in mind that the above scripts must be modified, replacing =~/.dotfiles= with whatever directory you want to install them to. Also, you may want to modify the =dotfilesDir= variable in =flake.nix=.
 
 *** So I cloned these dotfiles into ~/.dotfiles, and now there are system-level files owned by my user account.. HOW IS THIS SECURE?!
 If you're worried about someone modifying your system-level (root configuration) files as your unpriveleged user, see [[./harden.sh][harden.sh]].
 
 *** I installed this to a VM and when I log in, it crashes and sends me back to the login manager (SDDM)?
 Enable 3D acceleration for your virtual machine. Hyprland doesn't work without it.
+
+*** It fails installing with some weird errors about grub or a bootloader?
+It will 100% fail if you test it with a non-default boot configuration. It might even give this error otherwise! If this is the case, try modifying =bootMountPath= (UEFI) or =grubDevice= (legacy BIOS) in =flake.nix= before installing again.
