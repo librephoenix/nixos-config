@@ -1469,7 +1469,7 @@ I don't have this active right now since it's kinda weird with pgtk...
 ** mu4e Configuration
 #+BEGIN_SRC emacs-lisp :tangle config.el
 ;;;------ helpful configuration ------;;;
-(add-load-path! "~/.nix-profile/share/emacs/site-lisp/elpa/mu4e-1.10.8")
+(add-load-path! "~/.nix-profile/share/emacs/site-lisp/elpa/mu4e-1.12.0")
 (require 'mu4e)
 (require 'mu4e-contrib)
 (require 'mu4e-actions)
