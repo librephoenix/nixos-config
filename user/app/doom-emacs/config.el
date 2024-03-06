@@ -1331,44 +1331,19 @@ https://github.com/magit/magit/issues/460 (@cpitclaudel)."
   (setq message-sendmail-extra-arguments '("--read-envelope-from"))
   (setq message-send-mail-function 'message-send-mail-with-sendmail)
   (if (file-exists-p "~/.emacs.d/mu4e-private.el") (load! "~/.emacs.d/mu4e-private.el"))
-  ;;(setq mu4e-contexts
-  ;;   `(
-  ;;      ,(my-make-mu4e-context "example1" "user@example1.com" "user@example1.com" "John Doe" "Example Company" "John Doe\nThis is my signature" "Personal.p")
-  ;;      ,(my-make-mu4e-context "example2" "user@example1.com" "user@example2.com" "Johnny" "Example Organization" "John Doe\nThis is my other signature" "Personal.p")
-  ;;    ))
-  ;;(mu4e-context-switch t "example1")
 
   ;; https://emacs.stackexchange.com/questions/3061/how-to-stop-mu4e-from-inserting-line-breaks
   (defun no-auto-fill ()
-    "Turn off auto-fill-mode."
-    (auto-fill-mode -1))
+      "Turn off auto-fill-mode."
+      (auto-fill-mode -1))
 
   (defun no-org-msg-mode ()
-  "Disable org-msg-mode since it doesn't respect multiline emails"
-    (org-msg-mode 0))
+    "Disable org-msg-mode since it doesn't respect multiline emails"
+      (org-msg-mode 0))
 
   (add-hook 'mu4e-compose-mode-hook #'no-auto-fill)
   (add-hook 'mu4e-compose-pre-hook #'no-org-msg-mode)
 )
-
-;; TODO fix my make-mu4e-context wrapper
-;;(defun my-make-mu4e-context (context-name address catch-address full-name organization-name signature org-roam-db)
-;;  (make-mu4e-context
-;;          :name context-name
-;;          :enter-func `(lambda () ,(mu4e-message (concat "Entering " context-name " context"))
-;;                                 (org-roam-switch-db org-roam-db t)
-;;                                 ,(setq user-mail-address address)
-;;                                 ,(setq user-full-name full-name)
-;;                                 ,(setq message-user-organization organization-name)
-;;                                 ,(setq mu4e-maildir (concat "~/.mail/" address))
-;;                                 ,(setq mu4e-compose-signature signature)
-;;                                 )
-;;          :leave-func `(lambda () ,(mu4e-message (concat "Leaving " context-name " context")))
-;;          ;; we match based on the contact-fields of the message
-;;          :match-func `(lambda (msg)
-;;                        (when msg
-;;                          (mu4e-message-contact-field-matches msg
-;;                            :to ,catch-address)))))
 
 ;;;-- Load emacs direnv;;;--
 (require 'direnv)
@@ -1393,7 +1368,7 @@ https://github.com/magit/magit/issues/460 (@cpitclaudel)."
 
 ;;;-- projectile wrapper commands ;;;--
 (require 'sudo-edit)
-(setq sudo-edit-local-method "su")
+(setq sudo-edit-local-method "doas")
 
 (map! :leader
       :desc "Open current file as root"
@@ -1453,6 +1428,7 @@ https://github.com/magit/magit/issues/460 (@cpitclaudel)."
 (setq browse-url-chromium-program "mpv")
 (setq browse-url-chrome-program "mpv")
 (setq browse-url-handlers '(("youtube.com" . browse-url-chrome)
+                            ("youtu.be" . browse-url-chrome)
                             ("odcyn.com" . browse-url-chrome)
                             ("odysee.com" . browse-url-chrome)
                             ("tilvids.com" . browse-url-chrome)))
