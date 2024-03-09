@@ -56,7 +56,7 @@ git clone https://gitlab.com/librephoenix/nixos-config.git ~/.dotfiles
 
 At a certain point in the install script it will open =nano= (or whatever your =$EDITOR= is set to) and ask you to edit the =flake.nix=. You can edit as much or as little of the config variables as you like, and it will continue the install after you exit the editor.
 
-Potential Errors: I've only tested it working on UEFI with the default EFI mount point of =/boot=. I've added experimental legacy (BIOS) boot support, but it does rely on a quick and dirty script to find the grub device. If you are testing it using some weird boot configuration for whatever reason, try modifying =bootMountPath= (UEFI) or =grubDevice= (legacy BIOS) in =flake.nix= before install, or else it will complain about not being able to install the bootloader.
+Potential Errors: I mainly only test this on UEFI, but I've added experimental legacy (BIOS) boot support. Keep in mind, it does rely on a quick and dirty script to find the grub device. If you are testing it using some weird boot configuration for whatever reason, try modifying =bootMountPath= (UEFI) or =grubDevice= (legacy BIOS) in =flake.nix= before install, or else it will complain about not being able to install the bootloader.
 
 Note: If you're installing this to a VM, Hyprland won't work unless 3D acceleration is enabled.
 
@@ -101,7 +101,16 @@ let
 
 There are many more config options there that you may also want to change as well.
 
-Potential Errors: I've only tested it working on UEFI with the default EFI mount point of =/boot=. I've added experimental legacy (BIOS) boot support, but it does rely on a quick and dirty script to find the grub device. If you are testing it using some weird boot configuration for whatever reason, try modifying =bootMountPath= (UEFI) or =grubDevice= (legacy BIOS) in =flake.nix= before install, or else it will complain about not being able to install the bootloader.
+The build will fail if you are booting from BIOS instead of UEFI, unless change some of the system settings of the flake. Change =bootMode= to "bios" and set the =grubDevice= appropriately for your system (i.e. =/dev/vda= or =/dev/sda=).
+#+begin_src nix :noeval
+...
+let
+  # ---- SYSTEM SETTINGS ---- #
+  systemSettings = {
+    bootMode = "bios"; # uefi or bios
+    grubDevice = "/dev/vda"; # device identifier for grub; find this by running lsblk
+  };
+#+end_src
 
 Note: If you're installing this to a VM, Hyprland won't work unless 3D acceleration is enabled.
 
@@ -114,9 +123,6 @@ Once the variables are set, then switch into the system configuration by running
 #+BEGIN_SRC sh :noeval
 sudo nixos-rebuild switch --flake ~/.dotfiles#system
 #+END_SRC
-
-The build will fail if you are booting from BIOS instead of UEFI.
-# TODO write instructions on how to fix install on bios instead of uefi
 
 *** Intall and Switch Home Manager Config
 Home manager can be installed and the configuration activated with:
