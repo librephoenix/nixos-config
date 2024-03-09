@@ -1246,7 +1246,7 @@ https://github.com/magit/magit/issues/460 (@cpitclaudel)."
   "q" 'helpful-kill-buffers)
 
 ;;;------ helpful configuration ------;;;
-(add-load-path! "~/.nix-profile/share/emacs/site-lisp/elpa/mu4e-1.12.0")
+(add-load-path! "~/.nix-profile/share/emacs/site-lisp/elpa/mu4e-1.12.1")
 (require 'mu4e)
 (require 'mu4e-contrib)
 (require 'mu4e-actions)
@@ -1255,7 +1255,7 @@ https://github.com/magit/magit/issues/460 (@cpitclaudel)."
   (setq mu4e-sent-folder (lambda (msg) (concat "/" (nth 1 (split-string (mu4e-message-field msg :maildir) "/" )) "/Sent")))
   (setq mu4e-drafts-folder (lambda (msg) (concat "/" user-mail-address "/Drafts")))
   (setq mu4e-trash-folder (lambda (msg) (concat "/" (nth 1 (split-string (mu4e-message-field msg :maildir) "/" )) "/Trash")))
-  (setq mu4e-refile-folder (lambda (msg) (concat "/" (nth 1 (split-string (mu4e-message-field msg :maildir) "/" )) "/Archive")))
+  (setq mu4e-refile-folder (lambda (msg) (concat "/" (nth 1 (split-string (mu4e-message-field msg :maildir) "/" )) "/Folders/" (completing-read "Refile msg to: " (directory-files (concat "~/.mail/" (nth 1 (split-string (mu4e-message-field msg :maildir) "/" )) "/Folders"))))))
 
   (setq mu4e-index-lazy-check t)
   (setq mu4e-index-cleanup t)
@@ -1343,6 +1343,7 @@ https://github.com/magit/magit/issues/460 (@cpitclaudel)."
 
   (add-hook 'mu4e-compose-mode-hook #'no-auto-fill)
   (add-hook 'mu4e-compose-pre-hook #'no-org-msg-mode)
+
 )
 
 ;;;-- Load emacs direnv;;;--
