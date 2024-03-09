@@ -23,18 +23,18 @@ nix run git+https://codeberg.org/librephoenix/nixos-config
 
 The script will ask for sudo permissions at certain points, /but you should not run the script as root/.
 
-If the above =nix run= command gives you an error, odds are you either don't have =git= installed, or you haven't enabled the experimental features in your Nix config (=nix-command= and =flakes=). To get the command to install properly, you can first enter a shell with =git= available using:
+If the above =nix run= command gives you an error, odds are you either don't have =git= installed, or you haven't enabled the experimental features in your Nix config (=nix-command= and =flakes=). To get the command to install properly, you can first enter a shell with =git= and =nixFlakes= available using:
 #+begin_src sh :noeval
-nix-shell -p git
+nix-shell -p git nixFlakes
 #+end_src
 and then running:
 #+BEGIN_SRC sh :noeval
-nix-run gitlab:librephoenix/nixos-config --extra-experimental-features nix-command --extra-experimental-features flakes
+nix run gitlab:librephoenix/nixos-config
 #+END_SRC
 
 And if you want a single copy-paste solution:
 #+begin_src sh :noeval
-nix-shell -p git --command "nix run gitlab:librephoenix/nixos-config --extra-experimental-features nix-command --extra-experimental-features flakes"
+nix-shell -p git nixFlakes --command "nix run gitlab:librephoenix/nixos-config"
 #+end_src
 
 At a certain point in the install script it will open =nano= (or whatever your $EDITOR is set to) and ask you to edit the =flake.nix=. You can edit as much or as little of the config variables as you like, and it will continue the install after you exit the editor.
