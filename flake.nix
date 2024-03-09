@@ -149,7 +149,7 @@
 
           install = pkgs.writeShellApplication {
             name = "install";
-            runtimeInputs = with pkgs; [ git gnused ];
+            runtimeInputs = with pkgs; [ git ]; # I could make this fancier by adding other deps
             text = ''${./install.sh} "$@"'';
           };
         });
