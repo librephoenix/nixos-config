@@ -92,10 +92,31 @@
     vlc
     mpv
     yt-dlp
-    #freetube
     blender
-    #blockbench-electron
     cura
+    curaengine_stable
+    (stdenv.mkDerivation {
+      name = "cura-slicer";
+      version = "0.0.7";
+      src = fetchFromGitHub {
+        owner = "Spiritdude";
+        repo = "Cura-CLI-Wrapper";
+        rev = "ff076db33cfefb770e1824461a6336288f9459c7";
+        sha256 = "sha256-BkvdlqUqoTYEJpCCT3Utq+ZBU7g45JZFJjGhFEXPXi4=";
+      };
+      phases = "installPhase";
+      installPhase = ''
+        mkdir -p $out $out/bin $out/share $out/share/cura-slicer
+        cp $src/cura-slicer $out/bin
+        cp $src/settings/fdmprinter.def.json $out/share/cura-slicer
+        cp $src/settings/base.ini $out/share/cura-slicer
+        sed -i 's+#!/usr/bin/perl+#! /usr/bin/env nix-shell\n#! nix-shell -i perl -p perl538 perl538Packages.JSON+g' $out/bin/cura-slicer
+        sed -i 's+/usr/share+/home/${userSettings.username}/.nix-profile/share+g' $out/bin/cura-slicer
+      '';
+      propagatedBuildInputs = with pkgs; [
+        curaengine_stable
+      ];
+    })
     obs-studio
     kdenlive
     ffmpeg
