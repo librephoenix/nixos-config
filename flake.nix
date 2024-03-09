@@ -149,19 +149,19 @@
 
           install = pkgs.writeShellApplication {
             name = "install";
-            runtimeInputs = with pkgs; [ git ];
+            runtimeInputs = with pkgs; [ git gnused ];
             text = ''${./install.sh} "$@"'';
           };
         });
 
-      #apps = forAllSystems (system: {
-      #  default = self.apps.${system}.install;
+      apps = forAllSystems (system: {
+        default = self.apps.${system}.install;
 
-      #  install = {
-      #    type = "app";
-      #    program = "${self.packages.${system}.install}/bin/install";
-      #  };
-      #});
+        install = {
+          type = "app";
+          program = "${self.packages.${system}.install}/bin/install";
+        };
+      });
     };
 
   inputs = {
