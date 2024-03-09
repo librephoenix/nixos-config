@@ -1,43 +1,34 @@
 {
   description = "Flake of LibrePhoenix";
 
-  outputs = inputs@{ self, nixpkgs, nixpkgs-stable, home-manager, nix-doom-emacs
-    , nix-straight, stylix, blocklist-hosts, rust-overlay, hyprland-plugins, eaf
-    , eaf-browser, org-nursery, org-yaap, org-side-tree, org-timeblock, phscroll
-    , ... }:
+  outputs = inputs@{ self, nixpkgs, nixpkgs-stable, home-manager, nix-doom-emacs,
+                     nix-straight, stylix, blocklist-hosts, hyprland-plugins, rust-overlay,
+                     org-nursery, org-yaap, org-side-tree, org-timeblock, phscroll, ... }:
     let
       # ---- SYSTEM SETTINGS ---- #
       systemSettings = {
         system = "x86_64-linux"; # system arch
         hostname = "snowfire"; # hostname
-        profile =
-          "personal"; # select a profile defined from my profiles directory
+        profile = "personal"; # select a profile defined from my profiles directory
         timezone = "America/Chicago"; # select timezone
         locale = "en_US.UTF-8"; # select locale
         bootMode = "uefi"; # uefi or bios
-        bootMountPath =
-          "/boot"; # mount path for efi boot partition; only used for uefi boot mode
-        grubDevice =
-          ""; # device identifier for grub; only used for legacy (bios) boot mode
+        bootMountPath = "/boot"; # mount path for efi boot partition; only used for uefi boot mode
+        grubDevice = ""; # device identifier for grub; only used for legacy (bios) boot mode
       };
 
       # ----- USER SETTINGS ----- #
       userSettings = rec {
         username = "emmet"; # username
         name = "Emmet"; # name/identifier
-        email =
-          "emmet@librephoenix.com"; # email (used for certain configurations)
+        email = "emmet@librephoenix.com"; # email (used for certain configurations)
         dotfilesDir = "~/.dotfiles"; # absolute path of the local repo
-        theme =
-          "uwunicorn-yt"; # selcted theme from my themes directory (./themes/)
-        wm =
-          "hyprland"; # Selected window manager or desktop environment; must select one in both ./user/wm/ and ./system/wm/
+        theme = "uwunicorn-yt"; # selcted theme from my themes directory (./themes/)
+        wm = "hyprland"; # Selected window manager or desktop environment; must select one in both ./user/wm/ and ./system/wm/
         # window manager type (hyprland or x11) translator
         wmType = if (wm == "hyprland") then "wayland" else "x11";
-        browser =
-          "qutebrowser"; # Default browser; must select one from ./user/app/browser/
-        defaultRoamDir =
-          "Personal.p"; # Default org roam directory relative to ~/Org
+        browser = "qutebrowser"; # Default browser; must select one from ./user/app/browser/
+        defaultRoamDir = "Personal.p"; # Default org roam directory relative to ~/Org
         term = "alacritty"; # Default terminal command;
         font = "Intel One Mono"; # Selected font
         fontPkg = pkgs.intel-one-mono; # Font package
@@ -47,13 +38,14 @@
         # EDITOR and TERM session variables must be set in home.nix or other module
         # I set the session variable SPAWNEDITOR to this in my home.nix for convenience
         spawnEditor = if (editor == "emacsclient") then
-          "emacsclient -c -a 'emacs'"
-        else
-          (if ((editor == "vim") || (editor == "nvim")
-            || (editor == "nano")) then
-            "exec " + term + " -e " + editor
-          else
-            editor);
+                        "emacsclient -c -a 'emacs'"
+                      else
+                        (if ((editor == "vim") ||
+                             (editor == "nvim") ||
+                             (editor == "nano")) then
+                               "exec " + term + " -e " + editor
+                         else
+                           editor);
       };
 
       # create patched nixpkgs
@@ -80,7 +72,6 @@
           allowUnfree = true;
           allowUnfreePredicate = (_: true);
         };
-        overlays = [ rust-overlay.overlays.default ];
       };
 
       # configure lib
@@ -111,8 +102,6 @@
             inherit systemSettings;
             inherit userSettings;
             inherit (inputs) nix-doom-emacs;
-            inherit (inputs) eaf;
-            inherit (inputs) eaf-browser;
             inherit (inputs) org-nursery;
             inherit (inputs) org-yaap;
             inherit (inputs) org-side-tree;
@@ -210,8 +199,6 @@
     stylix.url = "github:danth/stylix";
 
     rust-overlay.url = "github:oxalica/rust-overlay";
-
-    #nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=v0.2.0";
 
     blocklist-hosts = {
       url = "github:StevenBlack/hosts";
