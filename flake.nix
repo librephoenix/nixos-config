@@ -1,7 +1,7 @@
 {
   description = "Flake of LibrePhoenix";
 
-  outputs = inputs@{ self, nixpkgs, nixpkgs-stable, home-manager, nix-doom-emacs,
+  outputs = inputs@{ self, nixpkgs, nixpkgs-stable, kdenlive-pin-nixpkgs, home-manager, nix-doom-emacs,
                      nix-straight, stylix, blocklist-hosts, hyprland-plugins, rust-overlay,
                      org-nursery, org-yaap, org-side-tree, org-timeblock, phscroll, ... }:
     let
@@ -74,6 +74,10 @@
         };
       };
 
+      pkgs-kdenlive = import kdenlive-pin-nixpkgs {
+        system = systemSettings.system;
+      };
+
       # configure lib
       lib = nixpkgs.lib;
 
@@ -99,6 +103,7 @@
           extraSpecialArgs = {
             # pass config variables from above
             inherit pkgs-stable;
+            inherit pkgs-kdenlive;
             inherit systemSettings;
             inherit userSettings;
             inherit (inputs) nix-doom-emacs;
@@ -156,6 +161,7 @@
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "nixpkgs/nixos-23.11";
+    kdenlive-pin-nixpkgs.url = "nixpkgs/cfec6d9203a461d9d698d8a60ef003cac6d0da94";
 
     home-manager.url = "github:nix-community/home-manager/master";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";

@@ -1,4 +1,4 @@
-{ config, pkgs, nix-doom-emacs, stylix, userSettings, ... }:
+{ config, pkgs, pkgs-kdenlive, nix-doom-emacs, stylix, userSettings, ... }:
 
 {
   # Home Manager needs a bit of information about you and the paths it should
@@ -21,7 +21,7 @@
               ../../user/app/keepass/keepass.nix # My password manager
               (./. + "../../../user/app/browser"+("/"+userSettings.browser)+".nix") # My default browser selected from flake
               ../../user/app/virtualization/virtualization.nix # Virtual machines
-              ../../user/app/flatpak/flatpak.nix # Flatpaks
+              #../../user/app/flatpak/flatpak.nix # Flatpaks
               ../../user/style/stylix.nix # Styling and themes for my apps
               ../../user/lang/cc/cc.nix # C and C++ tools
               ../../user/lang/godot/godot.nix # Game development
@@ -31,7 +31,7 @@
 
   home.stateVersion = "22.11"; # Please read the comment before changing.
 
-  home.packages = with pkgs; [
+  home.packages = (with pkgs; [
     # Core
     zsh
     alacritty
@@ -84,7 +84,7 @@
     })
 
     # Media
-    gimp-with-plugins
+    gimp
     pinta
     krita
     inkscape
@@ -118,7 +118,6 @@
       ];
     })
     obs-studio
-    kdenlive
     ffmpeg
     (pkgs.writeScriptBin "kdenlive-accel" ''
       #!/bin/sh
@@ -134,7 +133,7 @@
     texinfo
     libffi zlib
     nodePackages.ungit
-  ];
+  ]) ++ ([ pkgs-kdenlive.kdenlive ]);
 
   services.syncthing.enable = true;
 

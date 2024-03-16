@@ -283,7 +283,7 @@
     fnott
     fuzzel
     keepmenu
-    pinentry-gnome
+    pinentry-gnome3
     wev
     grim
     slurp
