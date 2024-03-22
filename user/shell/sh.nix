@@ -18,9 +18,9 @@ in
 {
   programs.zsh = {
     enable = true;
-    enableAutosuggestions = true;
-    enableCompletion = true;
+    autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
+    enableCompletion = true;
     shellAliases = myAliases;
     initExtra = ''
     PROMPT=" ◉ %U%F{magenta}%n%f%u@%U%F{blue}%m%f%u:%F{yellow}%~%f
