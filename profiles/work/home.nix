@@ -129,6 +129,9 @@
     libmediainfo
     mediainfo-gui
     audio-recorder
+    gnome.cheese
+    ardour
+    tenacity
 
     # Various dev packages
     texinfo
