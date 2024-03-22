@@ -110,6 +110,7 @@
        bindm=SUPER,mouse:273,resizewindow
        bind=SUPER,T,togglefloating
        bind=SUPER,G,exec,hyprworkspace 9; pegasus-fe;
+       bind=,code:148,exec,''+ userSettings.term + " "+''-e numbat
 
        bind=,code:107,exec,grim -g "$(slurp)"
        bind=SHIFT,code:107,exec,grim -g "$(slurp -o)"
@@ -432,7 +433,7 @@
         margin = "7 7 3 7";
         spacing = 2;
 
-        modules-left = [ "custom/os" "custom/hyprprofile" "battery" "backlight" "pulseaudio" "cpu" "memory" ];
+        modules-left = [ "custom/os" "custom/hyprprofile" "battery" "backlight" "keyboard-state" "pulseaudio" "cpu" "memory" ];
         modules-center = [ "hyprland/workspaces" ];
         modules-right = [ "idle_inhibitor" "tray" "clock" ];
 
@@ -446,6 +447,14 @@
           "exec" = ''cat ~/.hyprprofile'';
           "interval" = 3;
           "on-click" = "hyprprofile-dmenu";
+        };
+        "keyboard-state" = {
+          "numlock" = true;
+          "format" = " {icon} ";
+          "format-icons" = {
+            "locked" = "󰎠";
+            "unlocked" = "󱧓";
+          };
         };
         "hyprland/workspaces" = {
           "format" = "{icon}";
@@ -700,6 +709,14 @@
 
       #backlight {
           color: #'' + config.lib.stylix.colors.base0A + '';
+      }
+
+      label.numlock {
+          color: #'' + config.lib.stylix.colors.base04 + '';
+      }
+
+      label.numlock.locked {
+          color: #'' + config.lib.stylix.colors.base0F + '';
       }
 
       #pulseaudio {

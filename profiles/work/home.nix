@@ -56,6 +56,7 @@
     openvpn
     protonmail-bridge
     texliveSmall
+    numbat
 
     wine
     bottles
