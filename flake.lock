@@ -245,6 +245,21 @@
         "type": "github"
       }
     },
+    "emacs-pin-nixpkgs": {
+      "locked": {
+        "lastModified": 1707268954,
+        "narHash": "sha256-2en1kvde3cJVc3ZnTy8QeD2oKcseLFjYPLKhIGDanQ0=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "f8e2ebd66d097614d51a56a755450d4ae1632df1",
+        "type": "github"
+      },
+      "original": {
+        "id": "nixpkgs",
+        "rev": "f8e2ebd66d097614d51a56a755450d4ae1632df1",
+        "type": "indirect"
+      }
+    },
     "emacs-so-long": {
       "flake": false,
       "locked": {
@@ -854,6 +869,7 @@
         "blocklist-hosts": "blocklist-hosts",
         "eaf": "eaf",
         "eaf-browser": "eaf-browser",
+        "emacs-pin-nixpkgs": "emacs-pin-nixpkgs",
         "home-manager": "home-manager",
         "hyprland-plugins": "hyprland-plugins",
         "kdenlive-pin-nixpkgs": "kdenlive-pin-nixpkgs",

@@ -1,9 +1,10 @@
 {
   description = "Flake of LibrePhoenix";
 
-  outputs = inputs@{ self, nixpkgs, nixpkgs-stable, kdenlive-pin-nixpkgs, home-manager, nix-doom-emacs,
-                     nix-straight, stylix, blocklist-hosts, hyprland-plugins, rust-overlay,
-                     org-nursery, org-yaap, org-side-tree, org-timeblock, phscroll, ... }:
+  outputs = inputs@{ self, nixpkgs, nixpkgs-stable, emacs-pin-nixpkgs, kdenlive-pin-nixpkgs,
+                     home-manager, nix-doom-emacs, nix-straight, stylix, blocklist-hosts,
+                     hyprland-plugins, rust-overlay, org-nursery, org-yaap, org-side-tree,
+                     org-timeblock, phscroll, ... }:
     let
       # ---- SYSTEM SETTINGS ---- #
       systemSettings = {
@@ -74,6 +75,10 @@
         };
       };
 
+      pkgs-emacs = import emacs-pin-nixpkgs {
+        system = systemSettings.system;
+      };
+
       pkgs-kdenlive = import kdenlive-pin-nixpkgs {
         system = systemSettings.system;
       };
@@ -103,6 +108,7 @@
           extraSpecialArgs = {
             # pass config variables from above
             inherit pkgs-stable;
+            inherit pkgs-emacs;
             inherit pkgs-kdenlive;
             inherit systemSettings;
             inherit userSettings;
@@ -161,6 +167,7 @@
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "nixpkgs/nixos-23.11";
+    emacs-pin-nixpkgs.url = "nixpkgs/f8e2ebd66d097614d51a56a755450d4ae1632df1";
     kdenlive-pin-nixpkgs.url = "nixpkgs/cfec6d9203a461d9d698d8a60ef003cac6d0da94";
 
     home-manager.url = "github:nix-community/home-manager/master";

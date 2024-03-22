@@ -1,13 +1,19 @@
-{ config, lib, pkgs, pkgs-stable, userSettings, systemSettings,
+{ config, lib, pkgs-emacs, pkgs-stable, userSettings, systemSettings,
   org-nursery, org-yaap, org-side-tree, org-timeblock, phscroll, ... }:
 let
   themePolarity = lib.removeSuffix "\n" (builtins.readFile (./. + "../../../../themes"+("/"+userSettings.theme)+"/polarity.txt"));
   dashboardLogo = ./. + "/nix-" + themePolarity + ".png";
 in
 {
+  imports = [
+    ../git/git.nix
+    ../../shell/sh.nix
+    ../../shell/cli-collection.nix
+  ];
+
   programs.doom-emacs = {
     enable = true;
-    emacsPackage = pkgs.emacs29-pgtk;
+    emacsPackage = pkgs-emacs.emacs29-pgtk;
     doomPrivateDir = ./.;
     # This block from https://github.com/znewman01/dotfiles/blob/be9f3a24c517a4ff345f213bf1cf7633713c9278/emacs/default.nix#L12-L34
     # Only init/packages so we only rebuild when those change.
@@ -18,7 +24,7 @@ in
         filter = path: type:
           builtins.elem (baseNameOf path) [ "init.el" "packages.el" ];
       };
-      in pkgs.linkFarm "doom-packages-dir" [
+      in pkgs-emacs.linkFarm "doom-packages-dir" [
         {
           name = "init.el";
           path = "${filteredPath}/init.el";
@@ -29,7 +35,7 @@ in
         }
         {
           name = "config.el";
-          path = pkgs.emptyFile;
+          path = pkgs-emacs.emptyFile;
         }
       ];
   # End block
@@ -40,18 +46,16 @@ in
       extension = ".el";
   };
 
-  home.packages = (with pkgs; [
+  home.packages = (with pkgs-emacs; [
     nil
     nixfmt
-    git
     file
     wmctrl
     jshon
     aria
     hledger
     hunspell hunspellDicts.en_US-large
-    pandoc
-    (pkgs.mu.override { emacs = emacs29-pgtk; })
+    (pkgs-emacs.mu.override { emacs = emacs29-pgtk; })
     emacsPackages.mu4e
     isync
     msmtp
@@ -70,7 +74,7 @@ in
 
   services.mbsync = {
     enable = true;
-    package = pkgs.isync;
+    package = pkgs-stable.isync;
     frequency = "*:0/5";
   };
 
