@@ -46,6 +46,7 @@
     # Office
     libreoffice-fresh
     mate.atril
+    openboard
     xournalpp
     glib
     newsflash

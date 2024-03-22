@@ -1,4 +1,4 @@
-{ config, lib, pkgs, userSettings, ... }:
+{ config, lib, pkgs, userSettings, systemSettings, ... }:
 
 {
   imports = [
@@ -7,10 +7,13 @@
     (import ../../app/dmenu-scripts/networkmanager-dmenu.nix {
       dmenu_command = "fuzzel -d"; inherit config lib pkgs;
     })
-    (import ./hyprprofiles/hyprprofiles.nix {
-      dmenuCmd = "fuzzel -d"; inherit config lib pkgs;
-    })
-  ];
+    ../input/nihongo.nix
+  ] ++
+  (if (systemSettings.profile == "personal") then
+    [ (import ./hyprprofiles/hyprprofiles.nix {
+        dmenuCmd = "fuzzel -d"; inherit config lib pkgs; })]
+  else
+    []);
 
   gtk.cursorTheme = {
     package = pkgs.quintom-cursor-theme;
@@ -224,9 +227,13 @@
        monitor=HDMI-A-1,1920x1080,1920x0,1
        monitor=DP-1,1920x1080,0x0,1
 
-       # 2 monitor setup
+       # hdmi tv
        #monitor=eDP-1,1920x1080,1920x0,1
-       #monitor=DP-1,1920x1200,0x0,1
+       #monitor=HDMI-A-1,1920x1080,0x0,1
+
+       # hdmi work projector
+       #monitor=eDP-1,1920x1080,1920x0,1
+       #monitor=HDMI-A-1,1920x1200,0x0,1
 
        xwayland {
          force_zero_scaling = true
@@ -245,6 +252,7 @@
        }
 
        misc {
+         disable_hyprland_logo = true
          mouse_move_enables_dpms = false
        }
        decoration {
@@ -302,7 +310,7 @@
       #!/bin/sh
       imgname="/tmp/screenshot-ocr-$(date +%Y%m%d%H%M%S).png"
       txtname="/tmp/screenshot-ocr-$(date +%Y%m%d%H%M%S)"
-      txtfname="/tmp/screenshot-ocr-$(date +%Y%m%d%H%M%S).txt"
+      txtfname=$txtname.txt
       grim -g "$(slurp)" $imgname;
       tesseract $imgname $txtname;
       wl-copy -n < $txtfname
@@ -750,6 +758,7 @@
       background-size: auto 100%;
     }
   '';
+
   services.udiskie.enable = true;
   services.udiskie.tray = "always";
   programs.swaylock = {
