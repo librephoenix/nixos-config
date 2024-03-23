@@ -29,7 +29,7 @@
       exec-once = dbus-update-activation-environment DISPLAY XAUTHORITY WAYLAND_DISPLAY
       exec-once = hyprctl setcursor '' + config.gtk.cursorTheme.name + " " + builtins.toString config.gtk.cursorTheme.size + ''
 
-      exec-once = hyprprofile Personal
+      exec-once = hyprprofile Default
 
       exec-once = pypr
       exec-once = ydotoold

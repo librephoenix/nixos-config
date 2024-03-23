@@ -13,7 +13,7 @@ in
       prevprofile="$(cat ~/.hyprprofile)"
       newprofile=$1
       if [ $# -eq 1 ]; then
-        if [ $newprofile = "Personal" ]; then
+        if [ $newprofile = "Default" ]; then
           echo "" > ~/.hyprprofile;
         else
           echo $newprofile > ~/.hyprprofile;
