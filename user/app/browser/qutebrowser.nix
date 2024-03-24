@@ -184,7 +184,8 @@ c.url.searchengines = {'DEFAULT': 'https://startpage.com/do/search?query={}',
                        'gl'     : 'https://gitlab.com/search?search={}&nav_source=navbar',
                        'np'     : 'https://github.com/search?q=repo%3ANixOS%2Fnixpkgs%20{}&type=code',
                        'wk'     : 'https://en.wikipedia.org/w/index.php?fulltext=1&search={}&title=Special%3ASearch&ns0=1',
-                       'th'     : 'https://www.thingiverse.com/search?q={}&page=1'
+                       'th'     : 'https://www.thingiverse.com/search?q={}&page=1',
+                       'dh'     : 'https://hub.docker.com/search?q={}'
                       }
 
 config.set('completion.open_categories',["searchengines","quickmarks","bookmarks"])
