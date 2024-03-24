@@ -6,7 +6,7 @@
       ../../system/hardware/time.nix # Network time sync
       ../../system/security/doas.nix
       ../../system/security/gpg.nix
-      ( import ../../system/app/docker.nix {storageDriver = "btrfs"; inherit userSettings pkgs lib;} )
+      ( import ../../system/app/docker.nix {storageDriver = null; inherit pkgs userSettings lib;} )
     ];
 
   # Fix nix path
