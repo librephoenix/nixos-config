@@ -88,6 +88,7 @@
        bind=ALT,TAB,bringactivetotop
        bind=ALTSHIFT,TAB,cyclenext,prev
        bind=ALTSHIFT,TAB,bringactivetotop
+       bind=SUPER,TAB,exec,pypr expose
        bind=SUPER,V,exec,wl-copy $(wl-paste | tr '\n' ' ')
        bind=SUPERSHIFT,T,exec,screenshot-ocr
 
@@ -195,6 +196,12 @@
        windowrulev2 = workspace special silent,$pavucontrol
        windowrulev2 = opacity 0.80,$pavucontrol
 
+       $miniframe = title:\*Minibuf.*
+       windowrulev2 = float,$miniframe
+       windowrulev2 = size 64% 50%,$miniframe
+       windowrulev2 = move 18% 25%,$miniframe
+       windowrulev2 = animation popin 1 20,$miniframe
+
        windowrulev2 = float,title:^(Kdenlive)$
 
        windowrulev2 = float,class:^(pokefinder)$
@@ -208,6 +215,7 @@
        windowrulev2 = opacity 0.75,title:^(My Local Dashboard Awesome Homepage - qutebrowser)$
        windowrulev2 = opacity 0.75,title:\[.*\] - My Local Dashboard Awesome Homepage
        windowrulev2 = opacity 0.9,class:^(org.keepassxc.KeePassXC)$
+       windowrulev2 = opacity 0.75,class:^(org.gnome.Nautilus)$
        windowrulev2 = opacity 0.75,class:^(org.gnome.Nautilus)$
 
        layerrule = blur,waybar
@@ -280,6 +288,7 @@
     polkit_gnome
     libva-utils
     gsettings-desktop-schemas
+    pyprland
     gnome.zenity
     wlr-randr
     wtype
@@ -372,26 +381,11 @@
       exit 0
 
     '')
-    (pkgs.python3Packages.buildPythonPackage rec {
-      pname = "pyprland";
-      version = "1.4.1";
-      src = pkgs.fetchPypi {
-        inherit pname version;
-        sha256 = "sha256-JRxUn4uibkl9tyOe68YuHuJKwtJS//Pmi16el5gL9n8=";
-      };
-      format = "pyproject";
-      propagatedBuildInputs = with pkgs; [
-        python3Packages.setuptools
-        python3Packages.poetry-core
-        poetry
-      ];
-      doCheck = false;
-    })
   ];
   home.file.".config/hypr/pyprland.json".text = ''
     {
       "pyprland": {
-        "plugins": ["scratchpads", "magnify"]
+        "plugins": ["scratchpads", "magnify", "expose"]
       },
       "scratchpads": {
         "term": {
