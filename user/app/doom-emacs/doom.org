@@ -253,6 +253,17 @@ Doom Emacs is traditionally installed by cloning the repository ([[https://githu
 ;; For camelCase
 (global-subword-mode 1)
 
+;; Mini-frames
+(setq mini-frame-show-parameters
+  '((left . 0.5)
+   (top . 10)
+   (width . 0.6)
+   (height . 15))
+)
+(setq mini-frame-resize nil)
+(setq mini-frame-standalone t)
+(mini-frame-mode -1) ;; don't enable this for now since it's kinda slow on my system
+
 #+END_SRC
 ** Registers
 #+BEGIN_SRC emacs-lisp :tangle config.el
@@ -1930,6 +1941,7 @@ Any git package can be configured for a particular commit or branch:
 (package! org-ql)
 (package! persist)
 (package! sudo-edit)
+(package! mini-frame)
 #+END_SRC
 * Nix Integration
 In order to have Nix load my Doom Emacs configuration [[./doom.nix][doom.nix]], which I source in the =imports= block of my [[../../../profiles/work/home.nix][home.nix]].

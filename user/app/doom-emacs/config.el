@@ -190,6 +190,17 @@
 ;; For camelCase
 (global-subword-mode 1)
 
+;; Mini-frames
+(setq mini-frame-show-parameters
+  '((left . 0.5)
+   (top . 10)
+   (width . 0.6)
+   (height . 15))
+)
+(setq mini-frame-resize nil)
+(setq mini-frame-standalone t)
+(mini-frame-mode -1) ;; don't enable this for now since it's kinda slow on my system
+
 ;;;------ Registers ------;;;
 
 (map! :leader
