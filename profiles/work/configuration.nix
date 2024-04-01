@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ pkgs, lib, systemSettings, userSettings, ... }:
+{ pkgs, pkgs-staging-next, lib, systemSettings, userSettings, ... }:
 {
   imports =
     [ ../../system/hardware-configuration.nix
@@ -26,6 +26,14 @@
       ../../system/security/automount.nix
       ../../system/style/stylix.nix
     ];
+
+  # xz trojan https://github.com/NixOS/nixpkgs/issues/300055
+  system.replaceRuntimeDependencies = [
+    {
+      original = pkgs.xz;
+      replacement = pkgs-staging-next.xz;
+    }
+  ];
 
   # Fix nix path
   nix.nixPath = [ "nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos"

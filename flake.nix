@@ -1,10 +1,10 @@
 {
   description = "Flake of LibrePhoenix";
 
-  outputs = inputs@{ self, nixpkgs, nixpkgs-stable, emacs-pin-nixpkgs, kdenlive-pin-nixpkgs,
-                     home-manager, nix-doom-emacs, nix-straight, stylix, blocklist-hosts,
-                     hyprland-plugins, rust-overlay, org-nursery, org-yaap, org-side-tree,
-                     org-timeblock, phscroll, ... }:
+  outputs = inputs@{ self, nixpkgs, nixpkgs-staging-next, nixpkgs-stable, emacs-pin-nixpkgs,
+                     kdenlive-pin-nixpkgs, home-manager, nix-doom-emacs, nix-straight, stylix,
+                     blocklist-hosts, hyprland-plugins, rust-overlay, org-nursery, org-yaap,
+                     org-side-tree, org-timeblock, phscroll, ... }:
     let
       # ---- SYSTEM SETTINGS ---- #
       systemSettings = {
@@ -67,6 +67,10 @@
         overlays = [ rust-overlay.overlays.default ];
       };
 
+      pkgs-staging-next = import nixpkgs-staging-next {
+        system = systemSettings.system;
+      };
+
       pkgs-stable = import nixpkgs-stable {
         system = systemSettings.system;
         config = {
@@ -108,6 +112,7 @@
           extraSpecialArgs = {
             # pass config variables from above
             inherit pkgs-stable;
+            inherit pkgs-staging-next;
             inherit pkgs-emacs;
             inherit pkgs-kdenlive;
             inherit systemSettings;
@@ -134,6 +139,7 @@
           specialArgs = {
             # pass config variables from above
             inherit pkgs-stable;
+            inherit pkgs-staging-next;
             inherit systemSettings;
             inherit userSettings;
             inherit (inputs) stylix;
@@ -167,6 +173,7 @@
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "nixpkgs/nixos-23.11";
+    nixpkgs-staging-next.url = "nixpkgs/staging-next";
     emacs-pin-nixpkgs.url = "nixpkgs/f8e2ebd66d097614d51a56a755450d4ae1632df1";
     kdenlive-pin-nixpkgs.url = "nixpkgs/cfec6d9203a461d9d698d8a60ef003cac6d0da94";
 
