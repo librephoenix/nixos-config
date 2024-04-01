@@ -50,6 +50,7 @@
     xournalpp
     glib
     newsflash
+    foliate
     gnome.nautilus
     gnome.gnome-calendar
     gnome.seahorse
@@ -94,7 +95,7 @@
     vlc
     mpv
     yt-dlp
-    blender
+    blender-hip
     cura
     curaengine_stable
     (stdenv.mkDerivation {
@@ -132,6 +133,7 @@
     audio-recorder
     gnome.cheese
     ardour
+    rosegarden
     tenacity
 
     # Various dev packages
