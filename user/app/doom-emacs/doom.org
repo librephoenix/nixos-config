@@ -665,6 +665,8 @@ exit
    :desc "Org Transclusion Mode" "t" #'org-transclusion-mode))
 (map! :leader :prefix "n" "l" #'org-transclusion-live-sync-start)
 
+(setq org-transclusion-exclude-elements '(property-drawer keyword))
+
 (add-hook 'org-mode-hook #'org-transclusion-mode)
 
 #+END_SRC
@@ -931,13 +933,20 @@ exit
   (setq org-agenda-files (append org-agenda-files (org-roam-list-notes-by-tag "todos")))
 )
 
+(defun org-roam-append-ids-to-org-id-files (db)
+  (org-roam-switch-db db t)
+  (setq org-id-files (append org-id-files (org-roam-list-files)))
+)
+
 ;; Refreshing org roam agenda
 (defun org-roam-refresh-agenda-list ()
   (interactive)
   (setq prev-org-roam-db-choice org-roam-db-choice)
   (setq org-agenda-files '())
+  (setq org-id-files '())
   (dolist (DB full-org-roam-db-list-pretty)
     (org-roam-append-notes-to-agenda "todos" DB)
+    (org-roam-append-ids-to-org-id-files DB)
   )
   (setq org-agenda-files (-uniq org-agenda-files))
   (org-roam-switch-db prev-org-roam-db-choice 1)
@@ -1951,13 +1960,12 @@ Any git package can be configured for a particular commit or branch:
 (package! org-ql)
 (package! persist)
 (package! sudo-edit)
-(package! mini-frame)
 #+END_SRC
 * Nix Integration
 In order to have Nix load my Doom Emacs configuration [[./doom.nix][doom.nix]], which I source in the =imports= block of my [[../../../profiles/work/home.nix][home.nix]].
 #+BEGIN_SRC nix :tangle doom.nix
 { config, lib, pkgs-emacs, pkgs-stable, userSettings, systemSettings,
-  org-nursery, org-yaap, org-side-tree, org-timeblock, phscroll, ... }:
+  org-nursery, org-yaap, org-side-tree, org-timeblock, phscroll, mini-frame, ... }:
 let
   themePolarity = lib.removeSuffix "\n" (builtins.readFile (./. + "../../../../themes"+("/"+userSettings.theme)+"/polarity.txt"));
   dashboardLogo = ./. + "/nix-" + themePolarity + ".png";
@@ -2063,6 +2071,10 @@ in
 
   home.file.".emacs.d/phscroll" = {
     source = "${phscroll}";
+  };
+
+  home.file.".emacs.d/mini-frame" = {
+    source = "${mini-frame}";
   };
 
   home.file.".emacs.d/system-vars.el".text = ''

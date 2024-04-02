@@ -548,6 +548,8 @@ same directory as the org-buffer and insert a link to this file."
    :desc "Org Transclusion Mode" "t" #'org-transclusion-mode))
 (map! :leader :prefix "n" "l" #'org-transclusion-live-sync-start)
 
+(setq org-transclusion-exclude-elements '(property-drawer keyword))
+
 (add-hook 'org-mode-hook #'org-transclusion-mode)
 
 (defun org-jekyll-new-post ()
@@ -798,13 +800,20 @@ same directory as the org-buffer and insert a link to this file."
   (setq org-agenda-files (append org-agenda-files (org-roam-list-notes-by-tag "todos")))
 )
 
+(defun org-roam-append-ids-to-org-id-files (db)
+  (org-roam-switch-db db t)
+  (setq org-id-files (append org-id-files (org-roam-list-files)))
+)
+
 ;; Refreshing org roam agenda
 (defun org-roam-refresh-agenda-list ()
   (interactive)
   (setq prev-org-roam-db-choice org-roam-db-choice)
   (setq org-agenda-files '())
+  (setq org-id-files '())
   (dolist (DB full-org-roam-db-list-pretty)
     (org-roam-append-notes-to-agenda "todos" DB)
+    (org-roam-append-ids-to-org-id-files DB)
   )
   (setq org-agenda-files (-uniq org-agenda-files))
   (org-roam-switch-db prev-org-roam-db-choice 1)
