@@ -425,7 +425,11 @@ same directory as the org-buffer and insert a link to this file."
                     '(file))
            (list (openwith-make-extension-regexp
                   '("flp"))
-                    "~/.local/bin/flstudio"
+                    "flstudio"
+                    '(file))
+           (list (openwith-make-extension-regexp
+                  '("mid"))
+                    "rosegarden"
                     '(file))
                ))
      (openwith-mode 1)))
