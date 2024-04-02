@@ -253,16 +253,22 @@ Doom Emacs is traditionally installed by cloning the repository ([[https://githu
 ;; For camelCase
 (global-subword-mode 1)
 
-;; Mini-frames
-(setq mini-frame-show-parameters
-  '((left . 0.5)
-   (top . 10)
-   (width . 0.6)
-   (height . 15))
-)
-(setq mini-frame-resize nil)
-(setq mini-frame-standalone t)
-(mini-frame-mode -1) ;; don't enable this for now since it's kinda slow on my system
+;; Mini-frames ;; cool but kinda suboptimal atm
+;(add-load-path! "~/.emacs.d/mini-frame")
+;(require 'mini-frame)
+;(setq mini-frame-ignore-commands '(evil-ex-search-forward helpful-variable helpful-callable))
+;(setq mini-frame-show-parameters
+;    '((left . 216)
+;     (top . 240)
+;     (width . 0.78)
+;     (height . 20)
+;     (alpha-background . 90))
+;)
+;(setq mini-frame-detach-on-hide nil)
+;(setq mini-frame-resize t)
+;(setq resize-mini-frames t)
+;(setq mini-frame-standalone nil)
+;(mini-frame-mode 1)
 
 #+END_SRC
 ** Registers

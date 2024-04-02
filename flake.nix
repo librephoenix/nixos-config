@@ -4,7 +4,7 @@
   outputs = inputs@{ self, nixpkgs, nixpkgs-staging-next, nixpkgs-stable, emacs-pin-nixpkgs,
                      kdenlive-pin-nixpkgs, home-manager, nix-doom-emacs, nix-straight, stylix,
                      blocklist-hosts, hyprland-plugins, rust-overlay, org-nursery, org-yaap,
-                     org-side-tree, org-timeblock, phscroll, ... }:
+                     org-side-tree, org-timeblock, phscroll, mini-frame, ... }:
     let
       # ---- SYSTEM SETTINGS ---- #
       systemSettings = {
@@ -123,6 +123,7 @@
             inherit (inputs) org-side-tree;
             inherit (inputs) org-timeblock;
             inherit (inputs) phscroll;
+            inherit (inputs) mini-frame;
             #inherit (inputs) nix-flatpak;
             inherit (inputs) stylix;
             inherit (inputs) hyprland-plugins;
@@ -213,6 +214,10 @@
     };
     phscroll = {
       url = "github:misohena/phscroll";
+      flake = false;
+    };
+    mini-frame = {
+      url = "github:muffinmad/emacs-mini-frame";
       flake = false;
     };
 

@@ -547,6 +547,22 @@
         "type": "indirect"
       }
     },
+    "mini-frame": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1685981796,
+        "narHash": "sha256-HsGEu37oq2uuQFfE2m++VH1SwyGC89ChnmrBVFC/WME=",
+        "owner": "muffinmad",
+        "repo": "emacs-mini-frame",
+        "rev": "f420020aa33a1b00407000addd995170a36e026e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "muffinmad",
+        "repo": "emacs-mini-frame",
+        "type": "github"
+      }
+    },
     "nix-doom-emacs": {
       "inputs": {
         "doom-emacs": "doom-emacs",
@@ -888,6 +904,7 @@
         "home-manager": "home-manager",
         "hyprland-plugins": "hyprland-plugins",
         "kdenlive-pin-nixpkgs": "kdenlive-pin-nixpkgs",
+        "mini-frame": "mini-frame",
         "nix-doom-emacs": "nix-doom-emacs",
         "nix-straight": "nix-straight",
         "nixpkgs": "nixpkgs",

@@ -30,4 +30,3 @@
 (package! org-ql)
 (package! persist)
 (package! sudo-edit)
-(package! mini-frame)
