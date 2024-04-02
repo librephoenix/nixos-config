@@ -1,5 +1,5 @@
 { config, lib, pkgs-emacs, pkgs-stable, userSettings, systemSettings,
-  org-nursery, org-yaap, org-side-tree, org-timeblock, phscroll, ... }:
+  org-nursery, org-yaap, org-side-tree, org-timeblock, phscroll, mini-frame, ... }:
 let
   themePolarity = lib.removeSuffix "\n" (builtins.readFile (./. + "../../../../themes"+("/"+userSettings.theme)+"/polarity.txt"));
   dashboardLogo = ./. + "/nix-" + themePolarity + ".png";
@@ -105,6 +105,10 @@ in
 
   home.file.".emacs.d/phscroll" = {
     source = "${phscroll}";
+  };
+
+  home.file.".emacs.d/mini-frame" = {
+    source = "${mini-frame}";
   };
 
   home.file.".emacs.d/system-vars.el".text = ''
