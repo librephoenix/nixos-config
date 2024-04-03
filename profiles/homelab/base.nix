@@ -1,4 +1,4 @@
-{ lib, pkgs, pkgs-staging-next, systemSettings, userSettings, ... }:
+{ lib, pkgs, systemSettings, userSettings, ... }:
 
 {
   imports =
@@ -8,14 +8,6 @@
       ../../system/security/gpg.nix
       ( import ../../system/app/docker.nix {storageDriver = null; inherit pkgs userSettings lib;} )
     ];
-
-  # xz trojan https://github.com/NixOS/nixpkgs/issues/300055
-  system.replaceRuntimeDependencies = [
-    {
-      original = pkgs.xz;
-      replacement = pkgs-staging-next.xz;
-    }
-  ];
 
   # Fix nix path
   nix.nixPath = [ "nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos"

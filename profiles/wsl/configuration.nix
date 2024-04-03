@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ lib, pkgs, pkgs-staging-next, systemSettings, userSettings, ... }:
+{ lib, pkgs, systemSettings, userSettings, ... }:
 
 with lib;
 let
@@ -38,14 +38,6 @@ in
     # docker-desktop.enable = true;
 
   };
-
-  # xz trojan https://github.com/NixOS/nixpkgs/issues/300055
-  system.replaceRuntimeDependencies = [
-    {
-      original = pkgs.xz;
-      replacement = pkgs-staging-next.xz;
-    }
-  ];
 
   # Fix nix path
   nix.nixPath = [ "nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos"
