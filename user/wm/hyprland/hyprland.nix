@@ -247,7 +247,7 @@
          force_zero_scaling = true
        }
 
-       env = WLR_DRM_DEVICES,/dev/dri/card1:/dev/dri/card0
+       env = WLR_DRM_DEVICES,/dev/dri/card2:/dev/dri/card1
        env = QT_QPA_PLATFORMTHEME,qt5ct
 
        input {
