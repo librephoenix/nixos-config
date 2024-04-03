@@ -1,6 +1,7 @@
 (package! embark :pin "0908eea")
 (package! dashboard)
 (package! direnv)
+(package! org :pin "5bdfc02c6fa1b9ad4f075ac1ad1e4086ead310db")
 (package! org-modern)
 (package! org-super-agenda)
 (package! emacsql :pin "c1a4407")

@@ -176,14 +176,14 @@
     nixpkgs.url = "nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "nixpkgs/nixos-23.11";
     nixpkgs-staging-next.url = "nixpkgs/staging-next";
-    emacs-pin-nixpkgs.url = "nixpkgs/e8124a9c5db7f96c51ad8dd7587ed4e26ff44fd6";
+    emacs-pin-nixpkgs.url = "nixpkgs/f72123158996b8d4449de481897d855bc47c7bf6";
     kdenlive-pin-nixpkgs.url = "nixpkgs/cfec6d9203a461d9d698d8a60ef003cac6d0da94";
 
     home-manager.url = "github:nix-community/home-manager/master";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     nix-doom-emacs.url = "github:nix-community/nix-doom-emacs";
-    nix-doom-emacs.inputs.nixpkgs.follows = "nixpkgs";
+    nix-doom-emacs.inputs.nixpkgs.follows = "emacs-pin-nixpkgs";
 
     nix-straight.url = "github:librephoenix/nix-straight.el/pgtk-patch";
     nix-straight.flake = false;

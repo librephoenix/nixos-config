@@ -1537,7 +1537,7 @@ I don't have this active right now since it's kinda weird with pgtk...
 ** mu4e Configuration
 #+BEGIN_SRC emacs-lisp :tangle config.el
 ;;;------ helpful configuration ------;;;
-(add-load-path! "~/.nix-profile/share/emacs/site-lisp/elpa/mu4e-1.10.8")
+(add-load-path! "~/.nix-profile/share/emacs/site-lisp/elpa/mu4e-1.12.2")
 (require 'mu4e)
 (require 'mu4e-contrib)
 (require 'mu4e-actions)
@@ -1969,6 +1969,7 @@ Any git package can be configured for a particular commit or branch:
 (package! embark :pin "0908eea")
 (package! dashboard)
 (package! direnv)
+(package! org :pin "5bdfc02c6fa1b9ad4f075ac1ad1e4086ead310db")
 (package! org-modern)
 (package! org-super-agenda)
 (package! emacsql :pin "c1a4407")

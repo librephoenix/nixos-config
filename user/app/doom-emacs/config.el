@@ -1302,7 +1302,7 @@ https://github.com/magit/magit/issues/460 (@cpitclaudel)."
   "q" 'helpful-kill-buffers)
 
 ;;;------ helpful configuration ------;;;
-(add-load-path! "~/.nix-profile/share/emacs/site-lisp/elpa/mu4e-1.10.8")
+(add-load-path! "~/.nix-profile/share/emacs/site-lisp/elpa/mu4e-1.12.2")
 (require 'mu4e)
 (require 'mu4e-contrib)
 (require 'mu4e-actions)
