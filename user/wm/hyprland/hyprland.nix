@@ -41,7 +41,7 @@
       exec-once = waybar
       exec-once = emacs --daemon
 
-      exec-once = swayidle -w timeout 90 '${config.programs.swaylock.package}/bin/swaylock -f' timeout 210 'suspend-unless-render' resume '${pkgs.hyprland}/bin/hyprctl dispatch dpms on' before-sleep "${config.programs.swaylock.package}/bin/swaylock -f"
+      exec-once = hypridle
       exec-once = obs-notification-mute-daemon
 
       exec = ~/.swaybg-stylix
@@ -136,8 +136,8 @@
        bind=,code:255,exec,airplane-mode
        bind=SUPER,C,exec,wl-copy $(hyprpicker)
 
-       bind=SUPERSHIFT,S,exec,swaylock --grace 0 & sleep 1 && systemctl suspend
-       bind=SUPERCTRL,L,exec,swaylock --grace 0
+       bind=SUPERSHIFT,S,exec,hyprlock & sleep 1 && systemctl suspend
+       bind=SUPERCTRL,L,exec,hyprlock
 
        bind=SUPER,H,movefocus,l
        bind=SUPER,J,movefocus,d
@@ -159,6 +159,11 @@
        bind=SUPER,8,exec,hyprworkspace 8
        bind=SUPER,9,exec,hyprworkspace 9
 
+       bind=SUPERCTRL,right,exec,hyprnome
+       bind=SUPERCTRL,left,exec,hyprnome --previous
+       bind=SUPERSHIFT,right,exec,hyprnome --move
+       bind=SUPERSHIFT,left,exec,hyprnome --previous --move
+
        bind=SUPERSHIFT,1,movetoworkspace,1
        bind=SUPERSHIFT,2,movetoworkspace,2
        bind=SUPERSHIFT,3,movetoworkspace,3
@@ -173,7 +178,6 @@
        bind=SUPER,F,exec,pypr toggle ranger && hyprctl dispatch bringactivetotop
        bind=SUPER,N,exec,pypr toggle musikcube && hyprctl dispatch bringactivetotop
        bind=SUPER,B,exec,pypr toggle btm && hyprctl dispatch bringactivetotop
-       bind=SUPER,E,exec,pypr toggle geary && hyprctl dispatch bringactivetotop
        bind=SUPER,code:172,exec,pypr toggle pavucontrol && hyprctl dispatch bringactivetotop
        $scratchpadsize = size 80% 85%
 
@@ -182,12 +186,6 @@
        windowrulev2 = $scratchpadsize,$scratchpad
        windowrulev2 = workspace special silent,$scratchpad
        windowrulev2 = center,$scratchpad
-
-       $gearyscratchpad = class:^(geary)$
-       windowrulev2 = float,$gearyscratchpad
-       windowrulev2 = $scratchpadsize,$gearyscratchpad
-       windowrulev2 = workspace special silent,$gearyscratchpad
-       windowrulev2 = center,$gearyscratchpad
 
        $pavucontrol = class:^(pavucontrol)$
        windowrulev2 = float,$pavucontrol
@@ -206,7 +204,6 @@
 
        windowrulev2 = float,class:^(pokefinder)$
 
-       windowrulev2 = opacity 0.85,$gearyscratchpad
        windowrulev2 = opacity 0.80,title:ORUI
        windowrulev2 = opacity 0.80,title:Heimdall
        windowrulev2 = opacity 0.80,title:^(LibreWolf)$
@@ -222,9 +219,6 @@
 
        bind=SUPER,code:21,exec,pypr zoom
        bind=SUPER,code:21,exec,hyprctl reload
-
-       bind=SUPERCTRL,right,workspace,+1
-       bind=SUPERCTRL,left,workspace,-1
 
        bind=SUPER,I,exec,networkmanager_dmenu
        bind=SUPER,P,exec,keepmenu
@@ -296,7 +290,9 @@
     wl-clipboard
     hyprland-protocols
     hyprpicker
-    swayidle
+    hypridle
+    hyprlock
+    hyprnome
     swaybg
     fnott
     fuzzel
@@ -382,6 +378,110 @@
 
     '')
   ];
+  home.file.".config/hypr/hypridle.conf".text = ''
+    general {
+      lock_cmd = hyprlock
+      unlock_cmd =
+      before_sleep_cmd = hyprlock
+      after_sleep_cmd =
+      ignore_dbus_inhibit = false
+    }
+
+    listener {
+      timeout = 360 # in seconds
+      on-timeout = hyprlock
+      on-resume =
+      timeout = 720 # in seconds
+      on-timeout = systemctl suspend
+      on-resume =
+    }
+  '';
+  home.file.".config/hypr/hyprlock.conf".text = ''
+    background {
+      monitor =
+      path = screenshot
+
+      # all these options are taken from hyprland, see https://wiki.hyprland.org/Configuring/Variables/#blur for explanations
+      blur_passes = 4
+      blur_size = 5
+      noise = 0.0117
+      contrast = 0.8916
+      brightness = 0.8172
+      vibrancy = 0.1696
+      vibrancy_darkness = 0.0
+    }
+
+    # doesn't work yet
+    image {
+      monitor =
+      path = /home/emmet/.dotfiles/user/wm/hyprland/nix-dark.png
+      size = 150 # lesser side if not 1:1 ratio
+      rounding = -1 # negative values mean circle
+      border_size = 0
+      rotate = 0 # degrees, counter-clockwise
+
+      position = 0, 200
+      halign = center
+      valign = center
+    }
+
+    input-field {
+      monitor =
+      size = 200, 50
+      outline_thickness = 3
+      dots_size = 0.33 # Scale of input-field height, 0.2 - 0.8
+      dots_spacing = 0.15 # Scale of dots' absolute size, 0.0 - 1.0
+      dots_center = false
+      dots_rounding = -1 # -1 default circle, -2 follow input-field rounding
+      outer_color = rgb(151515)
+      inner_color = rgb(200, 200, 200)
+      font_color = rgb(10, 10, 10)
+      fade_on_empty = true
+      fade_timeout = 1000 # Milliseconds before fade_on_empty is triggered.
+      placeholder_text = <i>Input Password...</i> # Text rendered in the input box when it's empty.
+      hide_input = false
+      rounding = -1 # -1 means complete rounding (circle/oval)
+      check_color = rgb(204, 136, 34)
+      fail_color = rgb(204, 34, 34) # if authentication failed, changes outer_color and fail message color
+      fail_text = <i>$FAIL <b>($ATTEMPTS)</b></i> # can be set to empty
+      fail_transition = 300 # transition time in ms between normal outer_color and fail_color
+      capslock_color = -1
+      numlock_color = -1
+      bothlock_color = -1 # when both locks are active. -1 means don't change outer color (same for above)
+      invert_numlock = false # change color if numlock is off
+      swap_font_color = false # see below
+
+      position = 0, -20
+      halign = center
+      valign = center
+    }
+
+    label {
+      monitor =
+      text = Hello, Emmet
+      color = rgba(200, 200, 200, 1.0)
+      font_size = 25
+      font_family = Intel One Mono
+      rotate = 0 # degrees, counter-clockwise
+
+      position = 0, 160
+      halign = center
+      valign = center
+    }
+
+    label {
+      monitor =
+      text = $TIME
+      color = rgba(200, 200, 200, 1.0)
+      font_size = 20
+      font_family = Intel One Mono
+      rotate = 0 # degrees, counter-clockwise
+
+      position = 0, 80
+      halign = center
+      valign = center
+    }
+  '';
   home.file.".config/hypr/pyprland.json".text = ''
     {
       "pyprland": {
@@ -402,10 +502,6 @@
         },
         "btm": {
           "command": "alacritty --class scratchpad -e btm",
-          "margin": 50
-        },
-        "geary": {
-          "command": "geary",
           "margin": 50
         },
         "pavucontrol": {
@@ -474,7 +570,6 @@
             "scratch_ranger" = "_󰴉";
             "scratch_musikcube" = "_";
             "scratch_btm" = "_";
-            "scratch_geary" = "_";
             "scratch_pavucontrol" = "_󰍰";
           };
           "on-click" = "activate";
@@ -755,37 +850,6 @@
 
   services.udiskie.enable = true;
   services.udiskie.tray = "always";
-  programs.swaylock = {
-    enable = true;
-    package = pkgs.swaylock-effects;
-    settings = {
-      color = "#"+config.lib.stylix.colors.base00;
-      inside-color = "#"+config.lib.stylix.colors.base00+"cc";
-      inside-caps-lock-color = "#"+config.lib.stylix.colors.base09;
-      inside-clear-color = "#"+config.lib.stylix.colors.base0A;
-      inside-wrong-color = "#"+config.lib.stylix.colors.base08;
-      inside-ver-color = "#"+config.lib.stylix.colors.base0D;
-      line-color = "#"+config.lib.stylix.colors.base00;
-      line-caps-lock-color = "#"+config.lib.stylix.colors.base00;
-      line-clear-color = "#"+config.lib.stylix.colors.base00;
-      line-wrong-color = "#"+config.lib.stylix.colors.base00;
-      line-ver-color = "#"+config.lib.stylix.colors.base00;
-      ring-color = "#"+config.lib.stylix.colors.base00;
-      ring-caps-lock-color = "#"+config.lib.stylix.colors.base09;
-      ring-clear-color = "#"+config.lib.stylix.colors.base0A;
-      ring-wrong-color = "#"+config.lib.stylix.colors.base08;
-      ring-ver-color = "#"+config.lib.stylix.colors.base0D;
-      text-color = "#"+config.lib.stylix.colors.base00;
-      key-hl-color = "#"+config.lib.stylix.colors.base0B;
-      font = config.stylix.fonts.monospace.name;
-      font-size = 20;
-      fade-in = 0.5;
-      grace = 5;
-      indicator-radius = 100;
-      screenshots = true;
-      effect-blur = "10x10";
-    };
-  };
   programs.fuzzel.enable = true;
   programs.fuzzel.settings = {
     main = {
