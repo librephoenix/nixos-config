@@ -138,7 +138,8 @@
        bind=SUPER,C,exec,wl-copy $(hyprpicker)
 
        bind=SUPERSHIFT,S,exec,systemctl suspend
-       bind=SUPERCTRL,L,exec,hyprlock
+       bindl=,switch:on:Lid Switch,exec,loginctl lock-session
+       bind=SUPERCTRL,L,exec,loginctl lock-session
 
        bind=SUPER,H,movefocus,l
        bind=SUPER,J,movefocus,d
@@ -388,8 +389,12 @@
     }
 
     listener {
-      timeout = 600 # in seconds
+      timeout = 300 # in seconds
       on-timeout = loginctl lock-session
+    }
+    listener {
+      timeout = 600 # in seconds
+      on-timeout = systemctl suspend
     }
   '';
   home.file.".config/hypr/hyprlock.conf".text = ''
