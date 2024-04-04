@@ -58,14 +58,20 @@
         };
 
       # configure pkgs
-      pkgs = import nixpkgs-patched {
-        system = systemSettings.system;
-        config = {
-          allowUnfree = true;
-          allowUnfreePredicate = (_: true);
-        };
-        overlays = [ rust-overlay.overlays.default ];
-      };
+      # use nixpkgs if running a server (homelab or worklab profile)
+      # otherwise use patched nixos-unstable nixpkgs
+      pkgs = (if ((systemSettings.profile == "homelab") || (systemSettings.profile == "worklab"))
+              then
+                pkgs-stable
+              else
+                (import nixpkgs-patched {
+                  system = systemSettings.system;
+                  config = {
+                    allowUnfree = true;
+                    allowUnfreePredicate = (_: true);
+                  };
+                  overlays = [ rust-overlay.overlays.default ];
+                }));
 
       pkgs-stable = import nixpkgs-stable {
         system = systemSettings.system;
@@ -84,7 +90,13 @@
       };
 
       # configure lib
-      lib = nixpkgs.lib;
+      # use nixpkgs if running a server (homelab or worklab profile)
+      # otherwise use patched nixos-unstable nixpkgs
+      lib = (if ((systemSettings.profile == "homelab") || (systemSettings.profile == "worklab"))
+             then
+               nixpkgs-stable.lib
+             else
+               nixpkgs.lib);
 
       # Systems that can run tests:
       supportedSystems = [ "aarch64-linux" "i686-linux" "x86_64-linux" ];
