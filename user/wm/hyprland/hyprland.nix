@@ -136,7 +136,7 @@
        bind=,code:255,exec,airplane-mode
        bind=SUPER,C,exec,wl-copy $(hyprpicker)
 
-       bind=SUPERSHIFT,S,exec,hyprlock & sleep 1 && systemctl suspend
+       bind=SUPERSHIFT,S,exec,systemctl suspend
        bind=SUPERCTRL,L,exec,hyprlock
 
        bind=SUPER,H,movefocus,l
@@ -380,20 +380,14 @@
   ];
   home.file.".config/hypr/hypridle.conf".text = ''
     general {
-      lock_cmd = hyprlock
-      unlock_cmd =
-      before_sleep_cmd = hyprlock
-      after_sleep_cmd =
+      lock_cmd = pgrep hyprlock || hyprlock
+      before_sleep_cmd = loginctl lock-session
       ignore_dbus_inhibit = false
     }
 
     listener {
-      timeout = 360 # in seconds
-      on-timeout = hyprlock
-      on-resume =
-      timeout = 720 # in seconds
-      on-timeout = systemctl suspend
-      on-resume =
+      timeout = 600 # in seconds
+      on-timeout = loginctl lock-session
     }
   '';
   home.file.".config/hypr/hyprlock.conf".text = ''

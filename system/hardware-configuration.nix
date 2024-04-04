@@ -19,6 +19,35 @@
     "L+    /opt/rocm/hip   -    -    -     -    ${pkgs.rocmPackages.clr}"
   ];
 
+  # my stupid usb hub crashes systemct suspend half of the time now
+  # https://wiki.archlinux.org/title/Power_management/Suspend_and_hibernate#Sleep_hooks
+  systemd.services.root-suspend = {
+    enable = true;
+    description = "Root systemd suspend prehook";
+    unitConfig = {
+      Description = "Root systemd suspend prehook";
+      Before = "sleep.target";
+    };
+    serviceConfig = {
+      Type = "simple";
+      ExecStart = "${pkgs.uhubctl}/bin/uhubctl -a off";
+    };
+    wantedBy = [ "sleep.target" ];
+  };
+  systemd.services.root-resume = {
+    enable = true;
+    description = "Root systemd suspend posthook";
+    unitConfig = {
+      Description = "Root systemd suspend posthook";
+      After = "suspend.target";
+    };
+    serviceConfig = {
+      Type = "simple";
+      ExecStart = "${pkgs.uhubctl}/bin/uhubctl -a on";
+    };
+    wantedBy = [ "suspend.target" ];
+  };
+
   services.btrfs.autoScrub = {
     enable = true;
     interval = "weekly";
