@@ -239,10 +239,5 @@
       url = "github:StevenBlack/hosts";
       flake = false;
     };
-
-    hyprland-plugins = {
-      url = "github:hyprwm/hyprland-plugins";
-      flake = false;
-    };
   };
 }
