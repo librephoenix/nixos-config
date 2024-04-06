@@ -19,6 +19,7 @@ assert lib.asserts.assertOneOf "storageDriver" storageDriver [
   };
   users.users.${userSettings.username}.extraGroups = [ "docker" ];
   environment.systemPackages = with pkgs; [
+    docker
     docker-compose
     lazydocker
   ];
