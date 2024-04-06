@@ -3,7 +3,7 @@
 
   outputs = inputs@{ self, nixpkgs, nixpkgs-stable, emacs-pin-nixpkgs,
                      kdenlive-pin-nixpkgs, home-manager, nix-doom-emacs, nix-straight, stylix,
-                     blocklist-hosts, hyprland-plugins, rust-overlay, org-nursery, org-yaap,
+                     blocklist-hosts, rust-overlay, org-nursery, org-yaap,
                      org-side-tree, org-timeblock, org-krita, phscroll, mini-frame, ... }:
     let
       # ---- SYSTEM SETTINGS ---- #
@@ -134,7 +134,6 @@
             inherit (inputs) mini-frame;
             #inherit (inputs) nix-flatpak;
             inherit (inputs) stylix;
-            inherit (inputs) hyprland-plugins;
           };
         };
       };
