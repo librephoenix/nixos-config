@@ -1,0 +1,27 @@
+#!/bin/sh
+
+# This will soften the security of these dotfiles, allowing
+# the default unpriveleged user with UID/GID of 1000 to edit ALL FILES
+# in the dotfiles directory
+
+# This mainly is just here to be used by some scripts
+
+# Run this inside of ~/.dotfiles (or whatever directory you installed
+# the dotfiles to)
+
+# Run this as root!
+
+# BTW, this assumes your user account has a UID/GID of 1000
+
+# After running this, YOUR UNPRIVELEGED USER CAN MAKE EDITS TO
+# IMPORTANT SYSTEM FILES WHICH MAY COMPROMISE THE SYSTEM AFTER
+# RUNNING nixos-rebuild switch!
+
+if [ "$#" = 1 ]; then
+    dotfilesDir=$1;
+else
+    dotfilesDir=$(pwd);
+fi
+pushd $dotfilesDir &> /dev/null;
+chown -R 1000:users .;
+popd &> /dev/null;

@@ -28,11 +28,12 @@ if [ -z "$EDITOR" ]; then
 fi
 $EDITOR ~/.dotfiles/flake.nix;
 
+# Permissions for files that should be owned by root
+sudo ~/.dotfiles/harden.sh ~/.dotfiles;
+
 # Rebuild system
 sudo nixos-rebuild switch --flake ~/.dotfiles#system;
 
 # Install and build home-manager configuration
 nix run home-manager/master --extra-experimental-features nix-command --extra-experimental-features flakes -- switch --flake ~/.dotfiles#user;
 
-# Permissions for files that should be owned by root
-sudo ~/.dotfiles/harden.sh ~/.dotfiles;
