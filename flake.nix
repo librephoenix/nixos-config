@@ -1,9 +1,9 @@
 {
   description = "Flake of LibrePhoenix";
 
-  outputs = inputs@{ self, nixpkgs, nixpkgs-stable, emacs-pin-nixpkgs,
-                     kdenlive-pin-nixpkgs, home-manager, nix-doom-emacs, nix-straight, stylix,
-                     blocklist-hosts, rust-overlay, org-nursery, org-yaap,
+  outputs = inputs@{ self, nixpkgs, nixpkgs-stable, emacs-pin-nixpkgs, kdenlive-pin-nixpkgs,
+                     home-manager-unstable, home-manager-stable, nix-doom-emacs,
+                     nix-straight, stylix, blocklist-hosts, rust-overlay, org-nursery, org-yaap,
                      org-side-tree, org-timeblock, org-krita, phscroll, mini-frame, ... }:
     let
       # ---- SYSTEM SETTINGS ---- #
@@ -98,6 +98,14 @@
              else
                nixpkgs.lib);
 
+      # use home-manager-stable if running a server (homelab or worklab profile)
+      # otherwise use home-manager-unstable
+      home-manager = (if ((systemSettings.profile == "homelab") || (systemSettings.profile == "worklab"))
+             then
+               home-manager-stable
+             else
+               home-manager-unstable);
+
       # Systems that can run tests:
       supportedSystems = [ "aarch64-linux" "i686-linux" "x86_64-linux" ];
 
@@ -183,8 +191,11 @@
     emacs-pin-nixpkgs.url = "nixpkgs/f72123158996b8d4449de481897d855bc47c7bf6";
     kdenlive-pin-nixpkgs.url = "nixpkgs/cfec6d9203a461d9d698d8a60ef003cac6d0da94";
 
-    home-manager.url = "github:nix-community/home-manager/master";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    home-manager-unstable.url = "github:nix-community/home-manager/master";
+    home-manager-unstable.inputs.nixpkgs.follows = "nixpkgs";
+
+    home-manager-stable.url = "github:nix-community/home-manager/release-23.11";
+    home-manager-stable.inputs.nixpkgs.follows = "nixpkgs-stable";
 
     nix-doom-emacs.url = "github:nix-community/nix-doom-emacs";
     nix-doom-emacs.inputs.nixpkgs.follows = "emacs-pin-nixpkgs";
