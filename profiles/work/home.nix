@@ -48,6 +48,8 @@
     mate.atril
     openboard
     xournalpp
+    gnome.adwaita-icon-theme
+    shared-mime-info
     glib
     newsflash
     foliate
