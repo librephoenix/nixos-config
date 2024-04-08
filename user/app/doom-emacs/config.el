@@ -973,6 +973,7 @@ If FULL-MODE is not null, run full krita."
       org-agenda-skip-scheduled-if-deadline-is-shown t
       org-agenda-skip-timestamp-if-deadline-is-shown t)
 
+
 ;; Custom styles for dates in agenda
 (custom-set-faces!
   '(org-agenda-date :inherit outline-1 :height 1.15)
@@ -980,7 +981,7 @@ If FULL-MODE is not null, run full krita."
   '(org-agenda-date-weekend :ineherit outline-2 :height  1.15)
   '(org-agenda-date-weekend-today :inherit outline-4 :height 1.15)
   '(org-super-agenda-header :inherit custom-button :weight bold :height 1.05)
-  '(link :foreground unspecified :underline nil :background "#46354a")
+  `(link :foreground unspecified :underline nil :background ,(nth 1 (nth 7 doom-themes--colors)))
   '(org-link :foreground unspecified)
   )
 
