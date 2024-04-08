@@ -37,8 +37,4 @@
     '')
     vim neovim
   ];
-
-  imports = [
-    ../bin/phoenix.nix # My nix command wrapper
-  ];
 }
