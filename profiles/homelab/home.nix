@@ -10,7 +10,6 @@
 
   imports = [
               ../../user/shell/sh.nix # My zsh and bash config
-              ../../user/bin/phoenix.nix # My nix command wrapper
               ../../user/app/ranger/ranger.nix # My ranger file manager config
               ../../user/app/git/git.nix # My git config
             ];
