@@ -3,6 +3,8 @@
 # Automated script to install my dotfiles
 
 # Clone dotfiles
+# TODO make ~/.dotfiles path arbitrary and make all other scripts conform to this
+# using SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 nix-shell -p git --command "git clone https://gitlab.com/librephoenix/nixos-config ~/.dotfiles"
 
 # Generate hardware config for new system
