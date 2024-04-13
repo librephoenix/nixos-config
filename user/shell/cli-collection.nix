@@ -1,5 +1,4 @@
 { pkgs, ... }:
-
 {
   # Collection of useful CLI apps
   home.packages = with pkgs; [
@@ -15,16 +14,12 @@
     bat eza fd bottom ripgrep
     rsync
     unzip
-    tmux
     w3m
     pandoc
     hwinfo
     pciutils
     numbat
-    (pkgs.callPackage ../pkgs/smartcalc.nix { })
-    #(pkgs.writeShellScriptBin "sc" ''smartcalc'')
-    #(pkgs.callPackage ../pkgs/pokemon-colorscripts.nix { })
-    #(pkgs.python3Packages.callPackage ../pkgs/impressive.nix { })
+    (pkgs.callPackage ../pkgs/pokemon-colorscripts.nix { })
     (pkgs.writeShellScriptBin "airplane-mode" ''
       #!/bin/sh
       connectivity="$(nmcli n connectivity)"

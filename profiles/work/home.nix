@@ -99,6 +99,7 @@
     blender-hip
     cura
     curaengine_stable
+    openscad
     (stdenv.mkDerivation {
       name = "cura-slicer";
       version = "0.0.7";
@@ -141,6 +142,7 @@
     texinfo
     libffi zlib
     nodePackages.ungit
+    ventoy
   ]) ++ ([ pkgs-kdenlive.kdenlive ]);
 
   services.syncthing.enable = true;
