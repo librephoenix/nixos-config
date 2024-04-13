@@ -170,29 +170,29 @@ handle_image() {
             ## as above), but might fail for unsupported types.
             exit 7;;
 
-        ## Video
-        # video/*)
-        #     # Get embedded thumbnail
-        #     ffmpeg -i "${FILE_PATH}" -map 0:v -map -0:V -c copy "${IMAGE_CACHE_PATH}" && exit 6
-        #     # Get frame 10% into video
-        #     ffmpegthumbnailer -i "${FILE_PATH}" -o "${IMAGE_CACHE_PATH}" -s 0 && exit 6
-        #     exit 1;;
+        # Video
+         video/*)
+             # Get frame 10% into video
+             ffmpegthumbnailer -i "${FILE_PATH}" -o "${IMAGE_CACHE_PATH}" -s 0 && exit 6
+             # Get embedded thumbnail
+             ffmpeg -i "${FILE_PATH}" -map 0:v -map -0:V -c copy "${IMAGE_CACHE_PATH}" && exit 6
+             exit 1;;
 
-        ## Audio
-        # audio/*)
-        #     # Get embedded thumbnail
-        #     ffmpeg -i "${FILE_PATH}" -map 0:v -map -0:V -c copy \
-        #       "${IMAGE_CACHE_PATH}" && exit 6;;
+        # Audio
+         audio/*)
+             # Get embedded thumbnail
+             ffmpeg -i "${FILE_PATH}" -map 0:v -map -0:V -c copy \
+               "${IMAGE_CACHE_PATH}" && exit 6;;
 
-        ## PDF
-        # application/pdf)
-        #     pdftoppm -f 1 -l 1 \
-        #              -scale-to-x "${DEFAULT_SIZE%x*}" \
-        #              -scale-to-y -1 \
-        #              -singlefile \
-        #              -jpeg -tiffcompression jpeg \
-        #              -- "${FILE_PATH}" "${IMAGE_CACHE_PATH%.*}" \
-        #         && exit 6 || exit 1;;
+        # PDF
+         application/pdf)
+             pdftoppm -f 1 -l 1 \
+                      -scale-to-x "${DEFAULT_SIZE%x*}" \
+                      -scale-to-y -1 \
+                      -singlefile \
+                      -jpeg -tiffcompression jpeg \
+                      -- "${FILE_PATH}" "${IMAGE_CACHE_PATH%.*}" \
+                 && exit 6 || exit 1;;
 
 
         ## ePub, MOBI, FB2 (using Calibre)
@@ -205,7 +205,7 @@ handle_image() {
         #         >/dev/null && exit 6
         #     exit 1;;
 
-        ## Font
+        # Font
         application/font*|application/*opentype)
             preview_png="/tmp/$(basename "${IMAGE_CACHE_PATH%.*}").png"
             if fontimage -o "${preview_png}" \
@@ -265,29 +265,42 @@ handle_image() {
         #     ;;
     esac
 
-    # openscad_image() {
-    #     TMPPNG="$(mktemp -t xxxxxx.png)"
-    #     openscad --colorscheme="${OPENSCAD_COLORSCHEME}" \
-    #         --imgsize="${OPENSCAD_IMGSIZE/x/,}" \
-    #         -o "${TMPPNG}" "${1}"
-    #     mv "${TMPPNG}" "${IMAGE_CACHE_PATH}"
-    # }
+     openscad_image() {
+         TMPPNG="$(mktemp -t XXXXXXXXXX --suffix '.png')"
+         openscad --colorscheme="${OPENSCAD_COLORSCHEME}" \
+             --imgsize="${OPENSCAD_IMGSIZE/x/,}" \
+             -o "${TMPPNG}" "${1}"
+         mv "${TMPPNG}" "${IMAGE_CACHE_PATH}"
+     }
 
+    FULL_FILE_PATH=$(readlink -f $FILE_PATH);
     case "${FILE_EXTENSION_LOWER}" in
-       ## 3D models
-       ## OpenSCAD only supports png image output, and ${IMAGE_CACHE_PATH}
-       ## is hardcoded as jpeg. So we make a tempfile.png and just
-       ## move/rename it to jpg. This works because image libraries are
-       ## smart enough to handle it.
-       # csg|scad)
-       #     openscad_image "${FILE_PATH}" && exit 6
-       #     ;;
-       # 3mf|amf|dxf|off|stl)
-       #     openscad_image <(echo "import(\"${FILE_PATH}\");") && exit 6
-       #     ;;
+       # 3D models
+       # OpenSCAD only supports png image output, and ${IMAGE_CACHE_PATH}
+       # is hardcoded as jpeg. So we make a tempfile.png and just
+       # move/rename it to jpg. This works because image libraries are
+       # smart enough to handle it.
+        csg|scad)
+            openscad_image "${FILE_PATH}" && exit 6
+            ;;
+        stl)
+            openscad_image <(echo "import(\"${FULL_FILE_PATH}\");") && exit 6
+            ;;
+        3mf|amf|dxf|off|stl)
+            openscad_image <(echo "import(\"${FULL_FILE_PATH}\");") && exit 6
+            ;;
        drawio)
            draw.io -x "${FILE_PATH}" -o "${IMAGE_CACHE_PATH}" \
                --width "${DEFAULT_SIZE%x*}" && exit 6
+           ;;
+       blend|blend~)
+           blender-thumbnailer "${FILE_PATH}" "${IMAGE_CACHE_PATH}" && exit 6
+           ;;
+       kra|kra~)
+           unzip -pP "" -- "${FILE_PATH}" "mergedimage.png" > "${IMAGE_CACHE_PATH}" && exit 6
+           ;;
+       xopp|xopp~)
+           xournalpp "${FILE_PATH}" --create-img "${IMAGE_CACHE_PATH}" && exit 6
            exit 1;;
     esac
 }

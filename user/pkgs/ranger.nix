@@ -7,7 +7,7 @@
         ranger = super.ranger.overrideAttrs (oldAttrs: rec {
         preConfigure = ''
           substituteInPlace ranger/__init__.py \
-            --replace "DEFAULT_PAGER = 'less'" "DEFAULT_PAGER = '${lib.getBin pkgs.less}/bin/less'"
+            --replace "DEFAULT_PAGER = 'less'" "DEFAULT_PAGER = '${lib.getBin pkgs.bat}/bin/bat'"
       
           # give image previews out of the box when building with w3m
           substituteInPlace ranger/config/rc.conf \
@@ -27,6 +27,11 @@
         });
       }
     )
+  ];
+  home.packages = with pkgs; [
+    poppler_utils
+    librsvg
+    ffmpegthumbnailer
   ];
 
 }
