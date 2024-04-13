@@ -342,7 +342,7 @@ Doom Emacs is traditionally installed by cloning the repository ([[https://githu
   org-pretty-entities t
   org-ellipsis "…")
 
-(setq-default line-spacing 0.15)
+(setq-default line-spacing 0)
 
 ; Automatic table of contents is nice
 (if (require 'toc-org nil t)
@@ -587,6 +587,14 @@ else
 fi
 exit
 #+END_SRC
+*** Org Sliced Images
+#+begin_src emacs-lisp :tangle config.el
+(add-load-path! "~/.emacs.d/org-sliced-images")
+(require 'org-sliced-images)
+(defalias 'org-remove-inline-images #'org-sliced-images-remove-inline-images)
+(defalias 'org-toggle-inline-images #'org-sliced-images-toggle-inline-images)
+(defalias 'org-display-inline-images #'org-sliced-images-display-inline-images)
+#+end_src
 *** Org Online Images
 #+BEGIN_SRC emacs-lisp :tangle config.el
 ;; Online images inside of org mode is pretty cool
@@ -1994,7 +2002,7 @@ Any git package can be configured for a particular commit or branch:
 In order to have Nix load my Doom Emacs configuration [[./doom.nix][doom.nix]], which I source in the =imports= block of my [[../../../profiles/work/home.nix][home.nix]].
 #+BEGIN_SRC nix :tangle doom.nix
 { config, lib, pkgs-emacs, pkgs-stable, userSettings, systemSettings,
-  org-nursery, org-yaap, org-side-tree, org-timeblock, org-krita, phscroll, mini-frame, ... }:
+  org-nursery, org-yaap, org-side-tree, org-timeblock, org-krita, org-sliced-images, phscroll, mini-frame, ... }:
 let
   themePolarity = lib.removeSuffix "\n" (builtins.readFile (./. + "../../../../themes"+("/"+userSettings.theme)+"/polarity.txt"));
   dashboardLogo = ./. + "/nix-" + themePolarity + ".png";
@@ -2094,6 +2102,10 @@ in
 
   home.file.".emacs.d/org-krita" = {
     source = "${org-krita}";
+  };
+
+  home.file.".emacs.d/org-sliced-images" = {
+    source = "${org-sliced-images}";
   };
 
   home.file.".emacs.d/dashboard-logo.png".source = dashboardLogo;

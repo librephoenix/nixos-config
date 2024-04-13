@@ -805,6 +805,22 @@
         "type": "github"
       }
     },
+    "org-sliced-images": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1711408181,
+        "narHash": "sha256-ck3mGXtJJ0N8asGE4cRtWeJx5/iC+bTXw2cvZgePJqM=",
+        "owner": "jcfk",
+        "repo": "org-sliced-images",
+        "rev": "bd1141d6df6edfd9749c0bbf3a72836148c0e39d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "jcfk",
+        "repo": "org-sliced-images",
+        "type": "github"
+      }
+    },
     "org-timeblock": {
       "flake": false,
       "locked": {
@@ -918,6 +934,7 @@
         "org-krita": "org-krita",
         "org-nursery": "org-nursery",
         "org-side-tree": "org-side-tree",
+        "org-sliced-images": "org-sliced-images",
         "org-timeblock": "org-timeblock",
         "org-yaap": "org-yaap",
         "phscroll": "phscroll",

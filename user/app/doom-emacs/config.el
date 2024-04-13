@@ -272,7 +272,7 @@
   org-pretty-entities t
   org-ellipsis "…")
 
-(setq-default line-spacing 0.15)
+(setq-default line-spacing 0)
 
 ; Automatic table of contents is nice
 (if (require 'toc-org nil t)
@@ -481,6 +481,12 @@ If FULL-MODE is not null, run full krita."
     (map! :leader
           :desc "Copy link/file at point into system clipbord (C-g to escape if copying a file)"
           "y y" 'org-copy-link-to-clipboard-at-point))
+
+(add-load-path! "~/.emacs.d/org-sliced-images")
+(require 'org-sliced-images)
+(defalias 'org-remove-inline-images #'org-sliced-images-remove-inline-images)
+(defalias 'org-toggle-inline-images #'org-sliced-images-toggle-inline-images)
+(defalias 'org-display-inline-images #'org-sliced-images-display-inline-images)
 
 ;; Online images inside of org mode is pretty cool
 ;; This snippit is from Tobias on Stack Exchange

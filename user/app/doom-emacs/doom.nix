@@ -1,5 +1,5 @@
 { config, lib, pkgs-emacs, pkgs-stable, userSettings, systemSettings,
-  org-nursery, org-yaap, org-side-tree, org-timeblock, org-krita, phscroll, mini-frame, ... }:
+  org-nursery, org-yaap, org-side-tree, org-timeblock, org-krita, org-sliced-images, phscroll, mini-frame, ... }:
 let
   themePolarity = lib.removeSuffix "\n" (builtins.readFile (./. + "../../../../themes"+("/"+userSettings.theme)+"/polarity.txt"));
   dashboardLogo = ./. + "/nix-" + themePolarity + ".png";
@@ -99,6 +99,10 @@ in
 
   home.file.".emacs.d/org-krita" = {
     source = "${org-krita}";
+  };
+
+  home.file.".emacs.d/org-sliced-images" = {
+    source = "${org-sliced-images}";
   };
 
   home.file.".emacs.d/dashboard-logo.png".source = dashboardLogo;

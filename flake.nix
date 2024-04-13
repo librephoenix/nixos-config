@@ -4,7 +4,7 @@
   outputs = inputs@{ self, nixpkgs, nixpkgs-stable, emacs-pin-nixpkgs, kdenlive-pin-nixpkgs,
                      home-manager-unstable, home-manager-stable, nix-doom-emacs,
                      nix-straight, stylix, blocklist-hosts, rust-overlay, org-nursery, org-yaap,
-                     org-side-tree, org-timeblock, org-krita, phscroll, mini-frame, ... }:
+                     org-side-tree, org-timeblock, org-krita, org-sliced-images, phscroll, mini-frame, ... }:
     let
       # ---- SYSTEM SETTINGS ---- #
       systemSettings = {
@@ -138,6 +138,7 @@
             inherit (inputs) org-side-tree;
             inherit (inputs) org-timeblock;
             inherit (inputs) org-krita;
+            inherit (inputs) org-sliced-images;
             inherit (inputs) phscroll;
             inherit (inputs) mini-frame;
             #inherit (inputs) nix-flatpak;
@@ -230,6 +231,10 @@
     };
     org-krita = {
       url = "github:lepisma/org-krita";
+      flake = false;
+    };
+    org-sliced-images = {
+      url = "github:jcfk/org-sliced-images";
       flake = false;
     };
     phscroll = {
