@@ -123,7 +123,6 @@
           modules = [
             (./. + "/profiles" + ("/" + systemSettings.profile)
               + "/home.nix") # load home.nix from selected PROFILE
-            #  inputs.nix-flatpak.homeManagerModules.nix-flatpak # Declarative flatpaks
           ];
           extraSpecialArgs = {
             # pass config variables from above
@@ -141,7 +140,6 @@
             inherit (inputs) org-sliced-images;
             inherit (inputs) phscroll;
             inherit (inputs) mini-frame;
-            #inherit (inputs) nix-flatpak;
             inherit (inputs) stylix;
           };
         };
@@ -230,7 +228,7 @@
       flake = false;
     };
     org-krita = {
-      url = "github:lepisma/org-krita";
+      url = "github:librephoenix/org-krita";
       flake = false;
     };
     org-sliced-images = {

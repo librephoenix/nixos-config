@@ -437,26 +437,8 @@ same directory as the org-buffer and insert a link to this file."
 (add-load-path! "~/.emacs.d/org-krita")
 (require 'org-krita)
 (add-hook 'org-mode-hook 'org-krita-mode)
-
-(defun org-krita-show-link (link)
-  (org-krita-hide-link link)
-  (let* ((start (org-element-property :begin link))
-         (end (org-element-property :end link))
-         (overlay (make-overlay (+ start 0) (+ end 0)))
-         (kra-path (org-element-property :path link)))
-    (overlay-put overlay 'display (create-image (org-krita-extract-png kra-path) 'png t :scale 0.5))
-    (push (cons kra-path overlay) org-krita-overlays)))
-
-(defun org-krita-edit (path &optional full-mode)
-  "Edit given PATH in krita canvasonly mode.
-
-If FULL-MODE is not null, run full krita."
-  (let ((kra-path (expand-file-name path)))
-    (when (f-exists-p kra-path)
-      (if full-mode
-          (call-process org-krita-executable nil 0 nil kra-path)
-        (call-process org-krita-executable nil 0 nil kra-path))
-      (org-krita-add-watcher kra-path))))
+(setq org-krita-extract-filename "preview.png")
+(setq org-krita-scale 1)
 
 (defun org-copy-link-to-clipboard-at-point ()
   "Copy current link at point into clipboard (useful for images and links)"

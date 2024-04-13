@@ -760,15 +760,15 @@
     "org-krita": {
       "flake": false,
       "locked": {
-        "lastModified": 1619935377,
-        "narHash": "sha256-+HI8P0/LI8gdiCD7OiPKTAtLKrPt0REnQ+6oblHSHzU=",
-        "owner": "lepisma",
+        "lastModified": 1713037764,
+        "narHash": "sha256-EHJwe3G/k5/UWFfY+vEkCdKvKNCK7Oh3fFKgMUa87lw=",
+        "owner": "librephoenix",
         "repo": "org-krita",
-        "rev": "7e334951b8de8f2f1c8cbe5068e7dfe6b9e9808f",
+        "rev": "6b85cf06f17dfcf9daeb6e045caea6df882bc4ff",
         "type": "github"
       },
       "original": {
-        "owner": "lepisma",
+        "owner": "librephoenix",
         "repo": "org-krita",
         "type": "github"
       }
