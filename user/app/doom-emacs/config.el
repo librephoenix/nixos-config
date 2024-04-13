@@ -1010,6 +1010,9 @@ same directory as the org-buffer and insert a link to this file."
         ("Personal.p" ,(list (all-the-icons-material "person" :height 0.9)) nil nil :ascent center)
 ))
 
+(defalias 'org-timestamp-down 'org-timestamp-down-day)
+(defalias 'org-timestamp-up 'org-timestamp-up-day)
+
 (defun org-categorize-by-roam-db-on-save ()
   (interactive)
   (when (string= (message "%s" major-mode) "org-mode")

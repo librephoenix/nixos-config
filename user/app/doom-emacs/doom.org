@@ -1173,6 +1173,9 @@ On Wayland, EAF doesn't work.
 
 *** Org Agenda Convenience Functions
 #+BEGIN_SRC emacs-lisp :tangle config.el
+(defalias 'org-timestamp-down 'org-timestamp-down-day)
+(defalias 'org-timestamp-up 'org-timestamp-up-day)
+
 (defun org-categorize-by-roam-db-on-save ()
   (interactive)
   (when (string= (message "%s" major-mode) "org-mode")
