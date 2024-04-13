@@ -1,11 +1,11 @@
-{ config, lib, pkgs-emacs, pkgs-stable, userSettings, systemSettings,
-  org-nursery, org-yaap, org-side-tree, org-timeblock, org-krita, org-sliced-images, phscroll, mini-frame, ... }:
+{ config, lib, pkgs-emacs, pkgs-stable, inputs, userSettings, systemSettings, ... }:
 let
   themePolarity = lib.removeSuffix "\n" (builtins.readFile (./. + "../../../../themes"+("/"+userSettings.theme)+"/polarity.txt"));
   dashboardLogo = ./. + "/nix-" + themePolarity + ".png";
 in
 {
   imports = [
+    inputs.nix-doom-emacs.hmModule
     ../git/git.nix
     ../../shell/sh.nix
     ../../shell/cli-collection.nix
@@ -79,30 +79,30 @@ in
   };
 
   home.file.".emacs.d/org-yaap" = {
-    source = "${org-yaap}";
+    source = "${inputs.org-yaap}";
     recursive = true;
   };
 
   home.file.".emacs.d/org-side-tree" = {
-    source = "${org-side-tree}";
+    source = "${inputs.org-side-tree}";
     recursive = true;
   };
 
   home.file.".emacs.d/org-timeblock" = {
-    source = "${org-timeblock}";
+    source = "${inputs.org-timeblock}";
     recursive = true;
   };
 
   home.file.".emacs.d/org-nursery" = {
-    source = "${org-nursery}";
+    source = "${inputs.org-nursery}";
   };
 
   home.file.".emacs.d/org-krita" = {
-    source = "${org-krita}";
+    source = "${inputs.org-krita}";
   };
 
   home.file.".emacs.d/org-sliced-images" = {
-    source = "${org-sliced-images}";
+    source = "${inputs.org-sliced-images}";
   };
 
   home.file.".emacs.d/dashboard-logo.png".source = dashboardLogo;
@@ -112,11 +112,11 @@ in
   };
 
   home.file.".emacs.d/phscroll" = {
-    source = "${phscroll}";
+    source = "${inputs.phscroll}";
   };
 
   home.file.".emacs.d/mini-frame" = {
-    source = "${mini-frame}";
+    source = "${inputs.mini-frame}";
   };
 
   home.file.".emacs.d/system-vars.el".text = ''

@@ -1,4 +1,4 @@
-{ config, pkgs, nix-doom-emacs, stylix, userSettings, ... }:
+{ config, pkgs, userSettings, ... }:
 
 {
   # Home Manager needs a bit of information about you and the paths it should
@@ -9,8 +9,6 @@
   programs.home-manager.enable = true;
 
   imports = [
-              (if ((userSettings.editor == "emacs") || (userSettings.editor == "emacsclient")) then nix-doom-emacs.hmModule else null)
-              stylix.homeManagerModules.stylix
               ../../user/shell/sh.nix # My zsh and bash config
               ../../user/shell/cli-collection.nix # Useful CLI apps
               ../../user/app/doom-emacs/doom.nix # My doom emacs config

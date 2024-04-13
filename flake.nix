@@ -1,10 +1,7 @@
 {
   description = "Flake of LibrePhoenix";
 
-  outputs = inputs@{ self, nixpkgs, nixpkgs-stable, emacs-pin-nixpkgs, kdenlive-pin-nixpkgs,
-                     home-manager-unstable, home-manager-stable, nix-doom-emacs,
-                     nix-straight, stylix, blocklist-hosts, rust-overlay, org-nursery, org-yaap,
-                     org-side-tree, org-timeblock, org-krita, org-sliced-images, phscroll, mini-frame, ... }:
+  outputs = inputs@{ self, ... }:
     let
       # ---- SYSTEM SETTINGS ---- #
       systemSettings = {
@@ -51,9 +48,9 @@
 
       # create patched nixpkgs
       nixpkgs-patched =
-        (import nixpkgs { system = systemSettings.system; }).applyPatches {
+        (import inputs.nixpkgs { system = systemSettings.system; }).applyPatches {
           name = "nixpkgs-patched";
-          src = nixpkgs;
+          src = inputs.nixpkgs;
           patches = [ ./patches/emacs-no-version-check.patch ];
         };
 
@@ -70,10 +67,10 @@
                     allowUnfree = true;
                     allowUnfreePredicate = (_: true);
                   };
-                  overlays = [ rust-overlay.overlays.default ];
+                  overlays = [ inputs.rust-overlay.overlays.default ];
                 }));
 
-      pkgs-stable = import nixpkgs-stable {
+      pkgs-stable = import inputs.nixpkgs-stable {
         system = systemSettings.system;
         config = {
           allowUnfree = true;
@@ -81,11 +78,11 @@
         };
       };
 
-      pkgs-emacs = import emacs-pin-nixpkgs {
+      pkgs-emacs = import inputs.emacs-pin-nixpkgs {
         system = systemSettings.system;
       };
 
-      pkgs-kdenlive = import kdenlive-pin-nixpkgs {
+      pkgs-kdenlive = import inputs.kdenlive-pin-nixpkgs {
         system = systemSettings.system;
       };
 
@@ -94,17 +91,17 @@
       # otherwise use patched nixos-unstable nixpkgs
       lib = (if ((systemSettings.profile == "homelab") || (systemSettings.profile == "worklab"))
              then
-               nixpkgs-stable.lib
+               inputs.nixpkgs-stable.lib
              else
-               nixpkgs.lib);
+               inputs.nixpkgs.lib);
 
       # use home-manager-stable if running a server (homelab or worklab profile)
       # otherwise use home-manager-unstable
       home-manager = (if ((systemSettings.profile == "homelab") || (systemSettings.profile == "worklab"))
              then
-               home-manager-stable
+               inputs.home-manager-stable
              else
-               home-manager-unstable);
+               inputs.home-manager-unstable);
 
       # Systems that can run tests:
       supportedSystems = [ "aarch64-linux" "i686-linux" "x86_64-linux" ];
@@ -131,16 +128,7 @@
             inherit pkgs-kdenlive;
             inherit systemSettings;
             inherit userSettings;
-            inherit (inputs) nix-doom-emacs;
-            inherit (inputs) org-nursery;
-            inherit (inputs) org-yaap;
-            inherit (inputs) org-side-tree;
-            inherit (inputs) org-timeblock;
-            inherit (inputs) org-krita;
-            inherit (inputs) org-sliced-images;
-            inherit (inputs) phscroll;
-            inherit (inputs) mini-frame;
-            inherit (inputs) stylix;
+            inherit inputs;
           };
         };
       };
@@ -156,8 +144,7 @@
             inherit pkgs-stable;
             inherit systemSettings;
             inherit userSettings;
-            inherit (inputs) stylix;
-            inherit (inputs) blocklist-hosts;
+            inherit inputs;
           };
         };
       };
