@@ -24,7 +24,7 @@ nix run git+https://codeberg.org/librephoenix/nixos-config
 This will install the dotfiles to =~/.dotfiles=, but if you'd like to install to a custom directory, just supply it as a positional argument, i.e:
 #+BEGIN_SRC sh :noeval
 # Install from gitlab
-nix run gitlab:librephoenix/nixos-config /your/custom/directory
+nix run gitlab:librephoenix/nixos-config -- /your/custom/directory
 #+END_SRC
 
 The script will ask for sudo permissions at certain points, /but you should not run the script as root/.
@@ -45,7 +45,7 @@ nix-shell -p git --command "nix run --experimental-features 'nix-command flakes'
 
 This /should/ still work with a custom dotfiles directory too, i.e:
 #+begin_src sh :noeval
-nix-shell -p git --command "nix run --experimental-features 'nix-command flakes' gitlab:librephoenix/nixos-config /your/custom/directory"
+nix-shell -p git --command "nix run --experimental-features 'nix-command flakes' gitlab:librephoenix/nixos-config -- /your/custom/directory"
 #+end_src
 
 At a certain point in the install script it will open =nano= (or whatever your $EDITOR is set to) and ask you to edit the =flake.nix=. You can edit as much or as little of the config variables as you like, and it will continue the install after you exit the editor.
@@ -104,7 +104,6 @@ git clone https://gitlab.com/librephoenix/nixos-config.git ~/.dotfiles
 Any custom directory should also work:
 #+BEGIN_SRC sh :noeval
 git clone https://gitlab.com/librephoenix/nixos-config.git /your/custom/directory
-/your/custom/directory/install.sh
 #+END_SRC
 
 If you install to a custom directory, make sure to edit the =userSettings.dotfilesDir= in the beginning [[./flake.nix][flake.nix]], or else my [[./system/bin/phoenix.nix][phoenix wrapper script]] won't work.
