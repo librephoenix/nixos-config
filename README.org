@@ -86,6 +86,25 @@ My profile can be conveniently selected in [[./flake.nix][my flake.nix]] by sett
 
 More detailed information on these profiles is in the [[./profiles][profiles directory]].
 
+** Nix Wrapper Script
+Some Nix commands are confusing, really long to type out, or require me to be in the directory with my dotfiles. To solve this, I wrote a [[./system/bin/phoenix.nix][wrapper script called phoenix]], which calls various scripts in the root of this directory.
+
+TLDR:
+- =phoenix sync= - Synchronize system and home-manager state with config files (essentially =nixos-rebuild switch= + =home-manager switch=)
+  - =phoenix sync system= - Only synchronize system state (essentially =nixos-rebuild switch=)
+  - =phoenix sync user= - Only synchronize home-manager state (essentially =home-manager switch=)
+- =phoenix update= - Update all flake inputs without synchronizing system and home-manager states
+- =phoenix upgrade= - Update flake.lock and synchronize system and home-manager states (=phoenix update= + =phoenix sync=)
+- =phoenix refresh= - Call synchronization posthooks (mainly to refresh stylix and some dependent daemons)
+- =phoenix pull= - Pull changes from upstream git and attempt to merge local changes (I use this to update systems other than my main system)
+- =phoenix harden= - Ensure that all "system-level" files cannot be edited by an unprivileged user
+- =phoenix soften= - Relax permissions so all dotfiles can be edited by a normal user (use temporarily for git or other operations)
+- =phoenix gc= - Garbage collect the system and user nix stores
+  - =phoenix gc full= - Delete everything not currently in use
+  - =phoenix gc 15d= - Delete everything older than 15 days
+  - =phoenix gc 30d= - Delete everything older than 30 days
+  - =phoenix gc Xd= - Delete everything older than X days
+
 ** Star History
 Didn't think this would get that many [[https://star-history.com/#librephoenix/nixos-config&Date][stars on GitHub]], yet here we are:
 [[https://api.star-history.com/svg?repos=librephoenix/nixos-config&type=Date.png]]
