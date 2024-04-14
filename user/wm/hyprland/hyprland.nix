@@ -434,16 +434,16 @@
       dots_spacing = 0.15 # Scale of dots' absolute size, 0.0 - 1.0
       dots_center = false
       dots_rounding = -1 # -1 default circle, -2 follow input-field rounding
-      outer_color = rgb(151515)
-      inner_color = rgb(200, 200, 200)
-      font_color = rgb(10, 10, 10)
+      outer_color = rgb(''+config.lib.stylix.colors.base07-rgb-r+'',''+config.lib.stylix.colors.base07-rgb-g+'', ''+config.lib.stylix.colors.base07-rgb-b+'')
+      inner_color = rgb(''+config.lib.stylix.colors.base00-rgb-r+'',''+config.lib.stylix.colors.base00-rgb-g+'', ''+config.lib.stylix.colors.base00-rgb-b+'')
+      font_color = rgb(''+config.lib.stylix.colors.base07-rgb-r+'',''+config.lib.stylix.colors.base07-rgb-g+'', ''+config.lib.stylix.colors.base07-rgb-b+'')
       fade_on_empty = true
       fade_timeout = 1000 # Milliseconds before fade_on_empty is triggered.
       placeholder_text = <i>Input Password...</i> # Text rendered in the input box when it's empty.
       hide_input = false
       rounding = -1 # -1 means complete rounding (circle/oval)
-      check_color = rgb(204, 136, 34)
-      fail_color = rgb(204, 34, 34) # if authentication failed, changes outer_color and fail message color
+      check_color = rgb(''+config.lib.stylix.colors.base0A-rgb-r+'',''+config.lib.stylix.colors.base0A-rgb-g+'', ''+config.lib.stylix.colors.base0A-rgb-b+'')
+      fail_color = rgb(''+config.lib.stylix.colors.base08-rgb-r+'',''+config.lib.stylix.colors.base08-rgb-g+'', ''+config.lib.stylix.colors.base08-rgb-b+'')
       fail_text = <i>$FAIL <b>($ATTEMPTS)</b></i> # can be set to empty
       fail_transition = 300 # transition time in ms between normal outer_color and fail_color
       capslock_color = -1
@@ -460,9 +460,9 @@
     label {
       monitor =
       text = Hello, Emmet
-      color = rgba(200, 200, 200, 1.0)
+      color = rgb(''+config.lib.stylix.colors.base07-rgb-r+'',''+config.lib.stylix.colors.base07-rgb-g+'', ''+config.lib.stylix.colors.base07-rgb-b+'')
       font_size = 25
-      font_family = Intel One Mono
+      font_family = ''+userSettings.font+''
       rotate = 0 # degrees, counter-clockwise
 
       position = 0, 160
