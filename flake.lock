@@ -837,6 +837,22 @@
         "type": "github"
       }
     },
+    "org-xournalpp": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1625233179,
+        "narHash": "sha256-c0AYWMkBb7wdl7SWTffjWSXwXbq1PGov2vT8A1pdqpQ=",
+        "owner": "vherrmann",
+        "repo": "org-xournalpp",
+        "rev": "c09bd8b99d36c355d632b85ecbffb3b275802381",
+        "type": "gitlab"
+      },
+      "original": {
+        "owner": "vherrmann",
+        "repo": "org-xournalpp",
+        "type": "gitlab"
+      }
+    },
     "org-yaap": {
       "flake": false,
       "locked": {
@@ -936,6 +952,7 @@
         "org-side-tree": "org-side-tree",
         "org-sliced-images": "org-sliced-images",
         "org-timeblock": "org-timeblock",
+        "org-xournalpp": "org-xournalpp",
         "org-yaap": "org-yaap",
         "phscroll": "phscroll",
         "rust-overlay": "rust-overlay",

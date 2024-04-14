@@ -218,6 +218,10 @@
       url = "github:librephoenix/org-krita";
       flake = false;
     };
+    org-xournalpp = {
+      url = "gitlab:vherrmann/org-xournalpp";
+      flake = false;
+    };
     org-sliced-images = {
       url = "github:jcfk/org-sliced-images";
       flake = false;

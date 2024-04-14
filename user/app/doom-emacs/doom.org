@@ -517,6 +517,38 @@ same directory as the org-buffer and insert a link to this file."
 (setq org-krita-extract-filename "preview.png")
 (setq org-krita-scale 1)
 
+(add-load-path! "~/.emacs.d/org-xournalpp")
+(require 'org-xournalpp)
+(add-hook 'org-mode-hook 'org-xournalpp-mode)
+(setq org-xournalpp-template-getter
+  '(closure
+    (t)
+    nil
+    (file-truename "~/Templates/template.xopp") ; use my own template
+  )
+)
+
+;; override width to static 250 for now
+;; so I don't have massive images in org mode (scrolling not fun)
+(defun org-xournalpp--create-image (link refresh)
+  "Extract svg/png from given LINK and return image.
+
+Regenerate the cached inline image, if REFRESH is true.
+
+If the path from LINK does not exist, nil is returned."
+  (let ((width 250)
+        (xopp-path (f-expand (org-element-property :path link))))
+    (when (f-exists? xopp-path)
+        (if width
+            (create-image (org-xournalpp--get-image xopp-path refresh)
+                          org-xournalpp-image-type
+                          nil
+                          :width width)
+          (create-image (org-xournalpp--get-image xopp-path refresh)
+                        org-xournalpp-image-type
+                        nil)))))
+
+
 #+END_SRC
 *** Copy Links/Files into Clipboard
 #+BEGIN_SRC emacs-lisp :tangle config.el
@@ -2087,6 +2119,10 @@ in
 
   home.file.".emacs.d/org-krita" = {
     source = "${inputs.org-krita}";
+  };
+
+  home.file.".emacs.d/org-xournalpp" = {
+    source = "${inputs.org-xournalpp}";
   };
 
   home.file.".emacs.d/org-sliced-images" = {

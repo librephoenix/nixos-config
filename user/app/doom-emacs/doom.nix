@@ -101,6 +101,10 @@ in
     source = "${inputs.org-krita}";
   };
 
+  home.file.".emacs.d/org-xournalpp" = {
+    source = "${inputs.org-xournalpp}";
+  };
+
   home.file.".emacs.d/org-sliced-images" = {
     source = "${inputs.org-sliced-images}";
   };
