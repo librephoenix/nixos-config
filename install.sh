@@ -3,8 +3,6 @@
 # Automated script to install my dotfiles
 
 # Clone dotfiles
-# TODO make ~/.dotfiles path arbitrary and make all other scripts conform to this
-# using SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 if [ -z "$1" ]
   then
     SCRIPT_DIR=$1
