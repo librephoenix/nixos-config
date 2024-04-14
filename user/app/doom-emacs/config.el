@@ -1244,7 +1244,11 @@ https://github.com/magit/magit/issues/460 (@cpitclaudel)."
       "C-=" 'text-scale-increase
 
       :desc "Decrease font size"
-      "C--" 'text-scale-decrease)
+      "C--" 'text-scale-decrease
+
+      :desc "Jump to dired"
+      "M-f" 'dired-jump
+)
 
 ;;;------ ranger configuration ------;;;
 
@@ -1254,9 +1258,7 @@ https://github.com/magit/magit/issues/460 (@cpitclaudel)."
 
       :desc "Toggle mark on current file"
       "x" 'ranger-toggle-mark
-
-      :desc "Open ranger"
-      "o d" 'ranger)
+)
 
 ;;;-- hledger-mode configuration ;;;--
 
