@@ -11,6 +11,8 @@ imports = [ import1.nix
 
 My system-level Nix modules are organized into this directory:
 - [[./hardware-configuration.nix][hardware-configuration]] - Default hardware config generated for my system
+- [[./bin][bin]] - My own scripts
+  - [[./bin/phoenix.nix][phoenix]] - My nix command wrapper
 - [[./app][app]] - Necessary system-level configuration to get various apps working
 - [[./hardware][hardware]] - Hardware configurations I may need to use
 - [[./security][security]] - System-level security stuff
@@ -18,6 +20,7 @@ My system-level Nix modules are organized into this directory:
 - [[./wm][wm]] - Necessary system-level configuration to get various window managers, wayland compositors, and/or desktop environments working
 
 ** Variables imported from flake.nix
+# TODO update this
 Variables can be imported from [[../flake.nix][flake.nix]] by setting the =specialArgs= block inside the flake (see [[../flake.nix][my flake]] for more details).  This allows variables to merely be managed in one place ([[../flake.nix][flake.nix]]) rather than having to manage them in multiple locations.
 
 I currently import the following variables to the system config:

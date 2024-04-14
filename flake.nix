@@ -118,8 +118,7 @@
         user = home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
           modules = [
-            (./. + "/profiles" + ("/" + systemSettings.profile)
-              + "/home.nix") # load home.nix from selected PROFILE
+            (./. + "/profiles" + ("/" + systemSettings.profile) + "/home.nix") # load home.nix from selected PROFILE
           ];
           extraSpecialArgs = {
             # pass config variables from above
@@ -136,8 +135,8 @@
         system = lib.nixosSystem {
           system = systemSettings.system;
           modules = [
-            (./. + "/profiles" + ("/" + systemSettings.profile)
-              + "/configuration.nix")
+            (./. + "/profiles" + ("/" + systemSettings.profile) + "/configuration.nix")
+            ./system/bin/phoenix.nix
           ]; # load configuration.nix from selected PROFILE
           specialArgs = {
             # pass config variables from above

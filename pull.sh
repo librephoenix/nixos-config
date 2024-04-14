@@ -1,21 +1,20 @@
 #!/bin/sh
 
 # Automated script to update my non-primary systems
-# to be in sync with upstream git repo while
+# config to be in sync with upstream git repo while
 # preserving local edits to dotfiles via git stash
 
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+
 # Relax permissions temporarily so git can work
-sudo ~/.dotfiles/soften.sh ~/.dotfiles;
+sudo $SCRIPT_DIR/soften.sh $SCRIPT_DIR;
 
 # Stash local edits, pull changes, and re-apply local edits
-pushd ~/.dotfiles;
+pushd $SCRIPT_DIR &> /dev/null;
 git stash;
 git pull;
 git stash apply;
-popd;
+popd &> /dev/null;
 
 # Permissions for files that should be owned by root
-sudo ~/.dotfiles/harden.sh ~/.dotfiles;
-
-# Synchronize system
-~/.dotfiles/sync.sh;
+sudo $SCRIPT_DIR/harden.sh $SCRIPT_DIR;

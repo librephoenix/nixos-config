@@ -21,6 +21,12 @@ nix run github:librephoenix/nixos-config
 nix run git+https://codeberg.org/librephoenix/nixos-config
 #+END_SRC
 
+This will install the dotfiles to =~/.dotfiles=, but if you'd like to install to a custom directory, just supply it as a positional argument, i.e:
+#+BEGIN_SRC sh :noeval
+# Install from gitlab
+nix run gitlab:librephoenix/nixos-config /your/custom/directory
+#+END_SRC
+
 The script will ask for sudo permissions at certain points, /but you should not run the script as root/.
 
 If the above =nix run= command gives you an error, odds are you either don't have =git= installed, or you haven't enabled the experimental features in your Nix config (=nix-command= and =flakes=). To get the command to install properly, you can first enter a shell with =git= available using:
@@ -35,6 +41,11 @@ nix run --experimental-features 'nix-command flakes' gitlab:librephoenix/nixos-c
 And if you want a single copy-paste solution:
 #+begin_src sh :noeval
 nix-shell -p git --command "nix run --experimental-features 'nix-command flakes' gitlab:librephoenix/nixos-config"
+#+end_src
+
+This /should/ still work with a custom dotfiles directory too, i.e:
+#+begin_src sh :noeval
+nix-shell -p git --command "nix run --experimental-features 'nix-command flakes' gitlab:librephoenix/nixos-config /your/custom/directory"
 #+end_src
 
 At a certain point in the install script it will open =nano= (or whatever your $EDITOR is set to) and ask you to edit the =flake.nix=. You can edit as much or as little of the config variables as you like, and it will continue the install after you exit the editor.
@@ -53,6 +64,13 @@ The dotfiles can be installed after cloning the repo into =~/.dotfiles= using:
 git clone https://gitlab.com/librephoenix/nixos-config.git ~/.dotfiles
 ~/.dotfiles/install.sh
 #+END_SRC
+or with a custom directory:
+#+BEGIN_SRC sh :noeval
+git clone https://gitlab.com/librephoenix/nixos-config.git /your/custom/directory
+/your/custom/directory/install.sh
+#+END_SRC
+
+If you install to a custom directory, make sure to edit the =userSettings.dotfilesDir= in the [[./flake.nix][flake.nix]], or else my [[./system/bin/phoenix.nix][phoenix wrapper script]] won't work.
 
 At a certain point in the install script it will open =nano= (or whatever your =$EDITOR= is set to) and ask you to edit the =flake.nix=. You can edit as much or as little of the config variables as you like, and it will continue the install after you exit the editor.
 
@@ -83,6 +101,22 @@ Start by cloning the repo:
 git clone https://gitlab.com/librephoenix/nixos-config.git ~/.dotfiles
 #+END_SRC
 
+Any custom directory should also work:
+#+BEGIN_SRC sh :noeval
+git clone https://gitlab.com/librephoenix/nixos-config.git /your/custom/directory
+/your/custom/directory/install.sh
+#+END_SRC
+
+If you install to a custom directory, make sure to edit the =userSettings.dotfilesDir= in the beginning [[./flake.nix][flake.nix]], or else my [[./system/bin/phoenix.nix][phoenix wrapper script]] won't work.
+#+BEGIN_SRC nix :noeval
+...
+let
+  ...
+  # ----- USER SETTINGS ----- #
+  dotfilesDir = "/your/custom/directory"; # username
+  ...
+#+END_SRC
+
 To get the hardware configuration on a new system, either copy from =/etc/nixos/hardware-configuration.nix= or run:
 #+BEGIN_SRC sh :noeval
 sudo nixos-generate-config --show-hardware-config > ~/.dotfiles/system/hardware-configuration.nix
@@ -96,7 +130,7 @@ let
   # ----- USER SETTINGS ----- #
   username = "YOURUSERNAME"; # username
   name = "YOURNAME"; # name/identifier
-...
+  ...
 #+END_SRC
 
 There are many more config options there that you may also want to change as well.
@@ -106,10 +140,10 @@ The build will fail if you are booting from BIOS instead of UEFI, unless change 
 ...
 let
   # ---- SYSTEM SETTINGS ---- #
-  systemSettings = {
+  ...
     bootMode = "bios"; # uefi or bios
     grubDevice = "/dev/vda"; # device identifier for grub; find this by running lsblk
-  };
+  ...
 #+end_src
 
 Note: If you're installing this to a VM, Hyprland won't work unless 3D acceleration is enabled.
@@ -123,11 +157,19 @@ Once the variables are set, then switch into the system configuration by running
 #+BEGIN_SRC sh :noeval
 sudo nixos-rebuild switch --flake ~/.dotfiles#system
 #+END_SRC
+or for your own custom directory:
+#+BEGIN_SRC sh :noeval
+sudo nixos-rebuild switch --flake /your/custom/directory#system
+#+END_SRC
 
 *** Intall and Switch Home Manager Config
 Home manager can be installed and the configuration activated with:
 #+BEGIN_SRC sh :noeval
 nix run home-manager/master -- switch --flake ~/.dotfiles#user
+#+END_SRC
+or for your own custom directory:
+#+BEGIN_SRC sh :noeval
+nix run home-manager/master -- switch --flake /your/custom/directory#user
 #+END_SRC
 
 ** FAQ

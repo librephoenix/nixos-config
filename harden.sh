@@ -14,11 +14,11 @@
 # After running this, the command `nix flake update` will require root
 
 if [ "$#" = 1 ]; then
-    dotfilesDir=$1;
+    SCRIPT_DIR=$1;
 else
-    dotfilesDir=$(pwd);
+    SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 fi
-pushd $dotfilesDir &> /dev/null;
+pushd $SCRIPT_DIR &> /dev/null;
 chown 0:0 .;
 chown 0:0 profiles/*;
 chown -R 0:0 system;

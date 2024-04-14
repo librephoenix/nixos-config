@@ -3,8 +3,10 @@
 # Script to update system and sync
 # Does not pull changes from git
 
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+
 # Update flake
-~/.dotfiles/update.sh;
+$SCRIPT_DIR/update.sh;
 
 # Synchronize system
-~/.dotfiles/sync.sh;
+$SCRIPT_DIR/sync.sh;

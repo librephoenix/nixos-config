@@ -21,14 +21,11 @@ My user-level Nix modules are organized into this directory:
   - [[./app/ranger][ranger]]
   - [[./app/terminal][terminal]] - Configuration for terminal emulators
   - [[./app/virtualization][virtualization]] - Virtualization and compatability layers
-- [[./bin][bin]] - My own scripts
-  - [[./bin/phoenix.nix][phoenix]] - My nix command wrapper
 - [[./lang][lang]] - Various bundled programming languages
   - I will probably get rid of this in favor of a shell.nix for every project, once I learn how that works
 - [[./pkgs][pkgs]] - "Package builds" for packages not in the Nix repositories
   - [[./pkgs/pokemon-colorscripts.nix][pokemon-colorscripts]]
   - [[./pkgs/rogauracore.nix][rogauracore]] - not working yet
-  - [[./pkgs/ytsub.nix][ytsub]]
 - [[./shell][shell]] - My default bash and zsh configs
   - [[./shell/sh.nix][sh]] - bash and zsh configs
   - [[./shell/cli-collection.nix][cli-collection]] - Curated useful CLI utilities
@@ -38,6 +35,7 @@ My user-level Nix modules are organized into this directory:
   - [[./wm/picom][picom]]
 
 ** Variables imported from flake.nix
+# TODO update this
 Variables can be imported from [[../flake.nix][flake.nix]] by setting the =extraSpecialArgs= block inside the flake (see [[../flake.nix][my flake]] for more details).  This allows variables to merely be managed in one place ([[../flake.nix][flake.nix]]) rather than having to manage them in multiple locations.
 
 I currently import the following variables to the system config:

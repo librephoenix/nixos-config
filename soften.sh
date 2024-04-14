@@ -18,10 +18,10 @@
 # RUNNING nixos-rebuild switch!
 
 if [ "$#" = 1 ]; then
-    dotfilesDir=$1;
+    SCRIPT_DIR=$1;
 else
-    dotfilesDir=$(pwd);
+    SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 fi
-pushd $dotfilesDir &> /dev/null;
+pushd $SCRIPT_DIR &> /dev/null;
 chown -R 1000:users .;
 popd &> /dev/null;
