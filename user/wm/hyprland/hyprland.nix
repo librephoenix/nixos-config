@@ -42,7 +42,7 @@
       exec-once = emacs --daemon
 
       exec-once = hypridle
-      exec-once = hyprdim -d 1200 -s 0.25 -D 0.25 -p
+      exec-once = hyprdim -d 450 -s 0.25 -D 0.25 -p
       exec-once = obs-notification-mute-daemon
 
       exec = ~/.swaybg-stylix
@@ -92,6 +92,8 @@
        bind=SUPER,TAB,exec,pypr expose
        bind=SUPER,V,exec,wl-copy $(wl-paste | tr '\n' ' ')
        bind=SUPERSHIFT,T,exec,screenshot-ocr
+       bind=CTRLALT,Delete,exec,hyprctl kill
+       bind=SUPERSHIFT,K,exec,hyprctl kill
 
        bind = SUPER,R,pass,^(com\.obsproject\.Studio)$
        bind = SUPERSHIFT,R,pass,^(com\.obsproject\.Studio)$
