@@ -473,7 +473,7 @@
     label {
       monitor =
       text = $TIME
-      color = rgba(200, 200, 200, 1.0)
+      color = rgb(''+config.lib.stylix.colors.base07-rgb-r+'',''+config.lib.stylix.colors.base07-rgb-g+'', ''+config.lib.stylix.colors.base07-rgb-b+'')
       font_size = 20
       font_family = Intel One Mono
       rotate = 0 # degrees, counter-clockwise
