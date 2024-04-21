@@ -42,7 +42,7 @@
       exec-once = emacs --daemon
 
       exec-once = hypridle
-      #exec-once = hyprdim # currently broken :(
+      exec-once = hyprdim -d 1200 -s 0.25 -D 0.25 -p
       exec-once = obs-notification-mute-daemon
 
       exec = ~/.swaybg-stylix
@@ -178,7 +178,8 @@
 
        bind=SUPER,Z,exec,pypr toggle term && hyprctl dispatch bringactivetotop
        bind=SUPER,F,exec,pypr toggle ranger && hyprctl dispatch bringactivetotop
-       bind=SUPER,N,exec,pypr toggle musikcube && hyprctl dispatch bringactivetotop
+       bind=SUPER,N,exec,pypr toggle numbat && hyprctl dispatch bringactivetotop
+       bind=SUPER,M,exec,pypr toggle musikcube && hyprctl dispatch bringactivetotop
        bind=SUPER,B,exec,pypr toggle btm && hyprctl dispatch bringactivetotop
        bind=SUPER,code:172,exec,pypr toggle pavucontrol && hyprctl dispatch bringactivetotop
        $scratchpadsize = size 80% 85%
@@ -188,6 +189,11 @@
        windowrulev2 = $scratchpadsize,$scratchpad
        windowrulev2 = workspace special silent,$scratchpad
        windowrulev2 = center,$scratchpad
+
+       $savetodisk = title:^(Save to Disk)$
+       windowrulev2 = float,$savetodisk
+       windowrulev2 = size 70% 75%,$savetodisk
+       windowrulev2 = center,$savetodisk
 
        $pavucontrol = class:^(pavucontrol)$
        windowrulev2 = float,$pavucontrol
@@ -201,8 +207,6 @@
        windowrulev2 = size 64% 50%,$miniframe
        windowrulev2 = move 18% 25%,$miniframe
        windowrulev2 = animation popin 1 20,$miniframe
-
-       windowrulev2 = float,title:^(Kdenlive)$
 
        windowrulev2 = float,class:^(pokefinder)$
 
@@ -495,6 +499,10 @@
         },
         "ranger": {
           "command": "kitty --class scratchpad -e ranger",
+          "margin": 50
+        },
+        "numbat": {
+          "command": "alacritty --class scratchpad -e numbat",
           "margin": 50
         },
         "musikcube": {
