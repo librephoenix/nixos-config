@@ -290,7 +290,14 @@
     polkit_gnome
     libva-utils
     gsettings-desktop-schemas
-    pyprland
+    (pyprland.overrideAttrs (oldAttrs: {
+      src = fetchFromGitHub {
+        owner = "hyprland-community";
+        repo = "pyprland";
+        rev = "refs/tags/2.2.12";
+        hash = "sha256-SVly20/+67d0Rr2SuM1n/JfT1SlyKdKRBLDx2okCZRY=";
+      };
+    }))
     gnome.zenity
     wlr-randr
     wtype
@@ -489,40 +496,35 @@
       valign = center
     }
   '';
-  home.file.".config/hypr/pyprland.json".text = ''
-    {
-      "pyprland": {
-        "plugins": ["scratchpads", "magnify", "expose"]
-      },
-      "scratchpads": {
-        "term": {
-          "command": "alacritty --class scratchpad",
-          "margin": 50
-        },
-        "ranger": {
-          "command": "kitty --class scratchpad -e ranger",
-          "margin": 50
-        },
-        "numbat": {
-          "command": "alacritty --class scratchpad -e numbat",
-          "margin": 50
-        },
-        "musikcube": {
-          "command": "alacritty --class scratchpad -e musikcube",
-          "margin": 50
-        },
-        "btm": {
-          "command": "alacritty --class scratchpad -e btm",
-          "margin": 50
-        },
-        "pavucontrol": {
-          "command": "pavucontrol",
-          "margin": 50,
-          "unfocus": "hide",
-          "animation": "fromTop"
-        }
-      }
-    }
+  home.file.".config/hypr/pyprland.toml".text = ''
+    [pyprland]
+    plugins = ["scratchpads", "magnify"]
+
+    [scratchpads.term]
+    command = "alacritty --class scratchpad"
+    margin = 50
+
+    [scratchpads.ranger]
+    command = "kitty --class scratchpad -e ranger"
+    margin = 50
+
+    [scratchpads.numbat]
+    command = "alacritty --class scratchpad -e numbat"
+    margin = 50
+
+    [scratchpads.musikcube]
+    command = "alacritty --class scratchpad -e musikcube"
+    margin = 50
+
+    [scratchpads.btm]
+    command = "alacritty --class scratchpad -e btm"
+    margin = 50
+
+    [scratchpads.pavucontrol]
+    command = "pavucontrol"
+    margin = 50
+    unfocus = "hide"
+    animation = "fromTop"
   '';
 
   programs.waybar = {
