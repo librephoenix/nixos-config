@@ -106,7 +106,7 @@
 
        bind=SUPERCTRL,S,exec,container-open # qutebrowser only
 
-       bind=SUPERCTRL,R,exec,killall .waybar-wrapped && waybar & disown
+       bind=SUPERCTRL,R,exec,phoenix refresh
 
        bind=SUPER,code:47,exec,fuzzel
        bind=SUPER,X,exec,fnottctl dismiss
