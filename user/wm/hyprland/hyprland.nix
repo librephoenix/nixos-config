@@ -256,6 +256,10 @@
        env = WLR_DRM_DEVICES,/dev/dri/card2:/dev/dri/card1
        env = QT_QPA_PLATFORMTHEME,qt5ct
 
+       binds {
+         movefocus_cycles_fullscreen = false
+       }
+
        input {
          kb_layout = us
          kb_options = caps:escape
