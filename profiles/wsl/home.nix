@@ -63,4 +63,6 @@
     EDITOR = userSettings.editor;
   };
 
+  news.display = "silent";
+
 }

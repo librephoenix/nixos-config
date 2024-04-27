@@ -179,4 +179,6 @@
     BROWSER = userSettings.browser;
   };
 
+  news.display = "silent";
+
 }
