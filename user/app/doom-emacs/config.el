@@ -1447,6 +1447,7 @@ https://github.com/magit/magit/issues/460 (@cpitclaudel)."
 (map! :leader
       :desc "Projectile grep"
       "/" #'projectile-grep)
+(put 'projectile-grep 'disabled nil)
 
 ;;;-- projectile wrapper commands ;;;--
 (require 'sudo-edit)
