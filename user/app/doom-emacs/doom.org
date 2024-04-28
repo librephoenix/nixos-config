@@ -1680,7 +1680,7 @@ I don't have this active right now since it's kinda weird with pgtk...
 (map! :leader
       :desc "Projectile grep"
       "/" #'projectile-grep)
-(put 'projectile-grep 'disabled nil)
+(after! projectile (put 'projectile-grep 'disabled nil))
 
 #+END_SRC
 ** sudo-edit
