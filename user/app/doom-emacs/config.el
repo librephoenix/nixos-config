@@ -1226,6 +1226,7 @@ https://github.com/magit/magit/issues/460 (@cpitclaudel)."
             :filter-return #'~/magit-process-environment)
 
 (require 'magit-todos)
+(setq magit-todos-keywords-list '("TODO" "FIXME" "HACK" "REVIEW" "DEPRECATED" "BUG"))
 (magit-todos-mode 1)
 
 (evil-set-initial-state 'ibuffer-mode 'motion)
