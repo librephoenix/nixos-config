@@ -1,4 +1,4 @@
-{ config, lib, pkgs, userSettings, systemSettings, ... }:
+{ inputs, config, lib, pkgs, userSettings, systemSettings, ... }:
 
 {
   imports = [
@@ -23,7 +23,11 @@
 
   wayland.windowManager.hyprland = {
     enable = true;
-    plugins = [ ];
+    package = inputs.hyprland.packages.${pkgs.system}.hyprland;
+    plugins = [
+      inputs.hyprland-plugins.packages.${pkgs.system}.hyprtrails
+      inputs.hycov.packages.${pkgs.system}.hycov
+    ];
     settings = { };
     extraConfig = ''
       exec-once = dbus-update-activation-environment DISPLAY XAUTHORITY WAYLAND_DISPLAY
@@ -61,26 +65,34 @@
             gaps_out = 7
        }
 
-       #plugin {
-       #  hyprbars {
-       #    bar_height = 0
-       #    bar_color = 0xee''+ config.lib.stylix.colors.base00 + ''
+       plugin {
+         hyprtrails {
+             color = rgba(''+config.lib.stylix.colors.base08+''55)
+         }
+         hycov {
+             overview_gappo = 60 # gaps width from screen edge
+             overview_gappi = 24 # gaps width from clients
+             enable_hotarea = 0 # enable mouse cursor hotarea, when cursor enter hotarea, it will toggle overview
+             enable_click_action = 1 # enable mouse left button jump and right button kill in overview mode
+             hotarea_monitor = all # monitor name which hotarea is in, default is all
+             hotarea_pos = 1 # position of hotarea (1: bottom left, 2: bottom right, 3: top left, 4: top right)
+             hotarea_size = 10 # hotarea size, 10x10
+             swipe_fingers = 3 # finger number of gesture,move any directory
+             move_focus_distance = 100 # distance for movefocus,only can use 3 finger to move
+             enable_gesture = 1 # enable gesture
+             auto_exit = 1 # enable auto exit when no client in overview
+             auto_fullscreen = 0 # auto make active window maximize after exit overview
+             only_active_workspace = 0 # only overview the active workspace
+             only_active_monitor = 0 # only overview the active monitor
+             enable_alt_release_exit = 0 # alt swith mode arg,see readme for detail
+             alt_replace_key = Super_L # alt swith mode arg,see readme for detail
+             alt_toggle_auto_next = 0 # auto focus next window when toggle overview in alt swith mode
+             click_in_cursor = 1 # when click to jump,the target windwo is find by cursor, not the current foucus window.
+             hight_of_titlebar = 0 # height deviation of title bar height
+             show_special = 0 # show windwos in special workspace in overview.
 
-       #    col.text = 0xff''+ config.lib.stylix.colors.base05 + ''
-
-       #    bar_text_font = '' + userSettings.font + ''
-
-       #    bar_text_size = 12
-
-       #    buttons {
-       #      button_size = 0
-       #      col.maximize = 0xff''+ config.lib.stylix.colors.base0A +''
-
-       #      col.close = 0xff''+ config.lib.stylix.colors.base08 +''
-
-       #    }
-       #  }
-       #}
+         }
+       }
 
        bind=SUPER,SPACE,fullscreen,1
        bind=SUPERSHIFT,F,fullscreen,0
@@ -89,7 +101,11 @@
        bind=ALT,TAB,bringactivetotop
        bind=ALTSHIFT,TAB,cyclenext,prev
        bind=ALTSHIFT,TAB,bringactivetotop
-       bind=SUPER,TAB,exec,pypr expose
+       bind=SUPER,TAB,hycov:toggleoverview
+       bind=SUPER,left,hycov:movefocus,leftcross
+       bind=SUPER,right,hycov:movefocus,rightcross
+       bind=SUPER,up,hycov:movefocus,upcross
+       bind=SUPER,down,hycov:movefocus,downcross
        bind=SUPER,V,exec,wl-copy $(wl-paste | tr '\n' ' ')
        bind=SUPERSHIFT,T,exec,screenshot-ocr
        bind=CTRLALT,Delete,exec,hyprctl kill
@@ -116,7 +132,7 @@
        bindm=SUPER,mouse:272,movewindow
        bindm=SUPER,mouse:273,resizewindow
        bind=SUPER,T,togglefloating
-       bind=SUPER,G,exec,hyprworkspace 9; pegasus-fe;
+       bind=SUPER,G,exec,hyprctl dispatch focusworkspaceoncurrentmonitor 9; pegasus-fe;
        bind=,code:148,exec,''+ userSettings.term + " "+''-e numbat
 
        bind=,code:107,exec,grim -g "$(slurp)"
@@ -153,15 +169,15 @@
        bind=SUPERSHIFT,K,movewindow,u
        bind=SUPERSHIFT,L,movewindow,r
 
-       bind=SUPER,1,exec,hyprworkspace 1
-       bind=SUPER,2,exec,hyprworkspace 2
-       bind=SUPER,3,exec,hyprworkspace 3
-       bind=SUPER,4,exec,hyprworkspace 4
-       bind=SUPER,5,exec,hyprworkspace 5
-       bind=SUPER,6,exec,hyprworkspace 6
-       bind=SUPER,7,exec,hyprworkspace 7
-       bind=SUPER,8,exec,hyprworkspace 8
-       bind=SUPER,9,exec,hyprworkspace 9
+       bind=SUPER,1,focusworkspaceoncurrentmonitor,1
+       bind=SUPER,2,focusworkspaceoncurrentmonitor,2
+       bind=SUPER,3,focusworkspaceoncurrentmonitor,3
+       bind=SUPER,4,focusworkspaceoncurrentmonitor,4
+       bind=SUPER,5,focusworkspaceoncurrentmonitor,5
+       bind=SUPER,6,focusworkspaceoncurrentmonitor,6
+       bind=SUPER,7,focusworkspaceoncurrentmonitor,7
+       bind=SUPER,8,focusworkspaceoncurrentmonitor,8
+       bind=SUPER,9,focusworkspaceoncurrentmonitor,9
 
        bind=SUPERCTRL,right,exec,hyprnome
        bind=SUPERCTRL,left,exec,hyprnome --previous
@@ -282,6 +298,7 @@
            ignore_opacity = true
            contrast = 1.17
            brightness = 0.8
+           xray = true
          }
        }
 
@@ -302,8 +319,8 @@
       src = fetchFromGitHub {
         owner = "hyprland-community";
         repo = "pyprland";
-        rev = "refs/tags/2.2.12";
-        hash = "sha256-SVly20/+67d0Rr2SuM1n/JfT1SlyKdKRBLDx2okCZRY=";
+        rev = "refs/tags/2.2.17";
+        hash = "sha256-S1bIIazrBWyjF8tOcIk0AwwWq9gbpTKNsjr9iYA5lKk=";
       };
     }))
     gnome.zenity
@@ -373,33 +390,6 @@
       #!/bin/sh
       if pgrep -x nixos-rebuild > /dev/null || pgrep -x home-manager > /dev/null || pgrep -x kdenlive > /dev/null || pgrep -x FL64.exe > /dev/null || pgrep -x blender > /dev/null || pgrep -x flatpak > /dev/null;
       then echo "Shouldn't suspend"; sleep 10; else echo "Should suspend"; systemctl suspend; fi
-    '')
-    (pkgs.writeScriptBin "hyprworkspace" ''
-      #!/bin/sh
-      # from https://github.com/taylor85345/hyprland-dotfiles/blob/master/hypr/scripts/workspace
-      monitors=/tmp/hypr/monitors_temp
-      hyprctl monitors > $monitors
-
-      if [[ -z $1 ]]; then
-        workspace=$(grep -B 5 "focused: no" "$monitors" | awk 'NR==1 {print $3}')
-      else
-        workspace=$1
-      fi
-
-      activemonitor=$(grep -B 11 "focused: yes" "$monitors" | awk 'NR==1 {print $2}')
-      passivemonitor=$(grep  -B 6 "($workspace)" "$monitors" | awk 'NR==1 {print $2}')
-      #activews=$(grep -A 2 "$activemonitor" "$monitors" | awk 'NR==3 {print $1}' RS='(' FS=')')
-      passivews=$(grep -A 6 "Monitor $passivemonitor" "$monitors" | awk 'NR==3 {print $1}' RS='(' FS=')')
-
-      if [[ $workspace -eq $passivews ]] && [[ $activemonitor != "$passivemonitor" ]]; then
-       hyprctl dispatch workspace "$workspace" && hyprctl dispatch swapactiveworkspaces "$activemonitor" "$passivemonitor" && hyprctl dispatch workspace "$workspace"
-        echo $activemonitor $passivemonitor
-      else
-        hyprctl dispatch moveworkspacetomonitor "$workspace $activemonitor" && hyprctl dispatch workspace "$workspace"
-      fi
-
-      exit 0
-
     '')
   ];
   home.file.".config/hypr/hypridle.conf".text = ''
@@ -540,8 +530,8 @@
     package = pkgs.waybar.overrideAttrs (oldAttrs: {
       postPatch = ''
         # use hyprctl to switch workspaces
-        sed -i 's/zext_workspace_handle_v1_activate(workspace_handle_);/const std::string command = "hyprworkspace " + name_;\n\tsystem(command.c_str());/g' src/modules/wlr/workspace_manager.cpp
-        sed -i 's/gIPC->getSocket1Reply("dispatch workspace " + std::to_string(id()));/const std::string command = "hyprworkspace " + std::to_string(id());\n\tsystem(command.c_str());/g' src/modules/hyprland/workspaces.cpp
+        sed -i 's/zext_workspace_handle_v1_activate(workspace_handle_);/const std::string command = "hyprctl dispatch focusworkspaceoncurrentmonitor " + name_;\n\tsystem(command.c_str());/g' src/modules/wlr/workspace_manager.cpp
+        sed -i 's/gIPC->getSocket1Reply("dispatch workspace " + std::to_string(id()));/const std::string command = "hyprctl dispatch focusworkspaceoncurrentmonitor" + std::to_string(id());\n\tsystem(command.c_str());/g' src/modules/hyprland/workspaces.cpp
       '';
     });
     settings = {
