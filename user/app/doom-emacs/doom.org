@@ -602,7 +602,8 @@ fi
 exit
 #+END_SRC
 *** Org Sliced Images
-#+begin_src emacs-lisp :tangle config.el
+#+begin_src emacs-lisp
+;; this is kinda buggy
 (add-load-path! "~/.emacs.d/org-sliced-images")
 (require 'org-sliced-images)
 (defalias 'org-remove-inline-images #'org-sliced-images-remove-inline-images)

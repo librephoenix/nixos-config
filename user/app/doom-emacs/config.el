@@ -495,12 +495,6 @@ If the path from LINK does not exist, nil is returned."
           :desc "Copy link/file at point into system clipbord (C-g to escape if copying a file)"
           "y y" 'org-copy-link-to-clipboard-at-point))
 
-(add-load-path! "~/.emacs.d/org-sliced-images")
-(require 'org-sliced-images)
-(defalias 'org-remove-inline-images #'org-sliced-images-remove-inline-images)
-(defalias 'org-toggle-inline-images #'org-sliced-images-toggle-inline-images)
-(defalias 'org-display-inline-images #'org-sliced-images-display-inline-images)
-
 ;; Online images inside of org mode is pretty cool
 ;; This snippit is from Tobias on Stack Exchange
 ;; https://emacs.stackexchange.com/questions/42281/org-mode-is-it-possible-to-display-online-images
