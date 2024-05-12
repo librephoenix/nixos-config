@@ -243,6 +243,10 @@
        windowrulev2 = opacity 0.75,class:^(org.gnome.Nautilus)$
 
        layerrule = blur,waybar
+       layerrule = xray,waybar
+       blurls = waybar
+       layerrule = blur,launcher # fuzzel
+       blurls = launcher # fuzzel
 
        bind=SUPER,code:21,exec,pypr zoom
        bind=SUPER,code:21,exec,hyprctl reload
@@ -676,8 +680,7 @@
       }
 
       window#waybar {
-          background-color: #'' + config.lib.stylix.colors.base00 + '';
-          opacity: 0.75;
+          background-color: rgba('' + config.lib.stylix.colors.base00-rgb-r + "," + config.lib.stylix.colors.base00-rgb-g + "," + config.lib.stylix.colors.base00-rgb-b + "," + ''0.55);
           border-radius: 8px;
           color: #'' + config.lib.stylix.colors.base07 + '';
           transition-property: background-color;
@@ -867,7 +870,7 @@
       terminal = "${pkgs.alacritty}/bin/alacritty";
     };
     colors = {
-      background = config.lib.stylix.colors.base00 + "e6";
+      background = config.lib.stylix.colors.base00 + "bf";
       text = config.lib.stylix.colors.base07 + "ff";
       match = config.lib.stylix.colors.base05 + "ff";
       selection = config.lib.stylix.colors.base08 + "ff";
