@@ -233,7 +233,6 @@
        windowrulev2 = opacity 1.0,class:^(org.qutebrowser.qutebrowser),fullscreen:1
        windowrulev2 = opacity 1.0,class:^(Brave-browser),fullscreen:1
        windowrulev2 = opacity 1.0,class:^(librewolf),fullscreen:1
-       windowrulev2 = opacity 0.80,title:Heimdall
        windowrulev2 = opacity 0.80,title:^(LibreWolf)$
        windowrulev2 = opacity 0.80,title:^(New Tab - LibreWolf)$
        windowrulev2 = opacity 0.80,title:^(New Tab - Brave)$

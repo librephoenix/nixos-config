@@ -25,8 +25,6 @@
     git
     syncthing
 
-    # Media
-    tuxpaint
   ];
 
   xdg.enable = true;

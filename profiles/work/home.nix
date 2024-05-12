@@ -129,7 +129,6 @@
     movit
     mediainfo
     libmediainfo
-    mediainfo-gui
     audio-recorder
     gnome.cheese
     ardour
@@ -169,6 +168,7 @@
   xdg.mime.enable = true;
   xdg.mimeApps.enable = true;
   xdg.mimeApps.associations.added = {
+    # TODO fix mime associations, most of them are totally broken :(
     "application/octet-stream" = "flstudio.desktop;";
   };
 
