@@ -46,7 +46,6 @@
       exec-once = emacs --daemon
 
       exec-once = hypridle
-      exec-once = hyprdim -d 450 -s 0.25 -D 0.25 -p
       exec-once = obs-notification-mute-daemon
 
       exec = ~/.swaybg-stylix
@@ -336,7 +335,6 @@
     hypridle
     hyprlock
     hyprnome
-    hyprdim
     swaybg
     fnott
     fuzzel
