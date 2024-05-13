@@ -325,6 +325,27 @@
         hash = "sha256-S1bIIazrBWyjF8tOcIk0AwwWq9gbpTKNsjr9iYA5lKk=";
       };
     }))
+    (hyprnome.override (oldAttrs: {
+        rustPlatform = oldAttrs.rustPlatform // {
+          buildRustPackage = args: oldAttrs.rustPlatform.buildRustPackage (args // {
+            pname = "hyprnome";
+            version = "unstable-2024-05-06";
+            src = fetchFromGitHub {
+              owner = "donovanglover";
+              repo = "hyprnome";
+              rev = "f185e6dbd7cfcb3ecc11471fab7d2be374bd5b28";
+              hash = "sha256-tmko/bnGdYOMTIGljJ6T8d76NPLkHAfae6P6G2Aa2Qo=";
+            };
+            cargoDeps = oldAttrs.cargoDeps.overrideAttrs (oldAttrs: rec {
+              name = "${pname}-vendor.tar.gz";
+              inherit src;
+              outputHash = "sha256-cQwAGNKTfJTnXDI3IMJQ2583NEIZE7GScW7TsgnKrKs=";
+            });
+            cargoHash = "sha256-cQwAGNKTfJTnXDI3IMJQ2583NEIZE7GScW7TsgnKrKs=";
+          });
+        };
+     })
+    )
     gnome.zenity
     wlr-randr
     wtype
@@ -334,7 +355,6 @@
     hyprpicker
     hypridle
     hyprlock
-    hyprnome
     swaybg
     fnott
     fuzzel
