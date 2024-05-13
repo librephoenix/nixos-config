@@ -123,6 +123,7 @@ in
 
   programs.qutebrowser.enable = true;
   programs.qutebrowser.extraConfig = ''
+config.set('qt.args',['ignore-gpu-blacklist','enable-gpu-rasterization','enable-native-gpu-memory-buffers','num-raster-threads=4'])
 config.load_autoconfig(False)
 
 base00 = "#''+config.lib.stylix.colors.base00+''"
