@@ -43,7 +43,7 @@
       exec-once = GOMAXPROCS=1 syncthing --no-browser
       exec-once = protonmail-bridge --noninteractive
       exec-once = waybar
-      exec-once = nwg-dock-hyprland -r -x -i 48 -a start
+      exec-once = nwg-dock-hyprland -r -f -x -i 64 -nolauncher -a start -ml 8 -mr 8 -mb 8 && nwg-dock-hyprland
       exec-once = emacs --daemon
 
       exec-once = hypridle
@@ -429,7 +429,11 @@
   ];
   home.file.".config/nwg-dock-hyprland/style.css".text = ''
     window {
-      background: rgba(''+config.lib.stylix.colors.base00-rgb-r+'',''+config.lib.stylix.colors.base00-rgb-g+'',''+config.lib.stylix.colors.base00-rgb-b+'',0.55);
+      background: rgba(''+config.lib.stylix.colors.base00-rgb-r+'',''+config.lib.stylix.colors.base00-rgb-g+'',''+config.lib.stylix.colors.base00-rgb-b+'',0.0);
+      border-radius: 20px;
+      padding: 4px;
+      margin-left: 4px;
+      margin-right: 4px;
       border-style: none;
     }
 
@@ -457,6 +461,26 @@
       background: rgba(''+config.lib.stylix.colors.base04-rgb-r+'',''+config.lib.stylix.colors.base04-rgb-g+'',''+config.lib.stylix.colors.base04-rgb-b+'',0.55);
     }
 
+  '';
+  home.file.".config/nwg-dock-pinned".text = ''
+    Alacritty
+    emacsclientnewframe
+    qutebrowser
+    brave-browser
+    librewolf
+    writer
+    impress
+    calc
+    draw
+    krita
+    pinta
+    xournalpp
+    obs
+    kdenlive
+    blender
+    openscad
+    Cura
+    virt-manager
   '';
   home.file.".config/hypr/hypridle.conf".text = ''
     general {
