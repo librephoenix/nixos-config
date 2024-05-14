@@ -43,6 +43,7 @@
       exec-once = GOMAXPROCS=1 syncthing --no-browser
       exec-once = protonmail-bridge --noninteractive
       exec-once = waybar
+      exec-once = nwg-dock-hyprland -r -x -i 48 -a start
       exec-once = emacs --daemon
 
       exec-once = hypridle
@@ -109,6 +110,7 @@
        bind=SUPERSHIFT,T,exec,screenshot-ocr
        bind=CTRLALT,Delete,exec,hyprctl kill
        bind=SUPERSHIFT,K,exec,hyprctl kill
+       bind=SUPER,SUPER_L,exec,nwg-dock-hyprland
 
        bind = SUPER,R,pass,^(com\.obsproject\.Studio)$
        bind = SUPERSHIFT,R,pass,^(com\.obsproject\.Studio)$
@@ -246,6 +248,9 @@
        blurls = waybar
        layerrule = blur,launcher # fuzzel
        blurls = launcher # fuzzel
+       layerrule = blur,gtk-layer-shell
+       layerrule = xray,gtk-layer-shell
+       blurls = gtk-layer-shell
 
        bind=SUPER,code:21,exec,pypr zoom
        bind=SUPER,code:21,exec,hyprctl reload
@@ -315,6 +320,9 @@
     feh
     killall
     polkit_gnome
+    (nwg-dock-hyprland.overrideAttrs (oldAttrs: {
+      patches = ./patches/noactiveclients.patch;
+    }))
     libva-utils
     gsettings-desktop-schemas
     (pyprland.overrideAttrs (oldAttrs: {
@@ -399,10 +407,8 @@
         if pgrep -x .obs-wrapped > /dev/null;
           then
             pkill -STOP fnott;
-            #emacsclient --eval "(org-yaap-mode 0)";
           else
             pkill -CONT fnott;
-            #emacsclient --eval "(if (not org-yaap-mode) (org-yaap-mode 1))";
         fi
         sleep 10;
       done
@@ -412,7 +418,46 @@
       if pgrep -x nixos-rebuild > /dev/null || pgrep -x home-manager > /dev/null || pgrep -x kdenlive > /dev/null || pgrep -x FL64.exe > /dev/null || pgrep -x blender > /dev/null || pgrep -x flatpak > /dev/null;
       then echo "Shouldn't suspend"; sleep 10; else echo "Should suspend"; systemctl suspend; fi
     '')
+    (pkgs.makeDesktopItem {
+      name = "emacsclientnewframe";
+      desktopName = "Emacs Client New Frame";
+      exec = "emacsclient -c -a emacs";
+      terminal = false;
+      icon = "emacs";
+      type = "Application";
+    })
   ];
+  home.file.".config/nwg-dock-hyprland/style.css".text = ''
+    window {
+      background: rgba(''+config.lib.stylix.colors.base00-rgb-r+'',''+config.lib.stylix.colors.base00-rgb-g+'',''+config.lib.stylix.colors.base00-rgb-b+'',0.55);
+      border-style: none;
+    }
+
+    #box {
+      /* Define attributes of the box surrounding icons here */
+      padding: 10px;
+      background: rgba(''+config.lib.stylix.colors.base00-rgb-r+'',''+config.lib.stylix.colors.base00-rgb-g+'',''+config.lib.stylix.colors.base00-rgb-b+'',0.55);
+      border-radius: 20px;
+      padding: 4px;
+      margin-left: 4px;
+      margin-right: 4px;
+      border-style: none;
+    }
+    button {
+      border-radius: 10px;
+      padding: 4px;
+      margin-left: 4px;
+      margin-right: 4px;
+      background: rgba(''+config.lib.stylix.colors.base03-rgb-r+'',''+config.lib.stylix.colors.base03-rgb-g+'',''+config.lib.stylix.colors.base03-rgb-b+'',0.55);
+      color: #''+config.lib.stylix.colors.base07+'';
+      font-size: 12px
+    }
+
+    button:hover {
+      background: rgba(''+config.lib.stylix.colors.base04-rgb-r+'',''+config.lib.stylix.colors.base04-rgb-g+'',''+config.lib.stylix.colors.base04-rgb-b+'',0.55);
+    }
+
+  '';
   home.file.".config/hypr/hypridle.conf".text = ''
     general {
       lock_cmd = pgrep hyprlock || hyprlock

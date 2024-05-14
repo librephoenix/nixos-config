@@ -1,0 +1,51 @@
+diff --git a/main.go b/main.go
+index 0c980c9..4e6dfbf 100644
+--- a/main.go
++++ b/main.go
+@@ -103,11 +103,6 @@ func buildMainBox(vbox *gtk.Box) {
+ 			allItems = append(allItems, cntPin)
+ 		}
+ 	}
+-	for _, cntTask := range clients {
+-		if !isIn(allItems, cntTask.Class) && !strings.Contains(*launcherCmd, cntTask.Class) && cntTask.Class != "" {
+-			allItems = append(allItems, cntTask.Class)
+-		}
+-	}
+ 
+ 	divider := 1
+ 	if len(allItems) > 0 {
+@@ -155,34 +150,6 @@ func buildMainBox(vbox *gtk.Box) {
+ 	}
+ 
+ 	alreadyAdded = nil
+-	for _, t := range clients {
+-		// For some time after killing a client, it's still being returned by 'j/clients', however w/o the Class value.
+-		// Let's filter the ghosts out.
+-		if !inPinned(t.Class) && t.Class != "" {
+-			instances := taskInstances(t.Class)
+-			if len(instances) == 1 {
+-				button := taskButton(t, instances)
+-				mainBox.PackStart(button, false, false, 0)
+-				if t.Class == activeClient.Class && !*autohide {
+-					button.SetProperty("name", "active")
+-				} else {
+-					button.SetProperty("name", "")
+-				}
+-			} else if !isIn(alreadyAdded, t.Class) {
+-				button := taskButton(t, instances)
+-				mainBox.PackStart(button, false, false, 0)
+-				if t.Class == activeClient.Class && !*autohide {
+-					button.SetProperty("name", "active")
+-				} else {
+-					button.SetProperty("name", "")
+-				}
+-				alreadyAdded = append(alreadyAdded, t.Class)
+-				clientMenu(t.Class, instances)
+-			} else {
+-				continue
+-			}
+-		}
+-	}
+ 
+ 	if !*noLauncher && *launcherCmd != "" {
+ 		button, _ := gtk.ButtonNew()
