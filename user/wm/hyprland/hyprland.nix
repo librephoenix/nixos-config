@@ -200,6 +200,7 @@
        bind=SUPER,N,exec,pypr toggle numbat && hyprctl dispatch bringactivetotop
        bind=SUPER,M,exec,pypr toggle musikcube && hyprctl dispatch bringactivetotop
        bind=SUPER,B,exec,pypr toggle btm && hyprctl dispatch bringactivetotop
+       bind=SUPER,D,exec,pypr toggle matrix && hyprctl dispatch bringactivetotop
        bind=SUPER,code:172,exec,pypr toggle pavucontrol && hyprctl dispatch bringactivetotop
        $scratchpadsize = size 80% 85%
 
@@ -208,6 +209,11 @@
        windowrulev2 = $scratchpadsize,$scratchpad
        windowrulev2 = workspace special silent,$scratchpad
        windowrulev2 = center,$scratchpad
+
+       windowrulev2 = float,class:^(fluffychat)$
+       windowrulev2 = size 85% 90%,class:^(fluffychat)$
+       windowrulev2 = workspace special silent,class:^(fluffychat)$
+       windowrulev2 = center,class:^(fluffychat)$
 
        $savetodisk = title:^(Save to Disk)$
        windowrulev2 = float,$savetodisk
@@ -232,6 +238,7 @@
        windowrulev2 = opacity 0.80,title:ORUI
 
        windowrulev2 = opacity 1.0,class:^(org.qutebrowser.qutebrowser),fullscreen:1
+       windowrulev2 = opacity 0.90,class:^(fluffychat)$
        windowrulev2 = opacity 1.0,class:^(Brave-browser),fullscreen:1
        windowrulev2 = opacity 1.0,class:^(librewolf),fullscreen:1
        windowrulev2 = opacity 0.80,title:^(LibreWolf)$
@@ -606,6 +613,10 @@
 
     [scratchpads.btm]
     command = "alacritty --class scratchpad -e btm"
+    margin = 50
+
+    [scratchpads.matrix]
+    command = "fluffychat"
     margin = 50
 
     [scratchpads.pavucontrol]

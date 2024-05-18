@@ -58,6 +58,7 @@
     protonmail-bridge
     texliveSmall
     numbat
+    fluffychat
 
     wine
     bottles
