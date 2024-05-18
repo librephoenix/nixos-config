@@ -43,7 +43,6 @@
       exec-once = GOMAXPROCS=1 syncthing --no-browser
       exec-once = protonmail-bridge --noninteractive
       exec-once = waybar
-      exec-once = nwg-dock-hyprland -r -f -x -i 64 -nolauncher -a start -ml 8 -mr 8 -mb 8 && nwg-dock-hyprland
       exec-once = emacs --daemon
 
       exec-once = hypridle
@@ -110,7 +109,7 @@
        bind=SUPERSHIFT,T,exec,screenshot-ocr
        bind=CTRLALT,Delete,exec,hyprctl kill
        bind=SUPERSHIFT,K,exec,hyprctl kill
-       bind=SUPER,SUPER_L,exec,nwg-dock-hyprland
+       bind=SUPER,W,exec,nwg-dock-wrapper
 
        bind = SUPER,R,pass,^(com\.obsproject\.Studio)$
        bind = SUPERSHIFT,R,pass,^(com\.obsproject\.Studio)$
@@ -396,6 +395,15 @@
       grim -g "$(slurp)" $imgname;
       tesseract $imgname $txtname;
       wl-copy -n < $txtfname
+    '')
+    (pkgs.writeScriptBin "nwg-dock-wrapper" ''
+      #!/bin/sh
+      if pgrep -x ".nwg-dock-hyprl" > /dev/null
+      then
+        nwg-dock-hyprland
+      else
+        nwg-dock-hyprland -f -x -i 64 -nolauncher -a start -ml 8 -mr 8 -mb 8
+      fi
     '')
     (pkgs.writeScriptBin "sct" ''
       #!/bin/sh
