@@ -58,7 +58,7 @@
     protonmail-bridge
     texliveSmall
     numbat
-    fluffychat
+    element-desktop-wayland
 
     wine
     bottles

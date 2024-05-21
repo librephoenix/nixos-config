@@ -199,7 +199,7 @@
        bind=SUPER,N,exec,pypr toggle numbat && hyprctl dispatch bringactivetotop
        bind=SUPER,M,exec,pypr toggle musikcube && hyprctl dispatch bringactivetotop
        bind=SUPER,B,exec,pypr toggle btm && hyprctl dispatch bringactivetotop
-       bind=SUPER,D,exec,pypr toggle matrix && hyprctl dispatch bringactivetotop
+       bind=SUPER,D,exec,hypr-element
        bind=SUPER,code:172,exec,pypr toggle pavucontrol && hyprctl dispatch bringactivetotop
        $scratchpadsize = size 80% 85%
 
@@ -209,10 +209,9 @@
        windowrulev2 = workspace special silent,$scratchpad
        windowrulev2 = center,$scratchpad
 
-       windowrulev2 = float,class:^(fluffychat)$
-       windowrulev2 = size 85% 90%,class:^(fluffychat)$
-       windowrulev2 = workspace special silent,class:^(fluffychat)$
-       windowrulev2 = center,class:^(fluffychat)$
+       windowrulev2 = float,class:^(Element)$
+       windowrulev2 = size 85% 90%,class:^(Element)$
+       windowrulev2 = center,class:^(Element)$
 
        $savetodisk = title:^(Save to Disk)$
        windowrulev2 = float,$savetodisk
@@ -237,7 +236,7 @@
        windowrulev2 = opacity 0.80,title:ORUI
 
        windowrulev2 = opacity 1.0,class:^(org.qutebrowser.qutebrowser),fullscreen:1
-       windowrulev2 = opacity 0.90,class:^(fluffychat)$
+       windowrulev2 = opacity 0.90,class:^(Element)$
        windowrulev2 = opacity 1.0,class:^(Brave-browser),fullscreen:1
        windowrulev2 = opacity 1.0,class:^(librewolf),fullscreen:1
        windowrulev2 = opacity 0.80,title:^(LibreWolf)$
@@ -403,6 +402,15 @@
         nwg-dock-hyprland
       else
         nwg-dock-hyprland -f -x -i 64 -nolauncher -a start -ml 8 -mr 8 -mb 8
+      fi
+    '')
+    (pkgs.writeScriptBin "hypr-element" ''
+      #!/bin/sh
+      if hyprctl clients | grep "class: Element" > /dev/null
+      then
+        hyprctl dispatch closewindow Element
+      else
+        element-desktop
       fi
     '')
     (pkgs.writeScriptBin "sct" ''
@@ -621,10 +629,6 @@
 
     [scratchpads.btm]
     command = "alacritty --class scratchpad -e btm"
-    margin = 50
-
-    [scratchpads.matrix]
-    command = "fluffychat"
     margin = 50
 
     [scratchpads.pavucontrol]
