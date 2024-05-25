@@ -37,6 +37,7 @@
 
       exec-once = pypr
       exec-once = ydotoold
+      exec-once = element-desktop --hidden
       #exec-once = STEAM_FRAME_FORCE_CLOSE=1 steam -silent
       exec-once = nm-applet
       exec-once = blueman-applet
