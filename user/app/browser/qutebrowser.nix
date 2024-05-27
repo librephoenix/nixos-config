@@ -164,7 +164,9 @@ c.tabs.last_close = 'close'
 c.tabs.position = 'left'
 c.tabs.width = '3%'
 c.window.transparent = True
-c.colors.webpage.darkmode.enabled = True
+c.colors.webpage.darkmode.enabled = ''+(if (config.stylix.polarity == "dark") then "True" else "False")+''
+
+c.colors.webpage.preferred_color_scheme = "''+config.stylix.polarity+''"
 c.colors.webpage.darkmode.policy.images = 'never'
 
 c.url.default_page = str(config.configdir)+'/qute-home.html'
@@ -312,7 +314,6 @@ c.colors.tabs.selected.odd.fg = base05
 c.colors.tabs.selected.odd.bg = base02
 c.colors.tabs.selected.even.fg = base05
 c.colors.tabs.selected.even.bg = base02
-c.colors.webpage.bg = base00
 
 font = "''+userSettings.font+''"
 
