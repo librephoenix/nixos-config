@@ -56,7 +56,6 @@
   # Networking
   networking.hostName = systemSettings.hostname; # Define your hostname.
   networking.networkmanager.enable = true; # Use networkmanager
-  networking.networkmanager.wifi.backend = "iwd"; # wpa_supplicant broken :(
 
   # Timezone and locale
   time.timeZone = systemSettings.timezone; # time zone
