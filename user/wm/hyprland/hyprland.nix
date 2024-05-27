@@ -1,5 +1,6 @@
-{ inputs, config, lib, pkgs, userSettings, systemSettings, ... }:
-
+{ inputs, config, lib, pkgs, userSettings, systemSettings, ... }: let
+  pkgs-hyprland = inputs.hyprland.inputs.nixpkgs.legacyPackages.${pkgs.stdenv.hostPlatform.system};
+in
 {
   imports = [
     ../../app/terminal/alacritty.nix
@@ -320,7 +321,7 @@
     systemd.enable = true;
   };
 
-  home.packages = with pkgs; [
+  home.packages = (with pkgs; [
     alacritty
     kitty
     feh
@@ -368,7 +369,6 @@
     hyprland-protocols
     hyprpicker
     hypridle
-    hyprlock
     swaybg
     fnott
     fuzzel
@@ -449,8 +449,9 @@
       terminal = false;
       icon = "emacs";
       type = "Application";
-    })
-  ];
+    })])
+  ++
+  (with pkgs-hyprland; [ hyprlock ]);
   home.file.".config/nwg-dock-hyprland/style.css".text = ''
     window {
       background: rgba(''+config.lib.stylix.colors.base00-rgb-r+'',''+config.lib.stylix.colors.base00-rgb-g+'',''+config.lib.stylix.colors.base00-rgb-b+'',0.0);
