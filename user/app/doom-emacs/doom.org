@@ -757,6 +757,42 @@ exit
 )
 
 #+end_src
+*** Crdt
+#+begin_src emacs-lisp :tangle config.el
+(require 'crdt)
+(setq crdt-default-tls nil)
+(setq crdt-default-name "Emmet")
+(if (file-exists-p "~/.emacs.d/crdt-private.el") (load! "~/.emacs.d/crdt-private.el"))
+(defun crdt-connect-default ()
+  (interactive)
+  (crdt-connect crdt-default-server-address crdt-default-name)
+)
+(map! :leader
+      :desc "crdt"
+      :prefix ("C")
+
+      :desc "Connect to a crdt server"
+      "c" #'crdt-connect-default
+
+      :desc "Connect to default crdt server"
+      "C" #'crdt-connect-default
+
+      :desc "Disconnect from a crdt server"
+      "d" #'crdt-disconnect
+
+      :desc "Add buffer to a session"
+      "a" #'crdt-share-buffer
+
+      :desc "Stop sharing buffer to session"
+      "s" #'crdt-stop-share-buffer
+
+      :desc "List crdt buffers in a session"
+      "l" #'crdt-list-buffers
+
+      :desc "List crdt users in a session"
+      "u" #'crdt-list-users
+)
+#+end_src
 ** Org Roam Configuration
 *** Standard Org Roam Configuration
 #+BEGIN_SRC emacs-lisp :tangle config.el
