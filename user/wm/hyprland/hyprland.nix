@@ -50,10 +50,10 @@ in
 
       exec-once = pypr
       exec-once = ydotoold
-      exec-once = element-desktop --hidden
       #exec-once = STEAM_FRAME_FORCE_CLOSE=1 steam -silent
       exec-once = nm-applet
       exec-once = blueman-applet
+      exec-once = hypr-element-start
       exec-once = GOMAXPROCS=1 syncthing --no-browser
       exec-once = protonmail-bridge --noninteractive
       exec-once = waybar
@@ -413,6 +413,10 @@ in
       else
         nwg-dock-hyprland -f -x -i 64 -nolauncher -a start -ml 8 -mr 8 -mb 8
       fi
+    '')
+    (pkgs.writeScriptBin "hypr-element-start" ''
+      #!/usr/bin/env sh
+      sleep 6 && element-desktop --hidden
     '')
     (pkgs.writeScriptBin "hypr-element" ''
       #!/bin/sh
