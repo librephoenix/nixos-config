@@ -6,6 +6,7 @@ in
     ../../app/terminal/alacritty.nix
     ../../app/terminal/kitty.nix
     (import ../../app/dmenu-scripts/networkmanager-dmenu.nix {
+      #dmenu_command = "fuzzel -d -f ${userSettings.font} :size=16"; inherit config lib pkgs;
       dmenu_command = "fuzzel -d"; inherit config lib pkgs;
     })
     ../input/nihongo.nix
@@ -978,7 +979,9 @@ in
   programs.fuzzel.enable = true;
   programs.fuzzel.settings = {
     main = {
-      font = userSettings.font + ":size=13";
+      font = userSettings.font + ":size=20";
+      dpi-aware = "no";
+      show-actions = "yes";
       terminal = "${pkgs.alacritty}/bin/alacritty";
     };
     colors = {
