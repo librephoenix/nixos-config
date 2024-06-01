@@ -26,13 +26,4 @@ in
     };
   };
 
-  # fixes opengl/mesa version mismatch
-  hardware.opengl = {
-    package = pkgs-hyprland.mesa.drivers;
-
-    # if you also want 32-bit support (e.g for Steam)
-    driSupport32Bit = true;
-    package32 = pkgs-hyprland.pkgsi686Linux.mesa.drivers;
-  };
-  services.xserver.displayManager.sddm.package = lib.mkForce pkgs-hyprland.sddm;
 }
