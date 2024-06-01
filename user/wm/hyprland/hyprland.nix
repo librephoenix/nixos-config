@@ -62,7 +62,7 @@ in
       exec-once = hypridle
       exec-once = obs-notification-mute-daemon
 
-      exec = ~/.swaybg-stylix
+      exec-once = hyprpaper
 
       general {
         layout = master
@@ -378,7 +378,7 @@ in
     hyprland-protocols
     hyprpicker
     hypridle
-    swaybg
+    hyprpaper
     fnott
     fuzzel
     keepmenu

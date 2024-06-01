@@ -84,20 +84,6 @@ in
     feh --no-fehbg --bg-fill ''+config.stylix.image+'';
   '';
   home.file.".fehbg-stylix".executable = true;
-  home.file.".swaybg-stylix".text = ''
-    #!/bin/sh
-    swaybg -m fill -i ''+config.stylix.image+'';
-  '';
-  home.file.".swaybg-stylix".executable = true;
-  home.file.".swayidle-stylix".text = ''
-    #!/bin/sh
-    swaylock_cmd='swaylock --indicator-radius 200 --screenshots --effect-blur 10x10'
-    swayidle -w timeout 300 "$swaylock_cmd --fade-in 0.5 --grace 5" \
-                timeout 600 'hyprctl dispatch dpms off' \
-                resume 'hyprctl dispatch dpms on' \
-                before-sleep "$swaylock_cmd"
-    '';
-  home.file.".swayidle-stylix".executable = true;
   home.file = {
     ".config/qt5ct/colors/oomox-current.conf".source = config.lib.stylix.colors {
       template = builtins.readFile ./oomox-current.conf.mustache;
@@ -116,11 +102,8 @@ in
   home.file.".config/hypr/hyprpaper.conf".text = ''
     preload = ''+config.stylix.image+''
 
-    wallpaper = eDP-1,''+config.stylix.image+''
+    wallpaper = ,''+config.stylix.image+''
 
-    wallpaper = HDMI-A-1,''+config.stylix.image+''
-
-    wallpaper = DP-1,''+config.stylix.image+''
   '';
   home.packages = with pkgs; [
      libsForQt5.qt5ct pkgs.libsForQt5.breeze-qt5 libsForQt5.breeze-icons
