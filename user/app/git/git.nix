@@ -7,6 +7,7 @@
   programs.git.userEmail = userSettings.email;
   programs.git.extraConfig = {
     init.defaultBranch = "main";
-    safe.directory = "/home/" + userSettings.username + "/.dotfiles";
+    safe.directory = [ ("/home/" + userSettings.username + "/.dotfiles")
+                       ("/home/" + userSettings.username + "/.dotfiles/.git") ];
   };
 }
