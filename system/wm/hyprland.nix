@@ -10,12 +10,6 @@ in
 
   # Security
   security = {
-    pam.services.swaylock = {
-      text = ''
-        auth include login
-      '';
-    };
-#    pam.services.gtklock = {};
     pam.services.login.enableGnomeKeyring = true;
   };
 
@@ -28,7 +22,7 @@ in
       xwayland = {
         enable = true;
       };
-      portalPackage = pkgs.xdg-desktop-portal-hyprland;
+      portalPackage = pkgs-hyprland.xdg-desktop-portal-hyprland;
     };
   };
 
