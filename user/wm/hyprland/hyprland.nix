@@ -812,6 +812,20 @@ in
           transition-duration: .2s;
       }
 
+      tooltip {
+        color: #'' + config.lib.stylix.colors.base07 + '';
+        background-color: rgba('' + config.lib.stylix.colors.base00-rgb-r + "," + config.lib.stylix.colors.base00-rgb-g + "," + config.lib.stylix.colors.base00-rgb-b + "," + ''0.9);
+        border-style: solid;
+        border-width: 3px;
+        border-radius: 8px;
+        border-color: #'' + config.lib.stylix.colors.base08 + '';
+      }
+
+      tooltip * {
+        color: #'' + config.lib.stylix.colors.base07 + '';
+        background-color: rgba('' + config.lib.stylix.colors.base00-rgb-r + "," + config.lib.stylix.colors.base00-rgb-g + "," + config.lib.stylix.colors.base00-rgb-b + "," + ''0.0);
+      }
+
       window > box {
           border-radius: 8px;
           opacity: 0.94;
