@@ -188,6 +188,8 @@
     hyprland-plugins.inputs.hyprland.follows = "hyprland";
     hycov.url = "github:DreamMaoMao/hycov/115cba558d439cc25d62ce38b7c62cde83f50ef5";
     hycov.inputs.hyprland.follows = "hyprland";
+    hyprgrass.url = "github:horriblename/hyprgrass/6d8dbbcfb14ebdb2a2a2551b7d495d01d8ef6917";
+    hyprgrass.inputs.hyprland.follows = "hyprland";
 
     nix-doom-emacs.url = "github:nix-community/nix-doom-emacs";
     nix-doom-emacs.inputs.nixpkgs.follows = "emacs-pin-nixpkgs";

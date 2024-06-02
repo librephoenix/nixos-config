@@ -554,6 +554,27 @@
         "type": "github"
       }
     },
+    "hyprgrass": {
+      "inputs": {
+        "hyprland": [
+          "hyprland"
+        ]
+      },
+      "locked": {
+        "lastModified": 1715969899,
+        "narHash": "sha256-NDURZAbLIihUHNt5a8PGrgmzFkcBsG5e4MgwJE/InbM=",
+        "owner": "horriblename",
+        "repo": "hyprgrass",
+        "rev": "6d8dbbcfb14ebdb2a2a2551b7d495d01d8ef6917",
+        "type": "github"
+      },
+      "original": {
+        "owner": "horriblename",
+        "repo": "hyprgrass",
+        "rev": "6d8dbbcfb14ebdb2a2a2551b7d495d01d8ef6917",
+        "type": "github"
+      }
+    },
     "hyprland": {
       "inputs": {
         "hyprcursor": "hyprcursor",
@@ -1087,6 +1108,7 @@
         "home-manager-stable": "home-manager-stable",
         "home-manager-unstable": "home-manager-unstable",
         "hycov": "hycov",
+        "hyprgrass": "hyprgrass",
         "hyprland": "hyprland",
         "hyprland-plugins": "hyprland-plugins",
         "kdenlive-pin-nixpkgs": "kdenlive-pin-nixpkgs",
