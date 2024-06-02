@@ -112,12 +112,25 @@ in
              long_press_delay = 260
              hyprgrass-bind = , edge:r:l, exec, hyprnome
              hyprgrass-bind = , edge:l:r, exec, hyprnome --previous
-             hyprgrass-bind = , swipe:3:d, exec, nwg-drawer
+             hyprgrass-bind = , swipe:3:d, exec, nwggrid -g adw-gtk3 -o 0.55 -b '' + config.lib.stylix.colors.base00 + ''
+
              hyprgrass-bind = , swipe:3:u, hycov:toggleoverview
-             hyprgrass-bind = , swipe:3:r, exec, hyprnome
+             hyprgrass-bind = , swipe:3:d, exec, nwggrid
              hyprgrass-bind = , swipe:3:l, exec, hyprnome --previous
+             hyprgrass-bind = , swipe:3:r, exec, hyprnome
+
+             hyprgrass-bind = , swipe:4:u, movewindow,u
+             hyprgrass-bind = , swipe:4:d, movewindow,d
+             hyprgrass-bind = , swipe:4:l, movewindow,l
+             hyprgrass-bind = , swipe:4:r, movewindow,r
+
+             hyprgrass-bind = , tap:3, fullscreen,1
+             hyprgrass-bind = , tap:4, fullscreen,0
+
              hyprgrass-bindm = , longpress:2, movewindow
              hyprgrass-bindm = , longpress:3, resizewindow
+
+
          }
        }
 
