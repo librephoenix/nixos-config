@@ -61,6 +61,7 @@ in
       exec-once = emacs --daemon
 
       exec-once = hypridle
+      exec-once = sleep 5 && libinput-gestures
       exec-once = obs-notification-mute-daemon
 
       exec-once = hyprpaper
@@ -93,7 +94,7 @@ in
              hotarea_size = 10 # hotarea size, 10x10
              swipe_fingers = 3 # finger number of gesture,move any directory
              move_focus_distance = 100 # distance for movefocus,only can use 3 finger to move
-             enable_gesture = 1 # enable gesture
+             enable_gesture = 0 # enable gesture
              auto_exit = 1 # enable auto exit when no client in overview
              auto_fullscreen = 0 # auto make active window maximize after exit overview
              only_active_workspace = 0 # only overview the active workspace
@@ -283,6 +284,9 @@ in
        layerrule = blur,gtk-layer-shell
        layerrule = xray,gtk-layer-shell
        blurls = gtk-layer-shell
+       layerrule = blur,~nwggrid
+       layerrule = xray,~nwggrid
+       blurls = ~nwggrid
 
        bind=SUPER,code:21,exec,pypr zoom
        bind=SUPER,code:21,exec,hyprctl reload
@@ -352,7 +356,9 @@ in
     (nwg-dock-hyprland.overrideAttrs (oldAttrs: {
       patches = ./patches/noactiveclients.patch;
     }))
+    nwg-launchers
     libva-utils
+    libinput-gestures
     gsettings-desktop-schemas
     (pyprland.overrideAttrs (oldAttrs: {
       src = fetchFromGitHub {
@@ -691,6 +697,7 @@ in
           "format" = " {} ";
           "exec" = ''echo "" '';
           "interval" = "once";
+          "on-click" = "nwggrid -g adw-gtk3 -o 0.55 -b " + config.lib.stylix.colors.base00;
         };
         "custom/hyprprofile" = {
           "format" = "   {}";
@@ -1011,6 +1018,112 @@ in
       background-image: url("''+config.stylix.image+''");
       background-size: auto 100%;
     }
+  '';
+  home.file.".config/nwg-launchers/nwggrid/style.css".text = ''
+    button, label, image {
+        background: none;
+        border-style: none;
+        box-shadow: none;
+        color: #'' + config.lib.stylix.colors.base07 + '';
+
+        font-size: 20px;
+    }
+
+    button {
+        padding: 5px;
+        margin: 5px;
+        text-shadow: none;
+    }
+
+    button:hover {
+        background-color: rgba('' + config.lib.stylix.colors.base07-rgb-r + "," + config.lib.stylix.colors.base07-rgb-g + "," + config.lib.stylix.colors.base07-rgb-b + "," + ''0.15);
+    }
+
+    button:focus {
+        box-shadow: 0 0 10px;
+    }
+
+    button:checked {
+        background-color: rgba('' + config.lib.stylix.colors.base07-rgb-r + "," + config.lib.stylix.colors.base07-rgb-g + "," + config.lib.stylix.colors.base07-rgb-b + "," + ''0.15);
+    }
+
+    #searchbox {
+        background: none;
+        border-color: #'' + config.lib.stylix.colors.base07 + '';
+
+        color: #'' + config.lib.stylix.colors.base07 + '';
+
+        margin-top: 20px;
+        margin-bottom: 20px;
+
+        font-size: 20px;
+    }
+
+    #separator {
+        background-color: rgba('' + config.lib.stylix.colors.base00-rgb-r + "," + config.lib.stylix.colors.base00-rgb-g + "," + config.lib.stylix.colors.base00-rgb-b + "," + ''0.55);
+
+        color: #'' + config.lib.stylix.colors.base07 + '';
+        margin-left: 500px;
+        margin-right: 500px;
+        margin-top: 10px;
+        margin-bottom: 10px
+    }
+
+    #description {
+        margin-bottom: 20px
+    }
+  '';
+  home.file.".config/nwg-launchers/nwggrid/terminal".text = "alacritty -e";
+  home.file.".config/nwg-drawer/drawer.css".text = ''
+    window {
+        background-color: rgba('' + config.lib.stylix.colors.base00-rgb-r + "," + config.lib.stylix.colors.base00-rgb-g + "," + config.lib.stylix.colors.base00-rgb-b + "," + ''0.55);
+        color: #'' + config.lib.stylix.colors.base07 + ''
+    }
+
+    /* search entry */
+    entry {
+        background-color: rgba('' + config.lib.stylix.colors.base01-rgb-r + "," + config.lib.stylix.colors.base01-rgb-g + "," + config.lib.stylix.colors.base01-rgb-b + "," + ''0.45);
+    }
+
+    button, image {
+        background: none;
+        border: none
+    }
+
+    button:hover {
+        background-color: rgba('' + config.lib.stylix.colors.base02-rgb-r + "," + config.lib.stylix.colors.base02-rgb-g + "," + config.lib.stylix.colors.base02-rgb-b + "," + ''0.45);
+    }
+
+    /* in case you wanted to give category buttons a different look */
+    #category-button {
+        margin: 0 10px 0 10px
+    }
+
+    #pinned-box {
+        padding-bottom: 5px;
+        border-bottom: 1px dotted;
+        border-color: #'' + config.lib.stylix.colors.base07 + '';
+    }
+
+    #files-box {
+        padding: 5px;
+        border: 1px dotted gray;
+        border-radius: 15px
+        border-color: #'' + config.lib.stylix.colors.base07 + '';
+    }
+  '';
+  home.file.".config/libinput-gestures.conf".text = ''
+  gesture swipe up 3	hyprctl dispatch hycov:toggleoverview
+  gesture swipe down 3	nwggrid -g adw-gtk3 -o 0.55 -b '' + config.lib.stylix.colors.base00 + ''
+
+  gesture swipe right 3	hyprnome
+  gesture swipe left 3	hyprnome --previous
+  gesture swipe up 4	hyprctl dispatch movewindow u
+  gesture swipe down 4	hyprctl dispatch movewindow d
+  gesture swipe left 4	hyprctl dispatch movewindow l
+  gesture swipe right 4	hyprctl dispatch movewindow r
+  gesture pinch in	hyprctl dispatch fullscreen 1
+  gesture pinch out	hyprctl dispatch fullscreen 1
   '';
 
   services.udiskie.enable = true;
