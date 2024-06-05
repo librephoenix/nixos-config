@@ -112,10 +112,11 @@ in
              long_press_delay = 260
              hyprgrass-bind = , edge:r:l, exec, hyprnome
              hyprgrass-bind = , edge:l:r, exec, hyprnome --previous
-             hyprgrass-bind = , swipe:3:d, exec, nwggrid -g adw-gtk3 -o 0.55 -b '' + config.lib.stylix.colors.base00 + ''
+             hyprgrass-bind = , swipe:3:d, exec, nwggrid-wrapper
 
              hyprgrass-bind = , swipe:3:u, hycov:toggleoverview
-             hyprgrass-bind = , swipe:3:d, exec, nwggrid
+             hyprgrass-bind = , swipe:3:d, exec, nwggrid-wrapper
+
              hyprgrass-bind = , swipe:3:l, exec, hyprnome --previous
              hyprgrass-bind = , swipe:3:r, exec, hyprnome
 
@@ -134,6 +135,7 @@ in
          }
        }
 
+       bind=SUPER,SUPER_L,exec,nwggrid-wrapper
        bind=SUPER,SPACE,fullscreen,1
        bind=SUPERSHIFT,F,fullscreen,0
        bind=SUPER,Y,workspaceopt,allfloat
@@ -298,7 +300,8 @@ in
        layerrule = xray,gtk-layer-shell
        blurls = gtk-layer-shell
        layerrule = blur,~nwggrid
-       layerrule = xray,~nwggrid
+       layerrule = xray 1,~nwggrid
+       layerrule = animation fade,~nwggrid
        blurls = ~nwggrid
 
        bind=SUPER,code:21,exec,pypr zoom
@@ -370,9 +373,28 @@ in
       patches = ./patches/noactiveclients.patch;
     }))
     nwg-launchers
+    papirus-icon-theme
+    (pkgs.writeScriptBin "nwggrid-wrapper" ''
+      #!/bin/sh
+      if pgrep -x "nwggrid-server" > /dev/null
+      then
+        nwggrid -client
+      else
+        GDK_PIXBUF_MODULE_FILE=${pkgs.librsvg}/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache nwggrid-server -layer-shell-exclusive-zone -1 -g adw-gtk3 -o 0.55 -b ${config.lib.stylix.colors.base00}
+      fi
+    '')
     libva-utils
     libinput-gestures
     gsettings-desktop-schemas
+    (pkgs.makeDesktopItem {
+      name = "nwggrid";
+      desktopName = "Application Launcher";
+      exec = "nwggrid-wrapper";
+      terminal = false;
+      type = "Application";
+      noDisplay = true;
+      icon = "application-x-executable"; # TODO make custom icon for dock
+    })
     (pyprland.overrideAttrs (oldAttrs: {
       src = fetchFromGitHub {
         owner = "hyprland-community";
@@ -533,6 +555,7 @@ in
 
   '';
   home.file.".config/nwg-dock-pinned".text = ''
+    nwggrid
     Alacritty
     emacsclientnewframe
     qutebrowser
@@ -547,6 +570,7 @@ in
     xournalpp
     obs
     kdenlive
+    flstudio
     blender
     openscad
     Cura
@@ -710,7 +734,7 @@ in
           "format" = " {} ";
           "exec" = ''echo "" '';
           "interval" = "once";
-          "on-click" = "nwggrid -g adw-gtk3 -o 0.55 -b " + config.lib.stylix.colors.base00;
+          "on-click" = "nwggrid-wrapper";
         };
         "custom/hyprprofile" = {
           "format" = "   {}";
@@ -1127,7 +1151,7 @@ in
   '';
   home.file.".config/libinput-gestures.conf".text = ''
   gesture swipe up 3	hyprctl dispatch hycov:toggleoverview
-  gesture swipe down 3	nwggrid -g adw-gtk3 -o 0.55 -b '' + config.lib.stylix.colors.base00 + ''
+  gesture swipe down 3	nwggrid-wrapper
 
   gesture swipe right 3	hyprnome
   gesture swipe left 3	hyprnome --previous

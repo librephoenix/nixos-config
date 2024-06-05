@@ -35,8 +35,6 @@
     librewolf
     brave
     qutebrowser
-    dmenu
-    rofi
     git
     syncthing
 
@@ -83,7 +81,27 @@
       exec = "flstudio %U";
       terminal = false;
       type = "Application";
+      icon = "flstudio";
       mimeTypes = ["application/octet-stream"];
+    })
+    (stdenv.mkDerivation {
+      name = "flstudio-icon";
+      # icon from https://www.reddit.com/r/MacOS/comments/jtmp7z/i_made_icons_for_discord_spotify_and_fl_studio_in/
+      src = [ ../../user/pkgs/flstudio.png ];
+
+      unpackPhase = ''
+        for srcFile in $src; do
+          # Copy file into build dir
+          cp $srcFile ./
+        done
+      '';
+
+      installPhase = ''
+        mkdir -p $out $out/share $out/share/pixmaps
+        ls $src
+        ls
+        cp $src $out/share/pixmaps/flstudio.png
+      '';
     })
 
     # Media

@@ -20,6 +20,8 @@
 
           # fixes the .desktop file
           substituteInPlace doc/ranger.desktop \
+            --replace "Icon=utilities-terminal" "Icon=user-desktop"
+          substituteInPlace doc/ranger.desktop \
             --replace "Terminal=true" "Terminal=false"
           substituteInPlace doc/ranger.desktop \
             --replace "Exec=ranger" "Exec=kitty -e ranger %U"

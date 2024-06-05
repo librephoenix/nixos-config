@@ -20,8 +20,6 @@
     alacritty
     librewolf
     brave
-    dmenu
-    rofi
     git
     syncthing
 
