@@ -178,6 +178,12 @@
     ventoy
   ]) ++ ([ pkgs-kdenlive.kdenlive ]);
 
+  home.file.".local/share/pixmaps/nixos-snowflake-stylix.svg".source =
+    config.lib.stylix.colors {
+      template = builtins.readFile ../../user/pkgs/nixos-snowflake-stylix.svg.mustache;
+      extension = "svg";
+    };
+
   services.syncthing.enable = true;
 
   xdg.enable = true;

@@ -393,7 +393,7 @@ in
       terminal = false;
       type = "Application";
       noDisplay = true;
-      icon = "application-x-executable"; # TODO make custom icon for dock
+      icon = "/home/"+userSettings.username+"/.local/share/pixmaps/hyprland-logo-stylix.svg";
     })
     (pyprland.overrideAttrs (oldAttrs: {
       src = fetchFromGitHub {
@@ -519,6 +519,11 @@ in
     })])
   ++
   (with pkgs-hyprland; [ hyprlock ]);
+  home.file.".local/share/pixmaps/hyprland-logo-stylix.svg".source =
+    config.lib.stylix.colors {
+      template = builtins.readFile ../../pkgs/hyprland-logo-stylix.svg.mustache;
+      extension = "svg";
+    };
   home.file.".config/nwg-dock-hyprland/style.css".text = ''
     window {
       background: rgba(''+config.lib.stylix.colors.base00-rgb-r+'',''+config.lib.stylix.colors.base00-rgb-g+'',''+config.lib.stylix.colors.base00-rgb-b+'',0.0);
