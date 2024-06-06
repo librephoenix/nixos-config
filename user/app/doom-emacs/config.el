@@ -1519,7 +1519,7 @@ https://github.com/magit/magit/issues/460 (@cpitclaudel)."
 
 (setq +format-on-save-enabled-modes '(not emacs-lisp-mode sql-mode tex-mode latex-mode org-msg-edit-mode nix-mode))
 
-
+(add-to-list 'tramp-remote-path 'tramp-own-remote-path)
 
 ;; I source my rss from my freshrss instance
 ;; I login with a private elisp file: ~/.emacs.d/freshrss-elfeed.el
