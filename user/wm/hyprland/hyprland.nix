@@ -66,14 +66,32 @@ in
 
       exec-once = hyprpaper
 
+      bezier = wind, 0.05, 0.9, 0.1, 1.05
+      bezier = winIn, 0.1, 1.1, 0.1, 1.0
+      bezier = winOut, 0.3, -0.3, 0, 1
+      bezier = liner, 1, 1, 1, 1
+      bezier = linear, 0.0, 0.0, 1.0, 1.0
+
+      animations {
+           enabled = yes
+           animation = windowsIn, 1, 6, winIn, popin
+           animation = windowsOut, 1, 5, winOut, popin
+           animation = windowsMove, 1, 5, wind, slide
+           animation = border, 1, 10, default
+           animation = borderangle, 1, 100, linear, loop
+           animation = fade, 1, 10, default
+           animation = workspaces, 1, 5, wind
+           animation = windows, 1, 6, wind, slide
+      }
+
       general {
         layout = master
         cursor_inactive_timeout = 30
-        border_size = 4
+        border_size = 5
         no_cursor_warps = false
-        col.active_border = 0xff'' + config.lib.stylix.colors.base08 + ''
+        col.active_border = 0xff'' + config.lib.stylix.colors.base08 + " " + ''0xff'' + config.lib.stylix.colors.base09 + " " + ''0xff'' + config.lib.stylix.colors.base0A + " " + ''0xff'' + config.lib.stylix.colors.base0B + " " + ''0xff'' + config.lib.stylix.colors.base0C + " " + ''0xff'' + config.lib.stylix.colors.base0D + " " + ''0xff'' + config.lib.stylix.colors.base0E + " " + ''0xff'' + config.lib.stylix.colors.base0F + " " + ''270deg
 
-        col.inactive_border = 0x33'' + config.lib.stylix.colors.base00 + ''
+        col.inactive_border = 0xaa'' + config.lib.stylix.colors.base02 + ''
 
             resize_on_border = true
             gaps_in = 7
