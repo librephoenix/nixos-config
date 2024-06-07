@@ -118,11 +118,13 @@
     ;; line 2
     ( (,"Git" "" "" (lambda (&rest _)) 'diredfl-exec-priv)
      (,(all-the-icons-octicon "mark-github" :height 1.0 :v-adjust 0.0)
-       "GitHub" "" (lambda (&rest _) (browse-url "ext+container:name=Tech&url=https://github.com/librephoenix")) 'diredfl-exec-priv)
+       "GitHub" "" (lambda (&rest _) (browse-url "https://github.com/librephoenix")) 'diredfl-exec-priv)
      (,(all-the-icons-faicon "gitlab" :height 1.0 :v-adjust 0.0)
-       "GitLab" "" (lambda (&rest _) (browse-url "ext+container:name=Tech&url=https://gitlab.com/librephoenix")) 'diredfl-exec-priv)
+       "GitLab" "" (lambda (&rest _) (browse-url "https://gitlab.com/librephoenix")) 'diredfl-exec-priv)
      (,(all-the-icons-faicon "coffee" :height 1.0 :v-adjust 0.0)
        "Gitea" "" (lambda (&rest _) (browse-url my-gitea-domain)) 'diredfl-exec-priv)
+     (,(all-the-icons-octicon "triangle-up" :height 1.2 :v-adjust -0.1)
+       "Codeberg" "" (lambda (&rest _) (browse-url "https://codeberg.org/librephoenix")) 'diredfl-exec-priv)
     )
     ;; line 3
     ( (,"Agenda" "" "" (lambda (&rest _)) 'dired-warning)
@@ -1218,24 +1220,12 @@ If the path from LINK does not exist, nil is returned."
       :map org-super-agenda-header-map
       "k" 'org-agenda-previous-line)
 
-(add-load-path! "~/.emacs.d/org-timeblock")
-(require 'org-timeblock)
+(require 'calfw)
+(require 'calfw-org)
+(setq cfw:org-agenda-schedule-args '(:timestamp))
 
-(map! :leader :desc "Open org timeblock"
-      "O c" 'org-timeblock)
-
-(map! :desc "Next day"
-      :map org-timeblock-mode-map
-      :nvmeg "l" 'org-timeblock-day-later)
-(map! :desc "Previous day"
-      :map org-timeblock-mode-map
-      :nvmeg "h" 'org-timeblock-day-earlier)
-(map! :desc "Schedule event"
-      :map org-timeblock-mode-map
-      :nvmeg "m" 'org-timeblock-schedule)
-(map! :desc "Event duration"
-      :map org-timeblock-mode-map
-      :nvmeg "d" 'org-timeblock-set-duration)
+(map! :leader :desc "Open org calendar"
+      "O c" 'cfw:open-org-calendar)
 
 ;;;------ magit configuration ------;;;
 ;; Need the following two blocks to make magit work with git bare repos

@@ -16,7 +16,7 @@
   - [[#dired-configuration][Dired Configuration]]
   - [[#ranger-configuration][Ranger Configuration]]
   - [[#hledger-mode-configuration][hledger-mode Configuration]]
-  - [[#tab-bar-configuration][Tab Bar Configuration]]
+  - [[#no-tab-bar-configuration][NO Tab Bar Configuration]]
   - [[#focus-mode-configuration][Focus Mode Configuration]]
   - [[#helpful-mode-configuration][Helpful Mode Configuration]]
   - [[#mu4e-configuration][mu4e Configuration]]
@@ -181,11 +181,13 @@ Doom Emacs is traditionally installed by cloning the repository ([[https://githu
     ;; line 2
     ( (,"Git" "" "" (lambda (&rest _)) 'diredfl-exec-priv)
      (,(all-the-icons-octicon "mark-github" :height 1.0 :v-adjust 0.0)
-       "GitHub" "" (lambda (&rest _) (browse-url "ext+container:name=Tech&url=https://github.com/librephoenix")) 'diredfl-exec-priv)
+       "GitHub" "" (lambda (&rest _) (browse-url "https://github.com/librephoenix")) 'diredfl-exec-priv)
      (,(all-the-icons-faicon "gitlab" :height 1.0 :v-adjust 0.0)
-       "GitLab" "" (lambda (&rest _) (browse-url "ext+container:name=Tech&url=https://gitlab.com/librephoenix")) 'diredfl-exec-priv)
+       "GitLab" "" (lambda (&rest _) (browse-url "https://gitlab.com/librephoenix")) 'diredfl-exec-priv)
      (,(all-the-icons-faicon "coffee" :height 1.0 :v-adjust 0.0)
        "Gitea" "" (lambda (&rest _) (browse-url my-gitea-domain)) 'diredfl-exec-priv)
+     (,(all-the-icons-octicon "triangle-up" :height 1.2 :v-adjust -0.1)
+       "Codeberg" "" (lambda (&rest _) (browse-url "https://codeberg.org/librephoenix")) 'diredfl-exec-priv)
     )
     ;; line 3
     ( (,"Agenda" "" "" (lambda (&rest _)) 'dired-warning)
@@ -601,7 +603,7 @@ else
 fi
 exit
 #+END_SRC
-*** Org Sliced Images
+*** NO Org Sliced Images
 #+begin_src emacs-lisp
 ;; this is kinda buggy
 (add-load-path! "~/.emacs.d/org-sliced-images")
@@ -1396,7 +1398,7 @@ On Wayland, EAF doesn't work.
 
 #+END_SRC
 
-*** Org Agenda Notifications
+*** NO Org Agenda Notifications
 #+BEGIN_SRC emacs-lisp
 (add-load-path! "~/.emacs.d/org-yaap")
 (require 'org-yaap)
@@ -1407,8 +1409,17 @@ On Wayland, EAF doesn't work.
 (setq org-yaap-daemon-idle-time 30)
 (org-yaap-mode 1)
 #+END_SRC
-*** Org Timeblock
+*** Calfw
 #+begin_src emacs-lisp :tangle config.el
+(require 'calfw)
+(require 'calfw-org)
+(setq cfw:org-agenda-schedule-args '(:timestamp))
+
+(map! :leader :desc "Open org calendar"
+      "O c" 'cfw:open-org-calendar)
+#+end_src
+*** NO Org Timeblock
+#+begin_src emacs-lisp
 (add-load-path! "~/.emacs.d/org-timeblock")
 (require 'org-timeblock)
 
@@ -1536,7 +1547,7 @@ https://github.com/magit/magit/issues/460 (@cpitclaudel)."
       "t a" 'hledger-edit-amount)
 
 #+END_SRC
-** Tab Bar Configuration
+** NO Tab Bar Configuration
 I don't have this active right now since it's kinda weird with pgtk...
 #+BEGIN_SRC emacs-lisp
 ;;;-- tab-bar-mode configuration ;;;--
@@ -1993,7 +2004,7 @@ This section is the [[./init.el][init.el]] section, which controls which Doom mo
        ;;(wanderlust +gmail)
 
        :app
-       ;;calendar
+       calendar
        ;;emms
        ;;everywhere        ; *leave* Emacs!? You must be joking
        ;;irc               ; how neckbeards socialize
