@@ -223,4 +223,9 @@
 
   news.display = "silent";
 
+  gtk.iconTheme = {
+    package = pkgs.papirus-icon-theme;
+    name = if (config.stylix.polarity == "dark") then "Papirus-Dark" else "Papirus-Light";
+  };
+
 }
