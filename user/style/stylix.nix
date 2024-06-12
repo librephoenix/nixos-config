@@ -115,4 +115,9 @@ in
     style.name = "breeze-dark";
     platformTheme = "kde";
   };
+  fonts.fontconfig.defaultFonts = {
+    monospace = [ userSettings.font ];
+    sansSerif = [ userSettings.font ];
+    serif = [ userSettings.font ];
+  };
 }
