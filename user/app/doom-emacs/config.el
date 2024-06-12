@@ -1359,6 +1359,8 @@ https://github.com/magit/magit/issues/460 (@cpitclaudel)."
 
   (setq mu4e-index-lazy-check t)
   (setq mu4e-index-cleanup t)
+  (setq mu4e-update-interval 120)
+  (mu4e-alert-enable-notifications)
 
   (define-key mu4e-main-mode-map (kbd "<SPC>") #'doom/leader)
   (define-key mu4e-headers-mode-map (kbd "<SPC>") #'doom/leader)
@@ -1443,6 +1445,8 @@ https://github.com/magit/magit/issues/460 (@cpitclaudel)."
 
   (add-hook 'mu4e-compose-mode-hook #'no-auto-fill)
   (add-hook 'mu4e-compose-pre-hook #'no-org-msg-mode)
+
+  (mu4e--start) ;; start mu4e silently
 
 )
 
