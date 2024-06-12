@@ -182,9 +182,14 @@
     home-manager-stable.url = "github:nix-community/home-manager/release-23.11";
     home-manager-stable.inputs.nixpkgs.follows = "nixpkgs-stable";
 
-    hyprland.url = "github:hyprwm/Hyprland/0b215c5f246d3fde6c023e78b3e3579f7498c172?submodules=1";
+    hyprland = {
+      type = "git";
+      url = "https://github.com/hyprwm/Hyprland";
+      submodules = true;
+      rev = "cba1ade848feac44b2eda677503900639581c3f4";
+    };
     hyprland.inputs.nixpkgs.follows = "nixpkgs";
-    hyprland-plugins.url = "github:hyprwm/hyprland-plugins";
+    hyprland-plugins.url = "github:hyprwm/hyprland-plugins/fd133914bf1921db2a26627698f914478f6a9471";
     hyprland-plugins.inputs.hyprland.follows = "hyprland";
     hycov.url = "github:DreamMaoMao/hycov/115cba558d439cc25d62ce38b7c62cde83f50ef5";
     hycov.inputs.hyprland.follows = "hyprland";

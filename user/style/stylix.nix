@@ -72,6 +72,7 @@ in
       bright.white = "#"+config.lib.stylix.colors.base07;
     };
     font.size = config.stylix.fonts.sizes.terminal;
+    font.normal.family = userSettings.font;
   };
   stylix.targets.kde.enable = true;
   stylix.targets.kitty.enable = true;
