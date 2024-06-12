@@ -1,7 +1,9 @@
-#+title: Uwunicorn (Youtube ver.)
+#+title: Io
 #+author: Emmet
 
-"Uwunicorn" base-16 theme originally by Fernando Marques ([[https://github.com/RakkiUwU]]) and Gabriel Fontes ([[https://github.com/Misterio77]])
+"Io" theme, which is my fork of Uwunicorn originally by Fernando Marques ([[https://github.com/RakkiUwU]]) and Gabriel Fontes ([[https://github.com/Misterio77]]).
+
+The main difference is that it has more vibrant colors.
 
 [[https://raw.githubusercontent.com/librephoenix/nixos-config-screenshots/main/hyprland/uwunicorn.png]]
 

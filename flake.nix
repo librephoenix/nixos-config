@@ -21,7 +21,7 @@
         name = "Emmet"; # name/identifier
         email = "emmet@librephoenix.com"; # email (used for certain configurations)
         dotfilesDir = "~/.dotfiles"; # absolute path of the local repo
-        theme = "uwunicorn-yt"; # selcted theme from my themes directory (./themes/)
+        theme = "io"; # selcted theme from my themes directory (./themes/)
         wm = "hyprland"; # Selected window manager or desktop environment; must select one in both ./user/wm/ and ./system/wm/
         # window manager type (hyprland or x11) translator
         wmType = if (wm == "hyprland") then "wayland" else "x11";
