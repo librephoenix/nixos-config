@@ -86,6 +86,10 @@
         system = systemSettings.system;
       };
 
+      pkgs-nwg-dock-hyprland = import inputs.nwg-dock-hyprland-pin-nixpkgs {
+        system = systemSettings.system;
+      };
+
       # configure lib
       # use nixpkgs if running a server (homelab or worklab profile)
       # otherwise use patched nixos-unstable nixpkgs
@@ -125,6 +129,7 @@
             inherit pkgs-stable;
             inherit pkgs-emacs;
             inherit pkgs-kdenlive;
+            inherit pkgs-nwg-dock-hyprland;
             inherit systemSettings;
             inherit userSettings;
             inherit inputs;
@@ -175,6 +180,7 @@
     nixpkgs-stable.url = "nixpkgs/nixos-23.11";
     emacs-pin-nixpkgs.url = "nixpkgs/f72123158996b8d4449de481897d855bc47c7bf6";
     kdenlive-pin-nixpkgs.url = "nixpkgs/cfec6d9203a461d9d698d8a60ef003cac6d0da94";
+    nwg-dock-hyprland-pin-nixpkgs.url = "nixpkgs/2098d845d76f8a21ae4fe12ed7c7df49098d3f15";
 
     home-manager-unstable.url = "github:nix-community/home-manager/master";
     home-manager-unstable.inputs.nixpkgs.follows = "nixpkgs";
@@ -186,15 +192,16 @@
       type = "git";
       url = "https://github.com/hyprwm/Hyprland";
       submodules = true;
-      rev = "cba1ade848feac44b2eda677503900639581c3f4";
+      rev = "ea2501d4556f84d3de86a4ae2f4b22a474555b9f";
     };
     hyprland.inputs.nixpkgs.follows = "nixpkgs";
-    hyprland-plugins.url = "github:hyprwm/hyprland-plugins/fd133914bf1921db2a26627698f914478f6a9471";
+    hyprland-plugins.url = "github:hyprwm/hyprland-plugins/151102b7d7c4f61ff42f275e72008d28318dac96";
     hyprland-plugins.inputs.hyprland.follows = "hyprland";
-    hycov.url = "github:DreamMaoMao/hycov/115cba558d439cc25d62ce38b7c62cde83f50ef5";
+    hycov.url = "github:DreamMaoMao/hycov/3d144a79f8b5468656de88a005be55f3317d295b";
     hycov.inputs.hyprland.follows = "hyprland";
-    hyprgrass.url = "github:horriblename/hyprgrass/6d8dbbcfb14ebdb2a2a2551b7d495d01d8ef6917";
-    hyprgrass.inputs.hyprland.follows = "hyprland";
+    # FIXME hyprgrass broken on 0.41.0
+    #hyprgrass.url = "github:horriblename/hyprgrass/6d8dbbcfb14ebdb2a2a2551b7d495d01d8ef6917";
+    #hyprgrass.inputs.hyprland.follows = "hyprland";
 
     nix-doom-emacs.url = "github:nix-community/nix-doom-emacs";
     nix-doom-emacs.inputs.nixpkgs.follows = "emacs-pin-nixpkgs";

@@ -1,4 +1,4 @@
-{ inputs, config, lib, pkgs, userSettings, systemSettings, ... }: let
+{ inputs, config, lib, pkgs, userSettings, systemSettings, pkgs-nwg-dock-hyprland, ... }: let
   pkgs-hyprland = inputs.hyprland.inputs.nixpkgs.legacyPackages.${pkgs.stdenv.hostPlatform.system};
 in
 {
@@ -29,7 +29,8 @@ in
     plugins = [
       inputs.hyprland-plugins.packages.${pkgs.system}.hyprtrails
       inputs.hycov.packages.${pkgs.system}.hycov
-      inputs.hyprgrass.packages.${pkgs.system}.default
+      # FIXME hypgrass currently broken on 0.41.0
+      #inputs.hyprgrass.packages.${pkgs.system}.default
     ];
     settings = { };
     extraConfig = ''
@@ -86,9 +87,7 @@ in
 
       general {
         layout = master
-        cursor_inactive_timeout = 30
         border_size = 5
-        no_cursor_warps = false
         col.active_border = 0xff'' + config.lib.stylix.colors.base08 + " " + ''0xff'' + config.lib.stylix.colors.base09 + " " + ''0xff'' + config.lib.stylix.colors.base0A + " " + ''0xff'' + config.lib.stylix.colors.base0B + " " + ''0xff'' + config.lib.stylix.colors.base0C + " " + ''0xff'' + config.lib.stylix.colors.base0D + " " + ''0xff'' + config.lib.stylix.colors.base0E + " " + ''0xff'' + config.lib.stylix.colors.base0F + " " + ''270deg
 
         col.inactive_border = 0xaa'' + config.lib.stylix.colors.base02 + ''
@@ -96,6 +95,11 @@ in
             resize_on_border = true
             gaps_in = 7
             gaps_out = 7
+       }
+
+       cursor {
+         no_warps = false
+         inactive_timeout = 30
        }
 
        plugin {
@@ -125,32 +129,33 @@ in
              show_special = 0 # show windwos in special workspace in overview.
 
          }
-         touch_gestures {
-             sensitivity = 4.0
-             long_press_delay = 260
-             hyprgrass-bind = , edge:r:l, exec, hyprnome
-             hyprgrass-bind = , edge:l:r, exec, hyprnome --previous
-             hyprgrass-bind = , swipe:3:d, exec, nwggrid-wrapper
+         # FIXME hypgrass currently broken on 0.41.0 :(
+         #touch_gestures {
+         #    sensitivity = 4.0
+         #    long_press_delay = 260
+         #    hyprgrass-bind = , edge:r:l, exec, hyprnome
+         #    hyprgrass-bind = , edge:l:r, exec, hyprnome --previous
+         #    hyprgrass-bind = , swipe:3:d, exec, nwggrid-wrapper
 
-             hyprgrass-bind = , swipe:3:u, hycov:toggleoverview
-             hyprgrass-bind = , swipe:3:d, exec, nwggrid-wrapper
+         #    hyprgrass-bind = , swipe:3:u, hycov:toggleoverview
+         #    hyprgrass-bind = , swipe:3:d, exec, nwggrid-wrapper
 
-             hyprgrass-bind = , swipe:3:l, exec, hyprnome --previous
-             hyprgrass-bind = , swipe:3:r, exec, hyprnome
+         #    hyprgrass-bind = , swipe:3:l, exec, hyprnome --previous
+         #    hyprgrass-bind = , swipe:3:r, exec, hyprnome
 
-             hyprgrass-bind = , swipe:4:u, movewindow,u
-             hyprgrass-bind = , swipe:4:d, movewindow,d
-             hyprgrass-bind = , swipe:4:l, movewindow,l
-             hyprgrass-bind = , swipe:4:r, movewindow,r
+         #    hyprgrass-bind = , swipe:4:u, movewindow,u
+         #    hyprgrass-bind = , swipe:4:d, movewindow,d
+         #    hyprgrass-bind = , swipe:4:l, movewindow,l
+         #    hyprgrass-bind = , swipe:4:r, movewindow,r
 
-             hyprgrass-bind = , tap:3, fullscreen,1
-             hyprgrass-bind = , tap:4, fullscreen,0
+         #    hyprgrass-bind = , tap:3, fullscreen,1
+         #    hyprgrass-bind = , tap:4, fullscreen,0
 
-             hyprgrass-bindm = , longpress:2, movewindow
-             hyprgrass-bindm = , longpress:3, resizewindow
+         #    hyprgrass-bindm = , longpress:2, movewindow
+         #    hyprgrass-bindm = , longpress:3, resizewindow
 
 
-         }
+         #}
        }
 
        bind=SUPER,SUPER_L,exec,nwggrid-wrapper
@@ -389,9 +394,6 @@ in
     feh
     killall
     polkit_gnome
-    (nwg-dock-hyprland.overrideAttrs (oldAttrs: {
-      patches = ./patches/noactiveclients.patch;
-    }))
     nwg-launchers
     papirus-icon-theme
     (pkgs.writeScriptBin "nwggrid-wrapper" ''
@@ -538,7 +540,12 @@ in
       type = "Application";
     })])
   ++
-  (with pkgs-hyprland; [ hyprlock ]);
+  (with pkgs-hyprland; [ hyprlock ])
+  ++ (with pkgs-nwg-dock-hyprland; [
+    (nwg-dock-hyprland.overrideAttrs (oldAttrs: {
+      patches = ./patches/noactiveclients.patch;
+    }))
+  ]);
   home.file.".local/share/pixmaps/hyprland-logo-stylix.svg".source =
     config.lib.stylix.colors {
       template = builtins.readFile ../../pkgs/hyprland-logo-stylix.svg.mustache;
