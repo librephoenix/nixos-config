@@ -51,8 +51,8 @@
 (add-hook 'marginalia-mode-hook #'all-the-icons-completion-marginalia-setup)
 (all-the-icons-completion-mode)
 
-;; This makes non-main buffers dimmer, so you can focus on main buffers
-(solaire-global-mode +1)
+;; Lighter/darker backgrounds can get annoying
+(solaire-global-mode -1)
 
 ;; Grammar tasing should be voluntary
 (setq writegood-mode nil)
