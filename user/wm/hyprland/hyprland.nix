@@ -302,14 +302,14 @@ in
        windowrulev2 = opacity 0.80,title:ORUI
 
        windowrulev2 = opacity 1.0,class:^(org.qutebrowser.qutebrowser),fullscreen:1
-       windowrulev2 = opacity 0.90,class:^(Element)$
+       windowrulev2 = opacity 0.85,class:^(Element)$
        windowrulev2 = opacity 1.0,class:^(Brave-browser),fullscreen:1
        windowrulev2 = opacity 1.0,class:^(librewolf),fullscreen:1
-       windowrulev2 = opacity 0.75,title:^(My Local Dashboard Awesome Homepage - qutebrowser)$
-       windowrulev2 = opacity 0.75,title:\[.*\] - My Local Dashboard Awesome Homepage
-       windowrulev2 = opacity 0.9,class:^(org.keepassxc.KeePassXC)$
-       windowrulev2 = opacity 0.75,class:^(org.gnome.Nautilus)$
-       windowrulev2 = opacity 0.75,class:^(org.gnome.Nautilus)$
+       windowrulev2 = opacity 0.85,title:^(My Local Dashboard Awesome Homepage - qutebrowser)$
+       windowrulev2 = opacity 0.85,title:\[.*\] - My Local Dashboard Awesome Homepage
+       windowrulev2 = opacity 0.85,class:^(org.keepassxc.KeePassXC)$
+       windowrulev2 = opacity 0.85,class:^(org.gnome.Nautilus)$
+       windowrulev2 = opacity 0.85,class:^(org.gnome.Nautilus)$
 
        layerrule = blur,waybar
        layerrule = xray,waybar

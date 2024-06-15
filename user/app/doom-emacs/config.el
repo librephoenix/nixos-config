@@ -42,8 +42,8 @@
   ))
   ;; On Linux I can enable blur, however
   (funcall (lambda ()
-    (set-frame-parameter nil 'alpha-background 75)
-    (add-to-list 'default-frame-alist '(alpha-background . 75))
+    (set-frame-parameter nil 'alpha-background 85)
+    (add-to-list 'default-frame-alist '(alpha-background . 85))
   ))
 )
 
