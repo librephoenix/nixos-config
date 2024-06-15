@@ -51,9 +51,6 @@
 (add-hook 'marginalia-mode-hook #'all-the-icons-completion-marginalia-setup)
 (all-the-icons-completion-mode)
 
-;; Lighter/darker backgrounds can get annoying
-(solaire-global-mode -1)
-
 ;; Grammar tasing should be voluntary
 (setq writegood-mode nil)
 

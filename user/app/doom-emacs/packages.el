@@ -31,3 +31,4 @@
 (package! org-ql)
 (package! persist)
 (package! sudo-edit)
+(package! solaire-mode :disable t)

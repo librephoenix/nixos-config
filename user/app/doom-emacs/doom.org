@@ -114,9 +114,6 @@ Doom Emacs is traditionally installed by cloning the repository ([[https://githu
 (add-hook 'marginalia-mode-hook #'all-the-icons-completion-marginalia-setup)
 (all-the-icons-completion-mode)
 
-;; Lighter/darker backgrounds can get annoying
-(solaire-global-mode -1)
-
 ;; Grammar tasing should be voluntary
 (setq writegood-mode nil)
 
@@ -2072,6 +2069,7 @@ Any git package can be configured for a particular commit or branch:
 (package! org-ql)
 (package! persist)
 (package! sudo-edit)
+(package! solaire-mode :disable t)
 #+END_SRC
 * Nix Integration
 In order to have Nix load my Doom Emacs configuration [[./doom.nix][doom.nix]], which I source in the =imports= block of my [[../../../profiles/work/home.nix][home.nix]].
