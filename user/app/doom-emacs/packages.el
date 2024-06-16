@@ -11,6 +11,7 @@
 (package! org-yt)
 (package! toc-org)
 (package! lister)
+(package! all-the-icons-ibuffer)
 (package! all-the-icons-dired)
 (package! all-the-icons-completion)
 (package! ox-reveal)

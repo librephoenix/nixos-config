@@ -241,7 +241,9 @@
   '(org-level-5 :inherit outline-5 :height 1.1)
   '(org-level-6 :inherit outline-6 :height 1.05)
   '(org-level-7 :inherit outline-7 :height 1.05)
+  '(variable-pitch :family "Intel One Mono")
   )
+
 
 (after! org (org-eldoc-load))
 
@@ -1244,6 +1246,9 @@ https://github.com/magit/magit/issues/460 (@cpitclaudel)."
 (setq magit-todos-keywords-list '("TODO" "FIXME" "HACK" "REVIEW" "DEPRECATED" "BUG"))
 (magit-todos-mode 1)
 
+(require 'all-the-icons-ibuffer)
+(add-hook 'ibuffer-mode-hook #'all-the-icons-ibuffer-mode)
+(setq all-the-icons-ibuffer-color-icon t)
 (evil-set-initial-state 'ibuffer-mode 'motion)
 (evil-define-key 'motion 'ibuffer-mode
   "j" 'evil-next-visual-line
@@ -1255,6 +1260,7 @@ https://github.com/magit/magit/issues/460 (@cpitclaudel)."
 ;;;------ dired configuration ------;;;
 
 (add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
+(setq all-the-icons-dired-monochrome nil)
 
 (map! :desc "Increase font size"
       "C-=" 'text-scale-increase
@@ -1349,6 +1355,7 @@ https://github.com/magit/magit/issues/460 (@cpitclaudel)."
 (require 'mu4e-actions)
 
 (after! mu4e
+  (setq mu4e-modeline-support nil)
   (setq mu4e-sent-folder (lambda (msg) (concat "/" (nth 1 (split-string (mu4e-message-field msg :maildir) "/" )) "/Sent")))
   (setq mu4e-drafts-folder (lambda (msg) (concat "/" user-mail-address "/Drafts")))
   (setq mu4e-trash-folder (lambda (msg) (concat "/" (nth 1 (split-string (mu4e-message-field msg :maildir) "/" )) "/Trash")))

@@ -311,7 +311,9 @@ Doom Emacs is traditionally installed by cloning the repository ([[https://githu
   '(org-level-5 :inherit outline-5 :height 1.1)
   '(org-level-6 :inherit outline-6 :height 1.05)
   '(org-level-7 :inherit outline-7 :height 1.05)
+  '(variable-pitch :family "Intel One Mono")
   )
+
 
 (after! org (org-eldoc-load))
 
@@ -1462,6 +1464,9 @@ https://github.com/magit/magit/issues/460 (@cpitclaudel)."
 #+END_SRC
 ** Ibuffer Configuration
 #+BEGIN_SRC emacs-lisp :tangle config.el
+(require 'all-the-icons-ibuffer)
+(add-hook 'ibuffer-mode-hook #'all-the-icons-ibuffer-mode)
+(setq all-the-icons-ibuffer-color-icon t)
 (evil-set-initial-state 'ibuffer-mode 'motion)
 (evil-define-key 'motion 'ibuffer-mode
   "j" 'evil-next-visual-line
@@ -1476,6 +1481,7 @@ https://github.com/magit/magit/issues/460 (@cpitclaudel)."
 ;;;------ dired configuration ------;;;
 
 (add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
+(setq all-the-icons-dired-monochrome nil)
 
 (map! :desc "Increase font size"
       "C-=" 'text-scale-increase
@@ -1607,6 +1613,7 @@ I don't have this active right now since it's kinda weird with pgtk...
 (require 'mu4e-actions)
 
 (after! mu4e
+  (setq mu4e-modeline-support nil)
   (setq mu4e-sent-folder (lambda (msg) (concat "/" (nth 1 (split-string (mu4e-message-field msg :maildir) "/" )) "/Sent")))
   (setq mu4e-drafts-folder (lambda (msg) (concat "/" user-mail-address "/Drafts")))
   (setq mu4e-trash-folder (lambda (msg) (concat "/" (nth 1 (split-string (mu4e-message-field msg :maildir) "/" )) "/Trash")))
@@ -2049,6 +2056,7 @@ Any git package can be configured for a particular commit or branch:
 (package! org-yt)
 (package! toc-org)
 (package! lister)
+(package! all-the-icons-ibuffer)
 (package! all-the-icons-dired)
 (package! all-the-icons-completion)
 (package! ox-reveal)
