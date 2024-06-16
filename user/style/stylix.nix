@@ -33,8 +33,8 @@ in
       package = userSettings.fontPkg;
     };
     emoji = {
-      name = "Noto Color Emoji";
-      package = pkgs.noto-fonts-emoji-blob-bin;
+      name = "Noto Emoji";
+      package = pkgs.noto-fonts-monochrome-emoji;
     };
     sizes = {
       terminal = 18;
@@ -107,7 +107,7 @@ in
 
   '';
   home.packages = with pkgs; [
-     libsForQt5.qt5ct pkgs.libsForQt5.breeze-qt5 libsForQt5.breeze-icons
+     libsForQt5.qt5ct pkgs.libsForQt5.breeze-qt5 libsForQt5.breeze-icons pkgs.noto-fonts-monochrome-emoji
   ];
   qt = {
     enable = true;
