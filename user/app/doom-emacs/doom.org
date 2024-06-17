@@ -1790,6 +1790,7 @@ I don't have this active right now since it's kinda weird with pgtk...
 ** Terminal
 #+BEGIN_SRC emacs-lisp :tangle config.el
 (add-to-list 'tramp-remote-path 'tramp-own-remote-path)
+(add-to-list 'vterm-tramp-shells '("ssh" "zsh")) ;; I use zsh on all my servers
 #+END_SRC
 ** Elfeed
 #+BEGIN_SRC emacs-lisp :tangle config.el
