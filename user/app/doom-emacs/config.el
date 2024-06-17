@@ -1249,13 +1249,7 @@ https://github.com/magit/magit/issues/460 (@cpitclaudel)."
 (require 'all-the-icons-ibuffer)
 (add-hook 'ibuffer-mode-hook #'all-the-icons-ibuffer-mode)
 (setq all-the-icons-ibuffer-color-icon t)
-(evil-set-initial-state 'ibuffer-mode 'motion)
-(evil-define-key 'motion 'ibuffer-mode
-  "j" 'evil-next-visual-line
-  "k" 'evil-previous-visual-line
-  "d" 'ibuffer-mark-for-delete
-  "q" 'kill-buffer
-  (kbd "<return>") 'ibuffer-visit-buffer)
+(evil-set-initial-state 'ibuffer-mode 'normal)
 
 ;;;------ dired configuration ------;;;
 
