@@ -168,6 +168,18 @@ Doom Emacs is traditionally installed by cloning the repository ([[https://githu
                                   "I’ll tell you a DNS joke but it could take 24 hours for everyone to get it."
                                   "I'd tell you a UDP joke, but you might not get it."
                                   "I'll tell you a TCP joke. Do you want to hear it?"))
+
+;; Remove basic evil input and cursors from dashboard
+(defun disable-cursor()
+  (setq-local evil-normal-state-cursor '(bar . 0))
+  (hl-line-mode -1)
+)
+(add-hook 'dashboard-mode-hook 'disable-cursor)
+(evil-define-key 'normal dashboard-mode-map
+  "j" 'evil-normal-state
+  "k" 'evil-normal-state
+  "h" 'evil-normal-state
+  "l" 'evil-normal-state)
 (setq dashboard-navigator-buttons
   `(;; line1
     ( (,"Roam" "" "" (lambda (&rest _)) 'org-formula)
