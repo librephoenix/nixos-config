@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, pkgs-stable, ... }:
 let
   myRetroarch =
     (pkgs.retroarch.override {
@@ -22,7 +22,7 @@ let
     });
 in
 {
-  home.packages = with pkgs; [
+  home.packages = (with pkgs; [
     # Games
     pegasus-frontend
     myRetroarch
@@ -31,8 +31,10 @@ in
     qjoypad
     superTux
     superTuxKart
-    #pokefinder
-  ];
+    gamepad-tool
+  ]) ++ (with pkgs-stable; [
+    pokefinder
+  ]);
 
   nixpkgs.config = {
     allowUnfree = true;
