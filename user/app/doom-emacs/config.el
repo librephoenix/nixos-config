@@ -1512,7 +1512,9 @@ https://github.com/magit/magit/issues/460 (@cpitclaudel)."
 (setq +format-on-save-enabled-modes '(not emacs-lisp-mode sql-mode tex-mode latex-mode org-msg-edit-mode nix-mode))
 
 (add-to-list 'tramp-remote-path 'tramp-own-remote-path)
-(add-to-list 'vterm-tramp-shells '("ssh" "zsh")) ;; I use zsh on all my servers
+(after! vterm
+  (add-to-list 'vterm-tramp-shells '("ssh" "zsh")) ;; I use zsh on all my servers
+)
 
 ;; I source my rss from my freshrss instance
 ;; I login with a private elisp file: ~/.emacs.d/freshrss-elfeed.el
