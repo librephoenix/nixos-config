@@ -45,15 +45,6 @@ let generateHomepage = name: font: config:
           font-weight: bold;
         }
 
-        /*xmp tag style for ascii art*/
-        xmp {
-            font-family:''+font+'';
-
-            font-size:22px;
-            color: #''+config.lib.stylix.colors.base01+''
-
-            text-align:center;
-        }
         /*div*/
         div {
             margin:auto;
@@ -69,23 +60,14 @@ let generateHomepage = name: font: config:
 
     <body>
       <!--start with cool qutebrowser ascii art-->
+      <br>
+      <br>
+      <br>
       <div class="icon">
-           <xmp>       ..--------..        </xmp>
-           <xmp>    .``            "'.     </xmp>
-           <xmp>  .`  _.---.. /--|    '.   </xmp>
-           <xmp>   /``      ||   |         </xmp>
-           <xmp> /`  /--|   ||   |         </xmp>
-           <xmp>/   /   |   ||   `/----\,  </xmp>
-           <xmp>|   |   | .-`.-/- __.    \ </xmp>
-           <xmp>|   \   `-.`` ..-`   \    |</xmp>
-           <xmp>\    ````   ~.^` |    |   |</xmp>
-           <xmp> \.____.-``'||   |   /   / </xmp>
-           <xmp>        |   ||   |_.-   /  </xmp>
-           <xmp>        |   ||         /   </xmp>
-           <xmp>   .    |_-` `------~``.   </xmp>
-           <xmp>    `..             ..`    </xmp>
-           <xmp>       ``--______-'`       </xmp>
+           <img width="300" src="logo.png">
       </div>
+      <br>
+      <br>
       <br>
       <!--qutebrowser title-->
       <p style="color:#''+config.lib.stylix.colors.base01+''">Welcome to Qutebrowser</p>
@@ -336,10 +318,16 @@ Bard
   '';
 
   home.file.".config/qutebrowser/qute-home.html".text = generateHomepage "Default" userSettings.font config;
+  home.file.".config/qutebrowser/logo.png".source = ./qutebrowser-logo.png;
   home.file.".browser/Teaching/config/qute-home.html".text = generateHomepage "Teaching" userSettings.font config;
+  home.file.".browser/Teaching/config/logo.png".source = ./qutebrowser-logo.png;
   home.file.".browser/Tech/config/qute-home.html".text = generateHomepage "Tech" userSettings.font config;
+  home.file.".browser/Tech/config/logo.png".source = ./qutebrowser-logo.png;
   home.file.".browser/Gaming/config/qute-home.html".text = generateHomepage "Gaming" userSettings.font config;
+  home.file.".browser/Gaming/config/logo.png".source = ./qutebrowser-logo.png;
   home.file.".browser/Gamedev/config/qute-home.html".text = generateHomepage "Gamedev" userSettings.font config;
+  home.file.".browser/Gamedev/config/logo.png".source = ./qutebrowser-logo.png;
   home.file.".browser/Bard/config/qute-home.html".text = generateHomepage "Bard" userSettings.font config;
+  home.file.".browser/Bard/config/logo.png".source = ./qutebrowser-logo.png;
 
 }
