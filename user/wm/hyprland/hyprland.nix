@@ -418,8 +418,8 @@ in
       src = fetchFromGitHub {
         owner = "hyprland-community";
         repo = "pyprland";
-        rev = "refs/tags/2.2.17";
-        hash = "sha256-S1bIIazrBWyjF8tOcIk0AwwWq9gbpTKNsjr9iYA5lKk=";
+        rev = "refs/tags/2.3.8";
+        hash = "sha256-0YUI2/gJmBoummiHGpq2p2sT25SwCdnsRwfGK2pcm4s=";
       };
     }))
     (hyprnome.override (oldAttrs: {
