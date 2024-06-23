@@ -147,10 +147,11 @@ Doom Emacs is traditionally installed by cloning the repository ([[https://githu
 (require 'dashboard)
 (setq initial-buffer-choice (lambda () (get-buffer-create "*dashboard*"))
       doom-fallback-buffer-name "*dashboard*")
+(setq image-scaling-factor 1)
 
 ;; emacs-dashboard variables
 (setq dashboard-banner-logo-title "Welcome to Nix Doom Emacs")
-(setq dashboard-startup-banner 2)
+(setq dashboard-startup-banner "~/.emacs.d/dashboard-logo.webp")
 (setq dashboard-icon-type 'all-the-icons) ;; use `all-the-icons' package
 (setq dashboard-set-heading-icons t)
 (setq dashboard-set-file-icons t)
@@ -2082,7 +2083,7 @@ In order to have Nix load my Doom Emacs configuration [[./doom.nix][doom.nix]], 
 { config, lib, pkgs-emacs, pkgs-stable, inputs, userSettings, systemSettings, ... }:
 let
   themePolarity = lib.removeSuffix "\n" (builtins.readFile (./. + "../../../../themes"+("/"+userSettings.theme)+"/polarity.txt"));
-  dashboardLogo = ./. + "/nix-" + themePolarity + ".png";
+  dashboardLogo = ./. + "/nix-" + themePolarity + ".webp";
 in
 {
   imports = [
@@ -2190,7 +2191,7 @@ in
     source = "${inputs.org-sliced-images}";
   };
 
-  home.file.".emacs.d/dashboard-logo.png".source = dashboardLogo;
+  home.file.".emacs.d/dashboard-logo.webp".source = dashboardLogo;
   home.file.".emacs.d/scripts/copy-link-or-file/copy-link-or-file-to-clipboard.sh" = {
     source = ./scripts/copy-link-or-file/copy-link-or-file-to-clipboard.sh;
     executable = true;

@@ -84,10 +84,11 @@
 (require 'dashboard)
 (setq initial-buffer-choice (lambda () (get-buffer-create "*dashboard*"))
       doom-fallback-buffer-name "*dashboard*")
+(setq image-scaling-factor 1)
 
 ;; emacs-dashboard variables
 (setq dashboard-banner-logo-title "Welcome to Nix Doom Emacs")
-(setq dashboard-startup-banner 2)
+(setq dashboard-startup-banner "~/.emacs.d/dashboard-logo.webp")
 (setq dashboard-icon-type 'all-the-icons) ;; use `all-the-icons' package
 (setq dashboard-set-heading-icons t)
 (setq dashboard-set-file-icons t)

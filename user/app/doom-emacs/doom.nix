@@ -1,7 +1,7 @@
 { config, lib, pkgs-emacs, pkgs-stable, inputs, userSettings, systemSettings, ... }:
 let
   themePolarity = lib.removeSuffix "\n" (builtins.readFile (./. + "../../../../themes"+("/"+userSettings.theme)+"/polarity.txt"));
-  dashboardLogo = ./. + "/nix-" + themePolarity + ".png";
+  dashboardLogo = ./. + "/nix-" + themePolarity + ".webp";
 in
 {
   imports = [
@@ -109,7 +109,7 @@ in
     source = "${inputs.org-sliced-images}";
   };
 
-  home.file.".emacs.d/dashboard-logo.png".source = dashboardLogo;
+  home.file.".emacs.d/dashboard-logo.webp".source = dashboardLogo;
   home.file.".emacs.d/scripts/copy-link-or-file/copy-link-or-file-to-clipboard.sh" = {
     source = ./scripts/copy-link-or-file/copy-link-or-file-to-clipboard.sh;
     executable = true;
