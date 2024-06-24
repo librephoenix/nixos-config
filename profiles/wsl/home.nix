@@ -15,7 +15,6 @@
               ../../user/app/ranger/ranger.nix # My ranger file manager config
               ../../user/app/git/git.nix # My git config
               ../../user/style/stylix.nix # Styling and themes for my apps
-              ../../user/lang/cc/cc.nix # C and C++ tools
             ];
 
   home.stateVersion = "22.11"; # Please read the comment before changing.
