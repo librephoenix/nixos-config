@@ -152,6 +152,11 @@
           };
         };
       };
+      nixOnDroidConfigurations = {
+        default = nix-on-droid.lib.nixOnDroidConfiguration {
+          modules = [ ./nix-on-droid.nix ];
+        };
+      };
 
       packages = forAllSystems (system:
         let pkgs = nixpkgsFor.${system};
@@ -187,6 +192,12 @@
 
     home-manager-stable.url = "github:nix-community/home-manager/release-23.11";
     home-manager-stable.inputs.nixpkgs.follows = "nixpkgs-stable";
+
+    nix-on-droid = {
+      url = "github:nix-community/nix-on-droid/master";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager-unstable";
+    };
 
     hyprland = {
       type = "git";
