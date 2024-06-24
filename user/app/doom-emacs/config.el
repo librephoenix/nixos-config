@@ -247,15 +247,16 @@
 
 ;; Top-level headings should be bigger!
 (custom-set-faces!
-  '(org-level-1 :inherit outline-1 :height 1.3)
-  '(org-level-2 :inherit outline-2 :height 1.25)
-  '(org-level-3 :inherit outline-3 :height 1.2)
-  '(org-level-4 :inherit outline-4 :height 1.1)
-  '(org-level-5 :inherit outline-5 :height 1.1)
-  '(org-level-6 :inherit outline-6 :height 1.05)
-  '(org-level-7 :inherit outline-7 :height 1.05)
+  `(outline-1 :height 1.3 :foreground ,(nth 1 (nth 14 doom-themes--colors)))
+  `(outline-2 :height 1.25 :foreground ,(nth 1 (nth 15 doom-themes--colors)))
+  `(outline-3 :height 1.2 :foreground ,(nth 1 (nth 19 doom-themes--colors)))
+  `(outline-4 :height 1.1 :foreground ,(nth 1 (nth 23 doom-themes--colors)))
+  `(outline-5 :height 1.1 :foreground ,(nth 1 (nth 24 doom-themes--colors)))
+  `(outline-6 :height 1.1 :foreground ,(nth 1 (nth 16 doom-themes--colors)))
+  `(outline-7 :height 1.05 :foreground ,(nth 1 (nth 18 doom-themes--colors)))
+  `(outline-8 :height 1.05 :foreground ,(nth 1 (nth 11 doom-themes--colors)))
   '(variable-pitch :family "Intel One Mono")
-  )
+)
 
 
 (after! org (org-eldoc-load))
