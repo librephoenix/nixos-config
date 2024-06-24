@@ -1,4 +1,5 @@
 { pkgs, userSettings, ... }:
+# TODO make this work on nix-on-droid!
 let myScript = ''
       if [ "$1" = "sync" ]; then
         if [ "$#" = 1 ]; then

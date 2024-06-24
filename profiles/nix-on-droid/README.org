@@ -1,0 +1,3 @@
+#+title: I need Emacs on the go!
+
+This is my =Nix on Droid= profile, which is a minimal installation I use on Android. This (obviously) requires [[https://github.com/nix-community/nix-on-droid][nix-on-droid]] to be installed. I essentially just use this for Emacs and some CLI apps.

@@ -4,8 +4,12 @@ This directory contains various system profiles which can easily be set in [[../
 
 Current profiles I have available are:
 - [[./personal][Personal]] - What I would run on a personal laptop/desktop*
-- [[./work][Work]] - What I would run on a work laptop/desktop (if they let me bring my own OS :P)
-- [[./homelab][Homelab]] - What I would run on a server or homelab
-- [[./wsl][WSL]] - What I would run underneath Windows Subystem for Linux
+- [[./work][Work]] - What I would run on my work laptop/desktop*
+- [[./homelab][Homelab]] - What I would run on a server or homelab*
+- [[./worklab][Worklab]] - My homelab config with my work SSH keys preinstalled*
+- [[./wsl][WSL]] - Windows Subsystem for Emacs (uses [[https://github.com/nix-community/NixOS-WSL][NixOS-WSL]])
+- [[./nix-on-droid][Nix on Droid]] - So that I can run Emacs on my phone (uses [[https://github.com/nix-community/nix-on-droid][nix-on-droid]])
 
 *My [[./personal][personal]] and [[./work][work]] profiles are actually functionally identical (the [[./work][work]] profile is actually imported into the [[./personal][personal]] profile)! The only difference between them is that my [[./personal][personal]] profile has a few extra things like gaming and social apps.
+
+*My [[./homelab][homelab]] and [[./worklab][worklab]] profiles are similarly functionally identical (they both utilize the this [[./homelab/base.nix][base.nix]] file)! The only difference is that they have different preinstalled ssh keys.
