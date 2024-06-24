@@ -1,11 +1,6 @@
 { config, pkgs, userSettings, ... }:
 
 {
-  # Home Manager needs a bit of information about you and the paths it should
-  # manage.
-  home.username = userSettings.username;
-  home.homeDirectory = "/data/data/com.termux.nix/files/home";
-
   programs.home-manager.enable = true;
 
   imports = [

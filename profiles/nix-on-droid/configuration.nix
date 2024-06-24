@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, pkgs-stable, pkgs-emacs, systemSettings, userSettings, inputs, ... }:
 
 {
   # Simply install just the packages
@@ -47,5 +47,14 @@
     useGlobalPkgs = true;
 
     config = ./home.nix;
+
+    extraSpecialArgs = {
+      # pass config variables from above
+      inherit pkgs-stable;
+      inherit pkgs-emacs;
+      inherit systemSettings;
+      inherit userSettings;
+      inherit inputs;
+    };
   };
 }

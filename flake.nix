@@ -153,8 +153,17 @@
         };
       };
       nixOnDroidConfigurations = {
-        default = nix-on-droid.lib.nixOnDroidConfiguration {
-          modules = [ ./nix-on-droid.nix ];
+        inherit pkgs;
+        default = inputs.nix-on-droid.lib.nixOnDroidConfiguration {
+          modules = [ ./profiles/nix-on-droid/configuration.nix ];
+        };
+        extraSpecialArgs = {
+          # pass config variables from above
+          inherit pkgs-stable;
+          inherit pkgs-emacs;
+          inherit systemSettings;
+          inherit userSettings;
+          inherit inputs;
         };
       };
 
