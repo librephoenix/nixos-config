@@ -176,6 +176,7 @@
     libffi zlib
     nodePackages.ungit
     ventoy
+    nextcloud-client
   ]) ++ ([ pkgs-kdenlive.kdenlive ]);
 
   home.file.".local/share/pixmaps/nixos-snowflake-stylix.svg".source =
