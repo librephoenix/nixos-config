@@ -105,6 +105,16 @@ in
 
   programs.qutebrowser.enable = true;
   programs.qutebrowser.extraConfig = ''
+import sys
+import os.path
+secretsExists = False
+secretFile = os.path.expanduser("~/.config/qutebrowser/qutesecrets.py")
+
+if (os.path.isfile(secretFile)):
+    sys.path.append(os.path.dirname(secretFile))
+    import qutesecrets
+    secretsExists = True
+
 config.set('qt.args',['ignore-gpu-blacklist','enable-gpu-rasterization','enable-native-gpu-memory-buffers','num-raster-threads=4'])
 config.load_autoconfig(False)
 
@@ -184,8 +194,20 @@ config.set('fileselect.folder.command', ['kitty','-e','ranger','--choosedir={}']
 
 # bindings from doom emacs
 config.bind('<Alt-x>', 'cmd-set-text :')
+config.bind('<Space>.', 'cmd-set-text :')
+config.bind('<Space>b', 'bookmark-list')
+config.bind('<Space>h', 'history')
+config.bind('<Space>gh', 'open https://github.com')
+config.bind('<Space>gl', 'open https://gitlab.com')
+config.bind('<Space>gc', 'open https://codeberg.org')
+if (secretsExists):
+    config.bind('<Space>gg', 'open '+qutesecrets.mygiteadomain)
 config.bind('<Ctrl-p>', 'completion-item-focus prev', mode='command')
 config.bind('<Ctrl-n>', 'completion-item-focus next', mode='command')
+config.bind('<Ctrl-p>', 'fake-key <Up>', mode='normal')
+config.bind('<Ctrl-n>', 'fake-key <Down>', mode='normal')
+config.bind('<Ctrl-p>', 'fake-key <Up>', mode='insert')
+config.bind('<Ctrl-n>', 'fake-key <Down>', mode='insert')
 
 # bindings from vimium
 config.bind('t', 'open -t')
