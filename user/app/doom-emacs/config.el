@@ -158,6 +158,8 @@
     :face 'font-lock-keyword-face))
 (dashboard-setup-startup-hook)
 
+(map! :leader :desc "Open dashboard" "b b" #'dashboard-refresh-buffer)
+
 ;; Smooth scrolling
 ;; requires good-scroll.el
 ;;(good-scroll-mode 1)
