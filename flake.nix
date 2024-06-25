@@ -266,6 +266,10 @@
       url = "github:jcfk/org-sliced-images";
       flake = false;
     };
+    magit-file-icons = {
+      url = "github:librephoenix/magit-file-icons/all-the-icons";
+      flake = false;
+    };
     phscroll = {
       url = "github:misohena/phscroll";
       flake = false;

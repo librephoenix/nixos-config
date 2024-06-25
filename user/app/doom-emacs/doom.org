@@ -1477,6 +1477,10 @@ https://github.com/magit/magit/issues/460 (@cpitclaudel)."
 (setq magit-todos-keywords-list '("TODO" "FIXME" "HACK" "REVIEW" "DEPRECATED" "BUG"))
 (magit-todos-mode 1)
 
+(add-load-path! "~/.emacs.d/magit-file-icons")
+(require 'magit-file-icons)
+(magit-file-icons-mode 1)
+
 #+END_SRC
 ** Ibuffer Configuration
 #+BEGIN_SRC emacs-lisp :tangle config.el
@@ -2091,6 +2095,7 @@ Any git package can be configured for a particular commit or branch:
 (package! persist)
 (package! sudo-edit)
 (package! solaire-mode :disable t)
+(package! el-patch)
 #+END_SRC
 * Nix Integration
 In order to have Nix load my Doom Emacs configuration [[./doom.nix][doom.nix]], which I source in the =imports= block of my [[../../../profiles/work/home.nix][home.nix]].
@@ -2204,6 +2209,10 @@ in
 
   home.file.".emacs.d/org-sliced-images" = {
     source = "${inputs.org-sliced-images}";
+  };
+
+  home.file.".emacs.d/magit-file-icons" = {
+    source = "${inputs.magit-file-icons}";
   };
 
   home.file.".emacs.d/dashboard-logo.webp".source = dashboardLogo;

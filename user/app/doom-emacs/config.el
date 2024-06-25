@@ -1262,6 +1262,10 @@ https://github.com/magit/magit/issues/460 (@cpitclaudel)."
 (setq magit-todos-keywords-list '("TODO" "FIXME" "HACK" "REVIEW" "DEPRECATED" "BUG"))
 (magit-todos-mode 1)
 
+(add-load-path! "~/.emacs.d/magit-file-icons")
+(require 'magit-file-icons)
+(magit-file-icons-mode 1)
+
 (require 'all-the-icons-ibuffer)
 (add-hook 'ibuffer-mode-hook #'all-the-icons-ibuffer-mode)
 (setq all-the-icons-ibuffer-color-icon t)

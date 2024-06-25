@@ -109,6 +109,10 @@ in
     source = "${inputs.org-sliced-images}";
   };
 
+  home.file.".emacs.d/magit-file-icons" = {
+    source = "${inputs.magit-file-icons}";
+  };
+
   home.file.".emacs.d/dashboard-logo.webp".source = dashboardLogo;
   home.file.".emacs.d/scripts/copy-link-or-file/copy-link-or-file-to-clipboard.sh" = {
     source = ./scripts/copy-link-or-file/copy-link-or-file-to-clipboard.sh;

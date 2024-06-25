@@ -33,3 +33,4 @@
 (package! persist)
 (package! sudo-edit)
 (package! solaire-mode :disable t)
+(package! el-patch)
