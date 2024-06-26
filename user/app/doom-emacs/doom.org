@@ -1836,22 +1836,17 @@ I don't have this active right now since it's kinda weird with pgtk...
 (map! :leader :desc "Open elfeed" "O n" #'elfeed)
 (map! :map 'elfeed-search-mode-map :desc "Open url" :n "g o" #'elfeed-search-browse-url)
 
-(defun freshrss-network-connection-p ()
-  (not (condition-case nil
-        (delete-process
-         (make-network-process
-          :name freshrss-hostname
-          :host "elpa.gnu.org"
-          :service 443))
-      (error t))))
-
 (defun elfeed-full-update ()
   (interactive)
-  (if (freshrss-network-connection-p) (delete-directory "~/.cache/doom/elfeed" t))
-  (setq elfeed-db nil)
-  (elfeed-protocol-fever-update main-elfeed-feed)
+  (elfeed-search-update--force)
+  (cl-loop for entry in elfeed-search-entries
+     do (elfeed-untag-1 entry 'unread))
+  (elfeed-protocol-fever-reinit freshrss-hostname)
   (elfeed-update))
-(map! :map 'elfeed-search-mode-map :desc "Update elfeed" :n "g R" #'elfeed-full-update)
+
+(add-hook 'elfeed-search-mode-hook 'elfeed-full-update)
+(add-hook 'elfeed-search-update-hook (lambda () (goto-char (point-min))))
+
 #+END_SRC
 
 * My init.el
