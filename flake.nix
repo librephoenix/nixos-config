@@ -220,8 +220,8 @@
     hycov.url = "github:DreamMaoMao/hycov/3d144a79f8b5468656de88a005be55f3317d295b";
     hycov.inputs.hyprland.follows = "hyprland";
     # FIXME hyprgrass broken on 0.41.0
-    #hyprgrass.url = "github:horriblename/hyprgrass/6d8dbbcfb14ebdb2a2a2551b7d495d01d8ef6917";
-    #hyprgrass.inputs.hyprland.follows = "hyprland";
+    hyprgrass.url = "github:horriblename/hyprgrass/736119f828eecaed2deaae1d6ff1f50d6dabaaba";
+    hyprgrass.inputs.hyprland.follows = "hyprland";
 
     nix-doom-emacs.url = "github:nix-community/nix-doom-emacs";
     nix-doom-emacs.inputs.nixpkgs.follows = "emacs-pin-nixpkgs";

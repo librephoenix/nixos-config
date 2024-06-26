@@ -6,7 +6,6 @@ in
     ../../app/terminal/alacritty.nix
     ../../app/terminal/kitty.nix
     (import ../../app/dmenu-scripts/networkmanager-dmenu.nix {
-      #dmenu_command = "fuzzel -d -f ${userSettings.font} :size=16"; inherit config lib pkgs;
       dmenu_command = "fuzzel -d"; inherit config lib pkgs;
     })
     ../input/nihongo.nix
@@ -30,7 +29,7 @@ in
       inputs.hyprland-plugins.packages.${pkgs.system}.hyprtrails
       inputs.hycov.packages.${pkgs.system}.hycov
       # FIXME hypgrass currently broken on 0.41.0
-      #inputs.hyprgrass.packages.${pkgs.system}.default
+      inputs.hyprgrass.packages.${pkgs.system}.default
     ];
     settings = { };
     extraConfig = ''
@@ -129,33 +128,32 @@ in
              show_special = 0 # show windwos in special workspace in overview.
 
          }
-         # FIXME hypgrass currently broken on 0.41.0 :(
-         #touch_gestures {
-         #    sensitivity = 4.0
-         #    long_press_delay = 260
-         #    hyprgrass-bind = , edge:r:l, exec, hyprnome
-         #    hyprgrass-bind = , edge:l:r, exec, hyprnome --previous
-         #    hyprgrass-bind = , swipe:3:d, exec, nwggrid-wrapper
+         touch_gestures {
+             sensitivity = 4.0
+             long_press_delay = 260
+             hyprgrass-bind = , edge:r:l, exec, hyprnome
+             hyprgrass-bind = , edge:l:r, exec, hyprnome --previous
+             hyprgrass-bind = , swipe:3:d, exec, nwggrid-wrapper
 
-         #    hyprgrass-bind = , swipe:3:u, hycov:toggleoverview
-         #    hyprgrass-bind = , swipe:3:d, exec, nwggrid-wrapper
+             hyprgrass-bind = , swipe:3:u, hycov:toggleoverview
+             hyprgrass-bind = , swipe:3:d, exec, nwggrid-wrapper
 
-         #    hyprgrass-bind = , swipe:3:l, exec, hyprnome --previous
-         #    hyprgrass-bind = , swipe:3:r, exec, hyprnome
+             hyprgrass-bind = , swipe:3:l, exec, hyprnome --previous
+             hyprgrass-bind = , swipe:3:r, exec, hyprnome
 
-         #    hyprgrass-bind = , swipe:4:u, movewindow,u
-         #    hyprgrass-bind = , swipe:4:d, movewindow,d
-         #    hyprgrass-bind = , swipe:4:l, movewindow,l
-         #    hyprgrass-bind = , swipe:4:r, movewindow,r
+             hyprgrass-bind = , swipe:4:u, movewindow,u
+             hyprgrass-bind = , swipe:4:d, movewindow,d
+             hyprgrass-bind = , swipe:4:l, movewindow,l
+             hyprgrass-bind = , swipe:4:r, movewindow,r
 
-         #    hyprgrass-bind = , tap:3, fullscreen,1
-         #    hyprgrass-bind = , tap:4, fullscreen,0
+             hyprgrass-bind = , tap:3, fullscreen,1
+             hyprgrass-bind = , tap:4, fullscreen,0
 
-         #    hyprgrass-bindm = , longpress:2, movewindow
-         #    hyprgrass-bindm = , longpress:3, resizewindow
+             hyprgrass-bindm = , longpress:2, movewindow
+             hyprgrass-bindm = , longpress:3, resizewindow
 
 
-         #}
+         }
        }
 
        bind=SUPER,SUPER_L,exec,nwggrid-wrapper
