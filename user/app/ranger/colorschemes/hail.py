@@ -40,7 +40,7 @@ class Default(ColorScheme):
                 fg = red
             if context.directory:
                 attr |= bold
-                fg = blue
+                fg = red
                 fg += BRIGHT
             elif context.executable:
                 attr |= bold
@@ -94,7 +94,7 @@ class Default(ColorScheme):
             if context.hostname:
                 fg = red if context.bad else green
             elif context.directory:
-                fg = blue
+                fg = red
             elif context.tab:
                 if context.good:
                     bg = green
