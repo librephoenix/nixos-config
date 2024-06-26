@@ -219,7 +219,6 @@
     hyprland-plugins.inputs.hyprland.follows = "hyprland";
     hycov.url = "github:DreamMaoMao/hycov/de15cdd6bf2e46cbc69735307f340b57e2ce3dd0";
     hycov.inputs.hyprland.follows = "hyprland";
-    # FIXME hyprgrass broken on 0.41.0
     hyprgrass.url = "github:horriblename/hyprgrass/736119f828eecaed2deaae1d6ff1f50d6dabaaba";
     hyprgrass.inputs.hyprland.follows = "hyprland";
 

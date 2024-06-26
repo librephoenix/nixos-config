@@ -28,7 +28,6 @@ in
     plugins = [
       inputs.hyprland-plugins.packages.${pkgs.system}.hyprtrails
       inputs.hycov.packages.${pkgs.system}.hycov
-      # FIXME hypgrass currently broken on 0.41.0
       inputs.hyprgrass.packages.${pkgs.system}.default
     ];
     settings = { };
@@ -151,8 +150,6 @@ in
 
              hyprgrass-bindm = , longpress:2, movewindow
              hyprgrass-bindm = , longpress:3, resizewindow
-
-
          }
        }
 
