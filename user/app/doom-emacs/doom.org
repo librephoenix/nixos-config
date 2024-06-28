@@ -1459,26 +1459,14 @@ On Wayland, EAF doesn't work.
 #+BEGIN_SRC emacs-lisp :tangle config.el
 ;;;------ magit configuration ------;;;
 ;; Need the following two blocks to make magit work with git bare repos
-(defun ~/magit-process-environment (env)
-  "Add GIT_DIR and GIT_WORK_TREE to ENV when in a special directory.
-https://github.com/magit/magit/issues/460 (@cpitclaudel)."
-  (let ((default (file-name-as-directory (expand-file-name default-directory)))
-        (home (expand-file-name "~/")))
-    (when (string= default home)
-      (let ((gitdir (expand-file-name "~/.dotfiles.git/")))
-        (push (format "GIT_WORK_TREE=%s" home) env)
-        (push (format "GIT_DIR=%s" gitdir) env))))
-  env)
-
-(advice-add 'magit-process-environment
-            :filter-return #'~/magit-process-environment)
-
 (require 'magit-todos)
 (setq magit-todos-keywords-list '("TODO" "FIXME" "HACK" "REVIEW" "DEPRECATED" "BUG"))
 (magit-todos-mode 1)
 
 (add-load-path! "~/.emacs.d/magit-file-icons")
 (require 'magit-file-icons)
+(setq magit-file-icons-icon-for-file-func 'all-the-icons-icon-for-file)
+(setq magit-file-icons-icon-for-dir-func 'all-the-icons-icon-for-dir)
 (magit-file-icons-mode 1)
 
 #+END_SRC

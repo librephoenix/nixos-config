@@ -750,16 +750,16 @@
     "magit-file-icons": {
       "flake": false,
       "locked": {
-        "lastModified": 1719343259,
-        "narHash": "sha256-yE11UXM49emqnCBqJvf2ck4BwmHmhIhuJUPvxEBaQr8=",
+        "lastModified": 1719595750,
+        "narHash": "sha256-n/uXppejl6js/wrvEEIKmfmCh7ssbSBMMZWYrrvG1JQ=",
         "owner": "librephoenix",
         "repo": "magit-file-icons",
-        "rev": "d2fae0b97e7499e6b20d1af3dc6e098d4182cfdb",
+        "rev": "6c90eb03eb8a382110d862ec792ae50556bffd6e",
         "type": "github"
       },
       "original": {
         "owner": "librephoenix",
-        "ref": "all-the-icons",
+        "ref": "abstract-icon-getters-compat",
         "repo": "magit-file-icons",
         "type": "github"
       }

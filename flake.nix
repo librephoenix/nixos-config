@@ -266,7 +266,7 @@
       flake = false;
     };
     magit-file-icons = {
-      url = "github:librephoenix/magit-file-icons/all-the-icons";
+      url = "github:librephoenix/magit-file-icons/abstract-icon-getters-compat";
       flake = false;
     };
     phscroll = {
