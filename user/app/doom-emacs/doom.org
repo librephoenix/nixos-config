@@ -267,6 +267,10 @@ Doom Emacs is traditionally installed by cloning the repository ([[https://githu
 ;; For camelCase
 (global-subword-mode 1)
 
+;; ripgrep as grep
+(setq grep-command "rg -nS --no-heading "
+      grep-use-null-device nil)
+
 ;; Mini-frames ;; cool but kinda suboptimal atm
 ;(add-load-path! "~/.emacs.d/mini-frame")
 ;(require 'mini-frame)
@@ -834,6 +838,8 @@ exit
  " "
  org-roam-db-choice)
 )
+
+(setq org-roam-list-files-commands '(rg))
 
 #+END_SRC
 *** Multi Org Roam Configuration

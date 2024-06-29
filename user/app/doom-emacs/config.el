@@ -204,6 +204,10 @@
 ;; For camelCase
 (global-subword-mode 1)
 
+;; ripgrep as grep
+(setq grep-command "rg -nS --no-heading "
+      grep-use-null-device nil)
+
 ;; Mini-frames ;; cool but kinda suboptimal atm
 ;(add-load-path! "~/.emacs.d/mini-frame")
 ;(require 'mini-frame)
@@ -698,6 +702,8 @@ If the path from LINK does not exist, nil is returned."
  " "
  org-roam-db-choice)
 )
+
+(setq org-roam-list-files-commands '(rg))
 
 (setq full-org-roam-db-list nil)
 
