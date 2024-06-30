@@ -57,7 +57,6 @@ in
       exec-once = GOMAXPROCS=1 syncthing --no-browser
       exec-once = protonmail-bridge --noninteractive
       exec-once = waybar
-      exec-once = emacs --daemon
 
       exec-once = hypridle
       exec-once = sleep 5 && libinput-gestures
