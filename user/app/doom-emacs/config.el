@@ -1350,10 +1350,10 @@ If the path from LINK does not exist, nil is returned."
 ;;;------ helpful configuration ------;;;
 (add-load-path! "~/.nix-profile/share/emacs/site-lisp/elpa/mu4e-1.12.2")
 (require 'mu4e)
+(require 'mu4e-contrib)
+(require 'mu4e-actions)
 
 (after! mu4e
-  (require 'mu4e-contrib)
-  (require 'mu4e-actions)
   (setq mu4e-modeline-support nil)
   (setq mu4e-sent-folder (lambda (msg) (concat "/" (nth 1 (split-string (mu4e-message-field msg :maildir) "/" )) "/Sent")))
   (setq mu4e-drafts-folder (lambda (msg) (concat "/" user-mail-address "/Drafts")))
