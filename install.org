@@ -161,7 +161,7 @@ or for your own custom directory:
 sudo nixos-rebuild switch --flake /your/custom/directory#system
 #+END_SRC
 
-*** Intall and Switch Home Manager Config
+*** Install and Switch Home Manager Config
 Home manager can be installed and the configuration activated with:
 #+BEGIN_SRC sh :noeval
 nix run home-manager/master -- switch --flake ~/.dotfiles#user
