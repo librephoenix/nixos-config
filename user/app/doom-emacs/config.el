@@ -47,6 +47,8 @@
   ))
 )
 
+(add-to-list 'default-frame-alist '(inhibit-double-buffering . t))
+
 ;; Icons in completion buffers
 (add-hook 'marginalia-mode-hook #'all-the-icons-completion-marginalia-setup)
 (all-the-icons-completion-mode)
@@ -56,6 +58,8 @@
 
 ;; Beacon shows where the cursor is, even when fast scrolling
 (setq beacon-mode t)
+
+(setq company-idle-delay 0.05)
 
 ;; Quicker window management keybindings
 (bind-key* "C-j" #'evil-window-down)
@@ -238,7 +242,10 @@
 ;;;------ Org mode configuration ------;;;
 
 ;; Set default org directory
-(setq org-directory "~/.Org")
+(setq org-directory "~/Org")
+(setq org-attach-directory "~/Org/.attach")
+(setq org-attach-id-dir "~/Org/.attach")
+(setq org-id-locations-file "~/Org/.orgids")
 
 (remove-hook 'after-save-hook #'+literate|recompile-maybe)
 (set-company-backend! 'org-mode nil)
@@ -600,19 +607,13 @@ If the path from LINK does not exist, nil is returned."
                         input-str)))))))
 
 ;; Org transclusion
-(use-package! org-transclusion
-  :after org
-  :init
-  (map!
-   :map global-map "<f12>" #'org-transclusion-add
-   :leader
-   :prefix "n"
-   :desc "Org Transclusion Mode" "t" #'org-transclusion-mode))
-(map! :leader :prefix "n" "l" #'org-transclusion-live-sync-start)
-
-(setq org-transclusion-exclude-elements '(property-drawer keyword))
-
-(add-hook 'org-mode-hook #'org-transclusion-mode)
+(require 'org-transclusion)
+(after! org
+  (map! :map global-map "<f12>" #'org-transclusion-add :leader :prefix "n" :desc "Org Transclusion Mode" "t" #'org-transclusion-mode)
+  (map! :leader :prefix "n" "l" #'org-transclusion-live-sync-start)
+  (setq org-transclusion-exclude-elements '(property-drawer keyword))
+  (add-hook 'org-mode-hook #'org-transclusion-mode)
+)
 
 (defun org-jekyll-new-post ()
   (interactive)
@@ -981,8 +982,7 @@ If the path from LINK does not exist, nil is returned."
 
 (add-load-path! "~/.emacs.d/org-nursery/lisp")
 (require 'org-roam-dblocks)
-(use-package org-roam-dblocks
-  :hook (org-mode . org-roam-dblocks-autoupdate-mode))
+(add-hook 'org-mode-hook 'org-roam-dblocks-autoupdate-mode)
 
 (setq org-id-extra-files 'org-agenda-text-search-extra-files)
 
@@ -1036,8 +1036,8 @@ If the path from LINK does not exist, nil is returned."
       org-agenda-skip-deadline-if-done t
       org-agenda-skip-scheduled-if-done t
       org-agenda-skip-scheduled-if-deadline-is-shown t
-      org-agenda-skip-timestamp-if-deadline-is-shown t)
-
+      org-agenda-skip-timestamp-if-deadline-is-shown t
+      org-log-into-drawer t)
 
 ;; Custom styles for dates in agenda
 (custom-set-faces!
@@ -1491,19 +1491,11 @@ If the path from LINK does not exist, nil is returned."
       "f u" #'sudo-edit-find-file)
 
 ;;;-- LSP stuff ;;;--
-(use-package lsp-mode
-  :ensure t)
-
-(use-package nix-mode
-  :hook (nix-mode . lsp-deferred)
-  :ensure t)
+(require 'lsp-mode)
+(require 'nix-mode)
+(require 'gdscript-mode)
 
 (setq lsp-java-workspace-dir (concat user-home-directory "/.local/share/doom/java-workspace"))
-
-(require 'gdscript-mode)
-(use-package gdscript-mode
-  :hook (gdscript-mode . lsp-deferred)
-  :ensure t)
 
 (setq lsp-treemacs-deps-position-params
   '((side . right)
