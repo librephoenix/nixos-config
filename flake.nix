@@ -13,6 +13,7 @@
         bootMode = "uefi"; # uefi or bios
         bootMountPath = "/boot"; # mount path for efi boot partition; only used for uefi boot mode
         grubDevice = ""; # device identifier for grub; only used for legacy (bios) boot mode
+        gpuType = "amd"; # amd, intel or nvidia; only makes some slight mods for amd at the moment
       };
 
       # ----- USER SETTINGS ----- #
@@ -48,7 +49,7 @@
 
       # create patched nixpkgs
       nixpkgs-patched =
-        (import inputs.nixpkgs { system = systemSettings.system; }).applyPatches {
+        (import inputs.nixpkgs { system = systemSettings.system; rocmSupport = (if systemSettings.gpu == "amd" then true else false); }).applyPatches {
           name = "nixpkgs-patched";
           src = inputs.nixpkgs;
           patches = [ ./patches/emacs-no-version-check.patch ];

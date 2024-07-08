@@ -58,6 +58,8 @@
     numbat
     element-desktop-wayland
 
+    openai-whisper-cpp
+
     wine
     bottles
     # The following requires 64-bit FL Studio (FL64) to be installed to a bottle

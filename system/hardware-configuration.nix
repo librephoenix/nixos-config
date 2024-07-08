@@ -12,7 +12,7 @@
   boot.initrd.kernelModules = [ "radeon" ];
   boot.kernelModules = [ "kvm-amd" "radeon" ];
   boot.extraModulePackages = with config.boot.kernelPackages; [ zenpower ];
-  hardware.opengl.extraPackages = [ pkgs.amdvlk ];
+  hardware.opengl.extraPackages = [ pkgs.amdvlk pkgs.rocmPackages.clr.icd ];
   hardware.opengl.extraPackages32 = [ pkgs.driversi686Linux.amdvlk ];
 
   systemd.tmpfiles.rules = [
