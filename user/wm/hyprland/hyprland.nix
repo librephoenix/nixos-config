@@ -153,7 +153,8 @@ in
          }
        }
 
-       bind=SUPER,SUPER_L,exec,nwggrid-wrapper
+       bind=SUPER,code:9,exec,nwggrid-wrapper
+       bind=SUPER,code:66,exec,nwggrid-wrapper
        bind=SUPER,SPACE,fullscreen,1
        bind=SUPERSHIFT,F,fullscreen,0
        bind=SUPER,Y,workspaceopt,allfloat
@@ -359,7 +360,7 @@ in
 
        misc {
          disable_hyprland_logo = true
-         mouse_move_enables_dpms = false
+         mouse_move_enables_dpms = true
        }
        decoration {
          rounding = 8
@@ -413,8 +414,8 @@ in
       src = fetchFromGitHub {
         owner = "hyprland-community";
         repo = "pyprland";
-        rev = "refs/tags/2.3.8";
-        hash = "sha256-0YUI2/gJmBoummiHGpq2p2sT25SwCdnsRwfGK2pcm4s=";
+        rev = "refs/tags/2.4.0";
+        hash = "sha256-jK6ap/beiqAtZXVNqPB3zV8R2Kfc3LhqJBvFlWYIfb4=";
       };
     }))
     (hyprnome.override (oldAttrs: {
@@ -619,6 +620,7 @@ in
     listener {
       timeout = 7200 # in seconds
       on-timeout = systemctl suspend
+      on-resume = hyprctl dispatch dpms on
     }
   '';
   home.file.".config/hypr/hyprlock.conf".text = ''
