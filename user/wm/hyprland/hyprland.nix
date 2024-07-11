@@ -48,6 +48,7 @@ in
 
       exec-once = hyprprofile Default
 
+      exec-once = emacs --daemon
       exec-once = pypr
       exec-once = ydotoold
       #exec-once = STEAM_FRAME_FORCE_CLOSE=1 steam -silent
