@@ -19,17 +19,18 @@ else
     SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 fi
 pushd $SCRIPT_DIR &> /dev/null;
-chown 0:0 .;
-chown 0:0 profiles/*;
-chown -R 0:0 system;
-chown -R 0:0 patches;
-chown 0:0 flake.lock;
-chown 0:0 flake.nix
-chown 0:0 profiles
-chown 0:0 profiles/*/configuration.nix;
-chown 0:0 harden.sh;
-chown 0:0 soften.sh;
-chown 0:0 install.sh;
-chown 0:0 update.sh;
-chown 1000:users **/README.org;
+sudo chown 0:0 .;
+sudo chown 0:0 profiles/*;
+sudo chown -R 0:0 system;
+sudo chown -R 0:0 patches;
+sudo chown 0:0 flake.lock;
+sudo chown 0:0 flake.nix
+sudo chown 0:0 profiles
+sudo chown 0:0 profiles/*/configuration.nix;
+sudo chown 0:0 profiles/homelab/base.nix;
+sudo chown 0:0 harden.sh;
+sudo chown 0:0 soften.sh;
+sudo chown 0:0 install.sh;
+sudo chown 0:0 update.sh;
+sudo chown 1000:users **/README.org;
 popd &> /dev/null;
