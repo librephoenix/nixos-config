@@ -727,8 +727,8 @@ If the path from LINK does not exist, nil is returned."
 (defun org-roam-open-dashboard ()
   "Open ${org-roam-directory}/dashboard.org (I use this naming convention to create dashboards for each of my org roam maps)"
   (interactive)
-  (if (file-exists-p (concat org-roam-directory "/dashboard.org"))
-      (org-open-file (concat org-roam-directory "/dashboard.org"))
+  (if (org-roam-node-from-title-or-alias "Overview")
+      (org-roam-node-open (org-roam-node-from-title-or-alias "Overview"))
       (dired org-roam-directory))
 )
 
@@ -740,11 +740,19 @@ If the path from LINK does not exist, nil is returned."
       (message "No inbox found, capture something with M-x org-roam-capture-inbox"))
 )
 
+(defun org-roam-open-inbox ()
+  "Open ${org-roam-directory}/dashboard.org (I use this naming convention to create dashboards for each of my org roam maps)"
+  (interactive)
+  (if (org-roam-node-from-title-or-alias "Inbox")
+      (org-roam-node-open (org-roam-node-from-title-or-alias "Inbox"))
+      (message "No inbox found, capture something with M-x org-roam-capture-inbox"))
+)
+
 (defun org-roam-capture-inbox ()
   (interactive)
-  (org-roam-capture- :node (org-roam-node-create)
+  (org-roam-capture- :node (org-roam-node-from-title-or-alias "Inbox")
                      :templates '(("i" "inbox" plain "* %?"
-                                  :if-new (file+head "inbox.org" "#+title: Inbox\n")))))
+                                  :if-new (file+head "%<%Y%m%d%H%M%S>-inbox.org" "#+title: Inbox\n")))))
 
 (defun org-roam-switch-db (&optional arg silent)
   "Switch to a different org-roam database, arg"
