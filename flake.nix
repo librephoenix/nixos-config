@@ -1,14 +1,14 @@
 {
-  description = "Flake of LibrePhoenix";
+  description = "Flake of LibrePhoenix / Akunito's fork";
 
   outputs = inputs@{ self, ... }:
     let
       # ---- SYSTEM SETTINGS ---- #
       systemSettings = {
         system = "x86_64-linux"; # system arch
-        hostname = "snowfire"; # hostname
-        profile = "personal"; # select a profile defined from my profiles directory
-        timezone = "America/Chicago"; # select timezone
+        hostname = "nixosaku"; # hostname
+        profile = "aku-personal"; # select a profile defined from my profiles directory
+        timezone = "Europe/Warsaw"; # select timezone
         locale = "en_US.UTF-8"; # select locale
         bootMode = "uefi"; # uefi or bios
         bootMountPath = "/boot"; # mount path for efi boot partition; only used for uefi boot mode
@@ -18,9 +18,9 @@
 
       # ----- USER SETTINGS ----- #
       userSettings = rec {
-        username = "emmet"; # username
-        name = "Emmet"; # name/identifier
-        email = "emmet@librephoenix.com"; # email (used for certain configurations)
+        username = "akunito"; # username
+        name = "akunito"; # name/identifier
+        email = "diego88aku@gmail.com"; # email (used for certain configurations)
         dotfilesDir = "~/.dotfiles"; # absolute path of the local repo
         theme = "io"; # selcted theme from my themes directory (./themes/)
         wm = "hyprland"; # Selected window manager or desktop environment; must select one in both ./user/wm/ and ./system/wm/
@@ -31,7 +31,7 @@
         term = "alacritty"; # Default terminal command;
         font = "Intel One Mono"; # Selected font
         fontPkg = pkgs.intel-one-mono; # Font package
-        editor = "emacsclient"; # Default editor;
+        editor = "nano"; # Default editor;
         # editor spawning translator
         # generates a command that can be used to spawn editor inside a gui
         # EDITOR and TERM session variables must be set in home.nix or other module

@@ -1,0 +1,22 @@
+{
+
+  description = "My first flake!";
+
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable"; # which is the branch. You should use the last version or the unstable
+    home-manager.url = github:nix-community/home-manager/
+  }; # git links
+
+  outputs = { self, nixpkgs, ... }: 
+    let
+      lib = nixpkgs.lib; # we pass lib to be able to use ie: lib.nixosSystem and others
+    in {
+    nixosConfigurations = {
+      nixosaku = lib.nixosSystem {
+	system = "x86_64-linux";
+	modules = [ ./configuration.nix ];	
+      };
+    };
+  };
+
+}
