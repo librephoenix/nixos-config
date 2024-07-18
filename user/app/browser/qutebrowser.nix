@@ -116,7 +116,7 @@ if (os.path.isfile(secretFile)):
     secretsExists = True
 
 config.set('qt.args',['ignore-gpu-blacklist','enable-gpu-rasterization','enable-native-gpu-memory-buffers','num-raster-threads=4'])
-config.load_autoconfig(False)
+config.load_autoconfig(True)
 
 base00 = "#''+config.lib.stylix.colors.base00+''"
 base01 = "#''+config.lib.stylix.colors.base01+''"
