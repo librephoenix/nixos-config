@@ -1503,6 +1503,11 @@ If the path from LINK does not exist, nil is returned."
 (require 'nix-mode)
 (require 'gdscript-mode)
 
+(add-hook 'nix-mode-hook 'lsp-deferred)
+(add-hook 'gdscript-mode-hook 'lsp-deferred)
+
+(setq gdscript-godot-executable "godot4")
+
 (setq lsp-java-workspace-dir (concat user-home-directory "/.local/share/doom/java-workspace"))
 
 (setq lsp-treemacs-deps-position-params
@@ -1519,6 +1524,37 @@ If the path from LINK does not exist, nil is returned."
               :desc "Hide neotree" "o S" #'treemacs-quit)
 
 (setq +format-on-save-enabled-modes '(not emacs-lisp-mode sql-mode tex-mode latex-mode org-msg-edit-mode nix-mode))
+
+(defun lsp-booster--advice-json-parse (old-fn &rest args)
+  "Try to parse bytecode instead of json."
+  (or
+   (when (equal (following-char) ?#)
+     (let ((bytecode (read (current-buffer))))
+       (when (byte-code-function-p bytecode)
+         (funcall bytecode))))
+   (apply old-fn args)))
+(advice-add (if (progn (require 'json)
+                       (fboundp 'json-parse-buffer))
+                'json-parse-buffer
+              'json-read)
+            :around
+            #'lsp-booster--advice-json-parse)
+
+(defun lsp-booster--advice-final-command (old-fn cmd &optional test?)
+  "Prepend emacs-lsp-booster command to lsp CMD."
+  (let ((orig-result (funcall old-fn cmd test?)))
+    (if (and (not test?)                             ;; for check lsp-server-present?
+             (not (file-remote-p default-directory)) ;; see lsp-resolve-final-command, it would add extra shell wrapper
+             lsp-use-plists
+             (not (functionp 'json-rpc-connection))  ;; native json-rpc
+             (executable-find "emacs-lsp-booster"))
+        (progn
+          (when-let ((command-from-exec-path (executable-find (car orig-result))))  ;; resolve command from exec-path (in case not found in $PATH)
+            (setcar orig-result command-from-exec-path))
+          (message "Using emacs-lsp-booster for %s!" orig-result)
+          (cons "emacs-lsp-booster" orig-result))
+      orig-result)))
+(advice-add 'lsp-resolve-final-command :around #'lsp-booster--advice-final-command)
 
 (add-to-list 'tramp-remote-path 'tramp-own-remote-path)
 (after! vterm
