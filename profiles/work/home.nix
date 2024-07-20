@@ -1,4 +1,4 @@
-{ config, pkgs, pkgs-kdenlive, userSettings, ... }:
+{ config, pkgs, pkgs-stable, pkgs-kdenlive, userSettings, ... }:
 
 {
   # Home Manager needs a bit of information about you and the paths it should
@@ -111,7 +111,7 @@
     pinta
     krita
     inkscape
-    musikcube
+    (pkgs-stable.lollypop.override { youtubeSupport = false; })
     vlc
     mpv
     yt-dlp

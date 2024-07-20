@@ -173,6 +173,11 @@ in
        bind=SUPERSHIFT,K,exec,hyprctl kill
        bind=SUPER,W,exec,nwg-dock-wrapper
 
+       bind=,code:172,exec,lollypop -t
+       bind=,code:174,exec,lollypop -s
+       bind=,code:171,exec,lollypop -n
+       bind=,code:173,exec,lollypop -p
+
        bind = SUPER,R,pass,^(com\.obsproject\.Studio)$
        bind = SUPERSHIFT,R,pass,^(com\.obsproject\.Studio)$
 
@@ -259,7 +264,7 @@ in
        bind=SUPER,Z,exec,pypr toggle term && hyprctl dispatch bringactivetotop
        bind=SUPER,F,exec,pypr toggle ranger && hyprctl dispatch bringactivetotop
        bind=SUPER,N,exec,pypr toggle numbat && hyprctl dispatch bringactivetotop
-       bind=SUPER,M,exec,pypr toggle musikcube && hyprctl dispatch bringactivetotop
+       bind=SUPER,M,exec,pypr toggle music && hyprctl dispatch bringactivetotop
        bind=SUPER,B,exec,pypr toggle btm && hyprctl dispatch bringactivetotop
        bind=SUPER,D,exec,hypr-element
        bind=SUPER,code:172,exec,pypr toggle pavucontrol && hyprctl dispatch bringactivetotop
@@ -274,6 +279,10 @@ in
        windowrulev2 = float,class:^(Element)$
        windowrulev2 = size 85% 90%,class:^(Element)$
        windowrulev2 = center,class:^(Element)$
+
+       windowrulev2 = float,class:^(lollypop)$
+       windowrulev2 = size 85% 90%,class:^(lollypop)$
+       windowrulev2 = center,class:^(lollypop)$
 
        $savetodisk = title:^(Save to Disk)$
        windowrulev2 = float,$savetodisk
@@ -299,6 +308,7 @@ in
 
        windowrulev2 = opacity 1.0,class:^(org.qutebrowser.qutebrowser),fullscreen:1
        windowrulev2 = opacity 0.85,class:^(Element)$
+       windowrulev2 = opacity 0.85,class:^(lollypop)$
        windowrulev2 = opacity 1.0,class:^(Brave-browser),fullscreen:1
        windowrulev2 = opacity 1.0,class:^(librewolf),fullscreen:1
        windowrulev2 = opacity 0.85,title:^(My Local Dashboard Awesome Homepage - qutebrowser)$
@@ -726,8 +736,8 @@ in
     command = "alacritty --class scratchpad -e numbat"
     margin = 50
 
-    [scratchpads.musikcube]
-    command = "alacritty --class scratchpad -e musikcube"
+    [scratchpads.music]
+    command = "lollypop"
     margin = 50
 
     [scratchpads.btm]
@@ -796,7 +806,7 @@ in
             "9" = "󱎓";
             "scratch_term" = "_";
             "scratch_ranger" = "_󰴉";
-            "scratch_musikcube" = "_";
+            "scratch_music" = "_";
             "scratch_btm" = "_";
             "scratch_pavucontrol" = "_󰍰";
           };
