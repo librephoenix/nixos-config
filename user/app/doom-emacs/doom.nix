@@ -47,6 +47,7 @@ in
   };
 
   home.packages = (with pkgs-emacs; [
+    emacs-lsp-booster
     nil
     nixfmt
     file
