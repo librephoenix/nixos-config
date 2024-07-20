@@ -5,7 +5,7 @@
   fonts.packages = with pkgs; [
     # Fonts
     nerdfonts
-    powerline
+    # powerline # FIXME broken by python 311 -> 312 nixpkgs update
   ];
 
 }

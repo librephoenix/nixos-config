@@ -117,13 +117,13 @@
     yt-dlp
     blender-hip
     # cura is moderately broken on wayland, so use xwayland
-    (pkgs.cura.overrideAttrs (oldAttrs: {
+    (pkgs-stable.cura.overrideAttrs (oldAttrs: {
       postInstall = oldAttrs.postInstall + ''cp -rf ${(pkgs.makeDesktopItem {
           name = "com.ultimaker.cura";
           icon = "cura-icon";
           desktopName = "Cura";
-          exec = "env QT_QPA_PLATFORM=xcb ${pkgs.cura}/bin/cura %F";
-          tryExec = "env QT_QPA_PLATFORM=xcb ${pkgs.cura}/bin/cura";
+          exec = "env QT_QPA_PLATFORM=xcb ${pkgs-stable.cura}/bin/cura %F";
+          tryExec = "env QT_QPA_PLATFORM=xcb ${pkgs-stable.cura}/bin/cura";
           terminal = false;
           type = "Application";
           categories = ["Graphics"];
@@ -133,8 +133,8 @@
                        "model/gltf+json" "model/vnd.collada+xml+zip"];
           })}/share/applications $out/share'';
     }))
-    (pkgs.writeShellScriptBin "curax" ''env QT_QPA_PLATFORM=xcb ${pkgs.cura}/bin/cura'')
-    curaengine_stable
+    (pkgs.writeShellScriptBin "curax" ''env QT_QPA_PLATFORM=xcb ${pkgs-stable.cura}/bin/cura'')
+    (pkgs-stable.curaengine_stable)
     openscad
     (stdenv.mkDerivation {
       name = "cura-slicer";
@@ -154,7 +154,7 @@
         sed -i 's+#!/usr/bin/perl+#! /usr/bin/env nix-shell\n#! nix-shell -i perl -p perl538 perl538Packages.JSON+g' $out/bin/cura-slicer
         sed -i 's+/usr/share+/home/${userSettings.username}/.nix-profile/share+g' $out/bin/cura-slicer
       '';
-      propagatedBuildInputs = with pkgs; [
+      propagatedBuildInputs = with pkgs-stable; [
         curaengine_stable
       ];
     })

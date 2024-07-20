@@ -1,6 +1,6 @@
-diff -crB nixpkgs/pkgs/build-support/emacs/generic.nix nixpkgs-patched/pkgs/build-support/emacs/generic.nix
-*** nixpkgs/pkgs/build-support/emacs/generic.nix	2023-09-08 20:42:24.476059868 -0500
---- nixpkgs-patched/pkgs/build-support/emacs/generic.nix	2023-09-08 21:12:46.637645595 -0500
+diff -crB nixpkgs/pkgs/applications/editors/emacs/build-support/generic.nix nixpkgs-patched/pkgs/applications/editors/emacs/build-support/generic.nix
+*** nixpkgs/pkgs/applications/editors/emacs/build-support/generic.nix	2023-09-08 20:42:24.476059868 -0500
+--- nixpkgs-patched/pkgs/applications/editors/emacs/build-support/generic.nix	2023-09-08 21:12:46.637645595 -0500
 ***************
 *** 3,9 ****
   { lib, stdenv, emacs, texinfo, writeText, gcc, ... }:
