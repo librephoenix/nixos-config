@@ -18,7 +18,7 @@
               ../../user/app/keepass/keepass.nix # My password manager
               (./. + "../../../user/app/browser"+("/"+userSettings.browser)+".nix") # My default browser selected from flake
               ../../user/app/virtualization/virtualization.nix # Virtual machines
-              #../../user/app/flatpak/flatpak.nix # Flatpaks
+              ../../user/app/flatpak/flatpak.nix # Flatpaks
               ../../user/style/stylix.nix # Styling and themes for my apps
               ../../user/lang/cc/cc.nix # C and C++ tools
               ../../user/lang/godot/godot.nix # Game development

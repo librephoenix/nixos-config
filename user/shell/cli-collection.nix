@@ -19,6 +19,9 @@
     hwinfo
     pciutils
     numbat
+    lazygit
+    zoxide
+    fzf
     (pkgs.callPackage ../pkgs/pokemon-colorscripts.nix { })
     (pkgs.writeShellScriptBin "airplane-mode" ''
       #!/bin/sh
