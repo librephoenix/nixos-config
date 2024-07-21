@@ -749,13 +749,13 @@ Config { font = "Inconsolata 16"
                     , Run DynNetwork
                       [ "-t", "<fc=#{{base0D-hex}}><fn=1>\xf0200</fn> <dev></fc>"] 1
                     , Run Com "cat"
-                      [ "/home/emmet/.st-status"] "syncthing" 10
+                      [ "/home/ama/.st-status"] "syncthing" 10
                     , Run Com "echo"
                       [ "<fn=1>\xea77</fn> "] "syncthingsymbol" 0
                     , Run Com "echo"
                       [ "<fn=1>\xeb5c</fn> "] "artsymbol" 0
                     , Run Com "cat"
-                      [ "/home/emmet/.currenttheme"] "currenttheme" 0
+                      [ "/home/ama/.currenttheme"] "currenttheme" 0
                     , Run Memory [ "-t", "<fc=#{{base08-hex}}><fn=1>\xf035b</fn> <usedratio>% (<used> GB)</fc>", "-d", "1", "--", "--scale", "1024"] 20
                     ]
        , sepChar = "%"

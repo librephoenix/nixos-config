@@ -651,7 +651,7 @@ in
     # doesn't work yet
     image {
       monitor =
-      path = /home/emmet/.dotfiles/user/wm/hyprland/nix-dark.png
+      path = /home/ama/.dotfiles/user/wm/hyprland/nix-dark.png
       size = 150 # lesser side if not 1:1 ratio
       rounding = -1 # negative values mean circle
       border_size = 0
@@ -695,7 +695,7 @@ in
 
     label {
       monitor =
-      text = Hello, Emmet
+      text = Hello, AMA
       color = rgb(''+config.lib.stylix.colors.base07-rgb-r+'',''+config.lib.stylix.colors.base07-rgb-g+'', ''+config.lib.stylix.colors.base07-rgb-b+'')
       font_size = 25
       font_family = ''+userSettings.font+''

@@ -654,7 +654,7 @@ If the path from LINK does not exist, nil is returned."
 
 (require 'crdt)
 (setq crdt-default-tls nil)
-(setq crdt-default-name "Emmet")
+(setq crdt-default-name "ama")
 (if (file-exists-p "~/.emacs.d/crdt-private.el") (load! "~/.emacs.d/crdt-private.el"))
 (defun crdt-connect-default ()
   (interactive)
