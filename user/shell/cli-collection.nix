@@ -22,6 +22,7 @@
     lazygit
     zoxide
     fzf
+    gh
     (pkgs.callPackage ../pkgs/pokemon-colorscripts.nix { })
     (pkgs.writeShellScriptBin "airplane-mode" ''
       #!/bin/sh
