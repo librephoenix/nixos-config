@@ -29,7 +29,7 @@
         browser = "librewolf"; # Default browser; must select one from ./user/app/browser/
         defaultRoamDir = "Personal.p"; # Default org roam directory relative to ~/Org
         term = "alacritty"; # Default terminal command;
-        font = "Intel One Mono"; # Selected font
+        font = "JetBrainsMono Nerd Font Mono"; # Selected font
         fontPkg = pkgs.intel-one-mono; # Font package
         editor = "nvim"; # Default editor;
         # editor spawning translator
