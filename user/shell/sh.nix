@@ -44,6 +44,8 @@ in
   programs.direnv.enable = true;
   programs.direnv.enableZshIntegration = true;
   programs.direnv.nix-direnv.enable = true;
+  programs.fzf.enable = true;
   programs.fzf.enableZshIntegration = true;
+  programs.zoxide.enable = true;
   programs.zoxide.enableZshIntegration = true;
 }
