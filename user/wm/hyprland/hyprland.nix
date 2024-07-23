@@ -48,7 +48,6 @@ in
 
       exec-once = hyprprofile Default
 
-      exec-once = emacs --daemon
       exec-once = pypr
       exec-once = ydotoold
       #exec-once = STEAM_FRAME_FORCE_CLOSE=1 steam -silent
@@ -513,15 +512,7 @@ in
       #!/bin/sh
       if pgrep -x nixos-rebuild > /dev/null || pgrep -x home-manager > /dev/null || pgrep -x kdenlive > /dev/null || pgrep -x FL64.exe > /dev/null || pgrep -x blender > /dev/null || pgrep -x flatpak > /dev/null;
       then echo "Shouldn't suspend"; sleep 10; else echo "Should suspend"; systemctl suspend; fi
-    '')
-    (pkgs.makeDesktopItem {
-      name = "emacsclientnewframe";
-      desktopName = "Emacs Client New Frame";
-      exec = "emacsclient -c -a emacs";
-      terminal = false;
-      icon = "emacs";
-      type = "Application";
-    })])
+    '')])
   ++
   (with pkgs-hyprland; [ hyprlock ])
   ++ (with pkgs-nwg-dock-hyprland; [
@@ -572,7 +563,6 @@ in
   home.file.".config/nwg-dock-pinned".text = ''
     nwggrid
     Alacritty
-    emacsclientnewframe
     qutebrowser
     brave-browser
     librewolf

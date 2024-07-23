@@ -191,7 +191,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) =
       -- launch a terminal
       ((modm, xK_Return), spawn $ XMonad.terminal conf),
 
-      -- launch emacsclient
+      -- launch editor
       ((modm, xK_a), spawn mySpawnEditor),
 
       -- launch browser
