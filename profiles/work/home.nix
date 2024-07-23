@@ -56,7 +56,6 @@
     protonmail-bridge
     texliveSmall
     numbat
-    element-desktop-wayland
 
     openai-whisper-cpp
 

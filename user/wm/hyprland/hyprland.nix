@@ -54,7 +54,6 @@ in
       #exec-once = STEAM_FRAME_FORCE_CLOSE=1 steam -silent
       exec-once = nm-applet
       exec-once = blueman-applet
-      exec-once = hypr-element-start
       exec-once = GOMAXPROCS=1 syncthing --no-browser
       exec-once = protonmail-bridge --noninteractive
       exec-once = waybar
@@ -266,7 +265,6 @@ in
        bind=SUPER,N,exec,pypr toggle numbat && hyprctl dispatch bringactivetotop
        bind=SUPER,M,exec,pypr toggle music && hyprctl dispatch bringactivetotop
        bind=SUPER,B,exec,pypr toggle btm && hyprctl dispatch bringactivetotop
-       bind=SUPER,D,exec,hypr-element
        bind=SUPER,code:172,exec,pypr toggle pavucontrol && hyprctl dispatch bringactivetotop
        $scratchpadsize = size 80% 85%
 
@@ -275,10 +273,6 @@ in
        windowrulev2 = $scratchpadsize,$scratchpad
        windowrulev2 = workspace special silent,$scratchpad
        windowrulev2 = center,$scratchpad
-
-       windowrulev2 = float,class:^(Element)$
-       windowrulev2 = size 85% 90%,class:^(Element)$
-       windowrulev2 = center,class:^(Element)$
 
        windowrulev2 = float,class:^(lollypop)$
        windowrulev2 = size 85% 90%,class:^(lollypop)$
@@ -307,7 +301,6 @@ in
        windowrulev2 = opacity 0.80,title:ORUI
 
        windowrulev2 = opacity 1.0,class:^(org.qutebrowser.qutebrowser),fullscreen:1
-       windowrulev2 = opacity 0.85,class:^(Element)$
        windowrulev2 = opacity 0.85,class:^(lollypop)$
        windowrulev2 = opacity 1.0,class:^(Brave-browser),fullscreen:1
        windowrulev2 = opacity 1.0,class:^(librewolf),fullscreen:1
@@ -493,20 +486,7 @@ in
         nwg-dock-hyprland -f -x -i 64 -nolauncher -a start -ml 8 -mr 8 -mb 8
       fi
     '')
-    (pkgs.writeScriptBin "hypr-element-start" ''
-      #!/usr/bin/env sh
-      sleep 6 && element-desktop --hidden
-    '')
-    (pkgs.writeScriptBin "hypr-element" ''
-      #!/bin/sh
-      if hyprctl clients | grep "class: Element" > /dev/null
-      then
-        hyprctl dispatch closewindow Element
-      else
-        element-desktop
-      fi
-    '')
-    (pkgs.writeScriptBin "sct" ''
+   (pkgs.writeScriptBin "sct" ''
       #!/bin/sh
       killall wlsunset &> /dev/null;
       if [ $# -eq 1 ]; then
