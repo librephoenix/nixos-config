@@ -21,7 +21,6 @@
     librewolf
     brave
     git
-    syncthing
 
   ];
 

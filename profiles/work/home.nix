@@ -34,7 +34,6 @@
     brave
     qutebrowser
     git
-    syncthing
 
     # Office
     libreoffice-fresh
@@ -187,8 +186,6 @@
       template = builtins.readFile ../../user/pkgs/nixos-snowflake-stylix.svg.mustache;
       extension = "svg";
     };
-
-  services.syncthing.enable = true;
 
   xdg.enable = true;
   xdg.userDirs = {

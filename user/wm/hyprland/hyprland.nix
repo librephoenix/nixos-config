@@ -53,7 +53,6 @@ in
       #exec-once = STEAM_FRAME_FORCE_CLOSE=1 steam -silent
       exec-once = nm-applet
       exec-once = blueman-applet
-      exec-once = GOMAXPROCS=1 syncthing --no-browser
       exec-once = protonmail-bridge --noninteractive
       exec-once = waybar
 

@@ -22,7 +22,6 @@
     # Core
     zsh
     git
-    syncthing
 
     # Office
     libreoffice-fresh
@@ -32,8 +31,6 @@
     libffi zlib
     nodePackages.ungit
   ];
-
-  services.syncthing.enable = true;
 
   xdg.enable = true;
   xdg.userDirs = {
