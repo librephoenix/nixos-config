@@ -1,4 +1,4 @@
-{ config, lib, pkgs, pkgs-stable, pkgs-emacs, systemSettings, userSettings, inputs, ... }:
+{ config, lib, pkgs, pkgs-stable, systemSettings, userSettings, inputs, ... }:
 
 {
   # Simply install just the packages
@@ -51,7 +51,6 @@
     extraSpecialArgs = {
       # pass config variables from above
       inherit pkgs-stable;
-      inherit pkgs-emacs;
       inherit systemSettings;
       inherit userSettings;
       inherit inputs;

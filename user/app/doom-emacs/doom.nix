@@ -12,7 +12,7 @@ in
   ];
 
   programs.doom-emacs = {
-    enable = true;
+    enable = false;
     emacsPackage = pkgs-emacs.emacs29-pgtk;
     doomPrivateDir = ./.;
     # This block from https://github.com/znewman01/dotfiles/blob/be9f3a24c517a4ff345f213bf1cf7633713c9278/emacs/default.nix#L12-L34
