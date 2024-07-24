@@ -54,6 +54,8 @@
     [Behavior]
     # Active By Default
     ActiveByDefault=False
+    # Reset state on Focus In
+    resetStateWhenFocusIn=No
     # Share Input State
     ShareInputState=No
     # Show preedit in application
