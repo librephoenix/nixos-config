@@ -1,4 +1,4 @@
-{ config, pkgs, pkgs-stable, pkgs-kdenlive, userSettings, ... }:
+{ config, pkgs, pkgs-stable, pkgs-kdenlive, pkgs-rime, userSettings, ... }:
 
 {
   # Home Manager needs a bit of information about you and the paths it should
@@ -34,6 +34,9 @@
     brave
     qutebrowser
     git
+    lua
+    (pkgs-rime.librime)
+    (pkgs-rime.librime-lua)
 
     # Office
     libreoffice-fresh

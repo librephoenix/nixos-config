@@ -1,9 +1,9 @@
-{ pkgs, ... }:
+{ pkgs-rime, ... }:
 
 {
   i18n.inputMethod = {
     enabled = "fcitx5";
-    fcitx5.addons = with pkgs; [
+    fcitx5.addons = with pkgs-rime; [
       fcitx5-mozc
       fcitx5-gtk
       fcitx5-rime
