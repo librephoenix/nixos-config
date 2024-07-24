@@ -944,6 +944,21 @@
         "type": "github"
       }
     },
+    "nixpkgs-rime": {
+      "locked": {
+        "lastModified": 1720939314,
+        "narHash": "sha256-7mGcyBLm0k46bOEGa6vd8uIwROJBJP6i5S8vYtpdGc4=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "2bbfe90eee015cc44f6fa5636df952d58b159389",
+        "type": "github"
+      },
+      "original": {
+        "id": "nixpkgs",
+        "rev": "2bbfe90eee015cc44f6fa5636df952d58b159389",
+        "type": "indirect"
+      }
+    },
     "nixpkgs-stable": {
       "locked": {
         "lastModified": 1721226092,
@@ -1303,6 +1318,7 @@
         "nix-on-droid": "nix-on-droid",
         "nix-straight": "nix-straight",
         "nixpkgs": "nixpkgs",
+        "nixpkgs-rime": "nixpkgs-rime",
         "nixpkgs-stable": "nixpkgs-stable",
         "nwg-dock-hyprland-pin-nixpkgs": "nwg-dock-hyprland-pin-nixpkgs",
         "org-krita": "org-krita",

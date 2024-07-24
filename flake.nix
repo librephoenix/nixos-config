@@ -91,6 +91,10 @@
         system = systemSettings.system;
       };
 
+      pkgs-rime = import inputs.nixpkgs-rime {
+        system = systemSettings.system;
+      };
+
       pkgs-kdenlive = import inputs.kdenlive-pin-nixpkgs {
         system = systemSettings.system;
       };
@@ -137,6 +141,7 @@
             # pass config variables from above
             inherit pkgs-stable;
             inherit pkgs-emacs;
+            inherit pkgs-rime;
             inherit pkgs-kdenlive;
             inherit pkgs-nwg-dock-hyprland;
             inherit systemSettings;
@@ -202,6 +207,7 @@
     nixpkgs.url = "nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "nixpkgs/nixos-24.05";
     emacs-pin-nixpkgs.url = "nixpkgs/f72123158996b8d4449de481897d855bc47c7bf6";
+    nixpkgs-rime.url = "nixpkgs/2bbfe90eee015cc44f6fa5636df952d58b159389";
     kdenlive-pin-nixpkgs.url = "nixpkgs/cfec6d9203a461d9d698d8a60ef003cac6d0da94";
     nwg-dock-hyprland-pin-nixpkgs.url = "nixpkgs/2098d845d76f8a21ae4fe12ed7c7df49098d3f15";
 
