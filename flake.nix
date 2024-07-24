@@ -52,7 +52,6 @@
         (import inputs.nixpkgs { system = systemSettings.system; rocmSupport = (if systemSettings.gpu == "amd" then true else false); }).applyPatches {
           name = "nixpkgs-patched";
           src = inputs.nixpkgs;
-          patches = [ ./patches/emacs-no-version-check.patch ];
         };
 
       # configure pkgs
