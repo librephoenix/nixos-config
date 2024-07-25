@@ -78,15 +78,6 @@
         };
       };
 
-      pkgs-unstable = import inputs.nixpkgs-patched {
-        system = systemSettings.system;
-        config = {
-          allowUnfree = true;
-          allowUnfreePredicate = (_: true);
-        };
-        overlays = [ inputs.rust-overlay.overlays.default ];
-      };
-
       pkgs-emacs = import inputs.emacs-pin-nixpkgs {
         system = systemSettings.system;
       };
