@@ -90,6 +90,7 @@
     cryptsetup
     home-manager
     wpa_supplicant
+    nix-ld
   ];
 
   # I use zsh btw
@@ -106,6 +107,25 @@
       pkgs.xdg-desktop-portal-gtk
     ];
   };
+
+  # nix-ld
+  programs.nix-ld.enable = true;
+  programs.nix-ld.libraries = with pkgs; [
+    zlib
+    zstd
+    stdenv.cc.cc
+    curl
+    openssl
+    attr
+    libssh
+    bzip2
+    libxml2
+    acl
+    libsodium
+    util-linux
+    xz
+    systemd
+  ];
 
   # It is ok to leave this unchanged for compatibility purposes
   system.stateVersion = "22.11";
