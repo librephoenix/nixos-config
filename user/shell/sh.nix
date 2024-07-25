@@ -5,6 +5,7 @@ let
   myAliases = {
     ls = "eza --icons -l -T -L=1";
     cat = "bat";
+    cd = "z";
     htop = "btm";
     fd = "fd -Lu";
     w3m = "w3m -no-cookie -v";
