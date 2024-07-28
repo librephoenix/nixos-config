@@ -173,6 +173,7 @@
     tenacity
 
     # Various dev packages
+    sshfs
     texinfo
     libffi zlib
     nodePackages.ungit
