@@ -108,7 +108,6 @@
 
     # Media
     gimp
-    pinta
     krita
     inkscape
     (pkgs-stable.lollypop.override { youtubeSupport = false; })
