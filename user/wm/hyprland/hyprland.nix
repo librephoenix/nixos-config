@@ -45,6 +45,7 @@ in
       env = QT_AUTO_SCREEN_SCALE_FACTOR,1
       env = QT_WAYLAND_DISABLE_WINDOWDECORATION,1
       env = CLUTTER_BACKEND,wayland
+      env = GDK_PIXBUF_MODULE_FILE,${pkgs.librsvg}/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache
 
       exec-once = hyprprofile Default
 
@@ -459,7 +460,6 @@ in
     hypridle
     hyprpaper
     fnott
-    fuzzel
     keepmenu
     pinentry-gnome3
     wev
@@ -759,6 +759,7 @@ in
         sed -i 's/zext_workspace_handle_v1_activate(workspace_handle_);/const std::string command = "hyprctl dispatch focusworkspaceoncurrentmonitor " + std::to_string(id());\n\tsystem(command.c_str());/g' src/modules/wlr/workspace_manager.cpp
         sed -i 's/gIPC->getSocket1Reply("dispatch workspace " + std::to_string(id()));/gIPC->getSocket1Reply("dispatch focusworkspaceoncurrentmonitor " + std::to_string(id()));/g' src/modules/hyprland/workspaces.cpp
       '';
+      patches = [./patches/waybarpaupdate.patch ./patches/waybarbatupdate.patch];
     });
     settings = {
       mainBar = {
@@ -768,28 +769,70 @@ in
         margin = "7 7 3 7";
         spacing = 2;
 
-        modules-left = [ "custom/os" "custom/hyprprofile" "battery" "backlight" "keyboard-state" "pulseaudio" "cpu" "memory" ];
-        modules-center = [ "hyprland/workspaces" ];
-        modules-right = [ "idle_inhibitor" "tray" "clock" ];
+        modules-left = [ "group/power" "group/battery" "group/backlight" "group/cpu" "group/memory" "group/pulseaudio" "keyboard-state" ];
+        modules-center = [ "custom/hyprprofile" "hyprland/workspaces" ];
+        modules-right = [ "group/time" "idle_inhibitor" "tray" ];
 
         "custom/os" = {
           "format" = " {} ";
           "exec" = ''echo "" '';
           "interval" = "once";
           "on-click" = "nwggrid-wrapper";
+          "tooltip" = false;
+        };
+        "group/power" = {
+            "orientation" = "horizontal";
+            "drawer" = {
+                "transition-duration" = 500;
+                "children-class" = "not-power";
+                "transition-left-to-right" = true;
+            };
+            "modules" = [
+                "custom/os"
+                "custom/hyprprofileicon"
+                "custom/lock"
+                "custom/quit"
+                "custom/power"
+                "custom/reboot"
+            ];
+        };
+        "custom/quit" = {
+            "format" = "󰍃";
+            "tooltip" = false;
+            "on-click" = "hyprctl dispatch exit";
+        };
+        "custom/lock" = {
+            "format" = "󰍁";
+            "tooltip" = false;
+            "on-click" = "hyprlock";
+        };
+        "custom/reboot" = {
+            "format" = "󰜉";
+            "tooltip" = false;
+            "on-click" = "reboot now";
+        };
+        "custom/power" = {
+            "format" = "󰐥";
+            "tooltip" = false;
+            "on-click" = "shutdown now";
+        };
+        "custom/hyprprofileicon" = {
+          "format" = "󱙋";
+          "on-click" = "hyprprofile-dmenu";
+          "tooltip" = false;
         };
         "custom/hyprprofile" = {
-          "format" = "   {}";
+          "format" = " {}";
           "exec" = ''cat ~/.hyprprofile'';
           "interval" = 3;
           "on-click" = "hyprprofile-dmenu";
         };
         "keyboard-state" = {
           "numlock" = true;
-          "format" = " {icon} ";
+          "format" = "{icon}";
           "format-icons" = {
-            "locked" = "󰎠";
-            "unlocked" = "󱧓";
+            "locked" = "󰎠 ";
+            "unlocked" = "󱧓 ";
           };
         };
         "hyprland/workspaces" = {
@@ -813,25 +856,10 @@ in
           "on-click" = "activate";
           "on-scroll-up" = "hyprctl dispatch workspace e+1";
           "on-scroll-down" = "hyprctl dispatch workspace e-1";
-          #"all-outputs" = true;
-          #"active-only" = true;
+          "all-outputs" = false;
+          "active-only" = false;
           "ignore-workspaces" = ["scratch" "-"];
-          #"show-special" = false;
-          #"persistent-workspaces" = {
-          #    # this block doesn't seem to work for whatever reason
-          #    "eDP-1" = [1 2 3 4 5 6 7 8 9];
-          #    "DP-1" = [1 2 3 4 5 6 7 8 9];
-          #    "HDMI-A-1" = [1 2 3 4 5 6 7 8 9];
-          #    "1" = ["eDP-1" "DP-1" "HDMI-A-1"];
-          #    "2" = ["eDP-1" "DP-1" "HDMI-A-1"];
-          #    "3" = ["eDP-1" "DP-1" "HDMI-A-1"];
-          #    "4" = ["eDP-1" "DP-1" "HDMI-A-1"];
-          #    "5" = ["eDP-1" "DP-1" "HDMI-A-1"];
-          #    "6" = ["eDP-1" "DP-1" "HDMI-A-1"];
-          #    "7" = ["eDP-1" "DP-1" "HDMI-A-1"];
-          #    "8" = ["eDP-1" "DP-1" "HDMI-A-1"];
-          #    "9" = ["eDP-1" "DP-1" "HDMI-A-1"];
-          #};
+          "show-special" = false;
         };
 
         "idle_inhibitor" = {
@@ -845,43 +873,106 @@ in
           #"icon-size" = 21;
           "spacing" = 10;
         };
-        clock = {
+        "clock#time" = {
           "interval" = 1;
-          "format" = "{:%a %Y-%m-%d %I:%M:%S %p}";
+          "format" = "{:%I:%M:%S %p}";
           "timezone" = "America/Chicago";
           "tooltip-format" = ''
             <big>{:%Y %B}</big>
             <tt><small>{calendar}</small></tt>'';
         };
-        cpu = {
-          "format" = "{usage}% ";
+        "clock#date" = {
+          "interval" = 1;
+          "format" = "{:%a %Y-%m-%d}";
+          "timezone" = "America/Chicago";
+          "tooltip-format" = ''
+            <big>{:%Y %B}</big>
+            <tt><small>{calendar}</small></tt>'';
         };
-        memory = { "format" = "{}% "; };
+        "group/time" = {
+          "orientation" = "horizontal";
+          "drawer" = {
+            "transition-duration" = 500;
+            "transition-left-to-right" = false;
+          };
+          "modules" = [ "clock#time" "clock#date" ];
+        };
+
+        cpu = { "format" = "󰍛"; };
+        "cpu#text" = { "format" = "{usage}%"; };
+        "group/cpu" = {
+          "orientation" = "horizontal";
+          "drawer" = {
+            "transition-duration" = 500;
+            "transition-left-to-right" = true;
+          };
+          "modules" = [ "cpu" "cpu#text" ];
+        };
+
+        memory = { "format" = ""; };
+        "memory#text" = { "format" = "{}%"; };
+        "group/memory" = {
+          "orientation" = "horizontal";
+          "drawer" = {
+            "transition-duration" = 500;
+            "transition-left-to-right" = true;
+          };
+          "modules" = [ "memory" "memory#text" ];
+        };
+
         backlight = {
-          "format" = "{percent}% {icon}";
+          "format" = "{icon}";
           "format-icons" = [ "" "" "" "" "" "" "" "" "" ];
         };
+        "backlight#text" = { "format" = "{percent}%"; };
+        "group/backlight" = {
+          "orientation" = "horizontal";
+          "drawer" = {
+            "transition-duration" = 500;
+            "transition-left-to-right" = true;
+          };
+          "modules" = [ "backlight" "backlight#text" ];
+        };
+
         battery = {
           "states" = {
-            "good" = 95;
+            "good" = 75;
             "warning" = 30;
             "critical" = 15;
           };
-          "format" = "{capacity}% {icon}";
-          "format-charging" = "{capacity}% ";
-          "format-plugged" = "{capacity}% ";
-          #"format-good" = ""; # An empty format will hide the module
-          #"format-full" = "";
-          "format-icons" = [ "" "" "" "" "" ];
+          "fullat" = 80;
+          "format" = "{icon}";
+          "format-charging" = "󰂄";
+          "format-plugged" = "󰂄";
+          "format-full" = "󰁹";
+          "format-icons" = [ "󰁺" "󰁻" "󰁼" "󰁽" "󰁾" "󰁿" "󰂀" "󰂁" "󰂂" "󰁹" ];
+          "interval" = 10;
+        };
+        "battery#text" = {
+          "states" = {
+            "good" = 75;
+            "warning" = 30;
+            "critical" = 15;
+          };
+          "fullat" = 80;
+          "format" = "{capacity}%";
+        };
+        "group/battery" = {
+          "orientation" = "horizontal";
+          "drawer" = {
+            "transition-duration" = 500;
+            "transition-left-to-right" = true;
+          };
+          "modules" = [ "battery" "battery#text" ];
         };
         pulseaudio = {
           "scroll-step" = 1;
-          "format" = "{volume}% {icon}  {format_source}";
-          "format-bluetooth" = "{volume}% {icon}  {format_source}";
-          "format-bluetooth-muted" = "󰸈 {icon}  {format_source}";
-          "format-muted" = "󰸈 {format_source}";
-          "format-source" = "{volume}% ";
-          "format-source-muted" = " ";
+          "format" = "{icon}";
+          "format-bluetooth" = "{icon}";
+          "format-bluetooth-muted" = "󰸈";
+          "format-muted" = "󰸈";
+          "format-source" = "";
+          "format-source-muted" = "";
           "format-icons" = {
             "headphone" = "";
             "hands-free" = "";
@@ -892,6 +983,24 @@ in
             "default" = [ "" "" "" ];
           };
           "on-click" = "pypr toggle pavucontrol && hyprctl dispatch bringactivetotop";
+        };
+        "pulseaudio#text" = {
+          "scroll-step" = 1;
+          "format" = "{volume}%";
+          "format-bluetooth" = "{volume}%";
+          "format-bluetooth-muted" = "";
+          "format-muted" = "";
+          "format-source" = "{volume}%";
+          "format-source-muted" = "";
+          "on-click" = "pypr toggle pavucontrol && hyprctl dispatch bringactivetotop";
+        };
+        "group/pulseaudio" = {
+          "orientation" = "horizontal";
+          "drawer" = {
+            "transition-duration" = 500;
+            "transition-left-to-right" = true;
+          };
+          "modules" = [ "pulseaudio" "pulseaudio#text" ];
         };
       };
     };
@@ -948,7 +1057,7 @@ in
       }
 
       #workspaces button {
-          padding: 0 7px;
+          padding: 0px 6px;
           background-color: transparent;
           color: #'' + config.lib.stylix.colors.base04 + '';
       }
@@ -973,7 +1082,6 @@ in
           color: #'' + config.lib.stylix.colors.base09 + '';
       }
 
-      #clock,
       #battery,
       #cpu,
       #memory,
@@ -988,16 +1096,44 @@ in
       #mode,
       #idle_inhibitor,
       #scratchpad,
+      #custom-hyprprofileicon,
+      #custom-quit,
+      #custom-lock,
+      #custom-reboot,
+      #custom-power,
       #mpd {
-          padding: 0 10px;
+          padding: 0 3px;
           color: #'' + config.lib.stylix.colors.base07 + '';
           border: none;
           border-radius: 8px;
       }
 
+      #custom-hyprprofileicon,
+      #custom-quit,
+      #custom-lock,
+      #custom-reboot,
+      #custom-power,
+      #idle_inhibitor {
+          background-color: transparent;
+          color: #'' + config.lib.stylix.colors.base04 + '';
+      }
+
+      #custom-hyprprofileicon:hover,
+      #custom-quit:hover,
+      #custom-lock:hover,
+      #custom-reboot:hover,
+      #custom-power:hover,
+      #idle_inhibitor:hover {
+          color: #'' + config.lib.stylix.colors.base07 + '';
+      }
+
+      #clock, #tray, #idle_inhibitor {
+          padding: 0 5px;
+      }
+
       #window,
       #workspaces {
-          margin: 0 4px;
+          margin: 0 6px;
       }
 
       /* If workspaces is the leftmost module, omit left margin */
@@ -1208,6 +1344,9 @@ in
   services.udiskie.enable = true;
   services.udiskie.tray = "always";
   programs.fuzzel.enable = true;
+  programs.fuzzel.package = pkgs.fuzzel.overrideAttrs (oldAttrs: {
+      patches = ./patches/fuzzelmouseinput.patch;
+    });
   programs.fuzzel.settings = {
     main = {
       font = userSettings.font + ":size=20";
