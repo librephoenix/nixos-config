@@ -854,8 +854,8 @@ in
             "scratch_pavucontrol" = "_󰍰";
           };
           "on-click" = "activate";
-          "on-scroll-up" = "hyprctl dispatch workspace e+1";
-          "on-scroll-down" = "hyprctl dispatch workspace e-1";
+          "on-scroll-up" = "hyprnome";
+          "on-scroll-down" = "hyprnome --previous";
           "all-outputs" = false;
           "active-only" = false;
           "ignore-workspaces" = ["scratch" "-"];
