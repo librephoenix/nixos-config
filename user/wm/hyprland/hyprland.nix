@@ -210,14 +210,14 @@ in
        bind=SHIFTCTRL,code:107,exec,grim -g "$(slurp -o)" - | wl-copy
        bind=SUPERCTRL,code:107,exec,grim - | wl-copy
 
-       bind=,code:122,exec,pamixer -d 10
-       bind=,code:123,exec,pamixer -i 10
-       bind=,code:121,exec,pamixer -t
-       bind=,code:256,exec,pamixer --default-source -t
-       bind=SHIFT,code:122,exec,pamixer --default-source -d 10
-       bind=SHIFT,code:123,exec,pamixer --default-source -i 10
-       bind=,code:232,exec,brightnessctl set 15-
-       bind=,code:233,exec,brightnessctl set +15
+       bind=,code:122,exec,swayosd-client --output-volume lower
+       bind=,code:123,exec,swayosd-client --output-volume raise
+       bind=,code:121,exec,swayosd-client --output-volume mute-toggle
+       bind=,code:256,exec,swayosd-client --output-volume mute-toggle
+       bind=SHIFT,code:122,exec,swayosd-client --output-volume lower
+       bind=SHIFT,code:123,exec,swayosd-client --output-volume raise
+       bind=,code:232,exec,swayosd-client --brightness lower
+       bind=,code:233,exec,swayosd-client --brightness raise
        bind=,code:237,exec,brightnessctl --device='asus::kbd_backlight' set 1-
        bind=,code:238,exec,brightnessctl --device='asus::kbd_backlight' set +1
        bind=,code:255,exec,airplane-mode
@@ -750,7 +750,8 @@ in
     unfocus = "hide"
     animation = "fromTop"
   '';
-
+  services.swayosd.enable = true;
+  services.swayosd.topMargin = 0.5;
   programs.waybar = {
     enable = true;
     package = pkgs.waybar.overrideAttrs (oldAttrs: {
