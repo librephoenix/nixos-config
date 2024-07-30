@@ -733,14 +733,6 @@ If the path from LINK does not exist, nil is returned."
 )
 
 (defun org-roam-open-inbox ()
-  "Capture info in ${org-roam-directory}/inbox.org (I use this naming convention to create dashboards for each of my org roam maps)"
-  (interactive)
-  (if (file-exists-p (concat org-roam-directory "/inbox.org"))
-      (org-open-file (concat org-roam-directory "/inbox.org"))
-      (message "No inbox found, capture something with M-x org-roam-capture-inbox"))
-)
-
-(defun org-roam-open-inbox ()
   "Open ${org-roam-directory}/dashboard.org (I use this naming convention to create dashboards for each of my org roam maps)"
   (interactive)
   (if (org-roam-node-from-title-or-alias "Inbox")
