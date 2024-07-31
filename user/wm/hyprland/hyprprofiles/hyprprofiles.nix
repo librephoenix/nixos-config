@@ -11,7 +11,7 @@ in
     (pkgs.writeScriptBin "hyprprofile" ''
       #!/bin/sh
       prevprofile="$(cat ~/.hyprprofile)"
-      newprofile=$1
+      newprofile="$1"
       if [ $# -eq 1 ]; then
         if [ $newprofile = "Default" ]; then
           echo "" > ~/.hyprprofile;
@@ -19,10 +19,10 @@ in
           echo $newprofile > ~/.hyprprofile;
         fi
         if [ -f ~/.config/hyprprofiles/$prevprofile/exit-hook.sh ]; then
-          exec ~/.config/hyprprofiles/$prevprofile/exit-hook.sh;
+          ~/.config/hyprprofiles/$prevprofile/exit-hook.sh;
         fi
         if [ -f ~/.config/hyprprofiles/$newprofile/start-hook.sh ]; then
-          exec ~/.config/hyprprofiles/$newprofile/start-hook.sh;
+          ~/.config/hyprprofiles/$newprofile/start-hook.sh;
         fi
       fi
     '')
