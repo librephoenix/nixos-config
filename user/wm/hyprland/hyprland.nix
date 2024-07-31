@@ -810,7 +810,7 @@ in
         "custom/reboot" = {
             "format" = "󰜉";
             "tooltip" = false;
-            "on-click" = "reboot now";
+            "on-click" = "reboot";
         };
         "custom/power" = {
             "format" = "󰐥";
