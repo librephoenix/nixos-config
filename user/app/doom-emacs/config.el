@@ -1,6 +1,7 @@
 ;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
 
 ;;;------ User configuration ------;;;
+(setq use-package-always-defer t)
 
 ;; Import relevant system variables from flake (see doom.nix)
 ;; includes variables like user-full-name, user-username, user-home-directory, user-email-address, doom-font,
@@ -1550,6 +1551,8 @@ If the path from LINK does not exist, nil is returned."
           (cons "emacs-lsp-booster" orig-result))
       orig-result)))
 (advice-add 'lsp-resolve-final-command :around #'lsp-booster--advice-final-command)
+
+(map! :leader :desc "Find definition using lsp" "L d" #'lsp-find-definition)
 
 (add-to-list 'tramp-remote-path 'tramp-own-remote-path)
 (after! vterm

@@ -1,4 +1,4 @@
-{ config, lib, pkgs-emacs, pkgs-stable, inputs, userSettings, systemSettings, ... }:
+{ config, lib, pkgs, pkgs-emacs, pkgs-stable, inputs, userSettings, systemSettings, ... }:
 let
   themePolarity = lib.removeSuffix "\n" (builtins.readFile (./. + "../../../../themes"+("/"+userSettings.theme)+"/polarity.txt"));
   dashboardLogo = ./. + "/nix-" + themePolarity + ".webp";
@@ -50,6 +50,7 @@ in
     emacs-lsp-booster
     nil
     nixfmt
+    kotlin-language-server
     file
     wmctrl
     jshon
@@ -71,6 +72,9 @@ in
   ]) ++ (with pkgs-stable; [
     nodejs
     nodePackages.mermaid-cli
+  ]) ++ (with pkgs; [
+    openssl
+    stunnel
   ]);
 
   services.mbsync = {

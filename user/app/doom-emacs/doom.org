@@ -64,6 +64,7 @@ Doom Emacs is traditionally installed by cloning the repository ([[https://githu
 ;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
 
 ;;;------ User configuration ------;;;
+(setq use-package-always-defer t)
 
 ;; Import relevant system variables from flake (see doom.nix)
 ;; includes variables like user-full-name, user-username, user-home-directory, user-email-address, doom-font,
@@ -815,12 +816,14 @@ exit
 
       :desc "Run M-x on the (remote) crdt session"
       "x" #'crdt-M-x
+
       :desc "List crdt buffers in a session"
       "l" #'crdt-list-buffers
 
       :desc "List crdt users in a session"
       "u" #'crdt-list-users
 )
+
 #+end_src
 ** Org Roam Configuration
 *** Standard Org Roam Configuration
@@ -1574,7 +1577,7 @@ I don't have this active right now since it's kinda weird with pgtk...
 (evil-global-set-key 'normal (kbd "C-w") 'tab-bar-close-tab)
 (evil-global-set-key 'normal (kbd "C-t") 'tab-bar-new-tab)
 
-(setq tab-bar-new-tab-choice "*doom*")
+(setq tab-bar-new-tab-choice "*dashboard*")
 
 (tab-bar-mode t)
 
@@ -1821,6 +1824,9 @@ I don't have this active right now since it's kinda weird with pgtk...
           (cons "emacs-lsp-booster" orig-result))
       orig-result)))
 (advice-add 'lsp-resolve-final-command :around #'lsp-booster--advice-final-command)
+
+(map! :leader :desc "Find definition using lsp" "L d" #'lsp-find-definition)
+
 
 #+END_SRC
 ** Terminal
@@ -2117,7 +2123,7 @@ Any git package can be configured for a particular commit or branch:
 * Nix Integration
 In order to have Nix load my Doom Emacs configuration [[./doom.nix][doom.nix]], which I source in the =imports= block of my [[../../../profiles/work/home.nix][home.nix]].
 #+BEGIN_SRC nix :tangle doom.nix
-{ config, lib, pkgs-emacs, pkgs-stable, inputs, userSettings, systemSettings, ... }:
+{ config, lib, pkgs, pkgs-emacs, pkgs-stable, inputs, userSettings, systemSettings, ... }:
 let
   themePolarity = lib.removeSuffix "\n" (builtins.readFile (./. + "../../../../themes"+("/"+userSettings.theme)+"/polarity.txt"));
   dashboardLogo = ./. + "/nix-" + themePolarity + ".webp";
@@ -2169,6 +2175,7 @@ in
     emacs-lsp-booster
     nil
     nixfmt
+    kotlin-language-server
     file
     wmctrl
     jshon
@@ -2190,6 +2197,9 @@ in
   ]) ++ (with pkgs-stable; [
     nodejs
     nodePackages.mermaid-cli
+  ]) ++ (with pkgs; [
+    openssl
+    stunnel
   ]);
 
   services.mbsync = {
