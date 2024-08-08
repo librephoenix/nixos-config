@@ -653,7 +653,8 @@ If the path from LINK does not exist, nil is returned."
 )
 
 (require 'crdt)
-(setq crdt-default-tls nil)
+(setq crdt-default-tls t)
+(setq crdt-use-stunnel t)
 (setq crdt-default-name "Emmet")
 (if (file-exists-p "~/.emacs.d/crdt-private.el") (load! "~/.emacs.d/crdt-private.el"))
 (defun crdt-connect-default ()
@@ -676,8 +677,11 @@ If the path from LINK does not exist, nil is returned."
       :desc "Add buffer to a session"
       "a" #'crdt-share-buffer
 
-      :desc "Stop sharing buffer to session"
+      :desc "Stop sharing buffer when running a server"
       "s" #'crdt-stop-share-buffer
+
+      :desc "Run M-x on the (remote) crdt session"
+      "x" #'crdt-M-x
 
       :desc "List crdt buffers in a session"
       "l" #'crdt-list-buffers
