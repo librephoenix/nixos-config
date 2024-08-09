@@ -247,6 +247,7 @@
 (setq org-attach-directory "~/Org/.attach")
 (setq org-attach-id-dir "~/Org/.attach")
 (setq org-id-locations-file "~/Org/.orgids")
+(setq org-cycle-include-plain-lists 'integrate)
 
 (remove-hook 'after-save-hook #'+literate|recompile-maybe)
 (set-company-backend! 'org-mode nil)
