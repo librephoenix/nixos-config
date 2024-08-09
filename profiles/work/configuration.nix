@@ -39,6 +39,9 @@
     experimental-features = nix-command flakes
   '';
 
+  # wheel group gets trusted access to nix daemon
+  nix.settings.trusted-users = [ "@wheel" ];
+
   # I'm sorry Stallman-taichou
   nixpkgs.config.allowUnfree = true;
 
