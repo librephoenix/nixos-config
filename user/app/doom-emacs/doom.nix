@@ -58,6 +58,7 @@ in
     hledger
     hunspell hunspellDicts.en_US-large
     (pkgs-emacs.mu.override { emacs = emacs29-pgtk; })
+    (pkgs.callPackage ./pkgs/org-analyzer.nix {})
     emacsPackages.mu4e
     isync
     msmtp

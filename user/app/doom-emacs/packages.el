@@ -1,3 +1,4 @@
+(package! org-analyzer :pin "0908eea")
 (package! embark :pin "0908eea")
 (package! dashboard)
 (package! direnv)

@@ -276,7 +276,6 @@
   `(org-agenda-date-weekend-today :inherit 'unspecified :foreground ,(nth 1 (nth 15 doom-themes--colors)) :weight bold :height 1.1)
 )
 
-
 (after! org (org-eldoc-load))
 
 (with-eval-after-load 'org (global-org-modern-mode))
@@ -690,6 +689,44 @@ If the path from LINK does not exist, nil is returned."
       :desc "List crdt users in a session"
       "u" #'crdt-list-users
 )
+
+(require 'org-analyzer)
+(setq org-analyzer-wrapper-command "org-analyzer")
+(setq org-analyzer-jar-file-name "~/.nix-profile/bin/org-analyzer.jar")
+(setq org-analyzer-java-program "~/.nix-profile/bin/org-analyzer") ;; Is not actually java, buta  wrapper shell script
+
+(defun org-analyzer-start-process (org-dir)
+  "Start the org analyzer process .
+Argument ORG-DIR is where the org-files are located."
+  (org-analyzer-cleanup-process-state)
+  (unless (file-exists-p org-dir)
+    (warn "org-analyzer was started with org-directory set to
+  \"%s\"\nbut this directory does not exist.
+Please set the variable `org-directory' to the location where you keep your org files."
+           org-directory))
+    (let* ((name (format " *org-analyzer [org-dir:%s]*" org-dir))
+           (proc-buffer (generate-new-buffer name))
+           (proc nil))
+      (setq org-analyzer-process-buffer proc-buffer)
+      (with-current-buffer proc-buffer
+        (setq default-directory (if (file-exists-p org-dir)
+                                    org-dir default-directory)
+              proc (condition-case err
+                       (let ((process-connection-type nil)
+                             (process-environment process-environment))
+                         (start-process name
+                                        (current-buffer)
+                                        org-analyzer-wrapper-command
+                                        "--port"
+                                        (format "%d" org-analyzer-http-port)
+                                        "--started-from-emacs"
+                      (if (file-exists-p org-dir) org-dir "")))
+                     (error
+                      (concat "Can't start org-analyzer (%s: %s)"
+                (car err) (cadr err)))))
+        (set-process-query-on-exit-flag proc nil)
+        (set-process-filter proc #'org-analyzer-process-filter))
+      proc-buffer))
 
 ;;;------ Org roam configuration ------;;;
 (require 'org-roam)
