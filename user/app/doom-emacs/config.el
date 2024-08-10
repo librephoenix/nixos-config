@@ -165,6 +165,8 @@
 
 (map! :leader :desc "Open dashboard" "b b" #'dashboard-refresh-buffer)
 
+(setq scroll-conservatively 101)
+
 ;; Smooth scrolling
 ;; requires good-scroll.el
 ;;(good-scroll-mode 1)
@@ -1591,6 +1593,11 @@ Please set the variable `org-directory' to the location where you keep your org 
 (advice-add 'lsp-resolve-final-command :around #'lsp-booster--advice-final-command)
 
 (map! :leader :desc "Find definition using lsp" "L d" #'lsp-find-definition)
+
+;; devdocs are cool
+(require 'devdocs)
+
+(map! :leader :desc "Peruse devdocs" "L p" #'devdocs-peruse)
 
 (add-to-list 'tramp-remote-path 'tramp-own-remote-path)
 (after! vterm

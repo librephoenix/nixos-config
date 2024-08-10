@@ -24,6 +24,7 @@
   - [[#projectile][Projectile]]
   - [[#sudo-edit][sudo-edit]]
   - [[#lsp][LSP]]
+  - [[#devdocs][DevDocs]]
   - [[#terminal][Terminal]]
   - [[#elfeed][Elfeed]]
 - [[#my-initel][My init.el]]
@@ -227,6 +228,8 @@ Doom Emacs is traditionally installed by cloning the repository ([[https://githu
 (dashboard-setup-startup-hook)
 
 (map! :leader :desc "Open dashboard" "b b" #'dashboard-refresh-buffer)
+
+(setq scroll-conservatively 101)
 
 ;; Smooth scrolling
 ;; requires good-scroll.el
@@ -1868,8 +1871,15 @@ I don't have this active right now since it's kinda weird with pgtk...
 
 (map! :leader :desc "Find definition using lsp" "L d" #'lsp-find-definition)
 
-
 #+END_SRC
+** DevDocs
+#+BEGIN_SRC emacs-lisp :tangle config.el
+;; devdocs are cool
+(require 'devdocs)
+
+(map! :leader :desc "Peruse devdocs" "L p" #'devdocs-peruse)
+#+END_SRC
+
 ** Terminal
 #+BEGIN_SRC emacs-lisp :tangle config.el
 (add-to-list 'tramp-remote-path 'tramp-own-remote-path)
@@ -2161,6 +2171,7 @@ Any git package can be configured for a particular commit or branch:
 (package! sudo-edit)
 (package! solaire-mode :disable t)
 (package! el-patch)
+(package! devdocs)
 #+END_SRC
 * Nix Integration
 In order to have Nix load my Doom Emacs configuration [[./doom.nix][doom.nix]], which I source in the =imports= block of my [[../../../profiles/work/home.nix][home.nix]].
