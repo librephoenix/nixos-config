@@ -225,16 +225,24 @@
 
     hyprland = {
       type = "git";
-      url = "https://github.com/hyprwm/Hyprland";
+      url = "https://code.hyprland.org/hyprwm/Hyprland.git";
       submodules = true;
-      rev = "918d8340afd652b011b937d29d5eea0be08467f5";
+      rev = "9a09eac79b85c846e3a865a9078a3f8ff65a9259"; #v0.42.0
+      inputs.nixpkgs.follows = "nixpkgs";
     };
-    hyprland.inputs.nixpkgs.follows = "nixpkgs";
-    hyprland-plugins.url = "github:hyprwm/hyprland-plugins/3ae670253a5a3ae1e3a3104fb732a8c990a31487";
-    hyprland-plugins.inputs.hyprland.follows = "hyprland";
-    hycov.url = "github:DreamMaoMao/hycov/de15cdd6bf2e46cbc69735307f340b57e2ce3dd0";
-    hycov.inputs.hyprland.follows = "hyprland";
-    hyprgrass.url = "github:horriblename/hyprgrass/736119f828eecaed2deaae1d6ff1f50d6dabaaba";
+    hyprland-plugins = {
+      type = "git";
+      url = "https://code.hyprland.org/hyprwm/hyprland-plugins.git";
+      rev = "b73d7b901d8cb1172dd25c7b7159f0242c625a77"; #v0.42.0
+      inputs.hyprland.follows = "hyprland";
+    };
+    hyprlock = {
+      type = "git";
+      url = "https://code.hyprland.org/hyprwm/hyprlock.git";
+      rev = "9393a3e94d837229714e28041427709756033f5a";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    hyprgrass.url = "github:horriblename/hyprgrass/0bb3b822053c813ab6f695c9194089ccb5186cc3";
     hyprgrass.inputs.hyprland.follows = "hyprland";
 
     nix-doom-emacs.url = "github:nix-community/nix-doom-emacs";

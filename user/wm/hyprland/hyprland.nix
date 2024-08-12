@@ -27,7 +27,7 @@ in
     package = inputs.hyprland.packages.${pkgs.system}.hyprland;
     plugins = [
       inputs.hyprland-plugins.packages.${pkgs.system}.hyprtrails
-      inputs.hycov.packages.${pkgs.system}.hycov
+      inputs.hyprland-plugins.packages.${pkgs.system}.hyprexpo
       inputs.hyprgrass.packages.${pkgs.system}.default
     ];
     settings = { };
@@ -105,28 +105,12 @@ in
          hyprtrails {
              color = rgba(''+config.lib.stylix.colors.base08+''55)
          }
-         hycov {
-             overview_gappo = 60 # gaps width from screen edge
-             overview_gappi = 24 # gaps width from clients
-             enable_hotarea = 0 # enable mouse cursor hotarea, when cursor enter hotarea, it will toggle overview
-             enable_click_action = 1 # enable mouse left button jump and right button kill in overview mode
-             hotarea_monitor = all # monitor name which hotarea is in, default is all
-             hotarea_pos = 1 # position of hotarea (1: bottom left, 2: bottom right, 3: top left, 4: top right)
-             hotarea_size = 10 # hotarea size, 10x10
-             swipe_fingers = 3 # finger number of gesture,move any directory
-             move_focus_distance = 100 # distance for movefocus,only can use 3 finger to move
-             enable_gesture = 0 # enable gesture
-             auto_exit = 1 # enable auto exit when no client in overview
-             auto_fullscreen = 0 # auto make active window maximize after exit overview
-             only_active_workspace = 0 # only overview the active workspace
-             only_active_monitor = 0 # only overview the active monitor
-             enable_alt_release_exit = 0 # alt swith mode arg,see readme for detail
-             alt_replace_key = Super_L # alt swith mode arg,see readme for detail
-             alt_toggle_auto_next = 0 # auto focus next window when toggle overview in alt swith mode
-             click_in_cursor = 1 # when click to jump,the target windwo is find by cursor, not the current foucus window.
-             hight_of_titlebar = 0 # height deviation of title bar height
-             show_special = 0 # show windwos in special workspace in overview.
-
+         hyprexpo {
+             columns = 3
+             gap_size = 5
+             bg_col = rgb(''+config.lib.stylix.colors.base00+'')
+             workspace_method = first 1 # [center/first] [workspace] e.g. first 1 or center m+1
+             enable_gesture = false # laptop touchpad
          }
          touch_gestures {
              sensitivity = 4.0
@@ -135,7 +119,7 @@ in
              hyprgrass-bind = , edge:l:r, exec, hyprnome --previous
              hyprgrass-bind = , swipe:3:d, exec, nwggrid-wrapper
 
-             hyprgrass-bind = , swipe:3:u, hycov:toggleoverview
+             hyprgrass-bind = , swipe:3:u, hyprexpo:expo, toggleoverview
              hyprgrass-bind = , swipe:3:d, exec, nwggrid-wrapper
 
              hyprgrass-bind = , swipe:3:l, exec, hyprnome --previous
@@ -163,11 +147,7 @@ in
        bind=ALT,TAB,bringactivetotop
        bind=ALTSHIFT,TAB,cyclenext,prev
        bind=ALTSHIFT,TAB,bringactivetotop
-       bind=SUPER,TAB,hycov:toggleoverview
-       bind=SUPER,left,hycov:movefocus,leftcross
-       bind=SUPER,right,hycov:movefocus,rightcross
-       bind=SUPER,up,hycov:movefocus,upcross
-       bind=SUPER,down,hycov:movefocus,downcross
+       bind=SUPER,TAB,hyprexpo:expo, toggleoverview
        bind=SUPER,V,exec,wl-copy $(wl-paste | tr '\n' ' ')
        bind=SUPERSHIFT,T,exec,screenshot-ocr
        bind=CTRLALT,Delete,exec,hyprctl kill
@@ -457,6 +437,7 @@ in
     wl-clipboard
     hyprland-protocols
     hyprpicker
+    inputs.hyprlock.packages.${pkgs.system}.default
     hypridle
     hyprpaper
     fnott
@@ -543,7 +524,7 @@ in
       type = "Application";
     })])
   ++
-  (with pkgs-hyprland; [ hyprlock ])
+  (with pkgs-hyprland; [ ])
   ++ (with pkgs-nwg-dock-hyprland; [
     (nwg-dock-hyprland.overrideAttrs (oldAttrs: {
       patches = ./patches/noactiveclients.patch;
@@ -1329,7 +1310,7 @@ in
     }
   '';
   home.file.".config/libinput-gestures.conf".text = ''
-  gesture swipe up 3	hyprctl dispatch hycov:toggleoverview
+  gesture swipe up 3	hyprctl dispatch hyprexpo:expo toggle
   gesture swipe down 3	nwggrid-wrapper
 
   gesture swipe right 3	hyprnome
