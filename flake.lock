@@ -756,16 +756,15 @@
         "systems": "systems_2"
       },
       "locked": {
-        "lastModified": 1722882121,
-        "narHash": "sha256-gr4mN6BYKqy9JDr/ygDlMGYvEYBCMTDDDVnGNp/EYuw=",
-        "ref": "refs/heads/main",
-        "rev": "9393a3e94d837229714e28041427709756033f5a",
-        "revCount": 242,
+        "lastModified": 1721822339,
+        "narHash": "sha256-dkhgyxPxmOI/ZHk/LZRQZAVjtk9kPx2RFQRnuEoXQ4s=",
+        "rev": "58e1a4a4997728be886a46d031514b3f09763c5d",
+        "revCount": 234,
         "type": "git",
         "url": "https://code.hyprland.org/hyprwm/hyprlock.git"
       },
       "original": {
-        "rev": "9393a3e94d837229714e28041427709756033f5a",
+        "rev": "58e1a4a4997728be886a46d031514b3f09763c5d",
         "type": "git",
         "url": "https://code.hyprland.org/hyprwm/hyprlock.git"
       }
