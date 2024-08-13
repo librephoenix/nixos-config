@@ -378,9 +378,14 @@ in
        misc {
          disable_hyprland_logo = true
          mouse_move_enables_dpms = true
+         enable_swallow = true
+         swallow_regex = (scratch_term)|(Alacritty)|(kitty)
+         font_family = '' + userSettings.font + ''
+
        }
        decoration {
          rounding = 8
+         dim_special = 0.0
          blur {
            enabled = true
            size = 5
@@ -390,6 +395,8 @@ in
            brightness = '' + (if (config.stylix.polarity == "dark") then "0.8" else "1.25") + ''
 
            xray = true
+           special = true
+           popups = true
          }
        }
 
