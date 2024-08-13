@@ -165,7 +165,7 @@ in
 
        bind=SUPER,A,exec,'' + userSettings.spawnEditor + ''
 
-       bind=SUPER,S,exec,'' + userSettings.browser + ''
+       bind=SUPER,S,exec,'' + userSettings.spawnBrowser + ''
 
        bind=SUPERCTRL,S,exec,container-open # qutebrowser only
 
