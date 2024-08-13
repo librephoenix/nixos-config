@@ -1,6 +1,10 @@
 #+title: Xmonad Config
 #+author: Emmet
 
+* DEPRECATED
+# TODO remove XMonad config
+I haven't used XMonad in probably a year, so this is completely unmaintained and I'll probably remove it at some point, since I have completely migrated to Wayland at this point!
+
 * XMonad Config
 The main configuration file for XMonad is [[./xmonad.hs][~/.xmonad/xmonad.hs]].
 ** Imports
