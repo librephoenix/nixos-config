@@ -50,12 +50,10 @@ in
       exec-once = hyprprofile Default
 
       exec-once = emacs --daemon
-      exec-once = pypr
       exec-once = ydotoold
       #exec-once = STEAM_FRAME_FORCE_CLOSE=1 steam -silent
       exec-once = nm-applet
       exec-once = blueman-applet
-      exec-once = hypr-element-start
       exec-once = GOMAXPROCS=1 syncthing --no-browser
       exec-once = protonmail-bridge --noninteractive
       exec-once = waybar
@@ -82,6 +80,7 @@ in
            animation = fade, 1, 10, default
            animation = workspaces, 1, 5, wind
            animation = windows, 1, 6, wind, slide
+           animation = specialWorkspace, 1, 6, default, slidefadevert -50%
       }
 
       general {
@@ -180,7 +179,7 @@ in
        bindm=SUPER,mouse:272,movewindow
        bindm=SUPER,mouse:273,resizewindow
        bind=SUPER,T,togglefloating
-       bind=SUPER,G,exec,hyprctl dispatch focusworkspaceoncurrentmonitor 9; pegasus-fe;
+       bind=SUPER,G,exec,hyprctl dispatch focusworkspaceoncurrentmonitor 9 && pegasus-fe;
        bind=,code:148,exec,''+ userSettings.term + " "+''-e numbat
 
        bind=,code:107,exec,grim -g "$(slurp)"
@@ -242,23 +241,50 @@ in
        bind=SUPERSHIFT,8,movetoworkspace,8
        bind=SUPERSHIFT,9,movetoworkspace,9
 
-       bind=SUPER,Z,exec,pypr toggle term && hyprctl dispatch bringactivetotop
-       bind=SUPER,F,exec,pypr toggle ranger && hyprctl dispatch bringactivetotop
-       bind=SUPER,N,exec,pypr toggle numbat && hyprctl dispatch bringactivetotop
-       bind=SUPER,M,exec,pypr toggle music && hyprctl dispatch bringactivetotop
-       bind=SUPER,B,exec,pypr toggle btm && hyprctl dispatch bringactivetotop
-       bind=SUPER,D,exec,hypr-element
-       bind=SUPER,code:172,exec,pypr toggle pavucontrol && hyprctl dispatch bringactivetotop
+       bind=SUPER,Z,exec,if hyprctl clients | grep scratch_term; then echo "scratch_term respawn not needed"; else alacritty --class scratch_term; fi
+       bind=SUPER,Z,togglespecialworkspace,scratch_term
+       bind=SUPER,F,exec,if hyprctl clients | grep scratch_ranger; then echo "scratch_ranger respawn not needed"; else kitty --class scratch_ranger -e ranger; fi
+       bind=SUPER,F,togglespecialworkspace,scratch_ranger
+       bind=SUPER,N,exec,if hyprctl clients | grep scratch_numbat; then echo "scratch_ranger respawn not needed"; else alacritty --class scratch_numbat -e numbat; fi
+       bind=SUPER,N,togglespecialworkspace,scratch_numbat
+       bind=SUPER,M,exec,if hyprctl clients | grep lollypop; then echo "scratch_ranger respawn not needed"; else lollypop; fi
+       bind=SUPER,M,togglespecialworkspace,scratch_music
+       bind=SUPER,B,exec,if hyprctl clients | grep scratch_btm; then echo "scratch_ranger respawn not needed"; else alacritty --class scratch_btm -e btm; fi
+       bind=SUPER,B,togglespecialworkspace,scratch_btm
+       bind=SUPER,D,exec,if hyprctl clients | grep Element; then echo "scratch_ranger respawn not needed"; else element-desktop; fi
+       bind=SUPER,D,togglespecialworkspace,scratch_element
+       bind=SUPER,code:172,exec,togglespecialworkspace,scratch_pavucontrol
+       bind=SUPER,code:172,exec,if hyprctl clients | grep pavucontrol; then echo "scratch_ranger respawn not needed"; else pavucontrol; fi
+
        $scratchpadsize = size 80% 85%
 
-       $scratchpad = class:^(scratchpad)$
-       windowrulev2 = float,$scratchpad
-       windowrulev2 = $scratchpadsize,$scratchpad
-       windowrulev2 = workspace special silent,$scratchpad
-       windowrulev2 = center,$scratchpad
+       $scratch_term = class:^(scratch_term)$
+       windowrulev2 = float,$scratch_term
+       windowrulev2 = $scratchpadsize,$scratch_term
+       windowrulev2 = workspace special:scratch_term ,$scratch_term
+       windowrulev2 = center,$scratch_term
+
+       $scratch_ranger = class:^(scratch_ranger)$
+       windowrulev2 = float,$scratch_ranger
+       windowrulev2 = $scratchpadsize,$scratch_ranger
+       windowrulev2 = workspace special:scratch_ranger silent,$scratch_ranger
+       windowrulev2 = center,$scratch_ranger
+
+       $scratch_numbat = class:^(scratch_numbat)$
+       windowrulev2 = float,$scratch_numbat
+       windowrulev2 = $scratchpadsize,$scratch_numbat
+       windowrulev2 = workspace special:scratch_numbat silent,$scratch_numbat
+       windowrulev2 = center,$scratch_numbat
+
+       $scratch_btm = class:^(scratch_btm)$
+       windowrulev2 = float,$scratch_btm
+       windowrulev2 = $scratchpadsize,$scratch_btm
+       windowrulev2 = workspace special:scratch_btm silent,$scratch_btm
+       windowrulev2 = center,$scratch_btm
 
        windowrulev2 = float,class:^(Element)$
        windowrulev2 = size 85% 90%,class:^(Element)$
+       windowrulev2 = workspace special:scratch_element silent,class:^(Element)$
        windowrulev2 = center,class:^(Element)$
 
        windowrulev2 = float,class:^(lollypop)$
@@ -270,7 +296,7 @@ in
        windowrulev2 = size 70% 75%,$savetodisk
        windowrulev2 = center,$savetodisk
 
-       $pavucontrol = class:^(pavucontrol)$
+       $pavucontrol = class:^(org.pulseaudio.pavucontrol)$
        windowrulev2 = float,$pavucontrol
        windowrulev2 = size 86% 40%,$pavucontrol
        windowrulev2 = move 50% 6%,$pavucontrol
@@ -311,8 +337,8 @@ in
        layerrule = animation fade,~nwggrid
        blurls = ~nwggrid
 
-       bind=SUPER,code:21,exec,pypr zoom
-       bind=SUPER,code:21,exec,hyprctl reload
+       bind=SUPER,equal, exec, hyprctl keyword cursor:zoom_factor "$(hyprctl getoption cursor:zoom_factor | grep float | awk '{print $2 + 0.5}')"
+       bind=SUPER,minus, exec, hyprctl keyword cursor:zoom_factor "$(hyprctl getoption cursor:zoom_factor | grep float | awk '{print $2 - 0.5}')"
 
        bind=SUPER,I,exec,networkmanager_dmenu
        bind=SUPER,P,exec,keepmenu
@@ -401,14 +427,6 @@ in
       noDisplay = true;
       icon = "/home/"+userSettings.username+"/.local/share/pixmaps/hyprland-logo-stylix.svg";
     })
-    (pyprland.overrideAttrs (oldAttrs: {
-      src = fetchFromGitHub {
-        owner = "hyprland-community";
-        repo = "pyprland";
-        rev = "refs/tags/2.4.0";
-        hash = "sha256-jK6ap/beiqAtZXVNqPB3zV8R2Kfc3LhqJBvFlWYIfb4=";
-      };
-    }))
     (hyprnome.override (oldAttrs: {
         rustPlatform = oldAttrs.rustPlatform // {
           buildRustPackage = args: oldAttrs.rustPlatform.buildRustPackage (args // {
@@ -472,19 +490,6 @@ in
         nwg-dock-hyprland
       else
         nwg-dock-hyprland -f -x -i 64 -nolauncher -a start -ml 8 -mr 8 -mb 8
-      fi
-    '')
-    (pkgs.writeScriptBin "hypr-element-start" ''
-      #!/usr/bin/env sh
-      sleep 6 && element-desktop --hidden
-    '')
-    (pkgs.writeScriptBin "hypr-element" ''
-      #!/bin/sh
-      if hyprctl clients | grep "class: Element" > /dev/null
-      then
-        hyprctl dispatch closewindow Element
-      else
-        element-desktop
       fi
     '')
     (pkgs.writeScriptBin "sct" ''
@@ -599,17 +604,19 @@ in
       ignore_dbus_inhibit = false
     }
 
+    # FIXME memory leak fries computer inbetween dpms off and suspend
+    #listener {
+    #  timeout = 150 # in seconds
+    #  on-timeout = hyprctl dispatch dpms off
+    #  on-resume = hyprctl dispatch dpms on
+    #}
     listener {
-      timeout = 150 # in seconds
-      on-timeout = hyprctl dispatch dpms off
-      on-resume = hyprctl dispatch dpms on
-    }
-    listener {
-      timeout = 160 # in seconds
+      timeout = 165 # in seconds
       on-timeout = loginctl lock-session
     }
     listener {
-      timeout = 5400 # in seconds
+      timeout = 180 # in seconds
+      #timeout = 5400 # in seconds
       on-timeout = systemctl suspend
       on-resume = hyprctl dispatch dpms on
     }
@@ -700,36 +707,6 @@ in
       halign = center
       valign = center
     }
-  '';
-  home.file.".config/hypr/pyprland.toml".text = ''
-    [pyprland]
-    plugins = ["scratchpads", "magnify"]
-
-    [scratchpads.term]
-    command = "alacritty --class scratchpad"
-    margin = 50
-
-    [scratchpads.ranger]
-    command = "kitty --class scratchpad -e ranger"
-    margin = 50
-
-    [scratchpads.numbat]
-    command = "alacritty --class scratchpad -e numbat"
-    margin = 50
-
-    [scratchpads.music]
-    command = "lollypop"
-    margin = 50
-
-    [scratchpads.btm]
-    command = "alacritty --class scratchpad -e btm"
-    margin = 50
-
-    [scratchpads.pavucontrol]
-    command = "pavucontrol"
-    margin = 50
-    unfocus = "hide"
-    animation = "fromTop"
   '';
   services.swayosd.enable = true;
   services.swayosd.topMargin = 0.5;
@@ -964,7 +941,7 @@ in
             "car" = "";
             "default" = [ "" "" "" ];
           };
-          "on-click" = "pypr toggle pavucontrol && hyprctl dispatch bringactivetotop";
+          "on-click" = "hyprctl dispatch togglespecialworkspace scratch_pavucontrol; if hyprctl clients | grep pavucontrol; then echo 'scratch_ranger respawn not needed'; else pavucontrol; fi";
         };
         "pulseaudio#text" = {
           "scroll-step" = 1;
@@ -974,7 +951,7 @@ in
           "format-muted" = "";
           "format-source" = "{volume}%";
           "format-source-muted" = "";
-          "on-click" = "pypr toggle pavucontrol && hyprctl dispatch bringactivetotop";
+          "on-click" = "hyprctl dispatch togglespecialworkspace scratch_pavucontrol; if hyprctl clients | grep pavucontrol; then echo 'scratch_ranger respawn not needed'; else pavucontrol; fi";
         };
         "group/pulseaudio" = {
           "orientation" = "horizontal";
