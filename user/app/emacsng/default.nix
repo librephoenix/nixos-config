@@ -2,6 +2,7 @@
 
 {
   home.packages = [
-    inputs.emacsng.${pkgs.system}.emacsngWRPgtk
+    inputs.emacsng.packages.${pkgs.system}.emacsngWRPgtk
+    pkgs.source-code-pro
   ];
 }

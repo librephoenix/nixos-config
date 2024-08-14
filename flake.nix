@@ -246,8 +246,9 @@
     hyprgrass.url = "github:horriblename/hyprgrass/0bb3b822053c813ab6f695c9194089ccb5186cc3";
     hyprgrass.inputs.hyprland.follows = "hyprland";
 
-    emacsng.url = "github:emacs-ng/emacs-ng/58fcf8c19a1b93c91c06d4b885cfbff5ccf86982";
-    emacsng.inputs.nixpkgs.follows = "nixpkgs";
+    # FIXME emacsng doesn't build or dumps core
+    #emacsng.url = "github:emacs-ng/emacs-ng/58fcf8c";
+    #emacsng.inputs.nixpkgs.follows = "nixpkgs";
 
     nix-doom-emacs.url = "github:nix-community/nix-doom-emacs";
     nix-doom-emacs.inputs.nixpkgs.follows = "emacs-pin-nixpkgs";
