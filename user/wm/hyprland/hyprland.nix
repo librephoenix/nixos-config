@@ -32,12 +32,12 @@ in
     ];
     settings = { };
     extraConfig = ''
-      exec-once = dbus-update-activation-environment DISPLAY XAUTHORITY WAYLAND_DISPLAY
+      exec-once = dbus-update-activation-environment --systemd DISPLAY XAUTHORITY WAYLAND_DISPLAY XDG_SESSION_DESKTOP=Hyprland XDG_CURRENT_DESKTOP=Hyprland XDG_SESSION_TYPE=wayland
       exec-once = hyprctl setcursor '' + config.gtk.cursorTheme.name + " " + builtins.toString config.gtk.cursorTheme.size + ''
 
       env = XDG_CURRENT_DESKTOP,Hyprland
-      env = XDG_SESSION_TYPE,wayland
       env = XDG_SESSION_DESKTOP,Hyprland
+      env = XDG_SESSION_TYPE,wayland
       env = WLR_DRM_DEVICES,/dev/dri/card2:/dev/dri/card1
       env = GDK_BACKEND,wayland,x11,*
       env = QT_QPA_PLATFORM,wayland;xcb
