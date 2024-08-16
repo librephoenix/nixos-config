@@ -595,7 +595,6 @@ in
     calc
     draw
     krita
-    pinta
     xournalpp
     obs
     kdenlive
