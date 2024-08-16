@@ -1,7 +1,0 @@
-#!/bin/sh
-while true
-  do
-    curl localhost:8384 -m 1 &> /dev/null || echo '<fc=#{{base08-hex}}>❄ st off</fc>' > ~/.st-status;
-    curl localhost:8384 -m 1 &> /dev/null && echo '<fc=#{{base0E-hex}}>↺ st on</fc>' > ~/.st-status;
-    sleep 5;
-  done
