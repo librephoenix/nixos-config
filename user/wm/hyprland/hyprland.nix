@@ -289,6 +289,7 @@ in
 
        windowrulev2 = float,class:^(lollypop)$
        windowrulev2 = size 85% 90%,class:^(lollypop)$
+       windowrulev2 = workspace special:scratch_music silent,class:^(lollypop)$
        windowrulev2 = center,class:^(lollypop)$
 
        $savetodisk = title:^(Save to Disk)$
