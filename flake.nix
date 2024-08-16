@@ -23,9 +23,9 @@
         email = "emmet@librephoenix.com"; # email (used for certain configurations)
         dotfilesDir = "~/.dotfiles"; # absolute path of the local repo
         theme = "io"; # selcted theme from my themes directory (./themes/)
-        wm = "hyprland"; # Selected window manager or desktop environment; must select one in both ./user/wm/ and ./system/wm/
+        wm = "plasma"; # Selected window manager or desktop environment; must select one in both ./user/wm/ and ./system/wm/
         # window manager type (hyprland or x11) translator
-        wmType = if (wm == "hyprland") then "wayland" else "x11";
+        wmType = if ((wm == "hyprland") || (wm == "plasma")) then "wayland" else "x11";
         browser = "qutebrowser"; # Default browser; must select one from ./user/app/browser/
         spawnBrowser = if ((browser == "qutebrowser") && (wm == "hyprland")) then "qutebrowser-hyprprofile" else (if (browser == "qutebrowser") then "qutebrowser --qt-flag enable-gpu-rasterization --qt-flag enable-native-gpu-memory-buffers --qt-flag num-raster-threads=4" else browser); # Browser spawn command must be specail for qb, since it doesn't gpu accelerate by default (why?)
         defaultRoamDir = "Personal.p"; # Default org roam directory relative to ~/Org
@@ -245,6 +245,13 @@
     };
     hyprgrass.url = "github:horriblename/hyprgrass/0bb3b822053c813ab6f695c9194089ccb5186cc3";
     hyprgrass.inputs.hyprland.follows = "hyprland";
+
+    plasma-manager.url = "github:pjones/plasma-manager";
+    plasma-manager.inputs.nixpkgs.follows = "nixpkgs";
+    plasma-manager.inputs.home-manager.follows = "home-manager-unstable";
+
+    kwin-effects-forceblur.url = "github:taj-ny/kwin-effects-forceblur";
+    kwin-effects-forceblur.inputs.nixpkgs.follows = "nixpkgs";
 
     # FIXME emacsng doesn't build or dumps core
     #emacsng.url = "github:emacs-ng/emacs-ng/58fcf8c";

@@ -1,0 +1,1053 @@
+From 7cc9f3147438fe7dd0062172f46aed415f024464 Mon Sep 17 00:00:00 2001
+From: alz <alizee.gagnon.careers@gmail.com>
+Date: Mon, 22 Jul 2024 00:43:56 -0400
+Subject: [PATCH 1/7] implemented left click, right click and scroll wheel
+ listeners
+
+---
+ match.c   | 24 ++++++++++++++++++++++++
+ match.h   |  1 +
+ render.c  | 19 +++++++++++++++++++
+ render.h  |  2 ++
+ wayland.c | 38 ++++++++++++++++++++++++++++++++++++++
+ 5 files changed, 84 insertions(+)
+
+diff --git a/match.c b/match.c
+index 5a26000..7d5efaf 100644
+--- a/match.c
++++ b/match.c
+@@ -359,6 +359,30 @@ matches_selected_select(struct matches *matches, const char *_string)
+     return false;
+ }
+
++bool
++matches_selected_select_idx(struct matches *matches, size_t idx)
++{
++    const size_t page_no = matches_get_page(matches);
++    const size_t items_on_page __attribute__((unused)) = matches_get_count(matches);
++
++    LOG_DBG(
++        "page-count: %zu, page-no: %zu, items-on-page: %zu, idx: %zu, max: %zu, "
++        "match-count: %zu",
++        matches->page_count, page_no, items_on_page, idx,
++        matches->max_matches_per_page, matches->match_count);
++
++    if (idx >= items_on_page)
++        return false;
++
++    idx += page_no * matches->max_matches_per_page;
++
++    if (idx >= matches->match_count)
++        return false;
++
++    matches->selected = idx;
++    return true;
++}
++
+ bool
+ matches_selected_first(struct matches *matches)
+ {
+diff --git a/match.h b/match.h
+index 4100881..871635b 100644
+--- a/match.h
++++ b/match.h
+@@ -53,6 +53,7 @@ size_t matches_get_total_count(const struct matches *matches);
+ size_t matches_get_match_index(const struct matches *matches);
+
+ bool matches_selected_select(struct matches *matches, const char *string);
++bool matches_selected_select_idx(struct matches *matches, size_t idx);
+
+ bool matches_selected_first(struct matches *matches);
+ bool matches_selected_last(struct matches *matches);
+diff --git a/render.c b/render.c
+index 403d7c9..3bc507c 100644
+--- a/render.c
++++ b/render.c
+@@ -873,3 +873,22 @@ render_destroy(struct render *render)
+     fcft_destroy(render->font);
+     free(render);
+ }
++
++int render_get_row_num(const struct render *render, int y)
++{
++    const float scale = render->scale;
++    const int y_margin = render->y_margin;
++    const int inner_pad = render->inner_pad;
++    const int border_size = render->border_size;
++    const int row_height = render->row_height;
++    const int first_row = 1 * border_size + y_margin + row_height + inner_pad;
++
++    y = floor(scale * y);
++
++    if (y <= first_row) {
++        return -1;
++    } else {
++        y -= first_row;
++        return y / row_height;
++    }
++}
+diff --git a/render.h b/render.h
+index c097882..1f934f5 100644
+--- a/render.h
++++ b/render.h
+@@ -30,3 +30,5 @@ void render_match_list(
+     const struct prompt *prompt, const struct matches *matches);
+
+ int render_icon_size(const struct render *render);
++
++int render_get_row_num(const struct render *render, int y);
+diff --git a/wayland.c b/wayland.c
+index 15f9e05..c2cf6a6 100644
+--- a/wayland.c
++++ b/wayland.c
+@@ -1062,18 +1062,56 @@ static void
+ wl_pointer_motion(void *data, struct wl_pointer *wl_pointer,
+                   uint32_t time, wl_fixed_t surface_x, wl_fixed_t surface_y)
+ {
++	struct seat *seat = data;
++    struct wayland *wayl = seat->wayl;
++    bool refresh = false;
++
++    refresh = matches_selected_select_idx(wayl->matches,
++            render_get_row_num(wayl->render, wl_fixed_to_int(surface_y)));
++
++    if (refresh) {
++        wayl_refresh(wayl);
++    }
+ }
+
+ static void
+ wl_pointer_button(void *data, struct wl_pointer *wl_pointer,
+                   uint32_t serial, uint32_t time, uint32_t button, uint32_t state)
+ {
++    struct seat *seat = data;
++    struct wayland *wayl = seat->wayl;
++
++    // Button release
++    if (state == 0) {
++        // Left click
++        if (button == 272) {
++            execute_selected(seat, false, -1);
++        // Right click
++        } else if (button == 273) {
++            wayl->status = EXIT;
++            if (wayl->conf->dmenu.enabled)
++                wayl->exit_code = 2;
++        }
++    }
+ }
+
+ static void
+ wl_pointer_axis(void *data, struct wl_pointer *wl_pointer,
+                 uint32_t time, uint32_t axis, wl_fixed_t value)
+ {
++    struct seat *seat = data;
++    struct wayland *wayl = seat->wayl;
++
++    bool refresh = false;
++    if (value < 0) {
++        refresh = matches_selected_prev_page(wayl->matches);
++    } else if (value > 0) {
++        refresh = matches_selected_next_page(wayl->matches);
++    }
++
++    if (refresh) {
++        wayl_refresh(wayl);
++    }
+ }
+
+ static void
+--
+2.39.2
+
+
+From e023c4f6ceb8bd0fa9b5b1ed2b23af123c2811ed Mon Sep 17 00:00:00 2001
+From: alz <alizee.gagnon.careers@gmail.com>
+Date: Mon, 22 Jul 2024 01:07:56 -0400
+Subject: [PATCH 2/7] put the mouse stuff behind a config
+
+---
+ config.c             |  4 ++++
+ config.h             |  2 ++
+ doc/fuzzel.1.scd     |  4 ++++
+ doc/fuzzel.ini.5.scd |  3 +++
+ main.c               | 10 ++++++++
+ match.c              |  4 ++++
+ wayland.c            | 54 +++++++++++++++++++++++++-------------------
+ 7 files changed, 58 insertions(+), 23 deletions(-)
+
+diff --git a/config.c b/config.c
+index e236142..21aab3a 100644
+--- a/config.c
++++ b/config.c
+@@ -778,6 +778,9 @@ parse_section_main(struct context *ctx)
+     else if (strcmp(key, "list-executables-in-path") == 0)
+         return value_to_bool(ctx, &conf->list_executables_in_path);
+
++    else if (strcmp(key, "mouse-listener") == 0)
++        return value_to_bool(ctx, &conf->mouse_listener);
++
+     else if (strcmp(key, "fields") == 0) {
+         _Static_assert(sizeof(conf->match_fields) == sizeof(int),
+             "enum is not 32-bit");
+@@ -1572,6 +1575,7 @@ config_load(struct config *conf, const char *conf_path,
+         .layer = ZWLR_LAYER_SHELL_V1_LAYER_TOP,
+         .exit_on_kb_focus_loss = true,
+         .list_executables_in_path = false,
++        .mouse_listener = false,
+     };
+
+     add_default_key_bindings(conf);
+diff --git a/config.h b/config.h
+index a52976c..99d3a52 100644
+--- a/config.h
++++ b/config.h
+@@ -170,6 +170,8 @@ struct config {
+     bool exit_on_kb_focus_loss;
+
+     bool list_executables_in_path;
++
++    bool mouse_listener;
+ };
+
+ typedef tll(char *) config_override_t;
+diff --git a/doc/fuzzel.1.scd b/doc/fuzzel.1.scd
+index c46d9af..791a5e6 100644
+--- a/doc/fuzzel.1.scd
++++ b/doc/fuzzel.1.scd
+@@ -302,6 +302,10 @@ or command line options:
+ *--log-no-syslog*
+ 	Disables syslog logging. Logging is only done on stderr.
+
++*--mouse*
++	Allows choosing items with mouse left click, and cancelling fuzzel with
++	right click.
++
+ *-v*,*--version*
+ 	Show the version number and quit
+
+diff --git a/doc/fuzzel.ini.5.scd b/doc/fuzzel.ini.5.scd
+index e3dfc05..ee6a2c5 100644
+--- a/doc/fuzzel.ini.5.scd
++++ b/doc/fuzzel.ini.5.scd
+@@ -411,6 +411,9 @@ done by setting _action=none_; e.g. *delete-line-forward=none*.
+ *last*
+ 	Select the last entry, on the last page. Default: _Control+End_.
+
++*mouse-listener*
++	Allows selecting elements with the mouse
++
+ *custom-1*, *custom-2*, ..., *custom-19*
+ 	Execute the currently selected entry, then exit with a non-zero
+ 	exit code. *custom-1* exits with exit code 10, *custom-2* with 11,
+diff --git a/match.c b/match.c
+index 7d5efaf..fe3903a 100644
+--- a/match.c
++++ b/match.c
+@@ -362,6 +362,9 @@ matches_selected_select(struct matches *matches, const char *_string)
+ bool
+ matches_selected_select_idx(struct matches *matches, size_t idx)
+ {
++    if (idx < 0)
++        return false;
++
+     const size_t page_no = matches_get_page(matches);
+     const size_t items_on_page __attribute__((unused)) = matches_get_count(matches);
+
+@@ -371,6 +374,7 @@ matches_selected_select_idx(struct matches *matches, size_t idx)
+         matches->page_count, page_no, items_on_page, idx,
+         matches->max_matches_per_page, matches->match_count);
+
++
+     if (idx >= items_on_page)
+         return false;
+
+diff --git a/wayland.c b/wayland.c
+index c2cf6a6..8fff785 100644
+--- a/wayland.c
++++ b/wayland.c
+@@ -1064,13 +1064,16 @@ wl_pointer_motion(void *data, struct wl_pointer *wl_pointer,
+ {
+ 	struct seat *seat = data;
+     struct wayland *wayl = seat->wayl;
+-    bool refresh = false;
+
+-    refresh = matches_selected_select_idx(wayl->matches,
+-            render_get_row_num(wayl->render, wl_fixed_to_int(surface_y)));
++    if (wayl->conf->mouse_listener) {
++        bool refresh = false;
+
+-    if (refresh) {
+-        wayl_refresh(wayl);
++        refresh = matches_selected_select_idx(wayl->matches,
++                render_get_row_num(wayl->render, wl_fixed_to_int(surface_y)));
++
++        if (refresh) {
++            wayl_refresh(wayl);
++        }
+     }
+ }
+
+@@ -1081,16 +1084,18 @@ wl_pointer_button(void *data, struct wl_pointer *wl_pointer,
+     struct seat *seat = data;
+     struct wayland *wayl = seat->wayl;
+
+-    // Button release
+-    if (state == 0) {
+-        // Left click
+-        if (button == 272) {
+-            execute_selected(seat, false, -1);
+-        // Right click
+-        } else if (button == 273) {
+-            wayl->status = EXIT;
+-            if (wayl->conf->dmenu.enabled)
+-                wayl->exit_code = 2;
++    if (wayl->conf->mouse_listener) {
++        // Button release
++        if (state == 0) {
++            // Left click
++            if (button == 0x110) {
++                execute_selected(seat, false, -1);
++            // Right click
++            } else if (button == 0x111) {
++                wayl->status = EXIT;
++                if (wayl->conf->dmenu.enabled)
++                    wayl->exit_code = 2;
++            }
+         }
+     }
+ }
+@@ -1102,15 +1107,18 @@ wl_pointer_axis(void *data, struct wl_pointer *wl_pointer,
+     struct seat *seat = data;
+     struct wayland *wayl = seat->wayl;
+
+-    bool refresh = false;
+-    if (value < 0) {
+-        refresh = matches_selected_prev_page(wayl->matches);
+-    } else if (value > 0) {
+-        refresh = matches_selected_next_page(wayl->matches);
+-    }
++    if (wayl->conf->mouse_listener) {
++        bool refresh = false;
+
+-    if (refresh) {
+-        wayl_refresh(wayl);
++        if (value < 0) {
++            refresh = matches_selected_prev_page(wayl->matches);
++        } else if (value > 0) {
++            refresh = matches_selected_next_page(wayl->matches);
++        }
++
++        if (refresh) {
++            wayl_refresh(wayl);
++        }
+     }
+ }
+
+--
+2.39.2
+
+
+From 9e04a13fa2a6b442faaa1451700e04000f24734b Mon Sep 17 00:00:00 2001
+From: alz <alizee.gagnon.careers@gmail.com>
+Date: Mon, 22 Jul 2024 12:00:43 -0400
+Subject: [PATCH 3/7] Ignoring left clicks if they're in the prompt row
+
+---
+ wayland.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/wayland.c b/wayland.c
+index 8fff785..e7c0c2c 100644
+--- a/wayland.c
++++ b/wayland.c
+@@ -1068,6 +1068,8 @@ wl_pointer_motion(void *data, struct wl_pointer *wl_pointer,
+     if (wayl->conf->mouse_listener) {
+         bool refresh = false;
+
++        seat->pointer.y = wl_fixed_to_int(surface_y);
++
+         refresh = matches_selected_select_idx(wayl->matches,
+                 render_get_row_num(wayl->render, wl_fixed_to_int(surface_y)));
+
+@@ -1088,7 +1090,7 @@ wl_pointer_button(void *data, struct wl_pointer *wl_pointer,
+         // Button release
+         if (state == 0) {
+             // Left click
+-            if (button == 0x110) {
++            if (button == 0x110 && render_get_row_num(wayl->render, seat->pointer.y) >= 0) {
+                 execute_selected(seat, false, -1);
+             // Right click
+             } else if (button == 0x111) {
+--
+2.39.2
+
+
+From 607edc371b7ee48ec194ec2ce561d8e10d49923a Mon Sep 17 00:00:00 2001
+From: alz <alizee.gagnon.careers@gmail.com>
+Date: Mon, 22 Jul 2024 13:18:43 -0400
+Subject: [PATCH 4/7] Refactored so the data types are correct
+
+---
+ match.c   | 36 ++++++++++++------------------------
+ render.c  | 14 +++++++++-----
+ render.h  |  2 +-
+ wayland.c | 28 +++++++++++++++++-----------
+ 4 files changed, 39 insertions(+), 41 deletions(-)
+
+diff --git a/match.c b/match.c
+index fe3903a..a16f903 100644
+--- a/match.c
++++ b/match.c
+@@ -278,8 +278,8 @@ matches_get_page(const struct matches *matches)
+         : matches->selected;
+ }
+
+-const struct match *
+-matches_get(const struct matches *matches, size_t idx)
++size_t
++match_get_idx(const struct matches *matches, size_t idx)
+ {
+     const size_t page_no = matches_get_page(matches);
+     const size_t items_on_page __attribute__((unused)) = matches_get_count(matches);
+@@ -290,11 +290,17 @@ matches_get(const struct matches *matches, size_t idx)
+         matches->page_count, page_no, items_on_page, idx,
+         matches->max_matches_per_page, matches->match_count);
+
+-    assert(idx < items_on_page);
++    assert(idx >= 0 && idx < items_on_page);
+     idx += page_no * matches->max_matches_per_page;
+
+     assert(idx < matches->match_count);
+-    return &matches->matches[idx];
++    return idx;
++}
++
++const struct match *
++matches_get(const struct matches *matches, size_t idx)
++{
++    return &matches->matches[match_get_idx(matches, idx)];
+ }
+
+ const struct match *
+@@ -362,28 +368,10 @@ matches_selected_select(struct matches *matches, const char *_string)
+ bool
+ matches_selected_select_idx(struct matches *matches, size_t idx)
+ {
+-    if (idx < 0)
++    if (idx == -1)
+         return false;
+
+-    const size_t page_no = matches_get_page(matches);
+-    const size_t items_on_page __attribute__((unused)) = matches_get_count(matches);
+-
+-    LOG_DBG(
+-        "page-count: %zu, page-no: %zu, items-on-page: %zu, idx: %zu, max: %zu, "
+-        "match-count: %zu",
+-        matches->page_count, page_no, items_on_page, idx,
+-        matches->max_matches_per_page, matches->match_count);
+-
+-
+-    if (idx >= items_on_page)
+-        return false;
+-
+-    idx += page_no * matches->max_matches_per_page;
+-
+-    if (idx >= matches->match_count)
+-        return false;
+-
+-    matches->selected = idx;
++    matches->selected = match_get_idx(matches, idx);
+     return true;
+ }
+
+diff --git a/render.c b/render.c
+index 3bc507c..1dcefc9 100644
+--- a/render.c
++++ b/render.c
+@@ -874,7 +874,8 @@ render_destroy(struct render *render)
+     free(render);
+ }
+
+-int render_get_row_num(const struct render *render, int y)
++size_t
++render_get_row_num(const struct render *render, int y, size_t match_count)
+ {
+     const float scale = render->scale;
+     const int y_margin = render->y_margin;
+@@ -882,13 +883,16 @@ int render_get_row_num(const struct render *render, int y)
+     const int border_size = render->border_size;
+     const int row_height = render->row_height;
+     const int first_row = 1 * border_size + y_margin + row_height + inner_pad;
++    const int last_row = first_row + match_count*row_height;
+
+     y = floor(scale * y);
+
+-    if (y <= first_row) {
+-        return -1;
+-    } else {
++    size_t row = -1;
++
++    if (y >= first_row && y < last_row) {
+         y -= first_row;
+-        return y / row_height;
++        row = y / row_height;
+     }
++
++    return row;
+ }
+diff --git a/render.h b/render.h
+index 1f934f5..c257004 100644
+--- a/render.h
++++ b/render.h
+@@ -31,4 +31,4 @@ void render_match_list(
+
+ int render_icon_size(const struct render *render);
+
+-int render_get_row_num(const struct render *render, int y);
++size_t render_get_row_num(const struct render *render, int y, size_t match_count);
+diff --git a/wayland.c b/wayland.c
+index e7c0c2c..56ff829 100644
+--- a/wayland.c
++++ b/wayland.c
+@@ -1058,6 +1058,19 @@ wl_pointer_leave(void *data, struct wl_pointer *wl_pointer,
+     seat->pointer.serial = serial;
+ }
+
++static void
++select_hovered_match(struct wayland *wayl, int y)
++{
++    bool refresh = false;
++
++    refresh = matches_selected_select_idx(wayl->matches,
++            render_get_row_num(wayl->render, y, matches_get_count(wayl->matches)));
++
++    if (refresh) {
++        wayl_refresh(wayl);
++    }
++}
++
+ static void
+ wl_pointer_motion(void *data, struct wl_pointer *wl_pointer,
+                   uint32_t time, wl_fixed_t surface_x, wl_fixed_t surface_y)
+@@ -1066,16 +1079,8 @@ wl_pointer_motion(void *data, struct wl_pointer *wl_pointer,
+     struct wayland *wayl = seat->wayl;
+
+     if (wayl->conf->mouse_listener) {
+-        bool refresh = false;
+-
+         seat->pointer.y = wl_fixed_to_int(surface_y);
+-
+-        refresh = matches_selected_select_idx(wayl->matches,
+-                render_get_row_num(wayl->render, wl_fixed_to_int(surface_y)));
+-
+-        if (refresh) {
+-            wayl_refresh(wayl);
+-        }
++        select_hovered_match(wayl, seat->pointer.y);
+     }
+ }
+
+@@ -1090,7 +1095,8 @@ wl_pointer_button(void *data, struct wl_pointer *wl_pointer,
+         // Button release
+         if (state == 0) {
+             // Left click
+-            if (button == 0x110 && render_get_row_num(wayl->render, seat->pointer.y) >= 0) {
++            if (button == 0x110 &&
++                    render_get_row_num(wayl->render, seat->pointer.y, matches_get_count(wayl->matches)) != -1) {
+                 execute_selected(seat, false, -1);
+             // Right click
+             } else if (button == 0x111) {
+@@ -1119,7 +1125,7 @@ wl_pointer_axis(void *data, struct wl_pointer *wl_pointer,
+         }
+
+         if (refresh) {
+-            wayl_refresh(wayl);
++            select_hovered_match(wayl, seat->pointer.y);
+         }
+     }
+ }
+--
+2.39.2
+
+
+From f4d4918ebd6b996deff617c2750000904d1f2d29 Mon Sep 17 00:00:00 2001
+From: alz <alizee.gagnon.careers@gmail.com>
+Date: Mon, 22 Jul 2024 13:37:03 -0400
+Subject: [PATCH 5/7] made the hovered row index an attribute of the seat
+ pointer
+
+---
+ wayland.c | 20 +++++++++++---------
+ 1 file changed, 11 insertions(+), 9 deletions(-)
+
+diff --git a/wayland.c b/wayland.c
+index 56ff829..ab88598 100644
+--- a/wayland.c
++++ b/wayland.c
+@@ -148,6 +148,8 @@ struct seat {
+         struct wl_cursor_theme *theme;
+         struct wl_cursor *cursor;
+         float scale;
++
++        size_t hovered_row_idx;
+     } pointer;
+ };
+
+@@ -1059,12 +1061,10 @@ wl_pointer_leave(void *data, struct wl_pointer *wl_pointer,
+ }
+
+ static void
+-select_hovered_match(struct wayland *wayl, int y)
++select_hovered_match(struct wayland *wayl, size_t idx)
+ {
+     bool refresh = false;
+-
+-    refresh = matches_selected_select_idx(wayl->matches,
+-            render_get_row_num(wayl->render, y, matches_get_count(wayl->matches)));
++    refresh = matches_selected_select_idx(wayl->matches,idx);
+
+     if (refresh) {
+         wayl_refresh(wayl);
+@@ -1079,8 +1079,11 @@ wl_pointer_motion(void *data, struct wl_pointer *wl_pointer,
+     struct wayland *wayl = seat->wayl;
+
+     if (wayl->conf->mouse_listener) {
+-        seat->pointer.y = wl_fixed_to_int(surface_y);
+-        select_hovered_match(wayl, seat->pointer.y);
++        seat->pointer.hovered_row_idx =
++            render_get_row_num(wayl->render,
++                    wl_fixed_to_int(surface_y),
++                    matches_get_count(wayl->matches));
++        select_hovered_match(wayl, seat->pointer.hovered_row_idx);
+     }
+ }
+
+@@ -1095,8 +1098,7 @@ wl_pointer_button(void *data, struct wl_pointer *wl_pointer,
+         // Button release
+         if (state == 0) {
+             // Left click
+-            if (button == 0x110 &&
+-                    render_get_row_num(wayl->render, seat->pointer.y, matches_get_count(wayl->matches)) != -1) {
++            if (button == 0x110 && seat->pointer.hovered_row_idx != -1) {
+                 execute_selected(seat, false, -1);
+             // Right click
+             } else if (button == 0x111) {
+@@ -1125,7 +1127,7 @@ wl_pointer_axis(void *data, struct wl_pointer *wl_pointer,
+         }
+
+         if (refresh) {
+-            select_hovered_match(wayl, seat->pointer.y);
++            select_hovered_match(wayl, seat->pointer.hovered_row_idx);
+         }
+     }
+ }
+--
+2.39.2
+
+
+From ef4b0160b3c6e04da7b4bf6a0e6b7d0ac06b54ef Mon Sep 17 00:00:00 2001
+From: alz <alizee.gagnon.careers@gmail.com>
+Date: Tue, 23 Jul 2024 16:35:44 -0400
+Subject: [PATCH 6/7] Refreshing display less often
+
+---
+ render.c  | 2 +-
+ wayland.c | 7 +++++--
+ 2 files changed, 6 insertions(+), 3 deletions(-)
+
+diff --git a/render.c b/render.c
+index 1dcefc9..505f570 100644
+--- a/render.c
++++ b/render.c
+@@ -839,7 +839,7 @@ render_set_font(struct render *render, struct fcft_font *font,
+         border_size;
+
+     LOG_DBG("x-margin: %d, y-margin: %d, border: %d, row-height: %d, "
+-            "icon-height: %d, height: %d, width: %d, scale: %d",
++            "icon-height: %d, height: %d, width: %d, scale: %f",
+             x_margin, y_margin, border_size, row_height, icon_height,
+             height, width, scale);
+
+diff --git a/wayland.c b/wayland.c
+index ab88598..19e902a 100644
+--- a/wayland.c
++++ b/wayland.c
+@@ -1079,11 +1079,14 @@ wl_pointer_motion(void *data, struct wl_pointer *wl_pointer,
+     struct wayland *wayl = seat->wayl;
+
+     if (wayl->conf->mouse_listener) {
+-        seat->pointer.hovered_row_idx =
++        size_t hovered_row =
+             render_get_row_num(wayl->render,
+                     wl_fixed_to_int(surface_y),
+                     matches_get_count(wayl->matches));
+-        select_hovered_match(wayl, seat->pointer.hovered_row_idx);
++        if (hovered_row != seat->pointer.hovered_row_idx) {
++            seat->pointer.hovered_row_idx = hovered_row;
++            select_hovered_match(wayl, seat->pointer.hovered_row_idx);
++        }
+     }
+ }
+
+--
+2.39.2
+
+
+From 761aabf6b7fc55203e23be76a044bbea3e8d99be Mon Sep 17 00:00:00 2001
+From: alz <alizee.gagnon.careers@gmail.com>
+Date: Mon, 29 Jul 2024 13:01:12 -0400
+Subject: [PATCH 7/7] Removed config, refactored hovered row selection
+
+---
+ config.c             |  4 ---
+ config.h             |  2 --
+ doc/fuzzel.1.scd     |  4 ---
+ doc/fuzzel.ini.5.scd |  3 --
+ main.c               | 10 ------
+ match.c              | 12 +++----
+ match.h              |  6 ++--
+ render.c             |  9 ++---
+ render.h             |  4 ++-
+ wayland.c            | 78 +++++++++++++++++++++-----------------------
+ 10 files changed, 54 insertions(+), 78 deletions(-)
+
+diff --git a/config.c b/config.c
+index 21aab3a..e236142 100644
+--- a/config.c
++++ b/config.c
+@@ -778,9 +778,6 @@ parse_section_main(struct context *ctx)
+     else if (strcmp(key, "list-executables-in-path") == 0)
+         return value_to_bool(ctx, &conf->list_executables_in_path);
+
+-    else if (strcmp(key, "mouse-listener") == 0)
+-        return value_to_bool(ctx, &conf->mouse_listener);
+-
+     else if (strcmp(key, "fields") == 0) {
+         _Static_assert(sizeof(conf->match_fields) == sizeof(int),
+             "enum is not 32-bit");
+@@ -1575,7 +1572,6 @@ config_load(struct config *conf, const char *conf_path,
+         .layer = ZWLR_LAYER_SHELL_V1_LAYER_TOP,
+         .exit_on_kb_focus_loss = true,
+         .list_executables_in_path = false,
+-        .mouse_listener = false,
+     };
+
+     add_default_key_bindings(conf);
+diff --git a/config.h b/config.h
+index 99d3a52..a52976c 100644
+--- a/config.h
++++ b/config.h
+@@ -170,8 +170,6 @@ struct config {
+     bool exit_on_kb_focus_loss;
+
+     bool list_executables_in_path;
+-
+-    bool mouse_listener;
+ };
+
+ typedef tll(char *) config_override_t;
+diff --git a/doc/fuzzel.1.scd b/doc/fuzzel.1.scd
+index 791a5e6..c46d9af 100644
+--- a/doc/fuzzel.1.scd
++++ b/doc/fuzzel.1.scd
+@@ -302,10 +302,6 @@ or command line options:
+ *--log-no-syslog*
+ 	Disables syslog logging. Logging is only done on stderr.
+
+-*--mouse*
+-	Allows choosing items with mouse left click, and cancelling fuzzel with
+-	right click.
+-
+ *-v*,*--version*
+ 	Show the version number and quit
+
+diff --git a/doc/fuzzel.ini.5.scd b/doc/fuzzel.ini.5.scd
+index ee6a2c5..e3dfc05 100644
+--- a/doc/fuzzel.ini.5.scd
++++ b/doc/fuzzel.ini.5.scd
+@@ -411,9 +411,6 @@ done by setting _action=none_; e.g. *delete-line-forward=none*.
+ *last*
+ 	Select the last entry, on the last page. Default: _Control+End_.
+
+-*mouse-listener*
+-	Allows selecting elements with the mouse
+-
+ *custom-1*, *custom-2*, ..., *custom-19*
+ 	Execute the currently selected entry, then exit with a non-zero
+ 	exit code. *custom-1* exits with exit code 10, *custom-2* with 11,
+diff --git a/match.c b/match.c
+index a16f903..48c6e4f 100644
+--- a/match.c
++++ b/match.c
+@@ -290,7 +290,7 @@ match_get_idx(const struct matches *matches, size_t idx)
+         matches->page_count, page_no, items_on_page, idx,
+         matches->max_matches_per_page, matches->match_count);
+
+-    assert(idx >= 0 && idx < items_on_page);
++    assert(idx < items_on_page);
+     idx += page_no * matches->max_matches_per_page;
+
+     assert(idx < matches->match_count);
+@@ -366,7 +366,7 @@ matches_selected_select(struct matches *matches, const char *_string)
+ }
+
+ bool
+-matches_selected_select_idx(struct matches *matches, size_t idx)
++matches_idx_select(struct matches *matches, size_t idx)
+ {
+     if (idx == -1)
+         return false;
+@@ -427,14 +427,14 @@ matches_selected_next(struct matches *matches, bool wrap)
+ }
+
+ bool
+-matches_selected_prev_page(struct matches *matches)
++matches_selected_prev_page(struct matches *matches, bool scrolling)
+ {
+     const size_t page_no = matches_get_page(matches);
+     if (page_no > 0) {
+         assert(matches->selected >= matches->max_matches_per_page);
+         matches->selected -= matches->max_matches_per_page;
+         return true;
+-    } else if (matches->selected > 0) {
++    } else if (!scrolling && matches->selected > 0) {
+         matches->selected = 0;
+         return true;
+     }
+@@ -443,7 +443,7 @@ matches_selected_prev_page(struct matches *matches)
+ }
+
+ bool
+-matches_selected_next_page(struct matches *matches)
++matches_selected_next_page(struct matches *matches, bool scrolling)
+ {
+     const size_t page_no = matches_get_page(matches);
+     if (page_no + 1 < matches->page_count) {
+@@ -451,7 +451,7 @@ matches_selected_next_page(struct matches *matches)
+             matches->selected + matches->max_matches_per_page,
+             matches->match_count - 1);
+         return true;
+-    } else if (matches->selected < matches->match_count - 1) {
++    } else if (!scrolling && matches->selected < matches->match_count - 1) {
+         matches->selected = matches->match_count - 1;
+         return true;
+     }
+diff --git a/match.h b/match.h
+index 871635b..35c5d5e 100644
+--- a/match.h
++++ b/match.h
+@@ -53,7 +53,7 @@ size_t matches_get_total_count(const struct matches *matches);
+ size_t matches_get_match_index(const struct matches *matches);
+
+ bool matches_selected_select(struct matches *matches, const char *string);
+-bool matches_selected_select_idx(struct matches *matches, size_t idx);
++bool matches_idx_select(struct matches *matches, size_t idx);
+
+ bool matches_selected_first(struct matches *matches);
+ bool matches_selected_last(struct matches *matches);
+@@ -61,5 +61,5 @@ bool matches_selected_last(struct matches *matches);
+ bool matches_selected_prev(struct matches *matches, bool wrap);
+ bool matches_selected_next(struct matches *matches, bool wrap);
+
+-bool matches_selected_prev_page(struct matches *matches);
+-bool matches_selected_next_page(struct matches *matches);
++bool matches_selected_prev_page(struct matches *matches, bool scrolling);
++bool matches_selected_next_page(struct matches *matches, bool scrolling);
+diff --git a/render.c b/render.c
+index 505f570..ef9aaad 100644
+--- a/render.c
++++ b/render.c
+@@ -875,7 +875,8 @@ render_destroy(struct render *render)
+ }
+
+ size_t
+-render_get_row_num(const struct render *render, int y, size_t match_count)
++render_get_row_num(const struct render *render, int y,
++                   const struct matches *matches)
+ {
+     const float scale = render->scale;
+     const int y_margin = render->y_margin;
+@@ -883,15 +884,15 @@ render_get_row_num(const struct render *render, int y, size_t match_count)
+     const int border_size = render->border_size;
+     const int row_height = render->row_height;
+     const int first_row = 1 * border_size + y_margin + row_height + inner_pad;
+-    const int last_row = first_row + match_count*row_height;
++    const size_t match_count = matches_get_count(matches);
++    const size_t last_row = first_row + match_count*row_height;
+
+     y = floor(scale * y);
+
+     size_t row = -1;
+
+     if (y >= first_row && y < last_row) {
+-        y -= first_row;
+-        row = y / row_height;
++        row = (y - first_row) / row_height;
+     }
+
+     return row;
+diff --git a/render.h b/render.h
+index c257004..16887f3 100644
+--- a/render.h
++++ b/render.h
+@@ -31,4 +31,6 @@ void render_match_list(
+
+ int render_icon_size(const struct render *render);
+
+-size_t render_get_row_num(const struct render *render, int y, size_t match_count);
++size_t render_get_row_num(
++        const struct render *render, int y,
++        const struct matches *matches);
+diff --git a/wayland.c b/wayland.c
+index 19e902a..541496d 100644
+--- a/wayland.c
++++ b/wayland.c
+@@ -16,6 +16,7 @@
+ #include <wayland-cursor.h>
+ #include <wayland-util.h>
+
++#include <linux/input-event-codes.h>
+ #include <xkbcommon/xkbcommon.h>
+ #include <xkbcommon/xkbcommon-keysyms.h>
+ #include <xkbcommon/xkbcommon-compose.h>
+@@ -142,14 +143,13 @@ struct seat {
+
+         int x;
+         int y;
++        size_t hovered_row_idx;
+
+         struct wl_surface *surface;
+         struct wp_viewport *viewport;
+         struct wl_cursor_theme *theme;
+         struct wl_cursor *cursor;
+         float scale;
+-
+-        size_t hovered_row_idx;
+     } pointer;
+ };
+
+@@ -706,7 +706,7 @@ execute_binding(struct seat *seat, const struct key_binding *binding, bool *refr
+         return true;
+
+     case BIND_ACTION_MATCHES_PREV_PAGE:
+-        *refresh = matches_selected_prev_page(wayl->matches);
++        *refresh = matches_selected_prev_page(wayl->matches, false);
+         return true;
+
+     case BIND_ACTION_MATCHES_NEXT:
+@@ -718,7 +718,7 @@ execute_binding(struct seat *seat, const struct key_binding *binding, bool *refr
+         return true;
+
+     case BIND_ACTION_MATCHES_NEXT_PAGE:
+-        *refresh = matches_selected_next_page(wayl->matches);
++        *refresh = matches_selected_next_page(wayl->matches, false);
+         return true;
+
+     case BIND_ACTION_MATCHES_FIRST:
+@@ -1061,12 +1061,22 @@ wl_pointer_leave(void *data, struct wl_pointer *wl_pointer,
+ }
+
+ static void
+-select_hovered_match(struct wayland *wayl, size_t idx)
++select_hovered_match(struct seat *seat, bool refresh_always)
+ {
++    struct wayland *wayl = seat->wayl;
+     bool refresh = false;
+-    refresh = matches_selected_select_idx(wayl->matches,idx);
+
+-    if (refresh) {
++    size_t hovered_row =
++        render_get_row_num(wayl->render,
++                seat->pointer.y,
++                wayl->matches);
++
++    if (hovered_row != seat->pointer.hovered_row_idx) {
++        seat->pointer.hovered_row_idx = hovered_row;
++        refresh = matches_idx_select(wayl->matches,hovered_row);
++    }
++
++    if (refresh_always || refresh) {
+         wayl_refresh(wayl);
+     }
+ }
+@@ -1076,18 +1086,11 @@ wl_pointer_motion(void *data, struct wl_pointer *wl_pointer,
+                   uint32_t time, wl_fixed_t surface_x, wl_fixed_t surface_y)
+ {
+ 	struct seat *seat = data;
+-    struct wayland *wayl = seat->wayl;
+
+-    if (wayl->conf->mouse_listener) {
+-        size_t hovered_row =
+-            render_get_row_num(wayl->render,
+-                    wl_fixed_to_int(surface_y),
+-                    matches_get_count(wayl->matches));
+-        if (hovered_row != seat->pointer.hovered_row_idx) {
+-            seat->pointer.hovered_row_idx = hovered_row;
+-            select_hovered_match(wayl, seat->pointer.hovered_row_idx);
+-        }
+-    }
++    seat->pointer.x = wl_fixed_to_int(surface_x);
++    seat->pointer.y = wl_fixed_to_int(surface_y);
++
++    select_hovered_match(seat, false);
+ }
+
+ static void
+@@ -1097,18 +1100,14 @@ wl_pointer_button(void *data, struct wl_pointer *wl_pointer,
+     struct seat *seat = data;
+     struct wayland *wayl = seat->wayl;
+
+-    if (wayl->conf->mouse_listener) {
+-        // Button release
+-        if (state == 0) {
+-            // Left click
+-            if (button == 0x110 && seat->pointer.hovered_row_idx != -1) {
+-                execute_selected(seat, false, -1);
+-            // Right click
+-            } else if (button == 0x111) {
+-                wayl->status = EXIT;
+-                if (wayl->conf->dmenu.enabled)
+-                    wayl->exit_code = 2;
+-            }
++    if (state == WL_POINTER_BUTTON_STATE_RELEASED) {
++        if (button == BTN_LEFT && seat->pointer.hovered_row_idx != -1) {
++            execute_selected(seat, false, -1);
++        } else if (button == BTN_RIGHT) {
++            // Same as pressing ESC
++            wayl->status = EXIT;
++            if (wayl->conf->dmenu.enabled)
++                wayl->exit_code = 2;
+         }
+     }
+ }
+@@ -1119,19 +1118,16 @@ wl_pointer_axis(void *data, struct wl_pointer *wl_pointer,
+ {
+     struct seat *seat = data;
+     struct wayland *wayl = seat->wayl;
++    bool refresh = false;
+
+-    if (wayl->conf->mouse_listener) {
+-        bool refresh = false;
++    if (value < 0) {
++        refresh = matches_selected_prev_page(wayl->matches, true);
++    } else if (value > 0) {
++        refresh = matches_selected_next_page(wayl->matches, true);
++    }
+
+-        if (value < 0) {
+-            refresh = matches_selected_prev_page(wayl->matches);
+-        } else if (value > 0) {
+-            refresh = matches_selected_next_page(wayl->matches);
+-        }
+-
+-        if (refresh) {
+-            select_hovered_match(wayl, seat->pointer.hovered_row_idx);
+-        }
++    if (refresh) {
++        select_hovered_match(seat, true);
+     }
+ }
+
+--
+2.39.2
