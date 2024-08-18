@@ -93,6 +93,18 @@
     cryptsetup
     home-manager
     wpa_supplicant
+    (pkgs.writeScriptBin "comma" ''
+      if [ "$#" = 0 ]; then
+        echo "usage: comma PKGNAME... [EXECUTABLE]";
+      elif [ "$#" = 1 ]; then
+        nix-shell -p $1 --run $1;
+      elif [ "$#" = 2 ]; then
+        nix-shell -p $1 --run $2;
+      else
+        echo "error: too many arguments";
+        echo "usage: comma PKGNAME... [EXECUTABLE]";
+      fi
+    '')
   ];
 
   # I use zsh btw

@@ -11,6 +11,7 @@ let
     neofetch = "disfetch";
     fetch = "disfetch";
     gitfetch = "onefetch";
+    "," = "comma";
   };
 in
 {
