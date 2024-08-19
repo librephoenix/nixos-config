@@ -311,6 +311,7 @@ in
        windowrulev2 = animation popin 1 20,$miniframe
 
        windowrulev2 = float,class:^(pokefinder)$
+       windowrulev2 = float,class:^(Waydroid)$
 
        windowrulev2 = opacity 0.80,title:ORUI
 
