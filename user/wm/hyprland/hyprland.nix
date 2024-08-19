@@ -154,6 +154,8 @@ in
        bind=SUPER,W,exec,nwg-dock-wrapper
 
        bind=,code:172,exec,lollypop -t
+       bind=,code:208,exec,lollypop -t
+       bind=,code:209,exec,lollypop -t
        bind=,code:174,exec,lollypop -s
        bind=,code:171,exec,lollypop -n
        bind=,code:173,exec,lollypop -p
