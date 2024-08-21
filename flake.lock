@@ -150,11 +150,11 @@
     "blocklist-hosts": {
       "flake": false,
       "locked": {
-        "lastModified": 1723813990,
-        "narHash": "sha256-90NnU1Bo9nfwiLxF1DSXB3H293zPv6NBITtIwNuIGgE=",
+        "lastModified": 1723945494,
+        "narHash": "sha256-3W8E1WxaU5oyfC3i4gL5yXrSHxHJlPzEezoiJJ9z1wM=",
         "owner": "StevenBlack",
         "repo": "hosts",
-        "rev": "b2b0b69d3c8e072f9f0a0ed2b6e264fa4d97dc32",
+        "rev": "0088c38eb685c6be2e4bcda078dbb39739ae8d55",
         "type": "github"
       },
       "original": {
@@ -616,16 +616,16 @@
         "xdph": "xdph"
       },
       "locked": {
-        "lastModified": 1723484486,
-        "narHash": "sha256-YRU0egH+7Wv2Ehln0Q7bjdVayJ8rQxrTmuf23oJ/bQ4=",
-        "rev": "c7b72790bd63172f04ee86784d4cb2a400532927",
-        "revCount": 5082,
+        "lastModified": 1723738134,
+        "narHash": "sha256-fKZY7oieA3mgwPD6b1gQqpp9nVgRhv8xlRh6T+Drylc=",
+        "rev": "520e91238f0e6e6990e6a0845d73d85012485525",
+        "revCount": 5093,
         "submodules": true,
         "type": "git",
         "url": "https://code.hyprland.org/hyprwm/Hyprland.git"
       },
       "original": {
-        "rev": "c7b72790bd63172f04ee86784d4cb2a400532927",
+        "rev": "520e91238f0e6e6990e6a0845d73d85012485525",
         "submodules": true,
         "type": "git",
         "url": "https://code.hyprland.org/hyprwm/Hyprland.git"
@@ -650,7 +650,6 @@
       "locked": {
         "lastModified": 1723143591,
         "narHash": "sha256-dPcWAeRJoG5CyWC32X3XX+Og0v/k1/S1N0T5dQWT32k=",
-        "ref": "refs/heads/main",
         "rev": "b73d7b901d8cb1172dd25c7b7159f0242c625a77",
         "revCount": 192,
         "type": "git",
@@ -1533,11 +1532,11 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1723774846,
-        "narHash": "sha256-m53hVat6XXiKooV1oUDEMnPcdNKqSn/kAW+g8juSq84=",
+        "lastModified": 1723947704,
+        "narHash": "sha256-TcVf66N2NgGhxORFytzgqWcg0XJ+kk8uNLNsTRI5sYM=",
         "owner": "oxalica",
         "repo": "rust-overlay",
-        "rev": "519f4892641bc04a6ac7c2d260cc68356f9ae90f",
+        "rev": "456e78a55feade2c3bc6d7bc0bf5e710c9d86120",
         "type": "github"
       },
       "original": {
@@ -1593,11 +1592,11 @@
         "nixpkgs": "nixpkgs_3"
       },
       "locked": {
-        "lastModified": 1722946882,
-        "narHash": "sha256-mxtnMye8gs82tdQbVC+g6v3aPOZlH150f9WyntHIkTg=",
+        "lastModified": 1723834469,
+        "narHash": "sha256-PkJTr9DWBQcR5Ru1fJpG80dtw0MLSxAZlKnhHHFAGIA=",
         "owner": "danth",
         "repo": "stylix",
-        "rev": "5853f1a8bd072f2ebabfc3de3973084353cf6f1e",
+        "rev": "6858d08ed012bc6491cc92c13142104e56badf31",
         "type": "github"
       },
       "original": {
