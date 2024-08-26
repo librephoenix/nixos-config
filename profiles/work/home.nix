@@ -33,7 +33,6 @@
     # Core
     zsh
     alacritty
-    librewolf
     brave
     qutebrowser
     git

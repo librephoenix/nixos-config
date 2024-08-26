@@ -18,7 +18,6 @@
     # Core
     zsh
     alacritty
-    librewolf
     brave
     git
     syncthing

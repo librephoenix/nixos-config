@@ -594,7 +594,6 @@ in
     emacsclientnewframe
     qutebrowser
     brave-browser
-    librewolf
     writer
     impress
     calc
