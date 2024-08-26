@@ -328,6 +328,8 @@ in
        windowrulev2 = opacity 0.85,class:^(org.gnome.Nautilus)$
        windowrulev2 = opacity 0.85,class:^(org.gnome.Nautilus)$
 
+       windowrulev2 = opacity 0.85,initialTitle:^(Notes)$,initialClass:^(Brave-browser)$
+
        layerrule = blur,waybar
        layerrule = xray,waybar
        blurls = waybar
