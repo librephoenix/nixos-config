@@ -39,6 +39,7 @@
     syncthing
 
     # Office
+    nextcloud-client
     libreoffice-fresh
     mate.atril
     openboard
@@ -187,6 +188,10 @@
     };
 
   services.syncthing.enable = true;
+  services.nextcloud-client = {
+    enable = true;
+    startInBackground = true;
+  };
 
   xdg.enable = true;
   xdg.userDirs = {
