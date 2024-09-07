@@ -208,11 +208,23 @@ config.bind('<Ctrl-p>', 'fake-key <Up>', mode='normal')
 config.bind('<Ctrl-n>', 'fake-key <Down>', mode='normal')
 config.bind('<Ctrl-p>', 'fake-key <Up>', mode='insert')
 config.bind('<Ctrl-n>', 'fake-key <Down>', mode='insert')
+config.bind('<Ctrl-p>', 'fake-key <Up>', mode='passthrough')
+config.bind('<Ctrl-n>', 'fake-key <Down>', mode='passthrough')
 
 # bindings from vimium
 config.bind('t', 'open -t')
 config.bind('x', 'tab-close')
 config.bind('yf', 'hint links yank')
+config.bind('<Ctrl-Tab>', 'tab-next')
+config.bind('<Ctrl-Shift-Tab>', 'tab-prev')
+
+# passthrough bindings
+config.bind('<Shift-Escape>', 'mode-leave', mode='passthrough')
+config.bind('<Ctrl-T>', 'open -t', mode='passthrough')
+config.bind('<Ctrl-W>', 'tab-close', mode='passthrough')
+config.bind('<Ctrl-Tab>', 'tab-next', mode='passthrough')
+config.bind('<Ctrl-Shift-Tab>', 'tab-prev', mode='passthrough')
+config.bind('<Ctrl-B>', 'cmd-set-text -s :quickmark-load -t', mode='passthrough')
 
 # spawn external programs
 config.bind(',m', 'hint links spawn mpv {hint-url}')
