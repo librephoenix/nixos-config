@@ -315,6 +315,13 @@ in
        windowrulev2 = float,class:^(pokefinder)$
        windowrulev2 = float,class:^(Waydroid)$
 
+       windowrulev2 = float,class:^(blender)$
+       windowrulev2 = float,class:^(org.inkscape.Inkscape)$
+       windowrulev2 = float,class:^(pinta)$
+       windowrulev2 = float,class:^(krita)$
+       windowrulev2 = float,class:^(Gimp)
+       windowrulev2 = float,class:^(Gimp)
+       windowrulev2 = float,class:^(libresprite)$
        windowrulev2 = opacity 0.80,title:ORUI
 
        windowrulev2 = opacity 1.0,class:^(org.qutebrowser.qutebrowser),fullscreen:1

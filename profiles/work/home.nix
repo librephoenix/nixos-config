@@ -110,12 +110,16 @@
     # Media
     gimp
     krita
+    pinta
     inkscape
     (pkgs-stable.lollypop.override { youtubeSupport = false; })
     vlc
     mpv
     yt-dlp
-    blender-hip
+    (blender-hip.override {
+      cudaSupport = true;
+    })
+    libresprite
     # cura is moderately broken on wayland, so use xwayland
     (pkgs-stable.cura.overrideAttrs (oldAttrs: {
       postInstall = oldAttrs.postInstall + ''cp -rf ${(pkgs.makeDesktopItem {
@@ -179,7 +183,8 @@
     libffi zlib
     nodePackages.ungit
     ventoy
-  ]) ++ ([ pkgs-kdenlive.kdenlive ]);
+    kdePackages.kdenlive
+  ]);
 
   home.file.".local/share/pixmaps/nixos-snowflake-stylix.svg".source =
     config.lib.stylix.colors {
