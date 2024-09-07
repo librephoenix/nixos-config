@@ -171,7 +171,7 @@ in
 
        bind=SUPERCTRL,S,exec,container-open # qutebrowser only
 
-       bind=SUPERCTRL,R,exec,phoenix refresh
+       bind=SUPERCTRL,P,pin
 
        bind=SUPER,code:47,exec,fuzzel
        bind=SUPER,X,exec,fnottctl dismiss
@@ -322,6 +322,7 @@ in
        windowrulev2 = float,class:^(Gimp)
        windowrulev2 = float,class:^(Gimp)
        windowrulev2 = float,class:^(libresprite)$
+
        windowrulev2 = opacity 0.80,title:ORUI
 
        windowrulev2 = opacity 1.0,class:^(org.qutebrowser.qutebrowser),fullscreen:1
@@ -356,6 +357,7 @@ in
        bind=SUPER,I,exec,networkmanager_dmenu
        bind=SUPER,P,exec,keepmenu
        bind=SUPERSHIFT,P,exec,hyprprofile-dmenu
+       bind=SUPERCTRL,R,exec,phoenix refresh
 
        # 3 monitor setup
        monitor=eDP-1,1920x1080@300,900x1080,1
