@@ -225,6 +225,13 @@ config.bind('<Ctrl-W>', 'tab-close', mode='passthrough')
 config.bind('<Ctrl-Tab>', 'tab-next', mode='passthrough')
 config.bind('<Ctrl-Shift-Tab>', 'tab-prev', mode='passthrough')
 config.bind('<Ctrl-B>', 'cmd-set-text -s :quickmark-load -t', mode='passthrough')
+config.bind('<Ctrl-O>', 'cmd-set-text -s :open -t', mode='passthrough')
+config.bind('<Ctrl-F>', 'cmd-set-text /', mode='passthrough')
+config.bind('<Ctrl-R>', 'reload', mode='passthrough')
+config.unbind('<Ctrl-X>')
+config.unbind('<Ctrl-A>')
+config.unbind('<Ctrl-C>')
+config.unbind('<Ctrl-Z>')
 
 # spawn external programs
 config.bind(',m', 'hint links spawn mpv {hint-url}')
