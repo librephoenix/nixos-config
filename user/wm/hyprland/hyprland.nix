@@ -165,6 +165,8 @@ in
 
        bind=SUPER,RETURN,exec,'' + userSettings.term + ''
 
+       bind=SUPERSHIFT,RETURN,exec,'' + userSettings.term + " " + '' --class float_term
+
        bind=SUPER,A,exec,'' + userSettings.spawnEditor + ''
 
        bind=SUPER,S,exec,'' + userSettings.spawnBrowser + ''
@@ -265,6 +267,10 @@ in
        windowrulev2 = $scratchpadsize,$scratch_term
        windowrulev2 = workspace special:scratch_term ,$scratch_term
        windowrulev2 = center,$scratch_term
+
+       $float_term = class:^(float_term)$
+       windowrulev2 = float,$float_term
+       windowrulev2 = center,$float_term
 
        $scratch_ranger = class:^(scratch_ranger)$
        windowrulev2 = float,$scratch_ranger
