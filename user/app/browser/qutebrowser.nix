@@ -230,8 +230,6 @@ config.bind('<Ctrl-F>', 'cmd-set-text /', mode='passthrough')
 config.bind('<Ctrl-R>', 'reload', mode='passthrough')
 config.unbind('<Ctrl-X>')
 config.unbind('<Ctrl-A>')
-config.unbind('<Ctrl-C>')
-config.unbind('<Ctrl-Z>')
 
 # spawn external programs
 config.bind(',m', 'hint links spawn mpv {hint-url}')
