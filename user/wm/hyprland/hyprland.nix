@@ -315,7 +315,9 @@ in
        windowrulev2 = float,class:^(pokefinder)$
        windowrulev2 = float,class:^(Waydroid)$
 
-       windowrulev2 = float,class:^(blender)$
+       windowrulev2 = float,title:^(Blender Render)$
+       windowrulev2 = size 86% 85%,title:^(Blender Render)$
+       windowrulev2 = center,title:^(Blender Render)$
        windowrulev2 = float,class:^(org.inkscape.Inkscape)$
        windowrulev2 = float,class:^(pinta)$
        windowrulev2 = float,class:^(krita)$
