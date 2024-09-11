@@ -1,11 +1,11 @@
-{ pkgs, ... }:
+{ pkgs-stable, ... }:
 
 {
   # Fonts are nice to have
-  fonts.packages = with pkgs; [
+  fonts.packages = with pkgs-stable; [
     # Fonts
-    # nerdfonts # FIXME broken
-    # powerline # FIXME broken by python 311 -> 312 nixpkgs update
+    nerdfonts
+    powerline
   ];
 
 }
