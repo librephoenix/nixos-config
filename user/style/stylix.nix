@@ -74,7 +74,6 @@ in
     font.size = config.stylix.fonts.sizes.terminal;
     font.normal.family = userSettings.font;
   };
-  stylix.targets.kde.enable = true;
   stylix.targets.kitty.enable = true;
   stylix.targets.gtk.enable = true;
   stylix.targets.rofi.enable = if (userSettings.wmType == "x11") then true else false;

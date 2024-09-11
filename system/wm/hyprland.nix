@@ -26,11 +26,6 @@ in
     };
   };
 
-  environment = {
-    plasma5.excludePackages = [ pkgs.kdePackages.systemsettings ];
-    plasma6.excludePackages = [ pkgs.kdePackages.systemsettings ];
-  };
-
   services.xserver.excludePackages = [ pkgs.xterm ];
 
   services.xserver = {

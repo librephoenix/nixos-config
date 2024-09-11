@@ -183,7 +183,7 @@
     libffi zlib
     nodePackages.ungit
     ventoy
-    kdePackages.kdenlive
+    kdenlive
   ]);
 
   home.file.".local/share/pixmaps/nixos-snowflake-stylix.svg".source =
