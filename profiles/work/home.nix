@@ -13,6 +13,7 @@
               ../../user/shell/sh.nix # My zsh and bash config
               ../../user/shell/cli-collection.nix # Useful CLI apps
               ../../user/app/doom-emacs/doom.nix # My doom emacs config
+              ../../user/app/nvim/nvim.nix # My doom emacs config
               #../../user/app/emacsng # Me experimenting with emacsng and a vanilla config
               ../../user/app/ranger/ranger.nix # My ranger file manager config
               ../../user/app/git/git.nix # My git config
@@ -116,9 +117,7 @@
     vlc
     mpv
     yt-dlp
-    (blender-hip.override {
-      cudaSupport = true;
-    })
+    blender-hip
     libresprite
     # cura is moderately broken on wayland, so use xwayland
     (pkgs-stable.cura.overrideAttrs (oldAttrs: {

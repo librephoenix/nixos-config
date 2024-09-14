@@ -264,6 +264,11 @@
     nix-straight.flake = false;
     nix-doom-emacs.inputs.nix-straight.follows = "nix-straight";
 
+    nvchad = {
+      url = "github:NvChad/starter";
+      flake = false;
+    };
+
     eaf = {
       url = "github:emacs-eaf/emacs-application-framework";
       flake = false;
