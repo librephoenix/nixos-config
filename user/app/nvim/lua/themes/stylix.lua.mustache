@@ -1,0 +1,70 @@
+local M = {}
+
+M.base_30 = {
+  white = "#{{base07-hex}}",
+  darker_black = "#{{base00-hex}}",
+  black = "#{{base00-hex}}", --  nvim bg
+  black2 = "#{{base01-hex}}",
+  one_bg = "#{{base01-hex}}",
+  one_bg2 = "#{{base02-hex}}",
+  one_bg3 = "#{{base03-hex}}",
+  grey = "#{{base04-hex}}",
+  grey_fg = "#{{base04-hex}}",
+  grey_fg2 = "#{{base05-hex}}",
+  light_grey = "#{{base06-hex}}",
+  red = "#{{base08-hex}}",
+  baby_pink = "#{{base08-hex}}",
+  pink = "#{{base08-hex}}",
+  line = "#{{base02-hex}}", -- for lines like vertsplit
+  green = "#{{base0B-hex}}",
+  vibrant_green = "#{{base0B-hex}}",
+  blue = "#{{base0D-hex}}",
+  nord_blue = "#{{base0D-hex}}",
+  yellow = "#{{base0A-hex}}",
+  sun = "#{{base0A-hex}}",
+  purple = "#{{base0E-hex}}",
+  dark_purple = "#{{base0E-hex}}",
+  teal = "#{{base0C-hex}}",
+  orange = "#{{base09-hex}}",
+  cyan = "#{{base0C-hex}}",
+  statusline_bg = "#{{base02-hex}}",
+  lightbg = "#{{base03-hex}}",
+  pmenu_bg = "#{{base0D-hex}}",
+  folder_bg = "#{{base05-hex}}",
+}
+
+M.base_16 = {
+  base00 = "#{{base00-hex}}",
+  base01 = "#{{base01-hex}}",
+  base02 = "#{{base02-hex}}",
+  base03 = "#{{base03-hex}}",
+  base04 = "#{{base04-hex}}",
+  base05 = "#{{base05-hex}}",
+  base06 = "#{{base06-hex}}",
+  base07 = "#{{base07-hex}}",
+  base08 = "#{{base08-hex}}",
+  base09 = "#{{base09-hex}}",
+  base0A = "#{{base0A-hex}}",
+  base0B = "#{{base0B-hex}}",
+  base0C = "#{{base0C-hex}}",
+  base0D = "#{{base0D-hex}}",
+  base0E = "#{{base0E-hex}}",
+  base0F = "#{{base0F-hex}}",
+}
+
+M.polish_hl = {
+  treesitter = {
+    luaTSField = { fg = M.base_16.base0D },
+    ["@tag.delimiter"] = { fg = M.base_30.cyan },
+    ["@function"] = { fg = M.base_30.orange },
+    ["@variable.parameter"] = { fg = M.base_16.base0F },
+    ["@constructor"] = { fg = M.base_16.base0A },
+    ["@tag.attribute"] = { fg = M.base_30.orange },
+  },
+}
+
+M = require("base46").override_theme(M, "stylix")
+
+M.type = "{{polarity}}"
+
+return M
