@@ -14,4 +14,19 @@ M.base46 = {
 	-- },
 }
 
+M.ui = {
+ theme = "stylix",
+ nvdash = {
+   load_on_startup = true,
+   buttons = {
+     { "  Find File", "Spc .", "Telescope find_files" },
+     { "󰙅  Nvimtree", "SPC e", "NvimTreeToggle" },
+     { "  Projects ", "Spc p p", "Telescope workspaces" },
+     { "󰯌  Vsplit ", "Spc w v", "vsplit" },
+     { "󰯋  Split ", "Spc w s", "split" },
+     { "󰋗  Help", "Spc c h", "NvCheatsheet" },
+   },
+ }
+}
+
 return M

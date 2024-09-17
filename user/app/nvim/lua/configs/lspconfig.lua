@@ -4,7 +4,7 @@ require("nvchad.configs.lspconfig").defaults()
 local lspconfig = require "lspconfig"
 
 -- EXAMPLE
-local servers = { "html", "cssls" }
+local servers = { "html", "cssls", "nil_ls", "marksman", "clangd", "pylsp", "ts_ls", "java_language_server", "dockerls", "docker_compose_language_service", "jsonls", "kotlin_language_server", "bashls", "yamlls", "sqls" }
 local nvlsp = require "nvchad.configs.lspconfig"
 
 -- lsps with default config
@@ -15,6 +15,9 @@ for _, lsp in ipairs(servers) do
     capabilities = nvlsp.capabilities,
   }
 end
+lspconfig.gdscript.setup {
+  cmd = { "ncat", "localhost", "6005"}
+}
 
 -- configuring single server, example: typescript
 -- lspconfig.ts_ls.setup {

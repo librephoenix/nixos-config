@@ -45,7 +45,10 @@
                              (editor == "nano")) then
                                "exec " + term + " -e " + editor
                          else
-                           editor);
+                         (if (editor == "neovide") then
+                           "neovide -- --listen /tmp/nvimsocket" 
+                           else
+                           editor));
       };
 
       # create patched nixpkgs

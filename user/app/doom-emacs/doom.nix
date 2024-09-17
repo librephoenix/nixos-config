@@ -48,9 +48,6 @@ in
 
   home.packages = (with pkgs-emacs; [
     emacs-lsp-booster
-    nil
-    nixfmt
-    kotlin-language-server
     file
     wmctrl
     jshon
