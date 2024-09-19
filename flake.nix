@@ -231,7 +231,7 @@
       type = "git";
       url = "https://code.hyprland.org/hyprwm/Hyprland.git";
       submodules = true;
-      rev = "7a24e564f43d4c24abf2ec4e5351007df2f8926c"; #v0.42.0+
+      rev = "0f594732b063a90d44df8c5d402d658f27471dfe"; #v0.42.0+
       inputs.nixpkgs.follows = "nixpkgs";
     };
     hyprland-plugins = {
@@ -246,19 +246,8 @@
       rev = "73b0fc26c0e2f6f82f9d9f5b02e660a958902763";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    hyprgrass.url = "github:horriblename/hyprgrass/0bb3b822053c813ab6f695c9194089ccb5186cc3";
+    hyprgrass.url = "github:horriblename/hyprgrass/427690aec574fec75f5b7b800ac4a0b4c8e4b1d5";
     hyprgrass.inputs.hyprland.follows = "hyprland";
-
-    plasma-manager.url = "github:pjones/plasma-manager";
-    plasma-manager.inputs.nixpkgs.follows = "nixpkgs";
-    plasma-manager.inputs.home-manager.follows = "home-manager-unstable";
-
-    kwin-effects-forceblur.url = "github:taj-ny/kwin-effects-forceblur";
-    kwin-effects-forceblur.inputs.nixpkgs.follows = "nixpkgs";
-
-    # FIXME emacsng doesn't build or dumps core
-    #emacsng.url = "github:emacs-ng/emacs-ng/58fcf8c";
-    #emacsng.inputs.nixpkgs.follows = "nixpkgs";
 
     nix-doom-emacs.url = "github:nix-community/nix-doom-emacs";
     nix-doom-emacs.inputs.nixpkgs.follows = "emacs-pin-nixpkgs";
