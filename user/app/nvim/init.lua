@@ -15,6 +15,8 @@ if vim.g.neovide then
   vim.g.neovide_cursor_vfx_mode = "pixiedust"
 end
 
+vim.api.nvim_create_user_command('W', 'execute "silent! write !sudo tee % >/dev/null" <bar> edit', { nargs = 0})
+
 vim.g.neovide_scale_factor = 1.0
 
 -- bootstrap lazy and all plugins
