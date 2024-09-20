@@ -231,13 +231,13 @@
       type = "git";
       url = "https://code.hyprland.org/hyprwm/Hyprland.git";
       submodules = true;
-      rev = "0f594732b063a90d44df8c5d402d658f27471dfe"; #v0.42.0+
+      rev = "0f594732b063a90d44df8c5d402d658f27471dfe"; #v0.43.0
       inputs.nixpkgs.follows = "nixpkgs";
     };
     hyprland-plugins = {
       type = "git";
       url = "https://code.hyprland.org/hyprwm/hyprland-plugins.git";
-      rev = "b73d7b901d8cb1172dd25c7b7159f0242c625a77"; #v0.42.0
+      rev = "b73d7b901d8cb1172dd25c7b7159f0242c625a77"; #v0.43.0
       inputs.hyprland.follows = "hyprland";
     };
     hyprlock = {
