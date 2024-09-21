@@ -1323,9 +1323,7 @@ in
   services.udiskie.enable = true;
   services.udiskie.tray = "always";
   programs.fuzzel.enable = true;
-  programs.fuzzel.package = pkgs.fuzzel.overrideAttrs (oldAttrs: {
-      patches = ./patches/fuzzelmouseinput.patch;
-    });
+  programs.fuzzel.package = pkgs.fuzzel;
   programs.fuzzel.settings = {
     main = {
       font = userSettings.font + ":size=20";
