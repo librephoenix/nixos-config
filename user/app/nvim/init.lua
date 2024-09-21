@@ -13,6 +13,9 @@ if vim.g.neovide then
   vim.g.neovide_floating_blur_amount_y = 8.0
   vim.g.neovide_refresh_rate = 120
   vim.g.neovide_cursor_vfx_mode = "pixiedust"
+  vim.g.neovide_text_gamma = 0.8
+  vim.g.neovide_text_contrast = 0.1
+  vim.opt.termguicolors = true
 end
 
 vim.api.nvim_create_user_command('W', 'execute "silent! write !sudo tee % >/dev/null" <bar> edit', { nargs = 0})
