@@ -26,6 +26,7 @@ return {
   { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make', lazy = false, },
   { 'nvim-telescope/telescope-project.nvim', lazy = false, },
   { 'natecraddock/workspaces.nvim', lazy = false, },
+  { 'jghauser/follow-md-links.nvim', lazy = false, },
 
   {
     "NeogitOrg/neogit",
@@ -38,5 +39,14 @@ return {
       "nvim-telescope/telescope.nvim", -- optional
     },
     config = true
+  },
+  {
+    'nvim-orgmode/orgmode',
+    event = 'VeryLazy',
+    ft = { 'org' },
+    config = function()
+      -- Setup orgmode
+      require('orgmode').setup({})
+    end,
   },
 }

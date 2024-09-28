@@ -37,6 +37,7 @@ map("n", "<leader>ws", "<cmd>split<cr>", { desc = "horizontal split" })
 map("n", "<leader>wS", "<cmd>split<cr>", { desc = "horizontal split" })
 map("n", "<leader>wv", "<cmd>vsplit<cr>", { desc = "vertical split" })
 map("n", "<leader>wV", "<cmd>vsplit<cr>", { desc = "vertical split" })
+map("n", "<A-p>", "<cmd>edit #<cr>", { desc = "edit previous" })
 map({ "n", "t", "i", "v" }, "<A-f>", "<cmd>NvimTreeToggle<CR>", { desc = "nvimtree toggle window" })
 map({ "n", "t", "i", "v" }, "<A-z>", function()
   require("nvchad.term").toggle { pos = "sp", id = "htoggleTerm" }

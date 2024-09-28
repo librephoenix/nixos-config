@@ -16,11 +16,13 @@ if vim.g.neovide then
   vim.g.neovide_text_gamma = 0.8
   vim.g.neovide_text_contrast = 0.1
   vim.opt.termguicolors = true
+  vim.g.neovide_scale_factor = 1.0
 end
+
+vim.o.conceallevel = 2
 
 vim.api.nvim_create_user_command('W', 'execute "silent! write !sudo tee % >/dev/null" <bar> edit', { nargs = 0})
 
-vim.g.neovide_scale_factor = 1.0
 
 -- bootstrap lazy and all plugins
 local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
