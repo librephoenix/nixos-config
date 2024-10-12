@@ -136,7 +136,7 @@
                        "model/gltf+json" "model/vnd.collada+xml+zip"];
           })}/share/applications $out/share'';
     }))
-    (pkgs.writeShellScriptBin "curax" ''env QT_QPA_PLATFORM=xcb ${pkgs-stable.cura}/bin/cura'')
+    (pkgs.writeShellScriptBin "curax" ''env QT_QPA_PLATFORM=xcb ${pkgs-stable.cura}/bin/cura $@'')
     (pkgs-stable.curaengine_stable)
     openscad
     (stdenv.mkDerivation {
@@ -177,6 +177,7 @@
     tenacity
 
     # Various dev packages
+    remmina
     sshfs
     texinfo
     libffi zlib

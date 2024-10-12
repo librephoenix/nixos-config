@@ -139,7 +139,6 @@ base0F = "#''+config.lib.stylix.colors.base0F+''"
 config.set('content.cookies.accept', 'no-3rdparty', 'chrome-devtools://*')
 config.set('content.cookies.accept', 'no-3rdparty', 'devtools://*')
 
-config.set('content.headers.user_agent','Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36')
 config.set('content.headers.user_agent', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36', 'https://accounts.google.com/*')
 config.set('content.headers.user_agent', 'Mozilla/5.0 ({os_info}) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99 Safari/537.36', 'https://*.slack.com/*')
 
