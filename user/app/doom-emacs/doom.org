@@ -1,6 +1,6 @@
 #+TITLE: Doom Emacs Literate Config
 #+AUTHOR: Emmet
-
+# FIXME doom emacs config
 * Table of Contents :TOC:QUOTE:
 #+BEGIN_QUOTE
 - [[#what-is-doom-emacs][What is Doom Emacs?]]

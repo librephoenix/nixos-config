@@ -12,7 +12,7 @@
               (./. + "../../../user/wm"+("/"+userSettings.wm+"/"+userSettings.wm)+".nix") # My window manager selected from flake
               ../../user/shell/sh.nix # My zsh and bash config
               ../../user/shell/cli-collection.nix # Useful CLI apps
-              ../../user/app/doom-emacs/doom.nix # My doom emacs config
+              #../../user/app/doom-emacs/doom.nix # My doom emacs config
               ../../user/app/nvim/nvim.nix # My doom emacs config
               #../../user/app/emacsng # Me experimenting with emacsng and a vanilla config
               ../../user/app/ranger/ranger.nix # My ranger file manager config

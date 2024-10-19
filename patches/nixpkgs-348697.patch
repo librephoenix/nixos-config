@@ -1,0 +1,76 @@
+diff --git a/pkgs/development/python-modules/pyqt/6.x.nix b/pkgs/development/python-modules/pyqt/6.x.nix
+index 9f031347d354e..6356eeb9637f0 100644
+--- a/pkgs/development/python-modules/pyqt/6.x.nix
++++ b/pkgs/development/python-modules/pyqt/6.x.nix
+@@ -25,17 +25,15 @@
+ 
+ buildPythonPackage rec {
+   pname = "pyqt6";
+-  version = "6.7.0.dev2404081550";
++  version = "6.8.0.dev2410141303";
+   format = "pyproject";
+ 
+   disabled = pythonOlder "3.6";
+ 
++  # This is dangerous, how can we get web archive to archive the URL?
+   src = fetchurl {
+-    urls = [
+-      "https://riverbankcomputing.com/pypi/packages/PyQt6/PyQt6-${version}.tar.gz"
+-      "http://web.archive.org/web/20240411124842if_/https://riverbankcomputing.com/pypi/packages/PyQt6/PyQt6-${version}.tar.gz"
+-    ];
+-    hash = "sha256-H5qZ/rnruGh+UVSXLZyTSvjagmmli/iYq+7BaIzl1YQ=";
++    url = "https://riverbankcomputing.com/pypi/packages/PyQt6/PyQt6-${version}.tar.gz";
++    hash = "sha256-eHYqj22us07uFkErJD2d0y0wueZxtQTwTFW9cI7yoK4=";
+   };
+ 
+   patches = [
+@@ -55,8 +53,11 @@ buildPythonPackage rec {
+     verbose = true
+     EOF
+ 
++    # pythonRelaxDeps doesn't work and the wanted versions are not released AFAIK
+     substituteInPlace pyproject.toml \
+-      --replace-fail 'version = "${version}"' 'version = "${lib.versions.pad 3 version}"'
++      --replace-fail 'version = "${version}"' 'version = "${lib.versions.pad 3 version}"' \
++      --replace-fail "sip >=6.9, <7" "sip >=6.8.6, <7" \
++      --replace-fail 'PyQt-builder >=1.17, <2' "PyQt-builder >=1.16, <2"
+   '';
+ 
+   enableParallelBuilding = true;
+diff --git a/pkgs/development/python-modules/sip/default.nix b/pkgs/development/python-modules/sip/default.nix
+index 8a398654b08ce..8fd6240e4a512 100644
+--- a/pkgs/development/python-modules/sip/default.nix
++++ b/pkgs/development/python-modules/sip/default.nix
+@@ -4,6 +4,7 @@
+   fetchPypi,
+   pythonOlder,
+   setuptools,
++  setuptools-scm,
+   packaging,
+   tomli,
+ 
+@@ -15,17 +16,20 @@
+ 
+ buildPythonPackage rec {
+   pname = "sip";
+-  version = "6.8.3";
++  version = "6.8.6";
+   pyproject = true;
+ 
+   src = fetchPypi {
+     inherit pname version;
+-    hash = "sha256-iIVHsBi7JMNq3tUZ6T0+UT1MaqC6VbfMGv+9Rc8Qdiw=";
++    hash = "sha256-f8lZ5I5uxdWvi9Am9p9eJNCLPLirs0IXb1q4AwzAfXo=";
+   };
+ 
+-  nativeBuildInputs = [ setuptools ];
++  build-system = [
++    setuptools
++    setuptools-scm
++  ];
+ 
+-  propagatedBuildInputs = [
++  dependencies = [
+     packaging
+     setuptools
+   ] ++ lib.optionals (pythonOlder "3.11") [ tomli ];
