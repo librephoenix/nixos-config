@@ -38,6 +38,27 @@
   nix.extraOptions = ''
     experimental-features = nix-command flakes
   '';
+  nixpkgs.overlays = [
+    (
+      final: prev: {
+        logseq = prev.logseq.overrideAttrs (oldAttrs: {
+          postFixup = ''
+            makeWrapper ${prev.electron_27}/bin/electron $out/bin/${oldAttrs.pname} \
+              --set "LOCAL_GIT_DIRECTORY" ${prev.git} \
+              --add-flags $out/share/${oldAttrs.pname}/resources/app \
+              --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations}}" \
+              --prefix LD_LIBRARY_PATH : "${prev.lib.makeLibraryPath [ prev.stdenv.cc.cc.lib ]}"
+          '';
+        });
+      }
+    )
+  ];
+ 
+
+  # logseq
+  nixpkgs.config.permittedInsecurePackages = [
+      "electron-27.3.11"
+  ];
 
   # wheel group gets trusted access to nix daemon
   nix.settings.trusted-users = [ "@wheel" ];
@@ -87,6 +108,7 @@
   # System packages
   environment.systemPackages = with pkgs; [
     vim
+    logseq
     wget
     zsh
     git
