@@ -335,6 +335,7 @@ in
 
        windowrulev2 = opacity 1.0,class:^(org.qutebrowser.qutebrowser),fullscreen:1
        windowrulev2 = opacity 0.85,class:^(Element)$
+       windowrulev2 = opacity 0.85,class:^(Logseq)$
        windowrulev2 = opacity 0.85,class:^(lollypop)$
        windowrulev2 = opacity 1.0,class:^(Brave-browser),fullscreen:1
        windowrulev2 = opacity 1.0,class:^(librewolf),fullscreen:1
