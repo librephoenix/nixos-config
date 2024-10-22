@@ -119,24 +119,31 @@
     yt-dlp
     blender-hip
     libresprite
-    # cura is moderately broken on wayland, so use xwayland
-    (pkgs-stable.cura.overrideAttrs (oldAttrs: {
-      postInstall = oldAttrs.postInstall + ''cp -rf ${(pkgs.makeDesktopItem {
-          name = "com.ultimaker.cura";
-          icon = "cura-icon";
-          desktopName = "Cura";
-          exec = "env QT_QPA_PLATFORM=xcb ${pkgs-stable.cura}/bin/cura %F";
-          tryExec = "env QT_QPA_PLATFORM=xcb ${pkgs-stable.cura}/bin/cura";
-          terminal = false;
-          type = "Application";
-          categories = ["Graphics"];
-          mimeTypes = ["model/stl" "application/vnd.ms-3mfdocument" "application/prs.wavefront-obj"
-                       "image/bmp" "image/gif" "image/jpeg" "image/png" "text/x-gcode" "application/x-amf"
-                       "application/x-ply" "application/x-ctm" "model/vnd.collada+xml" "model/gltf-binary"
-                       "model/gltf+json" "model/vnd.collada+xml+zip"];
-          })}/share/applications $out/share'';
-    }))
-    (pkgs.writeShellScriptBin "curax" ''env QT_QPA_PLATFORM=xcb ${pkgs-stable.cura}/bin/cura $@'')
+    (pkgs.appimageTools.wrapType2 {
+      name = "Cura";
+      src = fetchurl {
+        url = "https://github.com/Ultimaker/Cura/releases/download/5.8.1/UltiMaker-Cura-5.8.1-linux-X64.AppImage";
+        hash = "sha256-VLd+V00LhRZYplZbKkEp4DXsqAhA9WLQhF933QAZRX0=";
+      };
+      extraPkgs = pkgs: with pkgs; [];
+     })
+    #(pkgs-stable.cura.overrideAttrs (oldAttrs: {
+    #  postInstall = oldAttrs.postInstall + ''cp -rf ${(pkgs.makeDesktopItem {
+    #      name = "com.ultimaker.cura";
+    #      icon = "cura-icon";
+    #      desktopName = "Cura";
+    #      exec = "env QT_QPA_PLATFORM=xcb ${pkgs-stable.cura}/bin/cura %F";
+    #      tryExec = "env QT_QPA_PLATFORM=xcb ${pkgs-stable.cura}/bin/cura";
+    #      terminal = false;
+    #      type = "Application";
+    #      categories = ["Graphics"];
+    #      mimeTypes = ["model/stl" "application/vnd.ms-3mfdocument" "application/prs.wavefront-obj"
+    #                   "image/bmp" "image/gif" "image/jpeg" "image/png" "text/x-gcode" "application/x-amf"
+    #                   "application/x-ply" "application/x-ctm" "model/vnd.collada+xml" "model/gltf-binary"
+    #                   "model/gltf+json" "model/vnd.collada+xml+zip"];
+    #      })}/share/applications $out/share'';
+    #}))
+    #(pkgs.writeShellScriptBin "curax" ''env QT_QPA_PLATFORM=xcb ${pkgs-stable.cura}/bin/cura $@'')
     (pkgs-stable.curaengine_stable)
     openscad
     (stdenv.mkDerivation {
