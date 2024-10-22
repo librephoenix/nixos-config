@@ -8,6 +8,8 @@
     [ (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
+  services.fstrim.enable = true;
+
   boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "usbhid" "usb_storage" "sd_mod" "radeon" ];
   boot.initrd.kernelModules = [ "radeon" ];
   boot.kernelModules = [ "kvm-amd" "radeon" "zenpower" "8812au" ];
