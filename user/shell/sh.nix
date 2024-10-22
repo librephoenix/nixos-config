@@ -26,6 +26,8 @@ in
      %F{green}→%f "
     RPROMPT="%F{red}▂%f%F{yellow}▄%f%F{green}▆%f%F{cyan}█%f%F{blue}▆%f%F{magenta}▄%f%F{white}▂%f"
     [ $TERM = "dumb" ] && unsetopt zle && PS1='$ '
+    bindkey '^P' history-beginning-search-backward
+    bindkey '^N' history-beginning-search-forward
     '';
   };
 
