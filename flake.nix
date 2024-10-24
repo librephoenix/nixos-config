@@ -56,8 +56,8 @@
         (import inputs.nixpkgs { system = systemSettings.system; rocmSupport = (if systemSettings.gpu == "amd" then true else false); }).applyPatches {
           name = "nixpkgs-patched";
           src = inputs.nixpkgs;
-          patches = [ ./patches/emacs-no-version-check.patch
-                      ./patches/nixpkgs-348697.patch
+          patches = [ #./patches/emacs-no-version-check.patch
+                      #./patches/nixpkgs-348697.patch
                     ];
         };
 
@@ -230,16 +230,13 @@
     };
 
     hyprland = {
-      type = "git";
-      url = "https://code.hyprland.org/hyprwm/Hyprland.git";
-      submodules = true;
-      rev = "0f594732b063a90d44df8c5d402d658f27471dfe"; #v0.43.0
+      url = "github:hyprwm/Hyprland/v0.44.1?submodules=true";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     hyprland-plugins = {
       type = "git";
       url = "https://code.hyprland.org/hyprwm/hyprland-plugins.git";
-      rev = "b73d7b901d8cb1172dd25c7b7159f0242c625a77"; #v0.43.0
+      rev = "4d7f0b5d8b952f31f7d2e29af22ab0a55ca5c219"; #v0.44.1
       inputs.hyprland.follows = "hyprland";
     };
     hyprlock = {

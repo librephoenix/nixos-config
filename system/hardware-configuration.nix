@@ -19,6 +19,9 @@
   hardware.opengl.extraPackages = [ pkgs.rocmPackages.clr.icd ];
   hardware.opengl.extraPackages32 = [ ];
 
+  environment.systemPackages = with pkgs.rocmPackages; [ hipcc hip-common hiprand hipblas hipfft hipcub hipify ];
+
+
   services.xserver.videoDrivers = lib.mkDefault [ "modesetting" ];
 
   hardware.graphics = {
@@ -26,11 +29,23 @@
     enable32Bit = lib.mkDefault true;
   };
 
-  hardware.amdgpu.initrd.enable = lib.mkDefault true;
+  hardware.amdgpu.initrd.enable = true;
+  hardware.amdgpu.opencl.enable = true;
+  hardware.amdgpu.amdvlk.enable = true;
 
-  systemd.tmpfiles.rules = [
-    "L+    /opt/rocm/hip   -    -    -     -    ${pkgs.rocmPackages.clr}"
-  ];
+  systemd.tmpfiles.rules = 
+    let
+      rocmEnv = pkgs.symlinkJoin {
+        name = "rocm-combined";
+        paths = with pkgs.rocmPackages; [
+          rocblas
+          hipblas
+          clr
+        ];
+      };
+    in [
+      "L+    /opt/rocm   -    -    -     -    ${rocmEnv}"
+    ];
 
   # my stupid usb hub crashes systemct suspend half of the time now
   # https://wiki.archlinux.org/title/Power_management/Suspend_and_hibernate#Sleep_hooks

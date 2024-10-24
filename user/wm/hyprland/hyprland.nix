@@ -25,11 +25,7 @@ in
   wayland.windowManager.hyprland = {
     enable = true;
     package = inputs.hyprland.packages.${pkgs.system}.hyprland;
-    plugins = [
-      inputs.hyprland-plugins.packages.${pkgs.system}.hyprtrails
-      inputs.hyprland-plugins.packages.${pkgs.system}.hyprexpo
-      inputs.hyprgrass.packages.${pkgs.system}.default
-    ];
+    plugins = [ ];
     settings = { };
     extraConfig = ''
       exec-once = dbus-update-activation-environment --systemd DISPLAY XAUTHORITY WAYLAND_DISPLAY XDG_SESSION_DESKTOP=Hyprland XDG_CURRENT_DESKTOP=Hyprland XDG_SESSION_TYPE=wayland
@@ -100,43 +96,6 @@ in
          inactive_timeout = 30
        }
 
-       plugin {
-         hyprtrails {
-             color = rgba(''+config.lib.stylix.colors.base08+''55)
-         }
-         hyprexpo {
-             columns = 3
-             gap_size = 5
-             bg_col = rgb(''+config.lib.stylix.colors.base00+'')
-             workspace_method = first 1 # [center/first] [workspace] e.g. first 1 or center m+1
-             enable_gesture = false # laptop touchpad
-         }
-         touch_gestures {
-             sensitivity = 4.0
-             long_press_delay = 260
-             hyprgrass-bind = , edge:r:l, exec, hyprnome
-             hyprgrass-bind = , edge:l:r, exec, hyprnome --previous
-             hyprgrass-bind = , swipe:3:d, exec, nwggrid-wrapper
-
-             hyprgrass-bind = , swipe:3:u, hyprexpo:expo, toggleoverview
-             hyprgrass-bind = , swipe:3:d, exec, nwggrid-wrapper
-
-             hyprgrass-bind = , swipe:3:l, exec, hyprnome --previous
-             hyprgrass-bind = , swipe:3:r, exec, hyprnome
-
-             hyprgrass-bind = , swipe:4:u, movewindow,u
-             hyprgrass-bind = , swipe:4:d, movewindow,d
-             hyprgrass-bind = , swipe:4:l, movewindow,l
-             hyprgrass-bind = , swipe:4:r, movewindow,r
-
-             hyprgrass-bind = , tap:3, fullscreen,1
-             hyprgrass-bind = , tap:4, fullscreen,0
-
-             hyprgrass-bindm = , longpress:2, movewindow
-             hyprgrass-bindm = , longpress:3, resizewindow
-         }
-       }
-
        bind=SUPER,code:9,exec,nwggrid-wrapper
        bind=SUPER,code:66,exec,nwggrid-wrapper
        bind=SUPER,SPACE,fullscreen,1
@@ -146,7 +105,6 @@ in
        bind=ALT,TAB,bringactivetotop
        bind=ALTSHIFT,TAB,cyclenext,prev
        bind=ALTSHIFT,TAB,bringactivetotop
-       bind=SUPER,TAB,hyprexpo:expo, toggleoverview
        bind=SUPER,V,exec,wl-copy $(wl-paste | tr '\n' ' ')
        bind=SUPERSHIFT,T,exec,screenshot-ocr
        bind=CTRLALT,Delete,exec,hyprctl kill
@@ -1307,19 +1265,6 @@ in
         border-radius: 15px
         border-color: #'' + config.lib.stylix.colors.base07 + '';
     }
-  '';
-  home.file.".config/libinput-gestures.conf".text = ''
-  gesture swipe up 3	hyprctl dispatch hyprexpo:expo toggle
-  gesture swipe down 3	nwggrid-wrapper
-
-  gesture swipe right 3	hyprnome
-  gesture swipe left 3	hyprnome --previous
-  gesture swipe up 4	hyprctl dispatch movewindow u
-  gesture swipe down 4	hyprctl dispatch movewindow d
-  gesture swipe left 4	hyprctl dispatch movewindow l
-  gesture swipe right 4	hyprctl dispatch movewindow r
-  gesture pinch in	hyprctl dispatch fullscreen 1
-  gesture pinch out	hyprctl dispatch fullscreen 1
   '';
 
   services.udiskie.enable = true;
