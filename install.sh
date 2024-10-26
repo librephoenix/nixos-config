@@ -13,6 +13,8 @@ USER_EMAIL=""
 SKIP_REVIEW=0
 DISABLE_HARDEN=0
 TEMP_CLONE=0
+SKIP_CLONE=0
+SKIP_EMAIL=0
 EDITOR="${EDITOR:-nano}"  # Default to nano if EDITOR is not set
 
 # Helper function to display usage message
@@ -24,6 +26,8 @@ show_help() {
   printf "  -y, --yes                  Skip editor confirmation for flake.nix review\n"
   printf "  -n, --no-harden            Skip the security hardening step\n"
   printf "  -t, --temp-clone           Clone into a temporary directory\n"
+  printf "  -s, --skip-clone           Skip the cloning step if directory exists\n"
+  printf "  -se, --skip-email          Skip the email replacement step in flake.nix\n"
   printf "  -h, --help                 Show this help message\n"
   exit 0
 }
@@ -41,20 +45,30 @@ while [ "$#" -gt 0 ]; do
     -y|--yes) SKIP_REVIEW=1; shift;;
     -n|--no-harden) DISABLE_HARDEN=1; shift;;
     -t|--temp-clone) TEMP_CLONE=1; shift;;
+    -s|--skip-clone) SKIP_CLONE=1; shift;;
+    -se|--skip-email) SKIP_EMAIL=1; shift;;
     -h|--help) show_help;;
     --) shift; break;;
     *) printf "${RED}Error:${NC} Unknown option: $1\n"; show_help; exit 1;;
   esac
 done
 
-# Clone dotfiles repository
-if [ "$TEMP_CLONE" -eq 1 ]; then
-  SCRIPT_DIR=$(mktemp -d)
-  printf "${YELLOW}Cloning dotfiles to temporary directory ${SCRIPT_DIR}...${NC}\n"
+# Clone dotfiles repository, if not skipped
+if [ "$SKIP_CLONE" -eq 0 ]; then
+  if [ "$TEMP_CLONE" -eq 1 ]; then
+    SCRIPT_DIR=$(mktemp -d)
+    printf "${YELLOW}Cloning dotfiles to temporary directory ${SCRIPT_DIR}...${NC}\n"
+  else
+    printf "${CYAN}Cloning dotfiles to ${SCRIPT_DIR}...${NC}\n"
+  fi
+  nix-shell -p git --command "git clone https://gitlab.com/librephoenix/nixos-config $SCRIPT_DIR" || { printf "${RED}Failed to clone repository.${NC}\n"; exit 1; }
 else
-  printf "${CYAN}Cloning dotfiles to ${SCRIPT_DIR}...${NC}\n"
+  if [ ! -d "$SCRIPT_DIR" ]; then
+    printf "${RED}Error: Specified directory $SCRIPT_DIR does not exist. Cannot proceed without cloning.${NC}\n"
+    exit 1
+  fi
+  printf "${YELLOW}Skipping clone step as requested; using existing directory $SCRIPT_DIR.${NC}\n"
 fi
-nix-shell -p git --command "git clone https://gitlab.com/librephoenix/nixos-config $SCRIPT_DIR" || { printf "${RED}Failed to clone repository.${NC}\n"; exit 1; }
 
 # Generate hardware configuration
 printf "${CYAN}Generating hardware configuration...${NC}\n"
@@ -75,10 +89,14 @@ fi
 printf "${CYAN}Setting user-specific information in flake.nix...${NC}\n"
 sed -i "0,/emmet/s//$(whoami)/" "$SCRIPT_DIR/flake.nix"
 sed -i "0,/Emmet/s//$(getent passwd $(whoami) | cut -d ':' -f 5 | cut -d ',' -f 1)/" "$SCRIPT_DIR/flake.nix"
-if [ -n "$USER_EMAIL" ]; then
-  sed -i "s/emmet@librephoenix.com/$USER_EMAIL/" "$SCRIPT_DIR/flake.nix"
+if [ "$SKIP_EMAIL" -eq 0 ]; then
+  if [ -n "$USER_EMAIL" ]; then
+    sed -i "s/emmet@librephoenix.com/$USER_EMAIL/" "$SCRIPT_DIR/flake.nix"
+  else
+    sed -i "s/emmet@librephoenix.com//" "$SCRIPT_DIR/flake.nix"
+  fi
 else
-  sed -i "s/emmet@librephoenix.com//" "$SCRIPT_DIR/flake.nix"
+  printf "${YELLOW}Skipping email replacement in flake.nix as requested.${NC}\n"
 fi
 sed -i "s+~/.dotfiles+$SCRIPT_DIR+g" "$SCRIPT_DIR/flake.nix"
 
