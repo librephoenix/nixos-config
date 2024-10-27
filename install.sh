@@ -15,6 +15,7 @@ DISABLE_HARDEN=0
 TEMP_CLONE=0
 SKIP_CLONE=0
 SKIP_EMAIL=0
+AUTO_CONFIRM=0
 EDITOR="${EDITOR:-nano}"  # Default to nano if EDITOR is not set
 
 # Helper function to display usage message
@@ -28,6 +29,7 @@ show_help() {
   printf "  -t, --temp-clone           Clone into a temporary directory\n"
   printf "  -s, --skip-clone           Skip the cloning step if directory exists\n"
   printf "  -se, --skip-email          Skip the email replacement step in flake.nix\n"
+  printf "  -ac, --auto-confirm        Automatically confirm the system rebuild\n"
   printf "  -h, --help                 Show this help message\n"
   exit 0
 }
@@ -47,6 +49,7 @@ while [ "$#" -gt 0 ]; do
     -t|--temp-clone) TEMP_CLONE=1; shift;;
     -s|--skip-clone) SKIP_CLONE=1; shift;;
     -se|--skip-email) SKIP_EMAIL=1; shift;;
+    -ac|--auto-confirm) AUTO_CONFIRM=1; shift;;
     -h|--help) show_help;;
     --) shift; break;;
     *) printf "${RED}Error:${NC} Unknown option: $1\n"; show_help; exit 1;;
@@ -115,11 +118,13 @@ else
 fi
 
 # Confirmation prompt for system rebuild
-printf "${YELLOW}Ready to rebuild the system with nixos-rebuild. Do you want to proceed? (y/n) ${NC}"
-read -r confirm
-if [ "$confirm" != "y" ]; then
-  printf "${RED}Aborting system rebuild.${NC}\n"
-  exit 0
+if [ "$AUTO_CONFIRM" -eq 0 ]; then
+  printf "${YELLOW}Ready to rebuild the system with nixos-rebuild. Do you want to proceed? (y/n) ${NC}"
+  read -r confirm
+  if [ "$confirm" != "y" ]; then
+    printf "${RED}Aborting system rebuild.${NC}\n"
+    exit 0
+  fi
 fi
 
 # Rebuild system with new configuration
