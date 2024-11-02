@@ -118,6 +118,7 @@
     mpv
     yt-dlp
     blender-hip
+    freecad
     libresprite
     (pkgs.appimageTools.wrapType2 {
       name = "Cura";
