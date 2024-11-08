@@ -33,6 +33,11 @@
   hardware.amdgpu.opencl.enable = true;
   hardware.amdgpu.amdvlk.enable = true;
 
+  # makes disk io not freeze the computer
+  services.udev.extraRules = ''
+    ACTION=="add|change", SUBSYSTEM=="block", ENV{ID_SERIAL_SHORT}=="BTKA121225GP512A", ATTR{queue/scheduler}="bfq"
+      '';
+
   systemd.tmpfiles.rules = 
     let
       rocmEnv = pkgs.symlinkJoin {
