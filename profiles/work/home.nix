@@ -1,4 +1,4 @@
-{ config, pkgs, pkgs-stable, pkgs-kdenlive, userSettings, ... }:
+{ config, pkgs, pkgs-stable, userSettings, ... }:
 
 {
   # Home Manager needs a bit of information about you and the paths it should
@@ -12,9 +12,7 @@
               (./. + "../../../user/wm"+("/"+userSettings.wm+"/"+userSettings.wm)+".nix") # My window manager selected from flake
               ../../user/shell/sh.nix # My zsh and bash config
               ../../user/shell/cli-collection.nix # Useful CLI apps
-              #../../user/app/doom-emacs/doom.nix # My doom emacs config
               ../../user/app/nvim/nvim.nix # My doom emacs config
-              #../../user/app/emacsng # Me experimenting with emacsng and a vanilla config
               ../../user/app/ranger/ranger.nix # My ranger file manager config
               ../../user/app/git/git.nix # My git config
               ../../user/app/keepass/keepass.nix # My password manager
@@ -24,7 +22,6 @@
               ../../user/style/stylix.nix # Styling and themes for my apps
               ../../user/lang/cc/cc.nix # C and C++ tools
               ../../user/lang/godot/godot.nix # Game development
-              #../../user/pkgs/blockbench.nix # Blockbench ## marked as insecure
               ../../user/hardware/bluetooth.nix # Bluetooth
             ];
 

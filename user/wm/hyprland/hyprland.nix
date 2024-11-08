@@ -1,4 +1,4 @@
-{ inputs, config, lib, pkgs, userSettings, systemSettings, pkgs-nwg-dock-hyprland, ... }: let
+{ inputs, config, lib, pkgs, userSettings, systemSettings, ... }: let
   pkgs-hyprland = inputs.hyprland.inputs.nixpkgs.legacyPackages.${pkgs.stdenv.hostPlatform.system};
 in
 {
@@ -109,7 +109,6 @@ in
        bind=SUPERSHIFT,T,exec,screenshot-ocr
        bind=CTRLALT,Delete,exec,hyprctl kill
        bind=SUPERSHIFT,K,exec,hyprctl kill
-       bind=SUPER,W,exec,nwg-dock-wrapper
 
        bind=,code:172,exec,lollypop -t
        bind=,code:208,exec,lollypop -t
@@ -420,24 +419,23 @@ in
         rustPlatform = oldAttrs.rustPlatform // {
           buildRustPackage = args: oldAttrs.rustPlatform.buildRustPackage (args // {
             pname = "hyprnome";
-            version = "unstable-2024-05-06";
+            version = "0.3.1";
             src = fetchFromGitHub {
               owner = "donovanglover";
               repo = "hyprnome";
-              rev = "f185e6dbd7cfcb3ecc11471fab7d2be374bd5b28";
-              hash = "sha256-tmko/bnGdYOMTIGljJ6T8d76NPLkHAfae6P6G2Aa2Qo=";
+              rev = "a4597387e777fde8f8a79090cce418843e5b85d1";
+              hash = "sha256-GZn7qS1J6QSanWdy17sMBbwJ77iMij2jKRgPdrjt6tM=";
             };
             cargoDeps = oldAttrs.cargoDeps.overrideAttrs (oldAttrs: rec {
               name = "${pname}-vendor.tar.gz";
               inherit src;
-              outputHash = "sha256-cQwAGNKTfJTnXDI3IMJQ2583NEIZE7GScW7TsgnKrKs=";
+              outputHash = "sha256-oxIZTp5ZJRUjXLpMw2nOnPHYHhHN03HWFRhBZ82Ac10=";
             });
-            cargoHash = "sha256-cQwAGNKTfJTnXDI3IMJQ2583NEIZE7GScW7TsgnKrKs=";
+            cargoHash = "sha256-oxIZTp5ZJRUjXLpMw2nOnPHYHhHN03HWFRhBZ82Ac10=";
           });
         };
      })
     )
-    gnome.zenity
     wlr-randr
     wtype
     ydotool
@@ -472,15 +470,6 @@ in
       tesseract $imgname $txtname;
       wl-copy -n < $txtfname
     '')
-    (pkgs.writeScriptBin "nwg-dock-wrapper" ''
-      #!/bin/sh
-      if pgrep -x ".nwg-dock-hyprl" > /dev/null
-      then
-        nwg-dock-hyprland
-      else
-        nwg-dock-hyprland -f -x -i 64 -nolauncher -a start -ml 8 -mr 8 -mb 8
-      fi
-    '')
     (pkgs.writeScriptBin "sct" ''
       #!/bin/sh
       killall wlsunset &> /dev/null;
@@ -509,74 +498,12 @@ in
       if pgrep -x nixos-rebuild > /dev/null || pgrep -x home-manager > /dev/null || pgrep -x kdenlive > /dev/null || pgrep -x FL64.exe > /dev/null || pgrep -x blender > /dev/null || pgrep -x flatpak > /dev/null;
       then echo "Shouldn't suspend"; sleep 10; else echo "Should suspend"; systemctl suspend; fi
     '')
-    ])
-  ++
-  (with pkgs-hyprland; [ ])
-  ++ (with pkgs-nwg-dock-hyprland; [
-    (nwg-dock-hyprland.overrideAttrs (oldAttrs: {
-      patches = ./patches/noactiveclients.patch;
-    }))
-  ]);
+    ]);
   home.file.".local/share/pixmaps/hyprland-logo-stylix.svg".source =
     config.lib.stylix.colors {
       template = builtins.readFile ../../pkgs/hyprland-logo-stylix.svg.mustache;
       extension = "svg";
     };
-  home.file.".config/nwg-dock-hyprland/style.css".text = ''
-    window {
-      background: rgba(''+config.lib.stylix.colors.base00-rgb-r+'',''+config.lib.stylix.colors.base00-rgb-g+'',''+config.lib.stylix.colors.base00-rgb-b+'',0.0);
-      border-radius: 20px;
-      padding: 4px;
-      margin-left: 4px;
-      margin-right: 4px;
-      border-style: none;
-    }
-
-    #box {
-      /* Define attributes of the box surrounding icons here */
-      padding: 10px;
-      background: rgba(''+config.lib.stylix.colors.base00-rgb-r+'',''+config.lib.stylix.colors.base00-rgb-g+'',''+config.lib.stylix.colors.base00-rgb-b+'',0.55);
-      border-radius: 20px;
-      padding: 4px;
-      margin-left: 4px;
-      margin-right: 4px;
-      border-style: none;
-    }
-    button {
-      border-radius: 10px;
-      padding: 4px;
-      margin-left: 4px;
-      margin-right: 4px;
-      background: rgba(''+config.lib.stylix.colors.base03-rgb-r+'',''+config.lib.stylix.colors.base03-rgb-g+'',''+config.lib.stylix.colors.base03-rgb-b+'',0.55);
-      color: #''+config.lib.stylix.colors.base07+'';
-      font-size: 12px
-    }
-
-    button:hover {
-      background: rgba(''+config.lib.stylix.colors.base04-rgb-r+'',''+config.lib.stylix.colors.base04-rgb-g+'',''+config.lib.stylix.colors.base04-rgb-b+'',0.55);
-    }
-
-  '';
-  home.file.".config/nwg-dock-pinned".text = ''
-    nwggrid
-    Alacritty
-    neovide
-    qutebrowser
-    brave-browser
-    writer
-    impress
-    calc
-    draw
-    krita
-    xournalpp
-    obs
-    kdenlive
-    flstudio
-    blender
-    openscad
-    Cura
-    virt-manager
-  '';
   home.file.".config/hypr/hypridle.conf".text = ''
     general {
       lock_cmd = pgrep hyprlock || hyprlock
