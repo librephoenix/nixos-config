@@ -32,7 +32,7 @@ in
       if [[ $profile ]]; then
         container-open $profile $1;
       else
-        qutebrowser --qt-flag enable-gpu-rasterization --qt-flag enable-native-gpu-memory-buffers --qt-flag num-raster-threads=4 $1;
+        qutebrowser --qt-flag ignore-gpu-blacklist --qt-flag enable-gpu-rasterization --qt-flag enable-native-gpu-memory-buffers --qt-flag enable-accelerated-2d-canvas --qt-flag num-raster-threads=4 $1;
       fi
     '')
     (pkgs.makeDesktopItem {

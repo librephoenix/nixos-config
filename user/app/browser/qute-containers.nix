@@ -16,7 +16,7 @@ in
 
     phases = "installPhase";
 
-    postPatch = ''sed -i "s/qutebrowser/qutebrowser --qt-flag enable-gpu-rasterization --qt-flag enable-native-gpu-memory-buffers --qt-flag num-raster-threads=4/g" container-open'';
+    postPatch = ''sed -i "s/qutebrowser/qutebrowser --qt-flag ignore-gpu-blacklist --qt-flag enable-gpu-rasterization --qt-flag enable-native-gpu-memory-buffers --qt-flag enable-accelerated-2d-canvas --qt-flag num-raster-threads=4/g" container-open'';
 
     installPhase = ''
       mkdir -p $out $out/bin

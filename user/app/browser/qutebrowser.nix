@@ -116,7 +116,8 @@ if (os.path.isfile(secretFile)):
     secretsExists = True
 
 config.set('scrolling.smooth',True)
-config.set('qt.args',['ignore-gpu-blacklist','enable-gpu-rasterization','enable-native-gpu-memory-buffers','num-raster-threads=4'])
+config.set('qt.args',['ignore-gpu-blacklist','enable-gpu-rasterization','enable-accelerated-video-decode','enable-quic','enable-zero-copy','enable-native-gpu-memory-buffers','num-raster-threads=4'])
+config.set('qt.workarounds.disable_accelerated_2d_canvas','never')
 config.load_autoconfig(True)
 
 base00 = "#''+config.lib.stylix.colors.base00+''"
