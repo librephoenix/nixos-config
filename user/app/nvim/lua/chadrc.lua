@@ -16,17 +16,18 @@ M.base46 = {
 
 M.ui = {
  theme = "stylix",
- nvdash = {
-   load_on_startup = true,
-   buttons = {
-     { "  Find File", "Spc .", "Telescope find_files" },
-     { "󰙅  Nvimtree", "SPC e", "NvimTreeToggle" },
-     { "  Projects ", "Spc p p", "Telescope workspaces" },
-     { "󰯌  Vsplit ", "Spc w v", "vsplit" },
-     { "󰯋  Split ", "Spc w s", "split" },
-     { "󰋗  Help", "Spc c h", "NvCheatsheet" },
-   },
- }
 }
+
+M.nvdash = {
+ load_on_startup = true,
+ buttons = {
+   { txt = "  Find File", keys = "Spc .", cmd = "Telescope find_files" },
+   { txt = "󰙅  Nvimtree", keys = "SPC e", cmd = "NvimTreeToggle" },
+   { txt = "  Projects ", keys = "Spc p p", cmd = "Telescope workspaces" },
+   { txt = "󰯌  Vsplit ", keys = "Spc w v", cmd = "vsplit" },
+   { txt = "󰯋  Split ", keys = "Spc w s", cmd = "split" },
+   { txt =  "󰋗  Help", keys = "Spc c h", cmd = "NvCheatsheet" },
+ },
+ }
 
 return M
