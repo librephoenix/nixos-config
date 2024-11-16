@@ -140,7 +140,6 @@
           system = systemSettings.system;
           modules = [
             (./. + "/profiles" + ("/" + systemSettings.profile) + "/configuration.nix")
-            inputs.lix-module.nixosModules.default
             ./system/bin/phoenix.nix
           ]; # load configuration.nix from selected PROFILE
           specialArgs = {
@@ -189,10 +188,6 @@
     };
 
   inputs = {
-    lix-module = {
-      url = "https://git.lix.systems/lix-project/nixos-module/archive/2.90.0.tar.gz";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     nixpkgs.url = "nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "nixpkgs/nixos-24.05";
 
@@ -209,13 +204,16 @@
     };
 
     hyprland = {
-      url = "github:hyprwm/Hyprland/v0.44.1?submodules=true";
+      type = "git";
+      url = "https://code.hyprland.org/hyprwm/Hyprland.git";
+      submodules = true;
+      rev = "3fb47372b79265ebdabeeefdad10359d5b18377a"; #v0.45.0
       inputs.nixpkgs.follows = "nixpkgs";
     };
     hyprland-plugins = {
       type = "git";
       url = "https://code.hyprland.org/hyprwm/hyprland-plugins.git";
-      rev = "4d7f0b5d8b952f31f7d2e29af22ab0a55ca5c219"; #v0.44.1
+      rev = "344a69db96fa8c6dc3b8f1f8f5a75f6eb441cbf2"; #v0.45.0
       inputs.hyprland.follows = "hyprland";
     };
     hyprlock = {
