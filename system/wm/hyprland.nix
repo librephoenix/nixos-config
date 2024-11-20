@@ -26,6 +26,11 @@ in
     };
   };
 
+  programs.iio-hyprland.enable = true;
+  environment.systemPackages = with pkgs; [
+    jq
+  ];
+
   services.xserver.excludePackages = [ pkgs.xterm ];
 
   services.xserver = {
