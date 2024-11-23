@@ -5,7 +5,6 @@
     # Command Line
     disfetch lolcat cowsay
     starfetch
-    cava
     killall
     libnotify
     timer

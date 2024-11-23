@@ -38,7 +38,7 @@
 
     # Office
     nextcloud-client
-    libreoffice-fresh
+    (pkgs-stable.libreoffice-fresh)
     mate.atril
     openboard
     xournalpp
