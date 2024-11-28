@@ -13,7 +13,7 @@ let generateHomepage = name: font: config:
 
         }
         /*paragraphs*/
-        p {
+        a, p {
             font-family:''+font+'';
 
             font-size:24px;
@@ -23,26 +23,46 @@ let generateHomepage = name: font: config:
             line-height: 1.35;
             margin-top: 0;
             margin-bottom: 0;
+
+            text-decoration: none;
+        }
+        a:hover {
+            color: #''+config.lib.stylix.colors.base07+'';
         }
         .open {
           color: #''+config.lib.stylix.colors.base09+'';
           font-weight: bold;
         }
+        .open:hover {
+          background-color: #''+config.lib.stylix.colors.base09+'';
+        }
         .quickmarks {
           color: #''+config.lib.stylix.colors.base0A+'';
           font-weight: bold;
+        }
+        .quickmarks:hover {
+          background-color: #''+config.lib.stylix.colors.base0A+'';
         }
         .history {
           color: #''+config.lib.stylix.colors.base0B+'';
           font-weight: bold;
         }
+        .history:hover {
+          background-color: #''+config.lib.stylix.colors.base0B+'';
+        }
         .newtab {
           color: #''+config.lib.stylix.colors.base0C+'';
           font-weight: bold;
         }
+        .newtab:hover {
+          background-color: #''+config.lib.stylix.colors.base0C+'';
+        }
         .close {
           color: #''+config.lib.stylix.colors.base0D+'';
           font-weight: bold;
+        }
+        .close:hover {
+          background-color: #''+config.lib.stylix.colors.base0D+'';
         }
 
         /*div*/
@@ -76,11 +96,10 @@ let generateHomepage = name: font: config:
       <br>
       <!--basic keyboard commands-->
       <div>
-        <p class="open"> [o] [Search] </p>
-        <p class="quickmarks"> [b] [Quickmarks] </p>
-        <p class="history"> [S h] [History] </p>
-        <p class="newtab"> [t] [New tab] </p>
-        <p class="close"> [x] [Close tab] </p>
+        <a class="open" href="https://www.startpage.com"> [o] [Search] </p>
+        <a class="quickmarks" href="./quickmarks.html" target="_blank" rel="noopener noreferrer"> [b] [Quickmarks] </p>
+        <a class="newtab" href="./qute-home.html" target="_blank" rel="noopener noreferrer"> [t] [New tab] </p>
+        <a class="close" href="#" onclick="window.close();return false;"> [x] [Close tab] </p>
       </div>
     </body>
 
@@ -115,8 +134,20 @@ if (os.path.isfile(secretFile)):
     import qutesecrets
     secretsExists = True
 
+quickmarksFile = os.path.join(os.path.dirname(__file__),'quickmarks')
+quickmarksHtmlFilePath = os.path.join(os.path.dirname(__file__),'quickmarks.html')
+quickmarksHtmlFile = open(quickmarksHtmlFilePath,"w")
+quickmarksHtmlFileText = '<!DOCTYPE html><html><head><title>My Local Dashboard Awesome Homepage</title><meta name="viewport" content="width=device-width, initial-scale=1"><style>/*body*/body {background-color: #''+config.lib.stylix.colors.base00+''}/*paragraphs*/a, p {font-weight: bold;font-family:''+userSettings.font+'';font-size:24px;text-align:center;color: #''+config.lib.stylix.colors.base07+'';line-height: 1.35;margin-top: 0;margin-bottom: 0;text-decoration: none;}a:hover {color: #''+config.lib.stylix.colors.base07+'';background-color: #''+config.lib.stylix.colors.base0A+'';}/*div*/div {margin:auto;width:50%;text-align:center;}/*class made for ascii art icon*/.icon {line-height:10%}.title{color: #''+config.lib.stylix.colors.base0A+'';text-decoration:underline;}</style></head><body><!--start with cool qutebrowser ascii art--><br><br><div class="icon"><img width="100" src="logo.png"></div><br><br><!--qutebrowser title--><p class="title">Quickmarks</p><br><div>' 
+with open(quickmarksFile) as myQuickmarks:
+    for line in myQuickmarks:
+        quickmarkData = line.split()
+        quickmarksHtmlFileText += '<a href="'+quickmarkData[1]+'">'+quickmarkData[0]+'</a><br>'
+quickmarksHtmlFileText += '</div></body></html>'
+quickmarksHtmlFile.write(quickmarksHtmlFileText)
+quickmarksHtmlFile.close()
+
 config.set('scrolling.smooth',True)
-config.set('qt.args',['ignore-gpu-blacklist','enable-gpu-rasterization','enable-accelerated-video-decode','enable-quic','enable-zero-copy','enable-native-gpu-memory-buffers','num-raster-threads=4'])
+config.set('qt.args',['ignore-gpu-blacklist','enable-gpu-rasterization','enable-accelerated-video-decode','enable-quic','enable-zero-copy','enable-native-gpu-memory-buffers','num-raster-threads=4','allow-file-access-from-files'])
 config.set('qt.workarounds.disable_accelerated_2d_canvas','never')
 config.load_autoconfig(True)
 
