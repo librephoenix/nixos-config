@@ -278,15 +278,22 @@ in
        windowrulev2 = float,class:^(pokefinder)$
        windowrulev2 = float,class:^(Waydroid)$
 
-       windowrulev2 = float,title:^(Blender Render)$
-       windowrulev2 = size 86% 85%,title:^(Blender Render)$
-       windowrulev2 = center,title:^(Blender Render)$
+       windowrulev2 = float,title:(Blender Render)
+       windowrulev2 = size 86% 85%,title:(Blender Render)
+       windowrulev2 = center,title:(Blender Render)
        windowrulev2 = float,class:^(org.inkscape.Inkscape)$
        windowrulev2 = float,class:^(pinta)$
        windowrulev2 = float,class:^(krita)$
        windowrulev2 = float,class:^(Gimp)
        windowrulev2 = float,class:^(Gimp)
        windowrulev2 = float,class:^(libresprite)$
+       windowrulev2 = float,title:(Open Images)
+       windowrulev2 = size 86% 85%,title:(Open Images)
+       windowrulev2 = center,title:(Open Images)
+       windowrulev2 = float,title:(Create new document)
+       windowrulev2 = size 86% 85%,title:(Create new document)
+       windowrulev2 = center,title:(Create new document)
+       windowrulev2 = tile,title:(Godot)
 
        windowrulev2 = opacity 0.80,title:ORUI
 
