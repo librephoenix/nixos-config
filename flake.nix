@@ -72,7 +72,9 @@
                     allowUnfree = true;
                     allowUnfreePredicate = (_: true);
                   };
-                  overlays = [ inputs.rust-overlay.overlays.default ];
+                  overlays = [ inputs.rust-overlay.overlays.default 
+                               inputs.emacs-overlay.overlays.default
+                             ];
                 }));
 
       pkgs-stable = import inputs.nixpkgs-stable {
@@ -231,6 +233,11 @@
     };
 
     stylix.url = "github:danth/stylix";
+
+    emacs-overlay = {
+      url = "github:nix-community/emacs-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     rust-overlay.url = "github:oxalica/rust-overlay";
 

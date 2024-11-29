@@ -13,6 +13,7 @@
               ../../user/shell/sh.nix # My zsh and bash config
               ../../user/shell/cli-collection.nix # Useful CLI apps
               ../../user/app/nvim/nvim.nix # My doom emacs config
+              ../../user/app/emacs # Emacs config that I'm currently rebuilding
               ../../user/app/ranger/ranger.nix # My ranger file manager config
               ../../user/app/git/git.nix # My git config
               ../../user/app/keepass/keepass.nix # My password manager

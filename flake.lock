@@ -115,6 +115,27 @@
         "type": "github"
       }
     },
+    "emacs-overlay": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "nixpkgs-stable": "nixpkgs-stable"
+      },
+      "locked": {
+        "lastModified": 1732759838,
+        "narHash": "sha256-bBghlNpHztnrUb1o7BAinp+rrWZMpaVNPrxnefhk1LY=",
+        "owner": "nix-community",
+        "repo": "emacs-overlay",
+        "rev": "f704f6f113bef121c7e38f807e3397f7dbe1aee0",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "emacs-overlay",
+        "type": "github"
+      }
+    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -684,6 +705,22 @@
     },
     "nixpkgs-stable": {
       "locked": {
+        "lastModified": 1732632634,
+        "narHash": "sha256-+G7n/ZD635aN0sEXQLynU7pWMd3PKDM7yBIXvYmjABQ=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "6f6076c37180ea3a916f84928cf3a714c5207a30",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-24.05",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs-stable_2": {
+      "locked": {
         "lastModified": 1730741070,
         "narHash": "sha256-edm8WG19kWozJ/GqyYx2VjW99EdhjKwbY3ZwdlPAAlo=",
         "owner": "NixOS",
@@ -698,7 +735,7 @@
         "type": "github"
       }
     },
-    "nixpkgs-stable_2": {
+    "nixpkgs-stable_3": {
       "locked": {
         "lastModified": 1731797254,
         "narHash": "sha256-df3dJApLPhd11AlueuoN0Q4fHo/hagP75LlM5K1sz9g=",
@@ -807,7 +844,7 @@
           "hyprland",
           "nixpkgs"
         ],
-        "nixpkgs-stable": "nixpkgs-stable"
+        "nixpkgs-stable": "nixpkgs-stable_2"
       },
       "locked": {
         "lastModified": 1731363552,
@@ -826,6 +863,7 @@
     "root": {
       "inputs": {
         "blocklist-hosts": "blocklist-hosts",
+        "emacs-overlay": "emacs-overlay",
         "home-manager-stable": "home-manager-stable",
         "home-manager-unstable": "home-manager-unstable",
         "hyprgrass": "hyprgrass",
@@ -834,7 +872,7 @@
         "hyprlock": "hyprlock",
         "nix-on-droid": "nix-on-droid",
         "nixpkgs": "nixpkgs",
-        "nixpkgs-stable": "nixpkgs-stable_2",
+        "nixpkgs-stable": "nixpkgs-stable_3",
         "nvchad": "nvchad",
         "rust-overlay": "rust-overlay",
         "stylix": "stylix"
