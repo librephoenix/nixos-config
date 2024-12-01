@@ -43,15 +43,15 @@
     mate.atril
     openboard
     xournalpp
-    gnome.adwaita-icon-theme
+    adwaita-icon-theme
     shared-mime-info
     glib
     newsflash
     foliate
-    gnome.nautilus
-    gnome.gnome-calendar
-    gnome.seahorse
-    gnome.gnome-maps
+    nautilus
+    gnome-calendar
+    seahorse
+    gnome-maps
     openvpn
     protonmail-bridge
     texliveSmall
@@ -167,7 +167,7 @@
     mediainfo
     libmediainfo
     audio-recorder
-    gnome.cheese
+    cheese
     ardour
     rosegarden
     tenacity

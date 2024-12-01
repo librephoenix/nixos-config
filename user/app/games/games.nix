@@ -1,8 +1,8 @@
 { pkgs, pkgs-stable, ... }:
 let
   myRetroarch =
-    (pkgs.retroarch.override {
-      cores = with pkgs.libretro; [
+    (pkgs-stable.retroarch.override {
+      cores = with pkgs-stable.libretro; [
         vba-m
         (desmume.overrideAttrs (oldAttrs: {
           preConfigure = ''

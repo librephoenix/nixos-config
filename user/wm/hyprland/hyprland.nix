@@ -422,27 +422,7 @@ in
       noDisplay = true;
       icon = "/home/"+userSettings.username+"/.local/share/pixmaps/hyprland-logo-stylix.svg";
     })
-    (hyprnome.override (oldAttrs: {
-        rustPlatform = oldAttrs.rustPlatform // {
-          buildRustPackage = args: oldAttrs.rustPlatform.buildRustPackage (args // {
-            pname = "hyprnome";
-            version = "0.3.1";
-            src = fetchFromGitHub {
-              owner = "donovanglover";
-              repo = "hyprnome";
-              rev = "a4597387e777fde8f8a79090cce418843e5b85d1";
-              hash = "sha256-GZn7qS1J6QSanWdy17sMBbwJ77iMij2jKRgPdrjt6tM=";
-            };
-            cargoDeps = oldAttrs.cargoDeps.overrideAttrs (oldAttrs: rec {
-              name = "${pname}-vendor.tar.gz";
-              inherit src;
-              outputHash = "sha256-oxIZTp5ZJRUjXLpMw2nOnPHYHhHN03HWFRhBZ82Ac10=";
-            });
-            cargoHash = "sha256-oxIZTp5ZJRUjXLpMw2nOnPHYHhHN03HWFRhBZ82Ac10=";
-          });
-        };
-     })
-    )
+    hyprnome
     wlr-randr
     wtype
     ydotool
