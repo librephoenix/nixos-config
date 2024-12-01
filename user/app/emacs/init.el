@@ -1,3 +1,4 @@
+; Text
 (set-face-attribute 'default nil :height 150) ; Bigger text
 (set-face-attribute 'default nil :family "Intel One Mono") ; Font
 (setq inhibit-startup-message t)
@@ -6,6 +7,8 @@
 (tool-bar-mode -1)          ; Disable the toolbar
 (tooltip-mode -1)           ; Disable tooltips
 (set-fringe-mode 10)        ; Give some breathing room
+(blink-cursor-mode 0)       ; No blinking
+(global-hl-line-mode)       ; Where am I?
 
 (menu-bar-mode -1)            ; Disable the menu bar
 
@@ -91,19 +94,9 @@
 (global-set-key (kbd "C-h") 'evil-window-left)
 (global-set-key (kbd "C-l") 'evil-window-right)
 
+(setq magit-display-buffer-function 'magit-display-buffer-fullframe-status-v1)
 (setq magit-bury-buffer-function 'magit-restore-window-configuration)
-(setq magit-display-buffer-function
-      (lambda (buffer)
-        (display-buffer
-         buffer (if (and (derived-mode-p 'magit-mode)
-                         (memq (with-current-buffer buffer major-mode)
-                               '(magit-process-mode
-                                 magit-revision-mode
-                                 magit-diff-mode
-                                 magit-stash-mode
-                                 magit-status-mode)))
-                    nil
-                  '(display-buffer-same-window)))))
+(add-hook 'git-commit-mode-hook 'evil-insert-state)
 
 (use-package nerd-icons
   :ensure t)
