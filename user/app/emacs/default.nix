@@ -15,7 +15,7 @@
         yasnippet
         projectile treemacs
         magit magit-file-icons
-        vterm
+        vterm sudo-edit
         gdscript-mode
         nix-mode
         python python-mode

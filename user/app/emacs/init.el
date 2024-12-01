@@ -1,3 +1,6 @@
+; I want declarative config
+(setq custom-file "/dev/null")
+
 ; Text
 (set-face-attribute 'default nil :height 150) ; Bigger text
 (set-face-attribute 'default nil :family "Intel One Mono") ; Font
@@ -71,6 +74,7 @@
 
 (evil-define-key 'normal 'global (kbd "<leader>.") 'find-file)
 (evil-define-key 'normal 'global (kbd "<leader>bi") 'ibuffer)
+(evil-define-key 'normal 'global (kbd "<leader>bd") 'delete-buffer)
 (evil-define-key 'normal 'global (kbd "<leader>bn") 'next-buffer)
 (evil-define-key 'normal 'global (kbd "<leader>bp") 'previous-buffer)
 (evil-define-key 'normal 'global (kbd "<leader>pp") 'projectile-switch-project)
@@ -105,3 +109,14 @@
   :ensure t
   :init (doom-modeline-mode 1)
   :custom ((doom-modeline-height 15)))
+
+; Fix stupid backup confirmations
+(setq backup-directory-alist '("." "~/.emacs.d/cache/backups"))
+(setq tramp-auto-save-directory "/dev/null")
+
+(require 'sudo-edit)
+(setq sudo-edit-local-method "doas")
+(setq auth-source-save-behavior nil)
+
+(evil-define-key 'normal 'global (kbd "<leader>fU") 'sudo-edit)
+(evil-define-key 'normal 'global (kbd "<leader>fu") 'sudo-edit-find-file)
