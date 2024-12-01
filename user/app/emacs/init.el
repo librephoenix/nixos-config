@@ -35,12 +35,25 @@
   :init
   (vertico-mode))
 
-(use-package hotfuzz
-  :config
-  (setq completion-styles '(flex hotfuzz)))
+;; Completion
+(use-package hotfuzz)
+(use-package orderless)
+(setq completion-styles '(orderless flex hotfuzz))
+
+;; Magit
+(use-package magit)
+
+;; Projectile
+(use-package projectile
+  :init
+  (projectile-mode +1))
 
 ;; Enable vim
+(setq evil-want-keybinding nil)
+
 (use-package evil
+  :init
+  (setq evil-want-keybinding nil)
   :config
   (evil-set-leader nil (kbd "C-SPC"))
   (evil-set-leader 'normal (kbd "SPC"))
@@ -50,6 +63,7 @@
 (use-package evil-collection
   :init
   (setq evil-want-keybinding nil)
+  :config
   (evil-collection-init))
 
 (evil-define-key 'normal 'global (kbd "<leader>.") 'find-file)

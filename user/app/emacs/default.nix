@@ -7,9 +7,9 @@
       alwaysEnsure = true;
       extraEmacsPackages = epkgs: with epkgs; [
         command-log-mode
-        vertico hotfuzz
+        vertico corfu hotfuzz orderless
         evil evil-collection evil-snipe evil-owl evil-vimish-fold
-        doom-modeline
+        dashboard doom-modeline
         nerd-icons nerd-icons-dired nerd-icons-corfu
         nerd-icons-ibuffer nerd-icons-completion
         yasnippet
