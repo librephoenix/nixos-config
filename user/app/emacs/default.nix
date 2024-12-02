@@ -9,7 +9,7 @@
         command-log-mode
         vertico corfu hotfuzz orderless
         evil evil-collection evil-snipe evil-owl evil-vimish-fold
-        dashboard doom-modeline
+        dashboard doom-themes doom-modeline
         nerd-icons nerd-icons-dired nerd-icons-corfu
         nerd-icons-ibuffer nerd-icons-completion
         yasnippet
@@ -23,4 +23,8 @@
     })
   ];
   home.file.".config/emacs/init.el".source = ./init.el;
+  home.file.".config/emacs/themes/doom-stylix-theme.el".source = config.lib.stylix.colors {
+      template = builtins.readFile ./doom-stylix-theme.el.mustache;
+      extension = ".el";
+  };
 }
