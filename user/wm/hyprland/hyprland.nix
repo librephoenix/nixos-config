@@ -202,6 +202,14 @@ in
        bind=SUPERSHIFT,8,movetoworkspace,8
        bind=SUPERSHIFT,9,movetoworkspace,9
 
+       exec-once = alacritty --class scratch_term
+       exec-once = kitty --class scratch_ranger -e ranger
+       exec-once = alacritty --class scratch_numbat -e numbat
+       exec-once = lollypop
+       exec-once = alacritty --class scratch_btm -e btm
+       exec-once = element-desktop
+       exec-once = pavucontrol
+
        bind=SUPER,Z,exec,if hyprctl clients | grep scratch_term; then echo "scratch_term respawn not needed"; else alacritty --class scratch_term; fi
        bind=SUPER,Z,togglespecialworkspace,scratch_term
        bind=SUPER,F,exec,if hyprctl clients | grep scratch_ranger; then echo "scratch_ranger respawn not needed"; else kitty --class scratch_ranger -e ranger; fi
