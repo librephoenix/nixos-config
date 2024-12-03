@@ -10,14 +10,13 @@
 ;;
 ;;; Code:
 
-;I want declarative config
-(setq custom-file "/dev/null")
-
 ; Text
-(set-face-attribute 'default nil :height 150) ; Bigger text
-(set-face-attribute 'default nil :family "Intel One Mono") ; Font
 (setq inhibit-startup-message t)
 
+; I want declarative config, no custom
+(setq custom-file "/dev/null")
+
+; Some sane settings
 (scroll-bar-mode -1)        ; Disable visible scrollbar
 (tool-bar-mode -1)          ; Disable the toolbar
 (tooltip-mode -1)           ; Disable tooltips
@@ -154,7 +153,10 @@
       :height 1.0
       :v-adjust 0
       :face 'font-lock-keyword-face))
-  (dashboard-setup-startup-hook))
+  (setq initial-buffer-choice (lambda () (get-buffer-create dashboard-buffer-name)))
+  (dashboard-setup-startup-hook)
+  (set-face-attribute 'default nil :height 150) ; Bigger text
+  (set-face-attribute 'default nil :family "Intel One Mono"))
 
 ; Fix stupid backup confirmations
 (setq backup-directory-alist '("." "~/.emacs.d/cache/backups"))
