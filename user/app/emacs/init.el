@@ -17,13 +17,14 @@
 (setq custom-file "/dev/null")
 
 ; Some sane settings
-(scroll-bar-mode -1)        ; Disable visible scrollbar
-(tool-bar-mode -1)          ; Disable the toolbar
-(tooltip-mode -1)           ; Disable tooltips
-(set-fringe-mode 10)        ; Give some breathing room
-(blink-cursor-mode 0)       ; No blinking
-(global-hl-line-mode)       ; Where am I?
+(scroll-bar-mode -1)            ; Disable visible scrollbar
+(tool-bar-mode -1)              ; Disable the toolbar
+(tooltip-mode -1)               ; Disable tooltips
+(set-fringe-mode 10)            ; Give some breathing room
+(blink-cursor-mode 0)           ; No blinking
+(global-hl-line-mode)           ; Where am I?
 (pixel-scroll-precision-mode 1) ; This is kinda epic
+(global-visual-line-mode 1)     ; Visual lines make more sense
 
 ;; I prefer visual lines
 (setq display-line-numbers-type 'visual
@@ -88,26 +89,54 @@
   :config
   (evil-collection-init))
 
-(evil-define-key 'normal 'global (kbd "<leader>.") 'find-file)
-(evil-define-key 'normal 'global (kbd "<leader>bi") 'ibuffer)
-(evil-define-key 'normal 'global (kbd "<leader>bd") 'delete-buffer)
-(evil-define-key 'normal 'global (kbd "<leader>bn") 'next-buffer)
-(evil-define-key 'normal 'global (kbd "<leader>bp") 'previous-buffer)
-(evil-define-key 'normal 'global (kbd "<leader>pp") 'projectile-switch-project)
-(evil-define-key 'normal 'global (kbd "<leader>pf") 'projectile-find-file)
-(evil-define-key 'normal 'global (kbd "<leader>pa") 'projectile-add-known-project)
-(evil-define-key 'normal 'global (kbd "<leader>gg") 'magit-status)
-(evil-define-key 'normal 'global (kbd "<leader>hv") 'describe-variable)
-(evil-define-key 'normal 'global (kbd "<leader>hf") 'describe-function)
-(evil-define-key 'normal 'global (kbd "<leader>hk") 'describe-key)
-(evil-define-key 'normal 'global (kbd "<leader>hF") 'describe-face)
-(evil-define-key 'normal 'global (kbd "<leader>ws") 'evil-window-split)
-(evil-define-key 'normal 'global (kbd "<leader>wv") 'evil-window-vsplit)
-(evil-define-key 'normal 'global (kbd "<leader>wd") 'evil-window-delete)
-(evil-define-key 'normal 'global (kbd "<leader>wj") 'evil-window-down)
-(evil-define-key 'normal 'global (kbd "<leader>wk") 'evil-window-up)
-(evil-define-key 'normal 'global (kbd "<leader>wh") 'evil-window-left)
-(evil-define-key 'normal 'global (kbd "<leader>wl") 'evil-window-right)
+;; based on http://emacsredux.com/blog/2013/04/03/delete-file-and-buffer/
+(defun delete-file-and-buffer ()
+  "Kill the current buffer and deletes the file it is visiting."
+  (interactive)
+  (let ((filename (buffer-file-name)))
+    (if filename
+        (if (y-or-n-p (concat "Do you really want to delete file " filename " ?"))
+            (progn
+              (delete-file filename)
+              (message "Deleted file %s." filename)
+              (kill-buffer)))
+      (message "Not a file visiting buffer!"))))
+
+(evil-define-key 'motion 'global (kbd "j") 'evil-next-visual-line)
+(evil-define-key 'motion 'global (kbd "k") 'evil-previous-visual-line)
+(evil-define-key 'motion 'global (kbd "<leader>.") 'find-file)
+(evil-define-key 'motion 'global (kbd "<leader>bi") 'ibuffer)
+(evil-define-key 'motion 'global (kbd "<leader>bd") 'delete-buffer)
+(evil-define-key 'motion 'global (kbd "<leader>bn") 'next-buffer)
+(evil-define-key 'motion 'global (kbd "<leader>bp") 'previous-buffer)
+(evil-define-key 'motion 'global (kbd "<leader>pp") 'projectile-switch-project)
+(evil-define-key 'motion 'global (kbd "<leader>pf") 'projectile-find-file)
+(evil-define-key 'motion 'global (kbd "<leader>pa") 'projectile-add-known-project)
+(evil-define-key 'motion 'global (kbd "<leader>gg") 'magit-status)
+(evil-define-key 'motion 'global (kbd "<leader>hv") 'describe-variable)
+(evil-define-key 'motion 'global (kbd "<leader>hf") 'describe-function)
+(evil-define-key 'motion 'global (kbd "<leader>hk") 'describe-key)
+(evil-define-key 'motion 'global (kbd "<leader>hF") 'describe-face)
+(evil-define-key 'motion 'global (kbd "<leader>ws") 'evil-window-split)
+(evil-define-key 'motion 'global (kbd "<leader>wv") 'evil-window-vsplit)
+(defun evil-window-split-follow ()
+  (interactive)
+  (let ((evil-split-window-below t))
+  (evil-window-split)))
+(defun evil-window-vsplit-follow ()
+  (interactive)
+  (let ((evil-vsplit-window-right t))
+  (evil-window-vsplit)))
+(evil-define-key 'motion 'global (kbd "<leader>wS") 'evil-window-split-follow)
+(evil-define-key 'motion 'global (kbd "<leader>wV") 'evil-window-vsplit-follow)
+(evil-define-key 'motion 'global (kbd "<leader>wd") 'evil-window-delete)
+(evil-define-key 'motion 'global (kbd "<leader>wj") 'evil-window-down)
+(evil-define-key 'motion 'global (kbd "<leader>wk") 'evil-window-up)
+(evil-define-key 'motion 'global (kbd "<leader>wh") 'evil-window-left)
+(evil-define-key 'motion 'global (kbd "<leader>wl") 'evil-window-right)
+(evil-define-key 'motion 'global (kbd "<leader>fd") 'delete-file-and-buffer)
+(evil-define-key 'motion 'org-mode-map (kbd "<leader>mll") 'org-insert-link)
+(define-key magit-mode-map (kbd "SPC") nil)
 
 (global-set-key (kbd "C-j") 'evil-window-down)
 (global-set-key (kbd "C-k") 'evil-window-up)
