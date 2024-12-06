@@ -1,0 +1,12 @@
+diff --git a/main.c b/main.c
+index 2e858dd..2cd43e8 100644
+--- a/main.c
++++ b/main.c
+@@ -123,6 +123,7 @@ void handle_orientation(enum Orientation orientation, const char* monitor_id) {
+         system_fmt("hyprctl --batch \"keyword monitor %s,transform,%d ; keyword input:touchdevice:transform %d ; keyword input:tablet:transform %d\"", output, orientation, orientation, orientation);
+ 
+     }
++    system_fmt("pkill hyprpaper; hyprpaper & disown;");
+ }
+ 
+ DBusMessage* request_orientation(DBusConnection* conn) {

@@ -27,6 +27,9 @@ in
   };
 
   programs.iio-hyprland.enable = true;
+  programs.iio-hyprland.package = pkgs.iio-hyprland.overrideAttrs {
+    patches = [ ./iio-hyprland-hyprpaper.patch ];
+  };
   environment.systemPackages = with pkgs; [
     jq
   ];
