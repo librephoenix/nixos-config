@@ -23,8 +23,38 @@
 (set-fringe-mode 10)            ; Give some breathing room
 (blink-cursor-mode 0)           ; No blinking
 (global-hl-line-mode)           ; Where am I?
-(pixel-scroll-precision-mode 1) ; This is kinda epic
+
+; (Somewhat) precision scrolling
+(pixel-scroll-mode 1)
+(pixel-scroll-precision-mode 1)
+(setq touch-screen-precision-scroll t)
+
+;; Mouse & Smooth Scroll
+;; Scroll one line at a time (less "jumpy" than defaults)
+(when (display-graphic-p)
+  (setq mouse-wheel-scroll-amount '(1 ((shift) . 1))
+        mouse-wheel-progressive-speed nil))
+(setq scroll-step 1
+      scroll-margin 1
+      scroll-conservatively 101)
 (global-visual-line-mode 1)     ; Visual lines make more sense
+
+;; Garbage collection to speed things up
+(add-hook 'after-init-hook
+          #'(lambda ()
+              (setq gc-cons-threshold 120000)))
+(add-hook 'focus-out-hook 'garbage-collect)
+
+;; auto revert buffers
+(setq global-auto-revert-mode t)
+(setq auto-revert-use-notify t)
+
+;; For camelCase
+(global-subword-mode 1)
+
+;; ripgrep as grep
+(setq grep-command "rg -nS --no-heading "
+      grep-use-null-device nil)
 
 ;; I prefer visual lines
 (setq display-line-numbers-type 'visual
@@ -35,12 +65,13 @@
 
 (set-frame-parameter nil 'alpha-background 85)
 (add-to-list 'default-frame-alist '(alpha-background . 85))
+(add-to-list 'default-frame-alist '(inhibit-double-buffering . t))
 
 ;; Make ESC quit prompts
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 
-(setq scroll-preserve-screen-position t)
-(setq scroll-conservatively 101)
+(setq scroll-preserve-screen-position nil)
+(setq redisplay-skip-fontification-on-input t)
 
 (require 'use-package)
 (setq use-package-always-ensure t)
@@ -185,7 +216,37 @@
   (setq initial-buffer-choice (lambda () (get-buffer-create dashboard-buffer-name)))
   (dashboard-setup-startup-hook)
   (set-face-attribute 'default nil :height 150) ; Bigger text
-  (set-face-attribute 'default nil :family "Intel One Mono"))
+  (when (window-system)
+    (set-frame-font "FiraCode Nerd Font"))
+  (let ((alist '((33 . ".\\(?:\\(?:==\\|!!\\)\\|[!=]\\)")
+                 (35 . ".\\(?:###\\|##\\|_(\\|[#(?[_{]\\)")
+                 (36 . ".\\(?:>\\)")
+                 (37 . ".\\(?:\\(?:%%\\)\\|%\\)")
+                 (38 . ".\\(?:\\(?:&&\\)\\|&\\)")
+                 (42 . ".\\(?:\\(?:\\*\\*/\\)\\|\\(?:\\*[*/]\\)\\|[*/>]\\)")
+                 (43 . ".\\(?:\\(?:\\+\\+\\)\\|[+>]\\)")
+                 (45 . ".\\(?:\\(?:-[>-]\\|<<\\|>>\\)\\|[<>}~-]\\)")
+                 (46 . ".\\(?:\\(?:\\.[.<]\\)\\|[.=-]\\)")
+                 (47 . ".\\(?:\\(?:\\*\\*\\|//\\|==\\)\\|[*/=>]\\)")
+                 (48 . ".\\(?:x[a-zA-Z]\\)")
+                 (58 . ".\\(?:::\\|[:=]\\)")
+                 (59 . ".\\(?:;;\\|;\\)")
+                 (60 . ".\\(?:\\(?:!--\\)\\|\\(?:~~\\|->\\|\\$>\\|\\*>\\|\\+>\\|--\\|<[<=-]\\|=[<=>]\\||>\\)\\|[*$+~/<=>|-]\\)")
+                 (61 . ".\\(?:\\(?:/=\\|:=\\|<<\\|=[=>]\\|>>\\)\\|[<=>~]\\)")
+                 (62 . ".\\(?:\\(?:=>\\|>[=>-]\\)\\|[=>-]\\)")
+                 (63 . ".\\(?:\\(\\?\\?\\)\\|[:=?]\\)")
+                 (91 . ".\\(?:]\\)")
+                 (92 . ".\\(?:\\(?:\\\\\\\\\\)\\|\\\\\\)")
+                 (94 . ".\\(?:=\\)")
+                 (119 . ".\\(?:ww\\)")
+                 (123 . ".\\(?:-\\)")
+                 (124 . ".\\(?:\\(?:|[=|]\\)\\|[=>|]\\)")
+                 (126 . ".\\(?:~>\\|~~\\|[>=@~-]\\)")
+                 )
+               ))
+    (dolist (char-regexp alist)
+      (set-char-table-range composition-function-table (car char-regexp)
+                            `([,(cdr char-regexp) 0 font-shape-gstring])))))
 
 ; Fix stupid backup confirmations
 (setq backup-directory-alist '("." "~/.emacs.d/cache/backups"))
