@@ -106,6 +106,9 @@
 			       ;; "y" or "n" instead of "yes" or "no"
                                (setq use-short-answers t)
 
+			       ;; Enable indentation+completion using TAB
+			       (setq tab-always-indent 'complete)
+
                                ;; Make ESC quit prompts
                                (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 
@@ -129,134 +132,6 @@
                                (setq tramp-auto-save-directory "/dev/null")))
 
 ;; Packages
-
-;; I am a nerd
-(use-package nerd-icons
-  :ensure t)
-
-;; Theme and modeline
-(use-package doom-themes
-  :ensure t
-  :config
-  (setq doom-themes-enable-bold t
-        doom-themes-enable-italic t
-        custom-theme-directory "~/.config/emacs/themes")
-  (load-theme 'doom-stylix t))
-
-(use-package doom-modeline
-  :ensure t
-  :init (doom-modeline-mode 1)
-  :custom ((doom-modeline-height 15)))
-
-;; Dashboard
-(use-package dashboard
-  :ensure t
-  :config
-  (setq dashboard-banner-logo-title "Welcome to Nix Emacs")
-  (setq dashboard-startup-banner 2)
-  (setq dashboard-set-heading-icons t)
-  (setq dashboard-set-file-icons t)
-  (setq dashboard-set-navigator t)
-  (setq dashboard-items '())
-  (setq dashboard-center-content t)
-  (setq dashboard-icon-type 'nerd-icons) ;; use `nerd-icons' package
-  (setq dashboard-footer-messages '("Here to do customizing, or actual work?"
-                                  "M-x insert-inspiring-message"
-                                  "My software never has bugs. It just develops random features."
-                                  "Dad, what are clouds made of? Linux servers, mostly."
-                                  "There is no place like ~"
-                                  "~ sweet ~"
-                                  "sudo chown -R us ./allyourbase"
-                                  "I’ll tell you a DNS joke but it could take 24 hours for everyone to get it."
-                                  "I'd tell you a UDP joke, but you might not get it."
-                                  "I'll tell you a TCP joke. Do you want to hear it?"))
-  (setq dashboard-footer-icon
-    (nerd-icons-codicon "nf-cod-vm"
-      :height 1.0
-      :v-adjust 0
-      :face 'font-lock-keyword-face))
-  (setq initial-buffer-choice (lambda () (get-buffer-create dashboard-buffer-name))))
-
-;; Setup treesitter
-(require 'treesit)
-(treesit-major-mode-setup)
-
-;; use-package
-(require 'use-package)
-(setq use-package-always-ensure t)
-
-;; command-log-mode
-(use-package command-log-mode)
-
-;; Enable vertico
-(use-package vertico
-  :custom
-  (vertico-scroll-margin 0) ;; Different scroll margin
-  (vertico-count 20) ;; Show more candidates
-  (vertico-resize nil) ;; Grow and shrink the Vertico minibuffer
-  (vertico-cycle t) ;; Enable cycling for `vertico-next/previous'
-  :init
-  (vertico-mode))
-
-;; Completion
-(use-package hotfuzz)
-(use-package orderless)
-(setq completion-styles '(orderless flex hotfuzz))
-
-;; Org styling
-(with-eval-after-load 'org #'(lambda ()
-			       ;; Heading styles
-			       (set-face-attribute 'outline-1 nil :height 195 :foreground (nth 1 (nth 14 doom-themes--colors)))
-			       (set-face-attribute 'outline-2 nil :height 188 :foreground (nth 1 (nth 15 doom-themes--colors)))
-			       (set-face-attribute 'outline-3 nil :height 180 :foreground (nth 1 (nth 19 doom-themes--colors)))
-			       (set-face-attribute 'outline-4 nil :height 173 :foreground (nth 1 (nth 23 doom-themes--colors)))
-			       (set-face-attribute 'outline-5 nil :height 173 :foreground (nth 1 (nth 24 doom-themes--colors)))
-			       (set-face-attribute 'outline-6 nil :height 165 :foreground (nth 1 (nth 16 doom-themes--colors)))
-			       (set-face-attribute 'outline-7 nil :height 160 :foreground (nth 1 (nth 18 doom-themes--colors)))
-			       (set-face-attribute 'outline-8 nil :height 155 :foreground (nth 1 (nth 11 doom-themes--colors)))
-
-			       (require 'org-modern)
-
-                               ;; Add frame borders and window dividers
-                               (modify-all-frames-parameters
-                                '((right-divider-width . 20)
-				  (left-divider-width . 20)
-                                  (internal-border-width . 20)))
-                               (dolist (face '(window-divider
-                                               window-divider-first-pixel
-                                               window-divider-last-pixel))
-                                 (face-spec-reset-face face)
-                                 (set-face-foreground face (face-attribute 'default :background)))
-                               (set-face-background 'fringe (face-attribute 'default :background))
-                               
-                               (setq
-                                ;; Edit settings
-                                org-auto-align-tags nil
-                                org-tags-column 0
-                                org-catch-invisible-edits 'show-and-error
-                                org-special-ctrl-a/e t
-                                org-insert-heading-respect-content t
-                               
-                                ;; Org styling, hide markup etc.
-                                org-hide-emphasis-markers t
-                                org-pretty-entities t)
-                               
-                               ;; Ellipsis styling
-                               (setq org-ellipsis "…")
-                               (set-face-attribute 'org-ellipsis nil :inherit 'default :box nil)
-
-			       ;; Star styling
-			       (setq org-modern-star 'replace)
-
-			       (global-org-modern-mode)))
-
-;; Olivetti
-(use-package olivetti
-  :config
-  (setq olivetti-style 'fancy
-      olivetti-margin-width 100)
-  (setq-default olivetti-body-width 100)
-  (add-hook 'org-mode-hook 'olivetti-mode))
 
 ;; Magit
 (use-package magit
@@ -362,6 +237,7 @@
 
 (require 'lsp-mode)
 (add-hook 'gdscript-ts-mode-hook #'lsp-deferred)
+(setq lsp-completion-provider :none)
 
 (use-package flycheck
   :init
@@ -382,3 +258,164 @@
 
 (use-package lsp-ui :commands lsp-ui-mode)
 (use-package lsp-treemacs :commands lsp-treemacs-errors-list)
+
+(use-package corfu
+  :custom
+  (corfu-cycle t)                ;; Enable cycling for `corfu-next/previous'
+  ;; (corfu-preview-current nil)    ;; Disable current candidate preview
+  (corfu-preselect 'prompt)      ;; Preselect the prompt
+  (corfu-on-exact-match 'insert)     ;; Configure handling of exact matches
+  (corfu-auto t) ;; auto complete
+  (corfu-auto-delay 0.5)  ;; wait half a second though
+  (corfu-auto-prefix 3) ;; also only for words 3 or more
+  (defun corfu-lsp-setup ()
+    (setq-local completion-styles '(orderless flex hotfuzz)
+                completion-category-defaults nil))
+  (add-hook 'lsp-mode-hook #'corfu-lsp-setup)
+
+  :init
+  (global-corfu-mode 1))
+
+;; I am a nerd
+(use-package nerd-icons
+  :ensure t
+  :config
+  (require 'treemacs-nerd-icons)
+  (treemacs-load-theme "nerd-icons")
+  (require 'nerd-icons-dired)
+  (add-hook 'dired-mode-hook #'nerd-icons-dired-mode)
+  (require 'nerd-icons-completion)
+  (nerd-icons-completion-mode)
+  (require 'nerd-icons-corfu)
+  (add-to-list 'corfu-margin-formatters #'nerd-icons-corfu-formatter))
+
+(use-package magit-file-icons
+  :ensure t
+  :after magit
+  :init
+  (magit-file-icons-mode 1)
+  :custom
+  ;; These are the default values:
+  (magit-file-icons-enable-diff-file-section-icons t)
+  (magit-file-icons-enable-untracked-icons t)
+  (magit-file-icons-enable-diffstat-icons t))
+
+;; Theme and modeline
+(use-package doom-themes
+  :ensure t
+  :config
+  (setq doom-themes-enable-bold t
+        doom-themes-enable-italic t
+        custom-theme-directory "~/.config/emacs/themes")
+  (load-theme 'doom-stylix t))
+
+(use-package doom-modeline
+  :ensure t
+  :init (doom-modeline-mode 1)
+  :custom ((doom-modeline-height 15)))
+
+;; Dashboard
+(use-package dashboard
+  :ensure t
+  :config
+  (setq dashboard-banner-logo-title "Welcome to Nix Emacs")
+  (setq dashboard-startup-banner 2)
+  (setq dashboard-set-heading-icons t)
+  (setq dashboard-set-file-icons t)
+  (setq dashboard-set-navigator t)
+  (setq dashboard-items '())
+  (setq dashboard-center-content t)
+  (setq dashboard-icon-type 'nerd-icons) ;; use `nerd-icons' package
+  (setq dashboard-footer-messages '("Here to do customizing, or actual work?"
+                                  "M-x insert-inspiring-message"
+                                  "My software never has bugs. It just develops random features."
+                                  "Dad, what are clouds made of? Linux servers, mostly."
+                                  "There is no place like ~"
+                                  "~ sweet ~"
+                                  "sudo chown -R us ./allyourbase"
+                                  "I’ll tell you a DNS joke but it could take 24 hours for everyone to get it."
+                                  "I'd tell you a UDP joke, but you might not get it."
+                                  "I'll tell you a TCP joke. Do you want to hear it?"))
+  (setq dashboard-footer-icon
+    (nerd-icons-codicon "nf-cod-vm"
+      :height 1.0
+      :v-adjust 0
+      :face 'font-lock-keyword-face))
+  (setq initial-buffer-choice (lambda () (get-buffer-create dashboard-buffer-name))))
+
+;; Setup treesitter
+(require 'treesit)
+(treesit-major-mode-setup)
+
+;; use-package
+(require 'use-package)
+(setq use-package-always-ensure t)
+
+;; command-log-mode
+(use-package command-log-mode)
+
+;; Enable vertico
+(use-package vertico
+  :custom
+  (vertico-scroll-margin 0) ;; Different scroll margin
+  (vertico-count 20) ;; Show more candidates
+  (vertico-resize nil) ;; Grow and shrink the Vertico minibuffer
+  (vertico-cycle t) ;; Enable cycling for `vertico-next/previous'
+  :init
+  (vertico-mode))
+
+;; Completion
+(use-package hotfuzz)
+(use-package orderless)
+(setq completion-styles '(orderless flex hotfuzz))
+
+;; Org mode config
+(require 'org)
+
+;; Heading styles
+(set-face-attribute 'outline-1 nil :height 195 :foreground (nth 1 (nth 14 doom-themes--colors)))
+(set-face-attribute 'outline-2 nil :height 188 :foreground (nth 1 (nth 15 doom-themes--colors)))
+(set-face-attribute 'outline-3 nil :height 180 :foreground (nth 1 (nth 19 doom-themes--colors)))
+(set-face-attribute 'outline-4 nil :height 173 :foreground (nth 1 (nth 23 doom-themes--colors)))
+(set-face-attribute 'outline-5 nil :height 173 :foreground (nth 1 (nth 24 doom-themes--colors)))
+(set-face-attribute 'outline-6 nil :height 165 :foreground (nth 1 (nth 16 doom-themes--colors)))
+(set-face-attribute 'outline-7 nil :height 160 :foreground (nth 1 (nth 18 doom-themes--colors)))
+(set-face-attribute 'outline-8 nil :height 155 :foreground (nth 1 (nth 11 doom-themes--colors)))
+
+(require 'org-modern)
+
+;; Add frame borders and window dividers
+(modify-all-frames-parameters
+ '((right-divider-width . 20)
+  (left-divider-width . 20)
+   (internal-border-width . 20)))
+(set-face-background 'fringe (face-attribute 'default :background))
+
+(setq
+ ;; Edit settings
+ org-auto-align-tags nil
+ org-tags-column 0
+ org-catch-invisible-edits 'show-and-error
+ org-special-ctrl-a/e t
+ org-insert-heading-respect-content t
+
+ ;; Org styling, hide markup etc.
+ org-hide-emphasis-markers t
+ org-pretty-entities t)
+
+;; Ellipsis styling
+(setq org-ellipsis "…")
+(set-face-attribute 'org-ellipsis nil :inherit 'default :box nil)
+
+;; Star styling
+(setq org-modern-star 'replace)
+
+(global-org-modern-mode)
+
+;; Olivetti
+(use-package olivetti
+  :config
+  (setq olivetti-style 'fancy
+      olivetti-margin-width 100)
+  (setq-default olivetti-body-width 100)
+  (add-hook 'org-mode-hook 'olivetti-mode))

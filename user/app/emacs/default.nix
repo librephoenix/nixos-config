@@ -13,6 +13,7 @@
         dashboard doom-themes doom-modeline
         nerd-icons nerd-icons-dired nerd-icons-corfu
         nerd-icons-ibuffer nerd-icons-completion
+        treemacs-nerd-icons
         yasnippet
         projectile treemacs treemacs-projectile
         treesit-grammars.with-all-grammars
