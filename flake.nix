@@ -224,7 +224,7 @@
     hyprlock = {
       type = "git";
       url = "https://code.hyprland.org/hyprwm/hyprlock.git";
-      rev = "73b0fc26c0e2f6f82f9d9f5b02e660a958902763";
+      rev = "4667f721be47ff6f5cf2a7ee64513f818fb764a0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     hyprgrass.url = "github:horriblename/hyprgrass/427690aec574fec75f5b7b800ac4a0b4c8e4b1d5";
