@@ -360,3 +360,25 @@
 (evil-define-key 'normal 'global (kbd "<leader>fU") 'sudo-edit)
 (evil-define-key 'normal 'global (kbd "<leader>fu") 'sudo-edit-find-file)
 
+(require 'lsp-mode)
+(add-hook 'gdscript-ts-mode-hook #'lsp-deferred)
+
+(use-package flycheck
+  :init
+  (global-flycheck-mode))
+
+(use-package treemacs
+  :config
+  (add-hook 'projectile-after-switch-project-hook 'treemacs-add-and-display-current-project-exclusively))
+
+(use-package lsp-mode
+  :init
+  ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
+  (setq lsp-keymap-prefix (kbd "SPC l"))
+  :hook (;; replace XXX-mode with concrete major-mode(e. g. python-mode)
+         (gdscript-mode . lsp)
+         (gdscript-ts-mode . lsp))
+  :commands lsp-deferred)
+
+(use-package lsp-ui :commands lsp-ui-mode)
+(use-package lsp-treemacs :commands lsp-treemacs-errors-list)

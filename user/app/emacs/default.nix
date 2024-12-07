@@ -14,12 +14,14 @@
         nerd-icons nerd-icons-dired nerd-icons-corfu
         nerd-icons-ibuffer nerd-icons-completion
         yasnippet
-        projectile treemacs
+        projectile treemacs treemacs-projectile
+        treesit-grammars.with-all-grammars
         magit magit-file-icons
         vterm sudo-edit
         gdscript-mode
         nix-mode
         python python-mode
+        lsp-mode flycheck lsp-ui lsp-treemacs
       ];
     })
     fira-code
