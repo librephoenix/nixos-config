@@ -8,6 +8,7 @@
   programs.git.extraConfig = {
     init.defaultBranch = "main";
     safe.directory = [ ("/home/" + userSettings.username + "/.dotfiles")
-                       ("/home/" + userSettings.username + "/.dotfiles/.git") ];
+                       ("/home/" + userSettings.username + "/.dotfiles/.git")
+                       ("/home/" + userSettings.username + "/.cache/nix/tarball-cache") ];
   };
 }
