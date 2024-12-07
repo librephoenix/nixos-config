@@ -1,11 +1,12 @@
 { config, pkgs, ... }:
 {
-  home.packages = [
+  home.packages = with pkgs; [
     (pkgs.emacsWithPackagesFromUsePackage {
       config = ./init.el;
       package = pkgs.emacs-pgtk;
       alwaysEnsure = true;
       extraEmacsPackages = epkgs: with epkgs; [
+        org-modern olivetti
         command-log-mode
         vertico corfu hotfuzz orderless
         evil evil-collection evil-snipe evil-owl evil-vimish-fold

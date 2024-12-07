@@ -203,6 +203,61 @@
 (use-package orderless)
 (setq completion-styles '(orderless flex hotfuzz))
 
+;; Org styling
+(with-eval-after-load 'org #'(lambda ()
+			       ;; Heading styles
+			       (set-face-attribute 'outline-1 nil :height 195 :foreground (nth 1 (nth 14 doom-themes--colors)))
+			       (set-face-attribute 'outline-2 nil :height 188 :foreground (nth 1 (nth 15 doom-themes--colors)))
+			       (set-face-attribute 'outline-3 nil :height 180 :foreground (nth 1 (nth 19 doom-themes--colors)))
+			       (set-face-attribute 'outline-4 nil :height 173 :foreground (nth 1 (nth 23 doom-themes--colors)))
+			       (set-face-attribute 'outline-5 nil :height 173 :foreground (nth 1 (nth 24 doom-themes--colors)))
+			       (set-face-attribute 'outline-6 nil :height 165 :foreground (nth 1 (nth 16 doom-themes--colors)))
+			       (set-face-attribute 'outline-7 nil :height 160 :foreground (nth 1 (nth 18 doom-themes--colors)))
+			       (set-face-attribute 'outline-8 nil :height 155 :foreground (nth 1 (nth 11 doom-themes--colors)))
+
+			       (require 'org-modern)
+
+                               ;; Add frame borders and window dividers
+                               (modify-all-frames-parameters
+                                '((right-divider-width . 20)
+				  (left-divider-width . 20)
+                                  (internal-border-width . 20)))
+                               (dolist (face '(window-divider
+                                               window-divider-first-pixel
+                                               window-divider-last-pixel))
+                                 (face-spec-reset-face face)
+                                 (set-face-foreground face (face-attribute 'default :background)))
+                               (set-face-background 'fringe (face-attribute 'default :background))
+                               
+                               (setq
+                                ;; Edit settings
+                                org-auto-align-tags nil
+                                org-tags-column 0
+                                org-catch-invisible-edits 'show-and-error
+                                org-special-ctrl-a/e t
+                                org-insert-heading-respect-content t
+                               
+                                ;; Org styling, hide markup etc.
+                                org-hide-emphasis-markers t
+                                org-pretty-entities t)
+                               
+                               ;; Ellipsis styling
+                               (setq org-ellipsis "…")
+                               (set-face-attribute 'org-ellipsis nil :inherit 'default :box nil)
+
+			       ;; Star styling
+			       (setq org-modern-star 'replace)
+
+			       (global-org-modern-mode)))
+
+;; Olivetti
+(use-package olivetti
+  :config
+  (setq olivetti-style 'fancy
+      olivetti-margin-width 100)
+  (setq-default olivetti-body-width 100)
+  (add-hook 'org-mode-hook 'olivetti-mode))
+
 ;; Magit
 (use-package magit
   :config
