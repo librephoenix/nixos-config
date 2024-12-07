@@ -24,7 +24,9 @@
               ../../user/lang/cc/cc.nix # C and C++ tools
               ../../user/lang/godot/godot.nix # Game development
               ../../user/hardware/bluetooth.nix # Bluetooth
-            ];
+  ];
+
+  nix.package = pkgs.nix;
 
   home.stateVersion = "22.11"; # Please read the comment before changing.
 
