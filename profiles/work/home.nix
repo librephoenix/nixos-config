@@ -251,5 +251,6 @@
   };
 
   services.pasystray.enable = true;
+  services.pasystray.extraOptions = [ "--no-notify" ];
 
 }
