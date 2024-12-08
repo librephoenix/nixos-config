@@ -192,6 +192,7 @@
   (evil-define-key 'motion 'global (kbd "<leader>pp") 'projectile-switch-project)
   (evil-define-key 'motion 'global (kbd "<leader>pf") 'projectile-find-file)
   (evil-define-key 'motion 'global (kbd "<leader>pa") 'projectile-add-known-project)
+  (evil-define-key 'motion 'global (kbd "<leader>/") 'projectile-grep)
   (evil-define-key 'motion 'global (kbd "<leader>gg") 'magit-status)
 
  ;; Describe keybinds
