@@ -131,6 +131,7 @@
     cryptsetup
     home-manager
     wpa_supplicant
+    attic-client
     (pkgs.writeScriptBin "comma" ''
       if [ "$#" = 0 ]; then
         echo "usage: comma PKGNAME... [EXECUTABLE]";

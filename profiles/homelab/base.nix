@@ -74,6 +74,7 @@
     rsnapshot
     cryptsetup
     gocryptfs
+    attic-client
   ];
 
   programs.fuse.userAllowOther = true;
