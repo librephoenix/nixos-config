@@ -118,6 +118,7 @@
                                      scroll-conservatively 101
                                      scroll-preserve-screen-position nil
                                      redisplay-skip-fontification-on-input t)
+			       (pixel-scroll-precision-mode 1)
 
                                ;; Line numbers
                                (setq display-line-numbers-type 'visual
@@ -501,3 +502,6 @@ All my (performant) foldings needs are met between this and `org-show-subtree'
       olivetti-margin-width 100)
   (setq-default olivetti-body-width 100)
   (add-hook 'org-mode-hook 'olivetti-mode))
+
+(provide 'init)
+;;; init.el ends here
