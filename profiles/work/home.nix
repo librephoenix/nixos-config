@@ -22,7 +22,7 @@
               #../../user/app/flatpak/flatpak.nix # Flatpaks
               ../../user/style/stylix.nix # Styling and themes for my apps
               ../../user/lang/cc/cc.nix # C and C++ tools
-              ../../user/lang/godot/godot.nix # Game development
+              ../../user/app/godot # Game development
               ../../user/hardware/bluetooth.nix # Bluetooth
   ];
 

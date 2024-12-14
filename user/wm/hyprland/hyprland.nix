@@ -302,6 +302,13 @@ in
        windowrulev2 = float,title:(Create new document)
        windowrulev2 = size 86% 85%,title:(Create new document)
        windowrulev2 = center,title:(Create new document)
+       windowrulev2 = size 86% 85%,title:(Create new document)
+       windowrulev2 = float,title:(Create New Node)
+       windowrulev2 = size 70% 70%,title:(Create New Node)
+       windowrulev2 = center,title:(Create New Node)
+       windowrulev2 = float,title:(Resource)
+       windowrulev2 = size 70% 70%,title:(Resource)
+       windowrulev2 = center,title:(Resource)
        windowrulev2 = tile,title:(Godot)
 
        windowrulev2 = opacity 0.80,title:ORUI
