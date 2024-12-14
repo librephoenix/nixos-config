@@ -14,7 +14,7 @@
         nerd-icons nerd-icons-dired nerd-icons-corfu
         nerd-icons-ibuffer nerd-icons-completion
         treemacs-nerd-icons
-        yasnippet
+        yasnippet shackle
         projectile treemacs treemacs-projectile
         treesit-grammars.with-all-grammars
         magit magit-file-icons

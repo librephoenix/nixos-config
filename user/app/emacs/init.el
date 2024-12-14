@@ -119,9 +119,6 @@
                                      scroll-preserve-screen-position nil
                                      redisplay-skip-fontification-on-input t)
 
-                               ;; Visual lines make more sense
-                               (global-visual-line-mode 1)     
-
                                ;; Line numbers
                                (setq display-line-numbers-type 'visual
                                      line-move-visual t)
@@ -365,6 +362,37 @@
   :init
   (vertico-mode))
 
+;; Shackle
+;; https://github.com/wasamasa/shackle
+(use-package shackle
+  :config
+  (progn
+    (setq shackle-lighter "")
+    (setq shackle-select-reused-windows nil) ; default nil
+    (setq shackle-default-alignment 'below) ; default below
+    (setq shackle-default-size 0.4) ; default 0.5
+
+    (setq shackle-rules
+          ;; CONDITION(:regexp)            :select     :inhibit-window-quit   :size+:align|:other     :same|:popup
+          '((compilation-mode              :select nil                                               )
+            ("*undo-tree*"                                                    :size 0.25 :align right)
+            ("*eshell*"                    :select t                          :other t               )
+            ("*Shell Command Output*"      :select nil                                               )
+            ("\\*Async Shell.*\\*" :regexp t :ignore t                                                 )
+            (occur-mode                    :select nil                                   :align t    )
+            ("*Help*"                      :select t   :inhibit-window-quit t :size 0.3  :align below  )
+            ("*Completions*"                                                  :size 0.3  :align t    )
+            ("*Messages*"                  :select nil :inhibit-window-quit t :other t               )
+            ("\\*[Wo]*Man.*\\*"    :regexp t :select t   :inhibit-window-quit t :other t               )
+            ("\\*poporg.*\\*"      :regexp t :select t                          :other t               )
+            ("\\`\\*helm.*?\\*\\'"   :regexp t                                    :size 0.3  :align t    )
+            ("*Calendar*"                  :select t                          :size 0.3  :align below)
+            ("*info*"                      :select t   :inhibit-window-quit t                         :same t)
+            (magit-status-mode             :select t   :inhibit-window-quit t                         :same t)
+            (magit-log-mode                :select t   :inhibit-window-quit t                         :same t)
+            ))
+    (shackle-mode 1)))
+
 ;; Completion
 (use-package hotfuzz)
 (use-package orderless)
@@ -372,6 +400,59 @@
 
 ;; Org mode config
 (require 'org)
+
+;; Better cycling
+;; https://github.com/doomemacs/doomemacs/blob/master/modules/lang/org/autoload/org.el
+(defun +org-cycle-only-current-subtree-h (&optional arg)
+  "Toggle the local fold at the point, and no deeper.
+`org-cycle's standard behavior is to cycle between three levels: collapsed,
+subtree and whole document. This is slow, especially in larger org buffer. Most
+of the time I just want to peek into the current subtree -- at most, expand
+*only* the current subtree.
+
+All my (performant) foldings needs are met between this and `org-show-subtree'
+(on zO for evil users), and `org-cycle' on shift-TAB if I need it."
+  (interactive "P")
+  (unless (or (eq this-command 'org-shifttab)
+              (and (bound-and-true-p org-cdlatex-mode)
+                   (or (org-inside-LaTeX-fragment-p)
+                       (org-inside-latex-macro-p))))
+    (save-excursion
+      (org-beginning-of-line)
+      (let (invisible-p)
+        (when (and (org-at-heading-p)
+                   (or org-cycle-open-archived-trees
+                       (not (member org-archive-tag (org-get-tags))))
+                   (or (not arg)
+                       (setq invisible-p
+                             (memq (get-char-property (line-end-position)
+                                                      'invisible)
+                                   '(outline org-fold-outline)))))
+          (unless invisible-p
+            (setq org-cycle-subtree-status 'subtree))
+          (org-cycle-internal-local)
+          t)))))
+(defalias #'+org/toggle-fold #'+org-cycle-only-current-subtree-h)
+(add-hook 'org-tab-first-hook
+          ;; Only fold the current tree, rather than recursively
+          #'+org-cycle-only-current-subtree-h)
+
+;; Line wrapping management
+(defun truncate-lines-off ()
+  (interactive)
+  (toggle-truncate-lines 0))
+(defun truncate-lines-on ()
+  (interactive)
+  (toggle-truncate-lines 1))
+(defun visual-line-mode-off ()
+  (interactive)
+  (visual-line-mode 0))
+(add-hook 'org-mode-hook 'truncate-lines-off)
+(add-hook 'markdown-mode-hook 'truncate-lines-off)
+(add-hook 'org-mode-hook 'visual-line-mode)
+(add-hook 'markdown-mode-hook 'visual-line-mode)
+(add-hook 'prog-mode 'truncate-lines-on)
+(add-hook 'prog-mode 'visual-line-mode-off)
 
 ;; Heading styles
 (set-face-attribute 'outline-1 nil :height 195 :foreground (nth 1 (nth 14 doom-themes--colors)))
