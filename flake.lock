@@ -422,27 +422,6 @@
         "type": "github"
       }
     },
-    "hyprgrass": {
-      "inputs": {
-        "hyprland": [
-          "hyprland"
-        ]
-      },
-      "locked": {
-        "lastModified": 1724620988,
-        "narHash": "sha256-3CN9ZioI5XBtp6WF61hH2EyASHUIPJQCTXiW1rt9n5w=",
-        "owner": "horriblename",
-        "repo": "hyprgrass",
-        "rev": "427690aec574fec75f5b7b800ac4a0b4c8e4b1d5",
-        "type": "github"
-      },
-      "original": {
-        "owner": "horriblename",
-        "repo": "hyprgrass",
-        "rev": "427690aec574fec75f5b7b800ac4a0b4c8e4b1d5",
-        "type": "github"
-      }
-    },
     "hyprland": {
       "inputs": {
         "aquamarine": "aquamarine",
@@ -459,51 +438,20 @@
         "xdph": "xdph"
       },
       "locked": {
-        "lastModified": 1731526492,
-        "narHash": "sha256-2Gob+eZEPpF225QrRLXyfeQ9L63YHFa/tNh15FW/Rzo=",
-        "ref": "refs/heads/main",
-        "rev": "3fb47372b79265ebdabeeefdad10359d5b18377a",
+        "lastModified": 1732052838,
+        "narHash": "sha256-1pNsLGNStCFjXiBc2zMUxKzKk45CePTf+GwKlzTmrCY=",
+        "ref": "12f9a0d0b93f691d4d9923716557154d74777b0a",
+        "rev": "12f9a0d0b93f691d4d9923716557154d74777b0a",
         "revCount": 5451,
         "submodules": true,
         "type": "git",
         "url": "https://code.hyprland.org/hyprwm/Hyprland.git"
       },
       "original": {
-        "rev": "3fb47372b79265ebdabeeefdad10359d5b18377a",
+        "rev": "12f9a0d0b93f691d4d9923716557154d74777b0a",
         "submodules": true,
         "type": "git",
         "url": "https://code.hyprland.org/hyprwm/Hyprland.git"
-      }
-    },
-    "hyprland-plugins": {
-      "inputs": {
-        "hyprland": [
-          "hyprland"
-        ],
-        "nixpkgs": [
-          "hyprland-plugins",
-          "hyprland",
-          "nixpkgs"
-        ],
-        "systems": [
-          "hyprland-plugins",
-          "hyprland",
-          "systems"
-        ]
-      },
-      "locked": {
-        "lastModified": 1731619734,
-        "narHash": "sha256-ZroMITOTQ3eu6z+3m7DJtaKePJWDTPuElkgmKl3rl9g=",
-        "ref": "refs/heads/main",
-        "rev": "344a69db96fa8c6dc3b8f1f8f5a75f6eb441cbf2",
-        "revCount": 204,
-        "type": "git",
-        "url": "https://code.hyprland.org/hyprwm/hyprland-plugins.git"
-      },
-      "original": {
-        "rev": "344a69db96fa8c6dc3b8f1f8f5a75f6eb441cbf2",
-        "type": "git",
-        "url": "https://code.hyprland.org/hyprwm/hyprland-plugins.git"
       }
     },
     "hyprland-protocols": {
@@ -968,22 +916,6 @@
         "type": "gitlab"
       }
     },
-    "nvchad": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1728129783,
-        "narHash": "sha256-SVpep7lVX0isYsUtscvgA7Ga3YXt/2jwQQCYkYadjiM=",
-        "owner": "NvChad",
-        "repo": "starter",
-        "rev": "d0c602f5f155d4d1261609219e9b8a61e936d681",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NvChad",
-        "repo": "starter",
-        "type": "github"
-      }
-    },
     "pre-commit-hooks": {
       "inputs": {
         "flake-compat": "flake-compat",
@@ -1015,14 +947,11 @@
         "emacs-overlay": "emacs-overlay",
         "home-manager-stable": "home-manager-stable",
         "home-manager-unstable": "home-manager-unstable",
-        "hyprgrass": "hyprgrass",
         "hyprland": "hyprland",
-        "hyprland-plugins": "hyprland-plugins",
         "hyprlock": "hyprlock",
         "nix-on-droid": "nix-on-droid",
         "nixpkgs": "nixpkgs_2",
         "nixpkgs-stable": "nixpkgs-stable_3",
-        "nvchad": "nvchad",
         "rust-overlay": "rust-overlay",
         "stylix": "stylix"
       }

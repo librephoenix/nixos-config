@@ -212,14 +212,8 @@
       type = "git";
       url = "https://code.hyprland.org/hyprwm/Hyprland.git";
       submodules = true;
-      rev = "3fb47372b79265ebdabeeefdad10359d5b18377a"; #v0.45.0
+      rev = "12f9a0d0b93f691d4d9923716557154d74777b0a"; #v0.45.2
       inputs.nixpkgs.follows = "nixpkgs";
-    };
-    hyprland-plugins = {
-      type = "git";
-      url = "https://code.hyprland.org/hyprwm/hyprland-plugins.git";
-      rev = "344a69db96fa8c6dc3b8f1f8f5a75f6eb441cbf2"; #v0.45.0
-      inputs.hyprland.follows = "hyprland";
     };
     hyprlock = {
       type = "git";
@@ -227,8 +221,6 @@
       rev = "4667f721be47ff6f5cf2a7ee64513f818fb764a0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    hyprgrass.url = "github:horriblename/hyprgrass/427690aec574fec75f5b7b800ac4a0b4c8e4b1d5";
-    hyprgrass.inputs.hyprland.follows = "hyprland";
 
     stylix.url = "github:danth/stylix";
 
