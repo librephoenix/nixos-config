@@ -86,10 +86,30 @@
   # Bootloader
   # Use systemd-boot if uefi, default to grub otherwise
   boot.loader.systemd-boot.enable = if (systemSettings.bootMode == "uefi") then true else false;
+  boot.loader.systemd-boot.editor = false;
   boot.loader.efi.canTouchEfiVariables = if (systemSettings.bootMode == "uefi") then true else false;
   boot.loader.efi.efiSysMountPoint = systemSettings.bootMountPath; # does nothing if running bios rather than uefi
   boot.loader.grub.enable = if (systemSettings.bootMode == "uefi") then false else true;
   boot.loader.grub.device = systemSettings.grubDevice; # does nothing if running uefi rather than bios
+
+  # Silent Boot
+  # https://wiki.archlinux.org/title/Silent_boot
+  boot.kernelParams = [
+    "quiet"
+    "splash"
+    "vga=current"
+    "rd.systemd.show_status=false"
+    "rd.udev.log_level=3"
+    "udev.log_priority=3"
+  ];
+  boot.consoleLogLevel = 0;
+  boot.initrd.systemd.enable = true;
+  # https://github.com/NixOS/nixpkgs/pull/108294
+  boot.initrd.verbose = false;
+
+  boot.plymouth.enable = true;
+  #boot.plymouth.themePackages = with pkgs; [ nixos-bgrt-plymouth ];
+  #boot.plymouth.theme = "NixOS BGRT";
 
   # Networking
   networking.hostName = systemSettings.hostname; # Define your hostname.
