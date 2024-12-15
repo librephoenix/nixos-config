@@ -230,11 +230,6 @@
     hyprgrass.url = "github:horriblename/hyprgrass/427690aec574fec75f5b7b800ac4a0b4c8e4b1d5";
     hyprgrass.inputs.hyprland.follows = "hyprland";
 
-    nvchad = {
-      url = "github:NvChad/starter";
-      flake = false;
-    };
-
     stylix.url = "github:danth/stylix";
 
     emacs-overlay = {

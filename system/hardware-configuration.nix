@@ -82,10 +82,10 @@
   };
 
   boot.kernel.sysctl = {
-    "vm.swappiness" = 90;
-    "vm.vfs_cache_pressure" = 50;
-    "vm.dirty_background_ratio" = 2;
-    "vm.dirty_ratio" = 5;
+    "vm.swappiness" = 180;
+    "vm.vfs_cache_pressure" = 500;
+    "vm.dirty_background_ratio" = 4;
+    "vm.dirty_ratio" = 8;
   };
 
   services.btrfs.autoScrub = {
