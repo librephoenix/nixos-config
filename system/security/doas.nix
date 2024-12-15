@@ -18,6 +18,6 @@
   ];
 
   environment.systemPackages = [
-    (pkgs.writeScriptBin "sudo" ''exec doas "$@"'')
+    pkgs.doas-sudo-shim
   ];
 }
