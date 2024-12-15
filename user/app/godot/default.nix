@@ -3,6 +3,11 @@
   home.packages = with pkgs; [
     godot_4
   ];
+
+  # ~/.config/godot must be owned by another user in order for this to work
+  # does not need to be recursively owned, however
+
+  # TODO fix other colors
   home.file.".config/godot/editor_settings-4.3.tres".text = ''
     [gd_resource type="EditorSettings" format=3]
     
