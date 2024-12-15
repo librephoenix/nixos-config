@@ -212,7 +212,7 @@
       type = "git";
       url = "https://code.hyprland.org/hyprwm/Hyprland.git";
       submodules = true;
-      rev = "12f9a0d0b93f691d4d9923716557154d74777b0a"; #v0.45.2
+      rev = "3fb47372b79265ebdabeeefdad10359d5b18377a"; #v0.45.0
       inputs.nixpkgs.follows = "nixpkgs";
     };
     hyprlock = {
