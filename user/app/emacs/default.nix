@@ -17,7 +17,7 @@
         yasnippet shackle
         projectile treemacs treemacs-projectile
         treesit-grammars.with-all-grammars
-        magit magit-file-icons
+        magit magit-file-icons magit-todos
         vterm sudo-edit
         gdscript-mode
         nix-mode

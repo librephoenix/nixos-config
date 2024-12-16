@@ -514,7 +514,6 @@ in
       ignore_dbus_inhibit = false
     }
 
-    # FIXME memory leak fries computer inbetween dpms off and suspend
     #listener {
     #  timeout = 150 # in seconds
     #  on-timeout = hyprctl dispatch dpms off

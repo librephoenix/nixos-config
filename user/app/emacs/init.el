@@ -299,6 +299,14 @@
   (magit-file-icons-enable-untracked-icons t)
   (magit-file-icons-enable-diffstat-icons t))
 
+(use-package magit-todos
+  :ensure t
+  :custom
+  :config
+  (setq magit-todos-keywords-list '("TODO" "FIXME" "HACK" "REVIEW" "DEPRECATED" "BUG"))
+  (setq magit-todos-keyword-suffix "\\(?:[([][^])]+[])]\\)?.")
+  (magit-todos-mode 1))
+
 ;; Theme and modeline
 (use-package doom-themes
   :ensure t
