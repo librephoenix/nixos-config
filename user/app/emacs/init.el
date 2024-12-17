@@ -121,7 +121,7 @@
 			       (pixel-scroll-precision-mode 1)
 
                                ;; Line numbers
-                               (setq display-line-numbers-type 'visual
+                               (setq display-line-numbers-type t
                                      line-move-visual t)
                                (add-hook 'prog-mode-hook 'display-line-numbers-mode)
 
@@ -301,7 +301,6 @@
 
 (use-package magit-todos
   :ensure t
-  :custom
   :config
   (setq magit-todos-keywords-list '("TODO" "FIXME" "HACK" "REVIEW" "DEPRECATED" "BUG"))
   (setq magit-todos-keyword-suffix "\\(?:[([][^])]+[])]\\)?.")
