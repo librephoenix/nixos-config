@@ -19,6 +19,7 @@
         treesit-grammars.with-all-grammars
         magit magit-file-icons magit-todos
         vterm sudo-edit
+        direnv
         gdscript-mode
         nix-mode
         python python-mode

@@ -357,6 +357,11 @@
 (require 'use-package)
 (setq use-package-always-ensure t)
 
+;; direnv
+(use-package direnv
+ :config
+ (direnv-mode))
+
 ;; command-log-mode
 (use-package command-log-mode)
 
