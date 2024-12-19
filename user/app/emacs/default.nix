@@ -18,6 +18,8 @@
         projectile treemacs treemacs-projectile
         treesit-grammars.with-all-grammars
         magit magit-file-icons magit-todos
+        undo-fu undo-fu-session
+        org-roam org-node org-node-fakeroam
         vterm sudo-edit
         direnv
         gdscript-mode

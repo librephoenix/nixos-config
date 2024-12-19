@@ -146,6 +146,14 @@
 ;; Enable vim
 (setq evil-want-keybinding nil)
 
+(use-package undo-fu
+  :ensure t)
+
+(use-package undo-fu-session
+  :ensure t
+  :config
+  (global-undo-fu-session-mode))
+
 (use-package evil
   :init
   (setq evil-want-keybinding nil)
@@ -154,6 +162,7 @@
   (evil-set-leader 'normal (kbd "SPC"))
   (evil-set-leader 'motion (kbd "SPC"))
   (setq evil-respect-visual-line-mode t)
+  (setq evil-undo-system 'undo-fu)
   (evil-mode 1))
 
 (use-package evil-collection
@@ -449,6 +458,48 @@ All my (performant) foldings needs are met between this and `org-show-subtree'
 (add-hook 'org-tab-first-hook
           ;; Only fold the current tree, rather than recursively
           #'+org-cycle-only-current-subtree-h)
+
+(use-package org-roam
+  :ensure t
+  :custom
+  (org-roam-directory (file-truename "~/Notes"))
+  (setq org-roam-node-display-template (concat "${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
+  (org-roam-db-autosync-mode -1)
+  (setq org-roam-capture-templates '(("d" "default" plain "%?" :unnarrowed t :target (file+head
+ 				    "${slug}-%<%Y%m%d%H%M%S>.org" "#+title: ${title}"))))
+  (evil-define-key 'motion 'global (kbd "<leader>n.") 'org-roam-node-find)
+  (evil-define-key 'motion 'global (kbd "<leader>nb") 'org-roam-buffer-toggle))
+
+(use-package org-node
+  :ensure t
+  :after org
+  :config (org-node-cache-mode)
+  (setq org-node-extra-id-dirs '("~/Notes/"))
+  (org-node-complete-at-point-mode)
+  (setq org-roam-completion-everywhere nil)
+  (evil-define-key 'motion 'global (kbd "<leader>ni") 'org-node-insert-link)
+  (evil-define-key 'motion 'global (kbd "<leader>nr") 'org-node-rewrite-links-ask)
+  )
+
+(use-package org-node-fakeroam
+  :ensure t
+  :defer
+  :config
+  (setq org-node-creation-fn #'org-node-fakeroam-new-via-roam-capture)
+  (setq org-node-slug-fn #'org-node-fakeroam-slugify-via-roam)
+  (setq org-node-datestamp-format "%Y%m%d%H%M%S-")
+  (setq org-roam-db-update-on-save nil) ;; don't update DB on save, not needed
+  (setq org-roam-link-auto-replace nil) ;; don't look for "roam:" links on save
+  (org-node-fakeroam-fast-render-mode) ;; build the Roam buffer faster
+  (setq org-node-fakeroam-fast-render-persist t)
+  (org-node-fakeroam-redisplay-mode) ;; autorefresh the Roam buffer
+  (org-node-fakeroam-jit-backlinks-mode) ;; skip DB for Roam buffer
+  (org-node-fakeroam-db-feed-mode) ;; keep Roam DB up to date
+  )
+
+(use-package wgrep
+  :ensure t
+  :after org-node)
 
 ;; Line wrapping management
 (defun truncate-lines-off ()
