@@ -168,8 +168,9 @@
 (with-eval-after-load 'evil-maps
   (define-key evil-motion-state-map (kbd "RET") nil))
 
-(setq org-return-follows-link t)
-(setf (cdr (assoc 'file org-link-frame-setup)) 'find-file)
+(with-eval-after-load 'org
+  (setq org-return-follows-link t)
+  (setf (cdr (assoc 'file org-link-frame-setup)) 'find-file))
 
 (use-package evil-collection
   :init
