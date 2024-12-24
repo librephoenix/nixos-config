@@ -185,7 +185,7 @@
  ;; File and buffer  keybinds
   (evil-define-key 'motion 'global (kbd "<leader>.") 'find-file)
   (evil-define-key 'motion 'global (kbd "<leader>bi") 'ibuffer)
-  (evil-define-key 'motion 'global (kbd "<leader>bd") 'delete-buffer)
+  (evil-define-key 'motion 'global (kbd "<leader>bd") 'evil-delete-buffer)
   (evil-define-key 'motion 'global (kbd "<leader>bn") 'next-buffer)
   (evil-define-key 'motion 'global (kbd "<leader>bp") 'previous-buffer)
   ;; based on http://emacsredux.com/blog/2013/04/03/delete-file-and-buffer/
@@ -466,15 +466,19 @@ All my (performant) foldings needs are met between this and `org-show-subtree'
           ;; Only fold the current tree, rather than recursively
           #'+org-cycle-only-current-subtree-h)
 
+(evil-define-key 'insert 'org-mode-map (kbd "<tab>") 'org-demote-subtree)
+(evil-define-key 'insert 'org-mode-map (kbd "<backtab>") 'org-promote-subtree)
+
 (use-package org-roam
   :ensure t
-  :custom
-  (org-roam-directory (file-truename "~/Notes"))
+  :config
+  (setq org-roam-directory (file-truename "~/Notes"))
   (setq org-roam-node-display-template (concat "${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
   (org-roam-db-autosync-mode -1)
   (setq org-roam-capture-templates '(("d" "default" plain "%?" :unnarrowed t :target (file+head
  				    "${slug}-%<%Y%m%d%H%M%S>.org" "#+title: ${title}"))))
   (evil-define-key 'motion 'global (kbd "<leader>n.") 'org-roam-node-find)
+  (evil-define-key 'motion 'global (kbd "<leader>nr") 'org-roam-refile)
   (evil-define-key 'motion 'global (kbd "<leader>nb") 'org-roam-buffer-toggle))
 
 (use-package org-node
@@ -485,7 +489,7 @@ All my (performant) foldings needs are met between this and `org-show-subtree'
   (org-node-complete-at-point-mode)
   (setq org-roam-completion-everywhere nil)
   (evil-define-key 'motion 'global (kbd "<leader>ni") 'org-node-insert-link)
-  (evil-define-key 'motion 'global (kbd "<leader>nr") 'org-node-rewrite-links-ask)
+  (evil-define-key 'motion 'global (kbd "<leader>nR") 'org-node-rewrite-links-ask)
   )
 
 (use-package org-node-fakeroam
@@ -518,6 +522,7 @@ All my (performant) foldings needs are met between this and `org-show-subtree'
 (defun visual-line-mode-off ()
   (interactive)
   (visual-line-mode 0))
+(add-hook 'org-mode-hook 'org-indent-mode)
 (add-hook 'org-mode-hook 'truncate-lines-off)
 (add-hook 'markdown-mode-hook 'truncate-lines-off)
 (add-hook 'org-mode-hook 'visual-line-mode)
