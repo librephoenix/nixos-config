@@ -527,8 +527,8 @@ All my (performant) foldings needs are met between this and `org-show-subtree'
 (add-hook 'markdown-mode-hook 'truncate-lines-off)
 (add-hook 'org-mode-hook 'visual-line-mode)
 (add-hook 'markdown-mode-hook 'visual-line-mode)
-(add-hook 'prog-mode 'truncate-lines-on)
-(add-hook 'prog-mode 'visual-line-mode-off)
+(add-hook 'prog-mode-hook 'truncate-lines-on)
+(add-hook 'prog-mode-hook 'visual-line-mode-off)
 
 ;; Heading styles
 (set-face-attribute 'outline-1 nil :height 195 :foreground (nth 1 (nth 14 doom-themes--colors)))
