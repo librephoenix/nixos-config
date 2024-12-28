@@ -247,7 +247,9 @@
 
 (require 'sudo-edit)
 (setq sudo-edit-local-method "doas")
-(setq auth-source-save-behavior nil)
+(setq auth-sources '("~/.authinfo.gpg"))
+(setq auth-source-save-behavior "ask")
+(sudo-edit-indicator-mode)
 (evil-define-key 'normal 'global (kbd "<leader>fU") 'sudo-edit)
 (evil-define-key 'normal 'global (kbd "<leader>fu") 'sudo-edit-find-file)
 

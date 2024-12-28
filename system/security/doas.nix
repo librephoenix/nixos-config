@@ -12,8 +12,21 @@
     }
     {
       users = [ "${userSettings.username}" ];
-      cmd = "tee";
+      cmd = "nix";
       noPass = true;
+      keepEnv = true;
+    }
+    {
+      users = [ "${userSettings.username}" ];
+      cmd = "nixos-rebuild";
+      noPass = true;
+      keepEnv = true;
+    }
+    {
+      users = [ "${userSettings.username}" ];
+      cmd = "nix-collect-garbage";
+      noPass = true;
+      keepEnv = true;
     }
   ];
 
