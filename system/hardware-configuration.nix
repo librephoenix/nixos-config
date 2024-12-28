@@ -21,7 +21,6 @@
 
   environment.systemPackages = with pkgs.rocmPackages; [ hipcc hip-common hiprand hipblas hipfft hipcub hipify ];
 
-
   services.xserver.videoDrivers = lib.mkDefault [ "modesetting" ];
 
   hardware.graphics = {

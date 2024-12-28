@@ -9,7 +9,6 @@
   programs.home-manager.enable = true;
 
   imports = [ ../work/home.nix # Personal is essentially work system + games
-              ../../user/app/games/games.nix # Various videogame apps
             ];
 
   home.stateVersion = "22.11"; # Please read the comment before changing.

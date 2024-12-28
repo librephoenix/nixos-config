@@ -20,8 +20,6 @@
               ../../user/app/virtualization/virtualization.nix # Virtual machines
               #../../user/app/flatpak/flatpak.nix # Flatpaks
               ../../user/style/stylix.nix # Styling and themes for my apps
-              ../../user/lang/cc/cc.nix # C and C++ tools
-              ../../user/app/godot # Game development
               ../../user/hardware/bluetooth.nix # Bluetooth
   ];
 
@@ -69,7 +67,7 @@
     protonmail-bridge
     texliveSmall
     numbat
-    element-desktop-wayland
+    element-desktop
 
     openai-whisper-cpp
 
@@ -124,6 +122,7 @@
     krita
     pinta
     inkscape
+    godot_4
     (pkgs-stable.lollypop.override { youtubeSupport = false; })
     vlc
     mpv
@@ -196,12 +195,6 @@
     ventoy
     kdenlive
   ]);
-
-  home.file.".local/share/pixmaps/nixos-snowflake-stylix.svg".source =
-    config.lib.stylix.colors {
-      template = builtins.readFile ../../user/pkgs/nixos-snowflake-stylix.svg.mustache;
-      extension = "svg";
-    };
 
   services.syncthing.enable = true;
   services.nextcloud-client = {

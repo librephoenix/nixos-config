@@ -16,6 +16,10 @@ in
   else
     []);
 
+  home.sessionVariables = {
+    
+  };
+
   gtk.cursorTheme = {
     package = pkgs.quintom-cursor-theme;
     name = if (config.stylix.polarity == "light") then "Quintom_Ink" else "Quintom_Snow";
@@ -32,6 +36,7 @@ in
       exec-once = hyprctl setcursor '' + config.gtk.cursorTheme.name + " " + builtins.toString config.gtk.cursorTheme.size + ''
 
       exec-once = iio-hyprland
+      env = NIXOS_OZONE_WL,1
       env = XDG_CURRENT_DESKTOP,Hyprland
       env = XDG_SESSION_DESKTOP,Hyprland
       env = XDG_SESSION_TYPE,wayland
@@ -141,7 +146,6 @@ in
        bindm=SUPER,mouse:272,movewindow
        bindm=SUPER,mouse:273,resizewindow
        bind=SUPER,T,togglefloating
-       bind=SUPER,G,exec,hyprctl dispatch focusworkspaceoncurrentmonitor 9 && pegasus-fe;
        bind=,code:148,exec,''+ userSettings.term + " "+''-e numbat
 
        bind=,code:107,exec,grim -g "$(slurp)"
@@ -502,11 +506,6 @@ in
       then echo "Shouldn't suspend"; sleep 10; else echo "Should suspend"; systemctl suspend; fi
     '')
     ]);
-  home.file.".local/share/pixmaps/hyprland-logo-stylix.svg".source =
-    config.lib.stylix.colors {
-      template = builtins.readFile ../../pkgs/hyprland-logo-stylix.svg.mustache;
-      extension = "svg";
-    };
   home.file.".config/hypr/hypridle.conf".text = ''
     general {
       lock_cmd = pgrep hyprlock || hyprlock
