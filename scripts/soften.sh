@@ -22,6 +22,6 @@ if [ "$#" = 1 ]; then
 else
     SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 fi
-pushd $SCRIPT_DIR &> /dev/null;
+pushd $SCRIPT_DIR/scripts &> /dev/null;
 sudo chown -R 1000:users .;
 popd &> /dev/null;

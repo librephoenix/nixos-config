@@ -3,13 +3,13 @@
 let myScript = ''
       if [ "$1" = "sync" ]; then
         if [ "$#" = 1 ]; then
-          ''+userSettings.dotfilesDir+''/sync.sh;
+          ''+userSettings.dotfilesDir+''/scripts/sync.sh;
           exit 0;
         elif [ "$2" = "user" ]; then
-          ''+userSettings.dotfilesDir+''/sync-user.sh;
+          ''+userSettings.dotfilesDir+''/scripts/sync-user.sh;
           exit 0;
         elif [ "$2" = "system" ]; then
-          ''+userSettings.dotfilesDir+''/sync-system.sh;
+          ''+userSettings.dotfilesDir+''/scripts/sync-system.sh;
           exit 0;
         else
           echo "Please pass 'system' or 'user' if supplying a second argument"
@@ -18,37 +18,37 @@ let myScript = ''
         if [ "$#" -gt 1 ]; then
           echo "Warning: The 'refresh' command has no subcommands (no $2 subcommand)";
         fi
-        ''+userSettings.dotfilesDir+''/sync-posthook.sh;
+        ''+userSettings.dotfilesDir+''/scripts/sync-posthook.sh;
         exit 0;
       elif [ "$1" = "update" ]; then
         if [ "$#" -gt 1 ]; then
           echo "Warning: The 'update' command has no subcommands (no $2 subcommand)";
         fi
-        ''+userSettings.dotfilesDir+''/update.sh;
+        ''+userSettings.dotfilesDir+''/scripts/update.sh;
         exit 0;
       elif [ "$1" = "upgrade" ]; then
         if [ "$#" -gt 1 ]; then
           echo "Warning: The 'update' command has no subcommands (no $2 subcommand)";
         fi
-        ''+userSettings.dotfilesDir+''/upgrade.sh;
+        ''+userSettings.dotfilesDir+''/scripts/upgrade.sh;
         exit 0;
       elif [ "$1" = "pull" ]; then
         if [ "$#" -gt 1 ]; then
           echo "Warning: The 'upgrade' command has no subcommands (no $2 subcommand)";
         fi
-        ''+userSettings.dotfilesDir+''/pull.sh;
+        ''+userSettings.dotfilesDir+''/scripts/pull.sh;
         exit 0;
       elif [ "$1" = "harden" ]; then
         if [ "$#" -gt 1 ]; then
           echo "Warning: The 'harden' command has no subcommands (no $2 subcommand)";
         fi
-        ''+userSettings.dotfilesDir+''/harden.sh;
+        ''+userSettings.dotfilesDir+''/scripts/harden.sh;
         exit 0;
       elif [ "$1" = "soften" ]; then
         if [ "$#" -gt 1 ]; then
           echo "Warning: The 'soften' command has no subcommands (no $2 subcommand)";
         fi
-        ''+userSettings.dotfilesDir+''/soften.sh;
+        ''+userSettings.dotfilesDir+''/scripts/soften.sh;
         exit 0;
       elif [ "$1" = "gc" ]; then
         if [ "$#" -gt 2 ]; then

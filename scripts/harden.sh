@@ -18,16 +18,16 @@ if [ "$#" = 1 ]; then
 else
     SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 fi
-pushd $SCRIPT_DIR &> /dev/null;
+pushd $SCRIPT_DIR/.. &> /dev/null;
 sudo chown 0:0 .;
 sudo chown 0:0 profiles/*;
 sudo chown -R 0:0 system;
+sudo chown 0:0 -R scripts;
 sudo chown -R 0:0 patches;
 sudo chown 0:0 flake.lock;
 sudo chown 0:0 flake.nix
 sudo chown 0:0 profiles
 sudo chown 0:0 profiles/*/configuration.nix;
 sudo chown 0:0 profiles/homelab/base.nix;
-sudo chown 0:0 *.sh;
 sudo chown 1000:users **/README.org;
 popd &> /dev/null;
