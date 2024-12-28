@@ -21,20 +21,17 @@ let myScript = ''
         ''+userSettings.dotfilesDir+''/scripts/sync-posthook.sh;
         exit 0;
       elif [ "$1" = "update" ]; then
-        if [ "$#" -gt 1 ]; then
-          echo "Warning: The 'update' command has no subcommands (no $2 subcommand)";
-        fi
-        ''+userSettings.dotfilesDir+''/scripts/update.sh;
+        ''+userSettings.dotfilesDir+''/scripts/update.sh "''${@:2}";
         exit 0;
       elif [ "$1" = "upgrade" ]; then
         if [ "$#" -gt 1 ]; then
-          echo "Warning: The 'update' command has no subcommands (no $2 subcommand)";
+          echo "Warning: The 'upgrade' command has no subcommands (no $2 subcommand)";
         fi
         ''+userSettings.dotfilesDir+''/scripts/upgrade.sh;
         exit 0;
       elif [ "$1" = "pull" ]; then
         if [ "$#" -gt 1 ]; then
-          echo "Warning: The 'upgrade' command has no subcommands (no $2 subcommand)";
+          echo "Warning: The 'pull' command has no subcommands (no $2 subcommand)";
         fi
         ''+userSettings.dotfilesDir+''/scripts/pull.sh;
         exit 0;
