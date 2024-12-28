@@ -162,6 +162,14 @@
         echo "usage: comma PKGNAME... [EXECUTABLE]";
       fi
     '')
+    (pkgs.writeScriptBin "comma-shell" ''
+      if [ "$#" = 0 ]; then
+        echo "usage: comma-shell PKGNAME1 [PKGNAME2 PKGNAME3...]";
+      else
+        nix-shell -p $@
+      fi
+    '')
+
   ];
 
   # I use zsh btw
