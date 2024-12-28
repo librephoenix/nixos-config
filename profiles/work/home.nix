@@ -23,6 +23,8 @@
               ../../user/hardware/bluetooth.nix # Bluetooth
   ];
 
+  # TODO make nix path follow flakes
+
   nix.package = pkgs.nix;
   nix.settings = {
     substituters = [
