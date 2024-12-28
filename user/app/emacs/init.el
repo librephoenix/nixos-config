@@ -163,6 +163,7 @@
   (evil-set-leader 'motion (kbd "SPC"))
   (setq evil-respect-visual-line-mode t)
   (setq evil-undo-system 'undo-fu)
+  (setq evil-redo-function 'undo-fu-only-redo)
   (evil-mode 1))
 
 (with-eval-after-load 'evil-maps
