@@ -134,8 +134,8 @@ in
              hyprgrass-bind = , swipe:3:u, hycov:toggleoverview
              hyprgrass-bind = , swipe:3:d, exec, nwggrid-wrapper
 
-             hyprgrass-bind = , swipe:3:l, exec, hyprnome --previous
-             hyprgrass-bind = , swipe:3:r, exec, hyprnome
+             hyprgrass-bind = , swipe:3:r, exec, hyprnome --previous
+             hyprgrass-bind = , swipe:3:l, exec, hyprnome
 
              hyprgrass-bind = , swipe:4:u, movewindow,u
              hyprgrass-bind = , swipe:4:d, movewindow,d
@@ -180,9 +180,9 @@ in
 
        bind=SUPER,RETURN,exec,'' + userSettings.term + ''
 
-       bind=SUPER,A,exec,'' + userSettings.spawnEditor + ''
+       bind=SUPER,A,exec,''+ userSettings.term + " "+''-e nvim
 
-       bind=SUPER,S,exec,'' + userSettings.browser + ''
+       bind=SUPER,S,exec,librewolf
 
        bind=SUPERCTRL,S,exec,container-open # qutebrowser only
 
@@ -350,12 +350,15 @@ in
 
        input {
          kb_layout = us
-         kb_options = caps:escape
+         kb_options = ctrl:nocaps
          repeat_delay = 350
          repeat_rate = 50
          accel_profile = adaptive
          follow_mouse = 2
          float_switch_override_focus = 0
+         touchpad {
+           natural_scroll = true
+         }
        }
 
        misc {
@@ -561,8 +564,6 @@ in
   home.file.".config/nwg-dock-pinned".text = ''
     nwggrid
     Alacritty
-    qutebrowser
-    brave-browser
     librewolf
     writer
     impress
@@ -583,22 +584,12 @@ in
     general {
       lock_cmd = pgrep hyprlock || hyprlock
       before_sleep_cmd = loginctl lock-session
-      ignore_dbus_inhibit = false
+      after_sleep_cmd = hyperctl dispatch dpms on
     }
 
     listener {
-      timeout = 150 # in seconds
+      timeout = 300 # in seconds
       on-timeout = loginctl lock-session
-    }
-    listener {
-      timeout = 165 # in seconds
-      on-timeout = hyprctl dispatch dpms off
-      on-resume = hyprctl dispatch dpms on
-    }
-    listener {
-      timeout = 7200 # in seconds
-      on-timeout = systemctl suspend
-      on-resume = hyprctl dispatch dpms on
     }
   '';
   home.file.".config/hypr/hyprlock.conf".text = ''
@@ -752,15 +743,7 @@ in
           "interval" = 3;
           "on-click" = "hyprprofile-dmenu";
         };
-        "keyboard-state" = {
-          "numlock" = true;
-          "format" = " {icon} ";
-          "format-icons" = {
-            "locked" = "󰎠";
-            "unlocked" = "󱧓";
-          };
-        };
-        "hyprland/workspaces" = {
+       "hyprland/workspaces" = {
           "format" = "{icon}";
           "format-icons" = {
             "1" = "󱚌";
@@ -1163,8 +1146,8 @@ in
   gesture swipe up 3	hyprctl dispatch hycov:toggleoverview
   gesture swipe down 3	nwggrid-wrapper
 
-  gesture swipe right 3	hyprnome
-  gesture swipe left 3	hyprnome --previous
+  gesture swipe right 3	 hyprnome --previous
+  gesture swipe left 3	hyprnome
   gesture swipe up 4	hyprctl dispatch movewindow u
   gesture swipe down 4	hyprctl dispatch movewindow d
   gesture swipe left 4	hyprctl dispatch movewindow l
