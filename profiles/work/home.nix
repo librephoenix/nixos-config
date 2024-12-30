@@ -42,6 +42,7 @@
     patchelf
     (pkgs-rime.librime)
     (pkgs-rime.librime-lua)
+    clash-verge-rev
 
     # Office
     libreoffice-fresh
@@ -115,8 +116,8 @@
     })
 
     # Media
+    spotify
     gimp
-    pinta
     krita
     inkscape
     (pkgs-stable.lollypop.override { youtubeSupport = false; })
@@ -182,6 +183,7 @@
     tenacity
 
     # Various dev packages
+    sshfs
     texinfo
     libffi zlib
     nodePackages.ungit
