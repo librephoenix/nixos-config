@@ -132,6 +132,7 @@
           extraSpecialArgs = {
             # pass config variables from above
             inherit pkgs-stable;
+            inherit pkgs-unstable;
             inherit systemSettings;
             inherit userSettings;
             inherit inputs;
@@ -149,6 +150,7 @@
           specialArgs = {
             # pass config variables from above
             inherit pkgs-stable;
+            inherit pkgs-unstable;
             inherit systemSettings;
             inherit userSettings;
             inherit inputs;
