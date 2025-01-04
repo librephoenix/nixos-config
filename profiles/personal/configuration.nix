@@ -8,7 +8,7 @@
     [ ../work/configuration.nix # Personal is essentially work system + games
       ../../system/hardware-configuration.nix
       ../../system/app/gamemode.nix
-      ../../system/app/steam.nix
+      #../../system/app/steam.nix
       ../../system/app/prismlauncher.nix
       ../../system/security/doas.nix
       ../../system/security/gpg.nix
