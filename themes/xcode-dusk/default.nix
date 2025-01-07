@@ -1,0 +1,25 @@
+{
+  scheme = "XCode Dusk";
+  slug = "xcode-dusk";
+  author = "Elsa Gonsiorowski (https://github.com/gonsie)";
+  description = "Port of the Dusk theme from XCode";
+  polarity = "dark";
+  backgroundUrl = "https://w.wallhaven.cc/full/yx/wallhaven-yxe85x.jpg";
+  backgroundSha256 = "sha256-z/attvjcG1nReBjCVBY/JS2Eu2U44+Pd2OtIF1dPb1M=";
+  base00 = "282B35";
+  base01 = "3D4048";
+  base02 = "53555D";
+  base03 = "686A71";
+  base04 = "7E8086";
+  base05 = "939599";
+  base06 = "A9AAAE";
+  base07 = "BEBFC2";
+  base08 = "B21889";
+  base09 = "786DC5";
+  base0A = "438288";
+  base0B = "DF0002";
+  base0C = "00A0BE";
+  base0D = "790EAD";
+  base0E = "B21889";
+  base0F = "C77C48";
+}
