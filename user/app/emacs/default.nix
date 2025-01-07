@@ -13,9 +13,9 @@
         dashboard doom-themes doom-modeline
         nerd-icons nerd-icons-dired nerd-icons-corfu
         nerd-icons-ibuffer nerd-icons-completion
-        treemacs-nerd-icons
         yasnippet shackle
         projectile treemacs treemacs-projectile
+        treemacs-evil treemacs-nerd-icons
         treesit-grammars.with-all-grammars
         magit magit-file-icons magit-todos
         undo-fu undo-fu-session
