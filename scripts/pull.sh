@@ -7,7 +7,7 @@
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
 # Relax permissions temporarily so git can work
-sudo $SCRIPT_DIR/scripts/soften.sh $SCRIPT_DIR;
+sudo $SCRIPT_DIR/soften.sh $SCRIPT_DIR;
 
 # Stash local edits, pull changes, and re-apply local edits
 pushd $SCRIPT_DIR/.. &> /dev/null;
