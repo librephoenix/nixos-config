@@ -146,6 +146,8 @@ quickmarksHtmlFileText += '</div></body></html>'
 quickmarksHtmlFile.write(quickmarksHtmlFileText)
 quickmarksHtmlFile.close()
 
+config.set('content.blocking.method','both')
+
 config.set('scrolling.smooth',True)
 config.set('qt.args',['ignore-gpu-blacklist','enable-gpu-rasterization','enable-accelerated-video-decode','enable-quic','enable-zero-copy','enable-native-gpu-memory-buffers','num-raster-threads=4','allow-file-access-from-files'])
 config.set('qt.workarounds.disable_accelerated_2d_canvas','never')
@@ -197,7 +199,8 @@ c.colors.webpage.darkmode.policy.images = 'never'
 c.url.default_page = str(config.configdir)+'/qute-home.html'
 c.url.start_pages = str(config.configdir)+'/qute-home.html'
 
-c.url.searchengines = {'DEFAULT': 'https://startpage.com/do/search?query={}',
+c.url.searchengines = {'DEFAULT': 'https://search.brave.com/search?q={}&source=web',
+                       'sp': 'https://startpage.com/do/search?query={}',
                        'd'      : 'https://duckduckgo.com/?q={}&ia=web',
                        'az'     : 'https://www.amazon.com/s?k={}',
                        'aw'     : 'https://wiki.archlinux.org/index.php?search={}&title=Special%3ASearch&wprov=acrw1',
