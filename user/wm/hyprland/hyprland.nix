@@ -48,6 +48,7 @@ in
       env = QT_WAYLAND_DISABLE_WINDOWDECORATION,1
       env = CLUTTER_BACKEND,wayland
       env = GDK_PIXBUF_MODULE_FILE,${pkgs.librsvg}/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache
+      env = GSK_RENDERER,gl
 
       exec-once = hyprprofile Default
 
@@ -449,7 +450,8 @@ in
     wl-clipboard
     hyprland-protocols
     hyprpicker
-    inputs.hyprlock.packages.${pkgs.system}.default
+    #inputs.hyprlock.packages.${pkgs.system}.default
+    hyprlock
     hypridle
     hyprpaper
     fnott

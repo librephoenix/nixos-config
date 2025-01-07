@@ -185,7 +185,7 @@
     audio-recorder
     cheese
     ardour
-    rosegarden
+    #rosegarden
     tenacity
 
     # Various dev packages
