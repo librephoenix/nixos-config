@@ -237,7 +237,7 @@
   (evil-define-key 'motion 'global (kbd "<leader>wl") 'evil-window-right)
 
 
-  (evil-define-key 'motion 'org-mode-map (kbd "<leader>mll") 'org-insert-link)
+  (evil-define-key 'motion org-mode-map (kbd "<leader>mll") 'org-insert-link)
   (define-key magit-mode-map (kbd "SPC") nil)
   
   (global-set-key (kbd "C-j") 'evil-window-down)
@@ -264,6 +264,8 @@
 (use-package treemacs
   :config
   (add-hook 'projectile-after-switch-project-hook 'treemacs-add-and-display-current-project-exclusively))
+
+(use-package treemacs-evil)
 
 (use-package lsp-mode
   :init
