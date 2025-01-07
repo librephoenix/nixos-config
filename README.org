@@ -16,7 +16,7 @@ Here is my main setup:
 ** My Themes
 [[https://github.com/danth/stylix#readme][Stylix]] (and [[https://github.com/SenchoPens/base16.nix#readme][base16.nix]], of course) is amazing, allowing you to theme your entire system with base16-themes.
 
-Using this I have [[./themes][55+ themes]] (I add more sometimes) I can switch between on-the-fly. Visit the [[./themes][themes directory]] for more info and screenshots!
+Using this I have [[./themes][59+ themes]] (I add more sometimes) I can switch between on-the-fly. Visit the [[./themes][themes directory]] for more info and screenshots!
 
 ** Install
 I wrote some reinstall notes for myself [[./install.org][here (install.org)]].

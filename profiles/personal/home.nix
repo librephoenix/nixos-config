@@ -20,7 +20,6 @@
     brave
     git
     syncthing
-
   ];
 
   xdg.enable = true;
