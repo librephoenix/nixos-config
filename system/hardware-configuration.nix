@@ -87,24 +87,19 @@
     "vm.dirty_ratio" = 8;
   };
 
-  services.btrfs.autoScrub = {
-    enable = true;
-    interval = "weekly";
-  };
-
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/637d8261-0650-4ece-a35b-59d97baf64a7";
-      fsType = "btrfs";
-      options = [ "noatime,compress-force=zstd:2,discard=async,commit=120,clear_cache,space_cache=v2,subvol=@" ];
+    { device = "/dev/disk/by-uuid/88f5f921-0a64-4711-9d74-e0f8a3a1b3af";
+      fsType = "ext4";
     };
 
-  boot.initrd.luks.devices."luks-385106b5-71f7-460e-9a2b-2416f3b54cb6".device = "/dev/disk/by-uuid/385106b5-71f7-460e-9a2b-2416f3b54cb6";
+  boot.initrd.luks.devices."luks-09f429eb-1add-48da-b3b8-1a811c0d1472".device = "/dev/disk/by-uuid/09f429eb-1add-48da-b3b8-1a811c0d1472";
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/F09D-73C9";
+    { device = "/dev/disk/by-uuid/4695-0F2E";
       fsType = "vfat";
+      options = [ "fmask=0077" "dmask=0077" ];
     };
-
+  
   swapDevices = [ ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
