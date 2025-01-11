@@ -386,23 +386,18 @@ c.fonts.web.family.cursive = font
   '';
 
   home.file.".config/qutebrowser/containers".text = ''
-Teaching
-Tech
 Gamedev
-Bard
+Teaching
+Youtube
   '';
 
   home.file.".config/qutebrowser/qute-home.html".text = generateHomepage "Default" userSettings.font config;
   home.file.".config/qutebrowser/logo.png".source = ./qutebrowser-logo.png;
-  home.file.".browser/Teaching/config/qute-home.html".text = generateHomepage "Teaching" userSettings.font config;
-  home.file.".browser/Teaching/config/logo.png".source = ./qutebrowser-logo.png;
-  home.file.".browser/Tech/config/qute-home.html".text = generateHomepage "Tech" userSettings.font config;
-  home.file.".browser/Tech/config/logo.png".source = ./qutebrowser-logo.png;
-  home.file.".browser/Gaming/config/qute-home.html".text = generateHomepage "Gaming" userSettings.font config;
-  home.file.".browser/Gaming/config/logo.png".source = ./qutebrowser-logo.png;
   home.file.".browser/Gamedev/config/qute-home.html".text = generateHomepage "Gamedev" userSettings.font config;
   home.file.".browser/Gamedev/config/logo.png".source = ./qutebrowser-logo.png;
-  home.file.".browser/Bard/config/qute-home.html".text = generateHomepage "Bard" userSettings.font config;
-  home.file.".browser/Bard/config/logo.png".source = ./qutebrowser-logo.png;
+  home.file.".browser/Teaching/config/qute-home.html".text = generateHomepage "Teaching" userSettings.font config;
+  home.file.".browser/Teaching/config/logo.png".source = ./qutebrowser-logo.png;
+  home.file.".browser/Youtube/config/qute-home.html".text = generateHomepage "Youtube" userSettings.font config;
+  home.file.".browser/Youtube/config/logo.png".source = ./qutebrowser-logo.png;
 
 }
