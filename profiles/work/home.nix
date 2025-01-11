@@ -219,10 +219,11 @@
     extraConfig = {
       XDG_DOTFILES_DIR = "${config.home.homeDirectory}/.dotfiles";
       XDG_ARCHIVE_DIR = "${config.home.homeDirectory}/Archive";
-      XDG_VM_DIR = "${config.home.homeDirectory}/Machines";
-      XDG_ORG_DIR = "${config.home.homeDirectory}/Org";
-      XDG_PODCAST_DIR = "${config.home.homeDirectory}/Media/Podcasts";
+      XDG_PROJECTS_DIR = "${config.home.homeDirectory}/Projects";
+      XDG_CLOUD_DIR = "${config.home.homeDirectory}/Drive";
       XDG_BOOK_DIR = "${config.home.homeDirectory}/Media/Books";
+      XDG_VM_DIR = "${config.home.homeDirectory}/Machines";
+      XDG_NOTES_DIR = "${config.home.homeDirectory}/Notes";
     };
   };
   xdg.mime.enable = true;
