@@ -497,8 +497,10 @@ All my (performant) foldings needs are met between this and `org-show-subtree'
 (use-package org-node
   :ensure t
   :after org
-  :config (org-node-cache-mode)
+  :config 
   (setq org-node-extra-id-dirs '("~/Notes/"))
+  (setq org-id-locations-file "~/Notes/.org-id-locations")
+  (org-node-cache-mode)
   (org-node-complete-at-point-mode)
   (setq org-roam-completion-everywhere nil)
   (evil-define-key 'motion 'global (kbd "<leader>Ni") 'org-node-insert-link)
