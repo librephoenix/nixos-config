@@ -26,6 +26,7 @@
         nix-mode
         python python-mode
         lsp-mode flycheck lsp-ui lsp-treemacs
+        (epkgs.callPackage ./ultra-scroll.nix {})
       ];
     })
     fira-code

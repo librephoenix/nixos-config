@@ -114,11 +114,14 @@
 
                                ;; Mouse & Smooth Scroll
                                (setq scroll-step 1
-                                     scroll-margin 1
+                                     scroll-margin 0
                                      scroll-conservatively 101
                                      scroll-preserve-screen-position nil
                                      redisplay-skip-fontification-on-input t)
 			       (pixel-scroll-precision-mode 1)
+
+                               (require 'ultra-scroll)
+                               (ultra-scroll-mode 1)
 
                                ;; Line numbers
                                (setq display-line-numbers-type t
