@@ -216,6 +216,22 @@
       submodules = true;
       rev = "3fb47372b79265ebdabeeefdad10359d5b18377a"; #v0.45.0
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.hyprutils.follows = "hyprutils";
+    };
+
+    hyprutils = {
+      type = "git";
+      url = "https://code.hyprland.org/hyprwm/hyprutils.git";
+      rev = "3c895da64b0eb19870142196fa48c07090b441c4";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    hyprlock = {
+      type = "git";
+      url = "https://code.hyprland.org/hyprwm/hyprlock.git";
+      rev = "3d63d9b129d5def270bc8a2471347e6f97274e2b";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.hyprutils.follows = "hyprutils";
     };
 
     stylix.url = "github:danth/stylix";

@@ -450,8 +450,7 @@ in
     wl-clipboard
     hyprland-protocols
     hyprpicker
-    #inputs.hyprlock.packages.${pkgs.system}.default
-    hyprlock
+    inputs.hyprlock.packages.${pkgs.system}.default
     hypridle
     hyprpaper
     fnott
