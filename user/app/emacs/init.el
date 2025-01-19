@@ -207,10 +207,22 @@
   (define-key evil-motion-state-map (kbd "RET") nil)
   (evil-mode 1))
 
+(use-package dired
+  :commands (dired dired-jump)
+  :custom
+  (dired-listing-switches "-agho --group-directories-first")
+  (dired-kill-when-opening-new-dired-buffer t)
+  :config
+  (evil-collection-define-key 'normal 'dired-mode-map
+    "h" 'dired-up-directory
+    "l" 'dired-find-file
+    " " 'nil))
+
 (use-package evil-collection
   :after (evil)
   :custom
   (evil-want-keybinding nil)
+  (evil-collection-key-blacklist (append (list (kbd "SPC")) evil-collection-key-blacklist))
   :config
   (evil-collection-init)
 
@@ -238,6 +250,8 @@
                 (kill-buffer)))
         (message "Not a file visiting buffer!"))))
   (evil-define-key 'motion 'global (kbd "<leader>fd") 'delete-file-and-buffer)
+  (evil-define-key 'motion 'global (kbd "<leader>fr") 'rename-visited-file)
+  (evil-define-key 'motion 'global (kbd "<leader>od") 'dired-jump)
 
   ;; Project keybinds
   (evil-define-key 'motion 'global (kbd "<leader>pp") 'projectile-switch-project)
