@@ -2,7 +2,9 @@
 ;;
 ;; Author: Emmet K <https://gitlab.com/librephoenix>
 ;; Maintainer: Emmet K <https://gitlab.com/librephoenix>
-;; Source: https://github.com/doomemacs/themes
+;; Source: https://github.com/librephoenix/nixos-config
+;; Source: https://gitlab.com/librephoenix/nixos-config
+;; Source: https://codeberg.org/librephoenix/nixos-config
 ;;
 ;;; Commentary:
 ;;
@@ -10,129 +12,145 @@
 ;;
 ;;; Code:
 
-;; Startup hook for mainly gui related things
-(add-hook 'emacs-startup-hook #'(lambda ()
-		                  ;; No startup screen
-				  (setq inhibit-startup-message t)
+;; organize everything with use-package
+(require 'use-package)
 
-                                  ;; Transparent background
-                                  (set-frame-parameter nil 'alpha-background 85)
-                                  (add-to-list 'default-frame-alist '(alpha-background . 85))
-                                  (add-to-list 'default-frame-alist '(inhibit-double-buffering . t))
+;; use-package-ception
+(use-package use-package
+  :demand t
+  :custom
+  (use-package-always-ensure nil)
+  (usepackage-always-defer t))
 
-                                  ;; I want declarative config, no custom
-                                  (setq custom-file "/dev/null") 
+(use-package emacs
+  :config
+  ;; No startup screen
+  (setq inhibit-startup-message t)
+  
+  ;; Transparent background
+  (set-frame-parameter nil 'alpha-background 85)
+  (add-to-list 'default-frame-alist '(alpha-background . 85))
+  (add-to-list 'default-frame-alist '(inhibit-double-buffering . t))
+  
+  ;; I want declarative config, no custom
+  (setq custom-file "/dev/null")
+  
+  ;; Disable the menu bar
+  (menu-bar-mode -1)
+  
+  ;; Disable visible scrollbar
+  (scroll-bar-mode -1)
+  
+  ;; Disable the toolbar
+  (tool-bar-mode -1)
+  
+  ;; Disable tooltips
+  (tooltip-mode -1)
+  
+  ;; Breathing room
+  (set-fringe-mode 10)
+  
+  ;; No blinking
+  (blink-cursor-mode 0)
+  
+  ;; Highlight current line
+  (global-hl-line-mode)
+  
+  ;; Bigger text
+  (set-face-attribute 'default nil :height 150)
 
-                                  ;; Disable the menu bar
-                                  (menu-bar-mode -1)
+  ;; Add frame borders and window dividers
+  (modify-all-frames-parameters
+   '((right-divider-width . 20)
+    (left-divider-width . 20)
+     (internal-border-width . 20)))
+  (set-face-background 'fringe (face-attribute 'default :background))
+  
+  ;; Fira and glyphs
+  (when (window-system)
+    (set-frame-font "FiraCode Nerd Font"))
+  (let ((alist '((33 . ".\\(?:\\(?:==\\|!!\\)\\|[!=]\\)")
+                 (35 . ".\\(?:###\\|##\\|_(\\|[#(?[_{]\\)")
+                 (36 . ".\\(?:>\\)")
+                 (37 . ".\\(?:\\(?:%%\\)\\|%\\)")
+                 (38 . ".\\(?:\\(?:&&\\)\\|&\\)")
+                 (42 . ".\\(?:\\(?:\\*\\*/\\)\\|\\(?:\\*[*/]\\)\\|[*/>]\\)")
+                 (43 . ".\\(?:\\(?:\\+\\+\\)\\|[+>]\\)")
+                 (45 . ".\\(?:\\(?:-[>-]\\|<<\\|>>\\)\\|[<>}~-]\\)")
+                 (46 . ".\\(?:\\(?:\\.[.<]\\)\\|[.=-]\\)")
+                 (47 . ".\\(?:\\(?:\\*\\*\\|//\\|==\\)\\|[*/=>]\\)")
+                 (48 . ".\\(?:x[a-zA-Z]\\)")
+                 (58 . ".\\(?:::\\|[:=]\\)")
+                 (59 . ".\\(?:;;\\|;\\)")
+                 (60 . ".\\(?:\\(?:!--\\)\\|\\(?:~~\\|->\\|\\$>\\|\\*>\\|\\+>\\|--\\|<[<=-]\\|=[<=>]\\||>\\)\\|[*$+~/<=>|-]\\)")
+                 (61 . ".\\(?:\\(?:/=\\|:=\\|<<\\|=[=>]\\|>>\\)\\|[<=>~]\\)")
+                 (62 . ".\\(?:\\(?:=>\\|>[=>-]\\)\\|[=>-]\\)")
+                 (63 . ".\\(?:\\(\\?\\?\\)\\|[:=?]\\)")
+                 (91 . ".\\(?:]\\)")
+                 (92 . ".\\(?:\\(?:\\\\\\\\\\)\\|\\\\\\)")
+                 (94 . ".\\(?:=\\)")
+                 (119 . ".\\(?:ww\\)")
+                 (123 . ".\\(?:-\\)")
+                 (124 . ".\\(?:\\(?:|[=|]\\)\\|[=>|]\\)")
+                 (126 . ".\\(?:~>\\|~~\\|[>=@~-]\\)")
+                 )))
+    (dolist (char-regexp alist)
+      (set-char-table-range composition-function-table (car char-regexp)
+                            `([,(cdr char-regexp) 0 font-shape-gstring]))))
 
-                                  ;; Disable visible scrollbar
-                                  (scroll-bar-mode -1)
+    (dashboard-setup-startup-hook)
 
-				  ;; Disable the toolbar
-                                  (tool-bar-mode -1)
-
-				  ;; Disable tooltips
-				  (tooltip-mode -1)
-
-				  ;; Breathing room
-				  (set-fringe-mode 10)
-
-				  ;; No blinking
-				  (blink-cursor-mode 0)
-
-				  ;; Highlight current line
-				  (global-hl-line-mode)
-
-				  ;; Bigger text
-                                  (set-face-attribute 'default nil :height 150)
-
-				  ;; Fira and glyphs
-                                  (when (window-system)
-                                    (set-frame-font "FiraCode Nerd Font"))
-                                  (let ((alist '((33 . ".\\(?:\\(?:==\\|!!\\)\\|[!=]\\)")
-                                                 (35 . ".\\(?:###\\|##\\|_(\\|[#(?[_{]\\)")
-                                                 (36 . ".\\(?:>\\)")
-                                                 (37 . ".\\(?:\\(?:%%\\)\\|%\\)")
-                                                 (38 . ".\\(?:\\(?:&&\\)\\|&\\)")
-                                                 (42 . ".\\(?:\\(?:\\*\\*/\\)\\|\\(?:\\*[*/]\\)\\|[*/>]\\)")
-                                                 (43 . ".\\(?:\\(?:\\+\\+\\)\\|[+>]\\)")
-                                                 (45 . ".\\(?:\\(?:-[>-]\\|<<\\|>>\\)\\|[<>}~-]\\)")
-                                                 (46 . ".\\(?:\\(?:\\.[.<]\\)\\|[.=-]\\)")
-                                                 (47 . ".\\(?:\\(?:\\*\\*\\|//\\|==\\)\\|[*/=>]\\)")
-                                                 (48 . ".\\(?:x[a-zA-Z]\\)")
-                                                 (58 . ".\\(?:::\\|[:=]\\)")
-                                                 (59 . ".\\(?:;;\\|;\\)")
-                                                 (60 . ".\\(?:\\(?:!--\\)\\|\\(?:~~\\|->\\|\\$>\\|\\*>\\|\\+>\\|--\\|<[<=-]\\|=[<=>]\\||>\\)\\|[*$+~/<=>|-]\\)")
-                                                 (61 . ".\\(?:\\(?:/=\\|:=\\|<<\\|=[=>]\\|>>\\)\\|[<=>~]\\)")
-                                                 (62 . ".\\(?:\\(?:=>\\|>[=>-]\\)\\|[=>-]\\)")
-                                                 (63 . ".\\(?:\\(\\?\\?\\)\\|[:=?]\\)")
-                                                 (91 . ".\\(?:]\\)")
-                                                 (92 . ".\\(?:\\(?:\\\\\\\\\\)\\|\\\\\\)")
-                                                 (94 . ".\\(?:=\\)")
-                                                 (119 . ".\\(?:ww\\)")
-                                                 (123 . ".\\(?:-\\)")
-                                                 (124 . ".\\(?:\\(?:|[=|]\\)\\|[=>|]\\)")
-                                                 (126 . ".\\(?:~>\\|~~\\|[>=@~-]\\)")
-                                                 )))
-                                    (dolist (char-regexp alist)
-                                      (set-char-table-range composition-function-table (car char-regexp)
-                                                            `([,(cdr char-regexp) 0 font-shape-gstring])))
-
-                                    (dashboard-setup-startup-hook))
-
-
-
-				  ))
-
-
-(add-hook 'after-init-hook #'(lambda ()
-                               ;; Garbage collection threshold
-			       (setq gc-cons-threshold 120000)
-                               (add-hook 'focus-out-hook 'garbage-collect)
-
-			       ;; Auto revert
-			       (global-auto-revert-mode 1)
-			       (setq auto-revert-use-notify t
-				     revert-without-query t)
-
-			       ;; camelCase and PascalCase
-			       (global-subword-mode 1)
-
-                               ;; ripgrep as grep
-                               (setq grep-command "rg -nS --no-heading "
-                                     grep-use-null-device nil)
-
-			       ;; "y" or "n" instead of "yes" or "no"
-                               (setq use-short-answers t)
-
-			       ;; Enable indentation+completion using TAB
-			       (setq tab-always-indent 'complete)
-
-                               ;; Make ESC quit prompts
-                               (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
-
-                               ;; Mouse & Smooth Scroll
-                               (setq scroll-step 1
-                                     scroll-margin 0
-                                     scroll-conservatively 101
-                                     scroll-preserve-screen-position nil
-                                     redisplay-skip-fontification-on-input t)
-			       (pixel-scroll-precision-mode 1)
-
-                               (require 'ultra-scroll)
-                               (ultra-scroll-mode 1)
-
-                               ;; Line numbers
-                               (setq display-line-numbers-type t
-                                     line-move-visual t)
-                               (add-hook 'prog-mode-hook 'display-line-numbers-mode)
-
-                               ;; Fix stupid backup confirmations
-                               (setq backup-directory-alist '("." "~/.emacs.d/cache/backups"))
-                               (setq tramp-auto-save-directory "/dev/null")))
+    ;; Garbage collection threshold
+    (setq gc-cons-threshold 120000)
+    (add-hook 'focus-out-hook 'garbage-collect)
+    
+    ;; Auto revert
+    (global-auto-revert-mode 1)
+    (setq auto-revert-use-notify t
+         revert-without-query t)
+    
+    ;; camelCase and PascalCase
+    (global-subword-mode 1)
+    
+    ;; ripgrep as grep
+    (setq grep-command "rg -nS --no-heading "
+          grep-use-null-device nil)
+    
+    ;; "y" or "n" instead of "yes" or "no"
+    (setq use-short-answers t)
+    
+    ;; Enable indentation+completion using TAB
+    (setq tab-always-indent 'complete)
+    
+    ;; Make ESC quit prompts
+    (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
+    
+    ;; Line numbers
+    (setq display-line-numbers-type t
+          line-move-visual t)
+    (add-hook 'prog-mode-hook 'display-line-numbers-mode)
+    
+    ;; Fix stupid backup confirmations
+    (setq backup-directory-alist '("." "~/.emacs.d/cache/backups"))
+    (setq tramp-auto-save-directory "/dev/null"))
 
 ;; Packages
+
+(use-package line-wrapping-and-numbers
+  :load-path "./lib"
+  :after (org markdown git-timemachine))
+
+(use-package ultra-scroll
+  :init
+  ;; Mouse & Smooth Scroll
+  (setq scroll-step 1
+        scroll-margin 0
+        scroll-conservatively 101
+        scroll-preserve-screen-position nil
+        redisplay-skip-fontification-on-input t)
+  (pixel-scroll-precision-mode 1)
+  :config
+  (ultra-scroll-mode 1))
 
 ;; Magit
 (use-package magit
@@ -141,25 +159,44 @@
   (setq magit-bury-buffer-function 'magit-restore-window-configuration)
   (add-hook 'git-commit-mode-hook 'evil-insert-state))
 
+(use-package git-timemachine)
+
+(use-package magit-file-icons
+  :after (magit nerd-icons)
+  :init
+  (magit-file-icons-mode 1)
+  :custom
+  (magit-file-icons-enable-diff-file-section-icons t)
+  (magit-file-icons-enable-untracked-icons t)
+  (magit-file-icons-enable-diffstat-icons t))
+
+(use-package magit-todos
+  :after (magit)
+  :config
+  (setq magit-todos-keywords-list '("TODO" "FIXME" "HACK" "REVIEW" "DEPRECATED" "BUG"))
+  (setq magit-todos-keyword-suffix "\\(?:[([][^])]+[])]\\)?.")
+  (magit-todos-mode 1))
+
 ;; Projectile
 (use-package projectile
   :init
   (projectile-mode +1))
 
-;; Enable vim
-(setq evil-want-keybinding nil)
-
-(use-package undo-fu
-  :ensure t)
+;; Being able to undo is nice...
+(use-package undo-fu)
 
 (use-package undo-fu-session
-  :ensure t
+  :after undo-fu
   :config
   (global-undo-fu-session-mode))
 
+;; Muahahahahaha..
 (use-package evil
-  :init
-  (setq evil-want-keybinding nil)
+  :after (undo-fu undo-fu-session)
+  :custom
+  (evil-want-keybinding nil)
+  (evil-respect-visual-line-mode t)
+  (evil-undo-system 'undo-fu)
   :config
   (evil-set-leader nil (kbd "C-SPC"))
   (evil-set-leader 'normal (kbd "SPC"))
@@ -167,31 +204,27 @@
   (setq evil-respect-visual-line-mode t)
   (setq evil-undo-system 'undo-fu)
   (setq evil-redo-function 'undo-fu-only-redo)
+  (define-key evil-motion-state-map (kbd "RET") nil)
   (evil-mode 1))
 
-(with-eval-after-load 'evil-maps
-  (define-key evil-motion-state-map (kbd "RET") nil))
-
-(with-eval-after-load 'org
-  (setq org-return-follows-link t)
-  (setf (cdr (assoc 'file org-link-frame-setup)) 'find-file))
-
 (use-package evil-collection
-  :init
-  (setq evil-want-keybinding nil)
+  :after (evil)
+  :custom
+  (evil-want-keybinding nil)
   :config
   (evil-collection-init)
 
- ;; Visual mode keybinds
+  ;; Visual mode keybinds
   (evil-define-key 'motion 'global (kbd "j") 'evil-next-visual-line)
   (evil-define-key 'motion 'global (kbd "k") 'evil-previous-visual-line)
 
- ;; File and buffer  keybinds
+  ;; File and buffer  keybinds
   (evil-define-key 'motion 'global (kbd "<leader>.") 'find-file)
   (evil-define-key 'motion 'global (kbd "<leader>bi") 'ibuffer)
   (evil-define-key 'motion 'global (kbd "<leader>bd") 'evil-delete-buffer)
   (evil-define-key 'motion 'global (kbd "<leader>bn") 'next-buffer)
   (evil-define-key 'motion 'global (kbd "<leader>bp") 'previous-buffer)
+
   ;; based on http://emacsredux.com/blog/2013/04/03/delete-file-and-buffer/
   (defun delete-file-and-buffer ()
     "Kill the current buffer and deletes the file it is visiting."
@@ -206,20 +239,21 @@
         (message "Not a file visiting buffer!"))))
   (evil-define-key 'motion 'global (kbd "<leader>fd") 'delete-file-and-buffer)
 
- ;; Project keybinds
+  ;; Project keybinds
   (evil-define-key 'motion 'global (kbd "<leader>pp") 'projectile-switch-project)
   (evil-define-key 'motion 'global (kbd "<leader>pf") 'projectile-find-file)
   (evil-define-key 'motion 'global (kbd "<leader>pa") 'projectile-add-known-project)
   (evil-define-key 'motion 'global (kbd "<leader>/") 'projectile-grep)
   (evil-define-key 'motion 'global (kbd "<leader>gg") 'magit-status)
+  (evil-define-key 'motion 'global (kbd "<leader>gt") 'git-timemachine-toggle)
 
- ;; Describe keybinds
+  ;; Describe keybinds
   (evil-define-key 'motion 'global (kbd "<leader>hv") 'describe-variable)
   (evil-define-key 'motion 'global (kbd "<leader>hf") 'describe-function)
   (evil-define-key 'motion 'global (kbd "<leader>hk") 'describe-key)
   (evil-define-key 'motion 'global (kbd "<leader>hF") 'describe-face)
 
- ;; Window keybinds
+  ;; Window keybinds
   (evil-define-key 'motion 'global (kbd "<leader>ws") 'evil-window-split)
   (evil-define-key 'motion 'global (kbd "<leader>wv") 'evil-window-vsplit)
   (defun evil-window-split-follow ()
@@ -239,7 +273,8 @@
   (evil-define-key 'motion 'global (kbd "<leader>wh") 'evil-window-left)
   (evil-define-key 'motion 'global (kbd "<leader>wl") 'evil-window-right)
 
-
+  (evil-define-key 'insert org-mode-map (kbd "<tab>") 'org-demote-subtree)
+  (evil-define-key 'insert org-mode-map (kbd "<backtab>") 'org-promote-subtree)
   (evil-define-key 'motion org-mode-map (kbd "<leader>mll") 'org-insert-link)
   (define-key magit-mode-map (kbd "SPC") nil)
   
@@ -248,17 +283,16 @@
   (global-set-key (kbd "C-h") 'evil-window-left)
   (global-set-key (kbd "C-l") 'evil-window-right))
 
-(require 'sudo-edit)
-(setq sudo-edit-local-method "doas")
-(setq auth-sources '("~/.authinfo.gpg"))
-(setq auth-source-save-behavior "ask")
-(sudo-edit-indicator-mode)
-(evil-define-key 'normal 'global (kbd "<leader>fU") 'sudo-edit)
-(evil-define-key 'normal 'global (kbd "<leader>fu") 'sudo-edit-find-file)
-
-(require 'lsp-mode)
-(add-hook 'gdscript-ts-mode-hook #'lsp-deferred)
-(setq lsp-completion-provider :none)
+(use-package sudo-edit
+  :after (evil)
+  :custom
+  (sudo-edit-local-method "doas")
+  (auth-sources '("~/.authinfo.gpg"))
+  (auth-source-save-behavior "ask")
+  :config
+  (sudo-edit-indicator-mode)
+  (evil-define-key 'normal 'global (kbd "<leader>fU") 'sudo-edit)
+  (evil-define-key 'normal 'global (kbd "<leader>fu") 'sudo-edit-find-file))
 
 (use-package flycheck
   :init
@@ -266,22 +300,40 @@
 
 (use-package treemacs
   :config
-  (add-hook 'projectile-after-switch-project-hook 'treemacs-add-and-display-current-project-exclusively))
+  (defun treemacs-display-current-project-exclusively-silently ()
+    "Display current project exclusively in treemacs without switching to treemacs buffer."
+    (let ((buffer (current-buffer)))
+      (treemacs-add-and-display-current-project-exclusively)
+      (switch-to-buffer buffer)))
+  (add-hook 'projectile-after-switch-project-hook 'treemacs-display-current-project-exclusively-silently))
 
-(use-package treemacs-evil)
+(use-package treemacs-evil
+  :after (treemacs))
 
 (use-package lsp-mode
-  :init
-  ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
-  (setq lsp-keymap-prefix (kbd "SPC l"))
-  :hook (;; replace XXX-mode with concrete major-mode(e. g. python-mode)
-         (gdscript-mode . lsp)
-         (gdscript-ts-mode . lsp))
+  :custom
+  (lsp-keymap-prefix (kbd "SPC l"))
+  (setq lsp-completion-provider :none)
+  :hook ((gdscript-mode . lsp-deferred)
+         (gdscript-ts-mode . lsp-deferred))
   :commands lsp-deferred)
 
 (use-package lsp-ui :commands lsp-ui-mode)
 (use-package lsp-treemacs :commands lsp-treemacs-errors-list)
 
+(use-package treesit
+  :config
+  (treesit-major-mode-setup))
+
+;; direnv
+(use-package direnv
+  :init
+  (direnv-mode))
+
+;; command-log-mode
+(use-package command-log-mode)
+
+;; Enable corfu
 (use-package corfu
   :custom
   (corfu-cycle t)                ;; Enable cycling for `corfu-next/previous'
@@ -299,54 +351,63 @@
   :init
   (global-corfu-mode 1))
 
-;; I am a nerd
-(use-package nerd-icons
-  :ensure t
-  :config
-  (require 'treemacs-nerd-icons)
-  (treemacs-load-theme "nerd-icons")
-  (require 'nerd-icons-dired)
-  (add-hook 'dired-mode-hook #'nerd-icons-dired-mode)
-  (require 'nerd-icons-completion)
-  (nerd-icons-completion-mode)
-  (require 'nerd-icons-corfu)
-  (add-to-list 'corfu-margin-formatters #'nerd-icons-corfu-formatter))
-
-(use-package magit-file-icons
-  :ensure t
-  :after magit
-  :init
-  (magit-file-icons-mode 1)
+;; Enable vertico
+(use-package vertico
   :custom
-  ;; These are the default values:
-  (magit-file-icons-enable-diff-file-section-icons t)
-  (magit-file-icons-enable-untracked-icons t)
-  (magit-file-icons-enable-diffstat-icons t))
+  (vertico-scroll-margin 0) ;; Different scroll margin
+  (vertico-count 20) ;; Show more candidates
+  (vertico-resize nil) ;; Grow and shrink the Vertico minibuffer
+  (vertico-cycle t) ;; Enable cycling for `vertico-next/previous'
+  :init
+  (vertico-mode))
 
-(use-package magit-todos
-  :ensure t
+;; I am a nerd
+(use-package nerd-icons)
+
+(use-package treemacs-nerd-icons
+  :after (nerd-icons treemacs)
   :config
-  (setq magit-todos-keywords-list '("TODO" "FIXME" "HACK" "REVIEW" "DEPRECATED" "BUG"))
-  (setq magit-todos-keyword-suffix "\\(?:[([][^])]+[])]\\)?.")
-  (magit-todos-mode 1))
+  (treemacs-load-theme "nerd-icons"))
+
+(use-package nerd-icons-dired
+  :after (nerd-icons dired)
+  :config
+  (add-hook 'dired-mode-hook #'nerd-icons-dired-mode))
+
+(use-package nerd-icons-completion
+  :after (nerd-icons)
+  :config
+  (nerd-icons-completion-mode))
+
+(use-package nerd-icons-corfu
+  :after (nerd-icons corfu)
+  :config
+  (add-to-list 'corfu-margin-formatters #'nerd-icons-corfu-formatter))
 
 ;; Theme and modeline
 (use-package doom-themes
-  :ensure t
   :config
   (setq doom-themes-enable-bold t
         doom-themes-enable-italic t
         custom-theme-directory "~/.config/emacs/themes")
-  (load-theme 'doom-stylix t))
+  (load-theme 'doom-stylix t)
+  ;; Heading styles
+  (set-face-attribute 'outline-1 nil :height 195 :foreground (nth 1 (nth 14 doom-themes--colors)))
+  (set-face-attribute 'outline-2 nil :height 188 :foreground (nth 1 (nth 15 doom-themes--colors)))
+  (set-face-attribute 'outline-3 nil :height 180 :foreground (nth 1 (nth 19 doom-themes--colors)))
+  (set-face-attribute 'outline-4 nil :height 173 :foreground (nth 1 (nth 23 doom-themes--colors)))
+  (set-face-attribute 'outline-5 nil :height 173 :foreground (nth 1 (nth 24 doom-themes--colors)))
+  (set-face-attribute 'outline-6 nil :height 165 :foreground (nth 1 (nth 16 doom-themes--colors)))
+  (set-face-attribute 'outline-7 nil :height 160 :foreground (nth 1 (nth 18 doom-themes--colors)))
+  (set-face-attribute 'outline-8 nil :height 155 :foreground (nth 1 (nth 11 doom-themes--colors))))
 
 (use-package doom-modeline
-  :ensure t
   :init (doom-modeline-mode 1)
   :custom ((doom-modeline-height 15)))
 
 ;; Dashboard
 (use-package dashboard
-  :ensure t
+  :after (nerd-icons)
   :config
   (setq dashboard-banner-logo-title "Welcome to Nix Emacs")
   (setq dashboard-startup-banner 2)
@@ -373,33 +434,7 @@
       :face 'font-lock-keyword-face))
   (setq initial-buffer-choice (lambda () (get-buffer-create dashboard-buffer-name))))
 
-;; Setup treesitter
-(require 'treesit)
-(treesit-major-mode-setup)
-
-;; use-package
-(require 'use-package)
-(setq use-package-always-ensure t)
-
-;; direnv
-(use-package direnv
- :config
- (direnv-mode))
-
-;; command-log-mode
-(use-package command-log-mode)
-
-;; Enable vertico
-(use-package vertico
-  :custom
-  (vertico-scroll-margin 0) ;; Different scroll margin
-  (vertico-count 20) ;; Show more candidates
-  (vertico-resize nil) ;; Grow and shrink the Vertico minibuffer
-  (vertico-cycle t) ;; Enable cycling for `vertico-next/previous'
-  :init
-  (vertico-mode))
-
-;; Shackle
+;; Window management with shackle
 ;; https://github.com/wasamasa/shackle
 (use-package shackle
   :config
@@ -417,7 +452,7 @@
             ("*Shell Command Output*"      :select nil                                               )
             ("\\*Async Shell.*\\*" :regexp t :ignore t                                                 )
             (occur-mode                    :select nil                                   :align t    )
-            ("*Help*"                      :select t   :inhibit-window-quit t :size 0.3  :align below  )
+            ("*Help*"                      :select t   :inhibit-window-quit nil :size 0.3  :align below  )
             ("*Completions*"                                                  :size 0.3  :align t    )
             ("*Messages*"                  :select nil :inhibit-window-quit t :other t               )
             ("\\*[Wo]*Man.*\\*"    :regexp t :select t   :inhibit-window-quit t :other t               )
@@ -435,50 +470,50 @@
 (use-package orderless)
 (setq completion-styles '(orderless flex hotfuzz))
 
-;; Org mode config
-(require 'org)
-
-;; Better cycling
-;; https://github.com/doomemacs/doomemacs/blob/master/modules/lang/org/autoload/org.el
-(defun +org-cycle-only-current-subtree-h (&optional arg)
-  "Toggle the local fold at the point, and no deeper.
-`org-cycle's standard behavior is to cycle between three levels: collapsed,
-subtree and whole document. This is slow, especially in larger org buffer. Most
-of the time I just want to peek into the current subtree -- at most, expand
-*only* the current subtree.
-
-All my (performant) foldings needs are met between this and `org-show-subtree'
-(on zO for evil users), and `org-cycle' on shift-TAB if I need it."
-  (interactive "P")
-  (unless (or (eq this-command 'org-shifttab)
-              (and (bound-and-true-p org-cdlatex-mode)
-                   (or (org-inside-LaTeX-fragment-p)
-                       (org-inside-latex-macro-p))))
-    (save-excursion
-      (org-beginning-of-line)
-      (let (invisible-p)
-        (when (and (org-at-heading-p)
-                   (or org-cycle-open-archived-trees
-                       (not (member org-archive-tag (org-get-tags))))
-                   (or (not arg)
-                       (setq invisible-p
-                             (memq (get-char-property (line-end-position)
-                                                      'invisible)
-                                   '(outline org-fold-outline)))))
-          (unless invisible-p
-            (setq org-cycle-subtree-status 'subtree))
-          (org-cycle-internal-local)
-          t)))))
-(defalias #'+org/toggle-fold #'+org-cycle-only-current-subtree-h)
-(add-hook 'org-tab-first-hook
-          ;; Only fold the current tree, rather than recursively
-          #'+org-cycle-only-current-subtree-h)
-
-(evil-define-key 'insert 'org-mode-map (kbd "<tab>") 'org-demote-subtree)
-(evil-define-key 'insert 'org-mode-map (kbd "<backtab>") 'org-promote-subtree)
+(use-package org
+  :config
+  ;; Better cycling
+  ;; https://github.com/doomemacs/doomemacs/blob/master/modules/lang/org/autoload/org.el
+  (defun +org-cycle-only-current-subtree-h (&optional arg)
+    "Toggle the local fold at the point, and no deeper.
+  `org-cycle's standard behavior is to cycle between three levels: collapsed,
+  subtree and whole document. This is slow, especially in larger org buffer. Most
+  of the time I just want to peek into the current subtree -- at most, expand
+  *only* the current subtree.
+  
+  All my (performant) foldings needs are met between this and `org-show-subtree'
+  (on zO for evil users), and `org-cycle' on shift-TAB if I need it."
+    (interactive "P")
+    (unless (or (eq this-command 'org-shifttab)
+                (and (bound-and-true-p org-cdlatex-mode)
+                     (or (org-inside-LaTeX-fragment-p)
+                         (org-inside-latex-macro-p))))
+      (save-excursion
+        (org-beginning-of-line)
+        (let (invisible-p)
+          (when (and (org-at-heading-p)
+                     (or org-cycle-open-archived-trees
+                         (not (member org-archive-tag (org-get-tags))))
+                     (or (not arg)
+                         (setq invisible-p
+                               (memq (get-char-property (line-end-position)
+                                                        'invisible)
+                                     '(outline org-fold-outline)))))
+            (unless invisible-p
+              (setq org-cycle-subtree-status 'subtree))
+            (org-cycle-internal-local)
+            t)))))
+  (defalias #'+org/toggle-fold #'+org-cycle-only-current-subtree-h)
+  (add-hook 'org-mode-hook 'org-indent-mode)
+  (add-hook 'org-tab-first-hook
+            ;; Only fold the current tree, rather than recursively
+            #'+org-cycle-only-current-subtree-h)
+  
+  (setq org-return-follows-link t)
+  (setf (cdr (assoc 'file org-link-frame-setup)) 'find-file)))
 
 (use-package org-roam
-  :ensure t
+  :after (org)
   :config
   (setq org-roam-directory (file-truename "~/Notes"))
   (setq org-roam-node-display-template (concat "${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
@@ -495,9 +530,8 @@ All my (performant) foldings needs are met between this and `org-show-subtree'
   )
 
 (use-package org-node
-  :ensure t
-  :after org
-  :config 
+  :after (org org-roam)
+  :config
   (setq org-node-extra-id-dirs '("~/Notes/"))
   (setq org-id-locations-file "~/Notes/.org-id-locations")
   (org-node-cache-mode)
@@ -508,7 +542,7 @@ All my (performant) foldings needs are met between this and `org-show-subtree'
   )
 
 (use-package org-node-fakeroam
-  :ensure t
+  :after (org org-node org-roam)
   :defer
   :config
   (setq org-node-creation-fn #'org-node-fakeroam-new-via-roam-capture)
@@ -524,72 +558,32 @@ All my (performant) foldings needs are met between this and `org-show-subtree'
   )
 
 (use-package wgrep
-  :ensure t
-  :after org-node)
+  :after (org-node))
 
-;; Line wrapping management
-(defun truncate-lines-off ()
-  (interactive)
-  (toggle-truncate-lines 0))
-(defun truncate-lines-on ()
-  (interactive)
-  (toggle-truncate-lines 1))
-(defun visual-line-mode-off ()
-  (interactive)
-  (visual-line-mode 0))
-(add-hook 'org-mode-hook 'org-indent-mode)
-(add-hook 'org-mode-hook 'truncate-lines-off)
-(add-hook 'markdown-mode-hook 'truncate-lines-off)
-(add-hook 'org-mode-hook 'visual-line-mode)
-(add-hook 'markdown-mode-hook 'visual-line-mode)
-(add-hook 'prog-mode-hook 'truncate-lines-on)
-(add-hook 'prog-mode-hook 'visual-line-mode-off)
-
-;; Heading styles
-(set-face-attribute 'outline-1 nil :height 195 :foreground (nth 1 (nth 14 doom-themes--colors)))
-(set-face-attribute 'outline-2 nil :height 188 :foreground (nth 1 (nth 15 doom-themes--colors)))
-(set-face-attribute 'outline-3 nil :height 180 :foreground (nth 1 (nth 19 doom-themes--colors)))
-(set-face-attribute 'outline-4 nil :height 173 :foreground (nth 1 (nth 23 doom-themes--colors)))
-(set-face-attribute 'outline-5 nil :height 173 :foreground (nth 1 (nth 24 doom-themes--colors)))
-(set-face-attribute 'outline-6 nil :height 165 :foreground (nth 1 (nth 16 doom-themes--colors)))
-(set-face-attribute 'outline-7 nil :height 160 :foreground (nth 1 (nth 18 doom-themes--colors)))
-(set-face-attribute 'outline-8 nil :height 155 :foreground (nth 1 (nth 11 doom-themes--colors)))
-
-(require 'org-modern)
-
-;; Add frame borders and window dividers
-(modify-all-frames-parameters
- '((right-divider-width . 20)
-  (left-divider-width . 20)
-   (internal-border-width . 20)))
-(set-face-background 'fringe (face-attribute 'default :background))
-
-(setq
- ;; Edit settings
- org-auto-align-tags nil
- org-tags-column 0
- org-catch-invisible-edits 'show-and-error
- org-special-ctrl-a/e t
- org-insert-heading-respect-content t
-
- ;; Org styling, hide markup etc.
- org-hide-emphasis-markers t
- org-pretty-entities t)
-
-;; Ellipsis styling
-(setq org-ellipsis "…")
-(set-face-attribute 'org-ellipsis nil :inherit 'default :box nil)
-
-;; Star styling
-(setq org-modern-star 'replace)
-
-(global-org-modern-mode)
+(use-package org-modern
+  :mode ("\\.org\\'" . org-mode)
+  :custom
+  (org-auto-align-tags nil)
+  (org-tags-column 0)
+  (org-catch-invisible-edits 'show-and-error)
+  (org-special-ctrl-a/e t)
+  (org-insert-heading-respect-content t)
+  (org-hide-emphasis-markers t)
+  (org-pretty-entities t)
+  (org-ellipsis "...")
+  (org-modern-star 'replace)
+  :config
+  (set-face-attribute 'org-ellipsis nil :inherit 'default :box nil)
+  :init
+  (global-org-modern-mode))
 
 ;; Olivetti
 (use-package olivetti
+  :commands (org-mode markdown-mode)
+  :custom
+  (olivetti-style 'fancy)
+  (olivetti-margin-width 100)
   :config
-  (setq olivetti-style 'fancy
-      olivetti-margin-width 100)
   (setq-default olivetti-body-width 100)
   (add-hook 'org-mode-hook 'olivetti-mode))
 

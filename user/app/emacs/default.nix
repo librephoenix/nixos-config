@@ -4,7 +4,7 @@
     (pkgs.emacsWithPackagesFromUsePackage {
       config = ./init.el;
       package = pkgs.emacs-pgtk;
-      alwaysEnsure = true;
+      alwaysEnsure = false;
       extraEmacsPackages = epkgs: with epkgs; [
         org-modern olivetti
         command-log-mode
@@ -17,6 +17,7 @@
         projectile treemacs treemacs-projectile
         treemacs-evil treemacs-nerd-icons
         treesit-grammars.with-all-grammars
+        git-timemachine wgrep
         magit magit-file-icons magit-todos
         undo-fu undo-fu-session
         org-roam org-node org-node-fakeroam
