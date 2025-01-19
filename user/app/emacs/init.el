@@ -17,12 +17,13 @@
 
 ;; use-package-ception
 (use-package use-package
-  :demand t
+  :defer t
   :custom
   (use-package-always-ensure nil)
   (usepackage-always-defer t))
 
 (use-package emacs
+  :defer t
   :config
   ;; No startup screen
   (setq inhibit-startup-message t)
@@ -141,8 +142,8 @@
   :after (org markdown git-timemachine))
 
 (use-package ultra-scroll
+  :defer t
   :init
-  ;; Mouse & Smooth Scroll
   (setq scroll-step 1
         scroll-margin 0
         scroll-conservatively 101
@@ -154,9 +155,11 @@
 
 ;; Magit
 (use-package magit
+  :commands (magit magit-status)
   :config
   (setq magit-display-buffer-function 'magit-display-buffer-fullframe-status-v1)
   (setq magit-bury-buffer-function 'magit-restore-window-configuration)
+  (define-key magit-mode-map (kbd "SPC") nil)
   (add-hook 'git-commit-mode-hook 'evil-insert-state))
 
 (use-package git-timemachine)
@@ -183,16 +186,31 @@
   (projectile-mode +1))
 
 ;; Being able to undo is nice...
-(use-package undo-fu)
+(use-package undo-fu
+  :commands (evil-undo evil-redo))
 
 (use-package undo-fu-session
   :after undo-fu
   :config
   (global-undo-fu-session-mode))
 
+(use-package dired
+  :custom
+  (dired-listing-switches "-aBhl --group-directories-first")
+  (dired-kill-when-opening-new-dired-buffer t))
+
+(use-package dired-x
+  :after (dired)
+  :config
+  (setq dired-omit-files (rx (seq bol ".")))
+  (setq dired-show-dotfiles nil)
+  (defun apply-dired-omit ()
+    (if (not dired-show-dotfiles)
+	(dired-omit-mode 1)))
+  (add-hook 'dired-mode-hook 'apply-dired-omit))
+
 ;; Muahahahahaha..
 (use-package evil
-  :after (undo-fu undo-fu-session)
   :custom
   (evil-want-keybinding nil)
   (evil-respect-visual-line-mode t)
@@ -207,22 +225,10 @@
   (define-key evil-motion-state-map (kbd "RET") nil)
   (evil-mode 1))
 
-(use-package dired
-  :commands (dired dired-jump)
-  :custom
-  (dired-listing-switches "-agho --group-directories-first")
-  (dired-kill-when-opening-new-dired-buffer t)
-  :config
-  (evil-collection-define-key 'normal 'dired-mode-map
-    "h" 'dired-up-directory
-    "l" 'dired-find-file
-    " " 'nil))
-
 (use-package evil-collection
   :after (evil)
   :custom
-  (evil-want-keybinding nil)
-  (evil-collection-key-blacklist (append (list (kbd "SPC")) evil-collection-key-blacklist))
+  (evil-want-keybinding t)
   :config
   (evil-collection-init)
 
@@ -252,6 +258,13 @@
   (evil-define-key 'motion 'global (kbd "<leader>fd") 'delete-file-and-buffer)
   (evil-define-key 'motion 'global (kbd "<leader>fr") 'rename-visited-file)
   (evil-define-key 'motion 'global (kbd "<leader>od") 'dired-jump)
+  (defun toggle-dired-omit-mode ()
+    "Toggle dired-omit-mode."
+    (interactive)
+    (if dired-omit-mode
+      (progn (dired-omit-mode 0) (setq dired-show-dotfiles t))
+      (progn (dired-omit-mode 1) (setq dired-show-dotfiles nil))))
+  (evil-define-key 'normal dired-mode-map (kbd "H") 'toggle-dired-omit-mode)
 
   ;; Project keybinds
   (evil-define-key 'motion 'global (kbd "<leader>pp") 'projectile-switch-project)
@@ -290,7 +303,6 @@
   (evil-define-key 'insert org-mode-map (kbd "<tab>") 'org-demote-subtree)
   (evil-define-key 'insert org-mode-map (kbd "<backtab>") 'org-promote-subtree)
   (evil-define-key 'motion org-mode-map (kbd "<leader>mll") 'org-insert-link)
-  (define-key magit-mode-map (kbd "SPC") nil)
   
   (global-set-key (kbd "C-j") 'evil-window-down)
   (global-set-key (kbd "C-k") 'evil-window-up)
@@ -400,6 +412,7 @@
 
 ;; Theme and modeline
 (use-package doom-themes
+  :after (org)
   :config
   (setq doom-themes-enable-bold t
         doom-themes-enable-italic t
@@ -524,7 +537,7 @@
             #'+org-cycle-only-current-subtree-h)
   
   (setq org-return-follows-link t)
-  (setf (cdr (assoc 'file org-link-frame-setup)) 'find-file)))
+  (setf (cdr (assoc 'file org-link-frame-setup)) 'find-file))
 
 (use-package org-roam
   :after (org)
@@ -540,8 +553,7 @@
   (evil-define-key 'motion 'global (kbd "<leader>nrdd") 'org-roam-dailies-goto-date)
   (evil-define-key 'motion 'global (kbd "<leader>nrdt") 'org-roam-dailies-goto-today)
   (evil-define-key 'motion 'global (kbd "<leader>nrdn") 'org-roam-dailies-goto-next-note)
-  (evil-define-key 'motion 'global (kbd "<leader>nrdp") 'org-roam-dailies-goto-previous-note)
-  )
+  (evil-define-key 'motion 'global (kbd "<leader>nrdp") 'org-roam-dailies-goto-previous-note))
 
 (use-package org-node
   :after (org org-roam)
@@ -552,24 +564,22 @@
   (org-node-complete-at-point-mode)
   (setq org-roam-completion-everywhere nil)
   (evil-define-key 'motion 'global (kbd "<leader>Ni") 'org-node-insert-link)
-  (evil-define-key 'motion 'global (kbd "<leader>NR") 'org-node-rewrite-links-ask)
-  )
+  (evil-define-key 'motion 'global (kbd "<leader>NR") 'org-node-rewrite-links-ask))
 
 (use-package org-node-fakeroam
   :after (org org-node org-roam)
-  :defer
+  :defer t
   :config
   (setq org-node-creation-fn #'org-node-fakeroam-new-via-roam-capture)
   (setq org-node-slug-fn #'org-node-fakeroam-slugify-via-roam)
   (setq org-node-datestamp-format "%Y%m%d%H%M%S-")
-  (setq org-roam-db-update-on-save nil) ;; don't update DB on save, not needed
-  (setq org-roam-link-auto-replace nil) ;; don't look for "roam:" links on save
-  (org-node-fakeroam-fast-render-mode) ;; build the Roam buffer faster
+  (setq org-roam-db-update-on-save nil)
+  (setq org-roam-link-auto-replace nil)
+  (org-node-fakeroam-fast-render-mode)
   (setq org-node-fakeroam-fast-render-persist t)
-  (org-node-fakeroam-redisplay-mode) ;; autorefresh the Roam buffer
-  (org-node-fakeroam-jit-backlinks-mode) ;; skip DB for Roam buffer
-  (org-node-fakeroam-db-feed-mode) ;; keep Roam DB up to date
-  )
+  (org-node-fakeroam-redisplay-mode)
+  (org-node-fakeroam-jit-backlinks-mode)
+  (org-node-fakeroam-db-feed-mode))
 
 (use-package wgrep
   :after (org-node))
@@ -600,6 +610,11 @@
   :config
   (setq-default olivetti-body-width 100)
   (add-hook 'org-mode-hook 'olivetti-mode))
+
+(evil-collection-define-key 'normal 'dired-mode-map
+    "h" 'dired-up-directory
+    "l" 'dired-find-file
+    " " 'nil)
 
 (provide 'init)
 ;;; init.el ends here
