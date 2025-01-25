@@ -58,7 +58,8 @@ in
       exec-once = blueman-applet
       exec-once = GOMAXPROCS=1 syncthing --no-browser
       exec-once = protonmail-bridge --noninteractive
-      exec-once = waybar
+      #exec-once = waybar
+      exec-once = eww open-many bar:first bar:second bar:third --arg first:monitor=0 --arg second:monitor=1 --arg third:monitor=2
       exec-once = emacs --daemon
 
       exec-once = hypridle
@@ -333,12 +334,19 @@ in
        windowrulev2 = opacity 0.85,initialTitle:^(Notes)$,initialClass:^(Brave-browser)$
 
        layerrule = blur,waybar
-       layerrule = xray,waybar
+       layerrule = xray 1,waybar
        blurls = waybar
+       layerrule = ignorezero, eww
+       layerrule = xray 1,eww
        layerrule = blur,launcher # fuzzel
        blurls = launcher # fuzzel
        layerrule = blur,gtk-layer-shell
-       layerrule = xray,gtk-layer-shell
+       layerrule = xray 1,gtk-layer-shell
+       layerrule = ignorezero, gtk-layer-shell
+       layerrule = blur,eww
+       layerrule = xray 1,eww
+       layerrule = ignorezero, eww
+       layerrule = animation popin 80%, eww
        blurls = gtk-layer-shell
        layerrule = blur,~nwggrid
        layerrule = xray 1,~nwggrid
@@ -420,6 +428,7 @@ in
     feh
     killall
     polkit_gnome
+    eww
     nwg-launchers
     papirus-icon-theme
     (pkgs.writeScriptBin "nwggrid-wrapper" ''
@@ -469,6 +478,10 @@ in
     pavucontrol
     pamixer
     tesseract4
+    (pkgs.writeScriptBin "workspace-on-monitor" ''
+    #!/bin/sh
+    hyprctl monitors -j | jq ".[$1] | .activeWorkspace.id"
+    '')
     (pkgs.writeScriptBin "screenshot-ocr" ''
       #!/bin/sh
       imgname="/tmp/screenshot-ocr-$(date +%Y%m%d%H%M%S).png"
@@ -619,8 +632,19 @@ in
   '';
   services.swayosd.enable = true;
   services.swayosd.topMargin = 0.5;
-  programs.waybar = {
+  services.cbatticon = {
     enable = true;
+    iconType = "symbolic";
+  };
+  home.file.".config/eww/eww.yuck".source = ./eww/eww.yuck;
+  home.file = {
+    ".config/eww/eww.scss".source = config.lib.stylix.colors {
+      template = builtins.readFile ./eww/eww.scss.mustache;
+      extension = ".scss";
+    };
+  };
+  programs.waybar = {
+    enable = false;
     package = pkgs.waybar.overrideAttrs (oldAttrs: {
       postPatch = ''
         # use hyprctl to switch workspaces

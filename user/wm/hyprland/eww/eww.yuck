@@ -1,0 +1,72 @@
+(defwindow bar [?monitor]
+           :monitor monitor
+           :geometry (geometry :x "0%"
+                               :y "1%"
+                               :width "99%"
+                               :height "30px"
+                               :anchor "top center")
+           :stacking "fg"
+           :reserve (struts :distance "5px" :side "top")
+           :windowtype "dock"
+           :wm-ignore false
+	   :exclusive true
+	   (bar-widget :monitor monitor))
+
+(defvar workspaces "[1, 2, 3, 4, 5, 6, 7, 8, 9]")
+(defvar workspacesreplace "[\"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\"]")
+(defpoll workspaces-monitor-0 :interval "1s" "workspace-on-monitor 0")
+(defpoll workspaces-monitor-1 :interval "1s" "workspace-on-monitor 1")
+(defpoll workspaces-monitor-2 :interval "1s" "workspace-on-monitor 2")
+(defvar maxbattery 80)
+(defvar batteryicons "[\"\", \"\", \"\", \"\", \"\"]")
+
+(defwidget bar-widget [?monitor]
+  (box :halign "expand"
+    (box :orientation "horizontal"
+         :halign "start"
+         :class "center-box"
+         (box :orientation "horizontal"
+	      :spacing "10"
+	      :halign "center"
+	      :valign "center"
+	  (label :text "")
+	  (label :halign "center" :valign "center" :text {EWW_BATTERY.total_avg / maxbattery > 0.8 ? batteryicons[4] : EWW_BATTERY.total_avg / maxbattery > 0.6 ? batteryicons[3] : EWW_BATTERY.total_avg / maxbattery > 0.4 ? batteryicons[2] : EWW_BATTERY.total_avg / maxbattery > 0.2 ? batteryicons[1] : batteryicons[0]} :class {EWW_BATTERY.total_avg / maxbattery > 0.2 ? "battery-icon-normal" : "battery-icon-danger"})
+	  (label :halign "center" :valign "center" :text "${round(EWW_BATTERY.total_avg,0)}%" :class {EWW_BATTERY.total_avg / maxbattery > 0.2 ? "battery-text-normal" : "battery-text-danger"})
+	  )
+	 )
+    (box :orientation "horizontal"
+	 :spacing "-8"
+	 :halign "center"
+	 :class "center-box"
+    (for workspace in workspaces
+      (box :orientation "horizontal"
+           :halign "center"
+           :class "center-box"
+           (button :class {
+		   monitor == 0 ? workspace == workspaces-monitor-0 ? "active-workspace" : "inactive-workspace" :
+		     monitor == 1 ? workspace == workspaces-monitor-1 ? "active-workspace" : "inactive-workspace" : monitor == 2 ? workspace == workspaces-monitor-2 ? "active-workspace" : "inactive-workspace" : "inactive-workspace"} :onclick "hyprctl dispatch focusworkspaceoncurrentmonitor ${workspace}" {workspacesreplace[workspace - 1]})
+	   )))
+    (box :orientation "horizontal"
+         :halign "end"
+         :class "center-box"
+	 :spacing "5"
+      (button :onclick "eww open --toggle calendar_window --arg monitor=${monitor}" :class "time-box" :halign "end" time)
+      (systray :class "time-box" :icon-size "20" :spacing "2" :halign "end")
+      )))
+
+(defvar time-visible false)
+(defpoll time :interval "1s"
+	 :initial "initial-value"
+	 :run-while time-visible
+	 `date +%H:%M:%S`)
+
+(defwindow calendar_window [?monitor]
+  :monitor monitor
+  :geometry (geometry :width "500px" :height "500px" :x "1410" :y "1%")
+  :stacking "overlay"
+  :focusable false
+  :hexpand true
+  :vexpand true
+  :namespace "eww"
+  (calendar :show-details true))
+
