@@ -53,7 +53,7 @@
 
       # create patched nixpkgs
       nixpkgs-patched =
-        (import inputs.nixpkgs { system = systemSettings.system; rocmSupport = (if systemSettings.gpu == "amd" then true else false); }).applyPatches {
+        (import inputs.nixpkgs { system = systemSettings.system; }).applyPatches {
           name = "nixpkgs-patched";
           src = inputs.nixpkgs;
           patches = [ ];

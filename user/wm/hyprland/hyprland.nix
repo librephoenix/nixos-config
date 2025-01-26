@@ -35,6 +35,7 @@ in
       exec-once = dbus-update-activation-environment --systemd DISPLAY XAUTHORITY WAYLAND_DISPLAY XDG_SESSION_DESKTOP=Hyprland XDG_CURRENT_DESKTOP=Hyprland XDG_SESSION_TYPE=wayland
       exec-once = hyprctl setcursor '' + config.gtk.cursorTheme.name + " " + builtins.toString config.gtk.cursorTheme.size + ''
 
+      exec-once = sleep 10 && nextcloud
       exec-once = iio-hyprland
       env = NIXOS_OZONE_WL,1
       env = XDG_CURRENT_DESKTOP,Hyprland
@@ -53,6 +54,7 @@ in
       exec-once = hyprprofile Default
 
       exec-once = ydotoold
+      exec-once = sleep 10 && caffeine
       #exec-once = STEAM_FRAME_FORCE_CLOSE=1 steam -silent
       exec-once = nm-applet
       exec-once = blueman-applet
@@ -423,6 +425,7 @@ in
   };
 
   home.packages = (with pkgs; [
+    caffeine-ng
     alacritty
     kitty
     feh

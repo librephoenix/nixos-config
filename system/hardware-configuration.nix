@@ -19,7 +19,8 @@
   hardware.opengl.extraPackages = [ pkgs.rocmPackages.clr.icd ];
   hardware.opengl.extraPackages32 = [ ];
 
-  environment.systemPackages = with pkgs.rocmPackages; [ hipcc hip-common hiprand hipblas hipfft hipcub hipify ];
+  #environment.systemPackages = with pkgs.rocmPackages; [ hipcc hip-common hiprand hipblas hipfft hipcub hipify ];
+  environment.systemPackages = with pkgs.rocmPackages; [ hipcc hip-common hiprand hipfft hipcub hipify ];
 
   services.xserver.videoDrivers = lib.mkDefault [ "modesetting" ];
 
@@ -42,8 +43,8 @@
       rocmEnv = pkgs.symlinkJoin {
         name = "rocm-combined";
         paths = with pkgs.rocmPackages; [
-          rocblas
-          hipblas
+          #rocblas
+          #hipblas
           clr
         ];
       };

@@ -185,7 +185,7 @@
     libmediainfo
     audio-recorder
     cheese
-    ardour
+    #ardour
     #rosegarden
     tenacity
 
