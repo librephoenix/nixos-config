@@ -485,6 +485,21 @@ in
     #!/bin/sh
     hyprctl monitors -j | jq ".[$1] | .activeWorkspace.id"
     '')
+    (pkgs.writeScriptBin "open-under-ranger" ''
+    #!/bin/sh
+    command="$1"
+    echo $command
+    file="''${*:2}"
+    file=''${file// /\\ }
+    echo $file
+    workspace=$(hyprctl monitors -j | jq ".[] | select(.specialWorkspace.name == \"special:scratch_ranger\") | .activeWorkspace.id")
+    if [ -z "''${workspace}" ]; then
+      hyprctl dispatch exec -- "$command";
+    else
+      hyprctl dispatch exec "[workspace $workspace]" -- "$command" "$file";
+    fi
+    hyprctl dispatch togglespecialworkspace scratch_ranger
+    '')
     (pkgs.writeScriptBin "screenshot-ocr" ''
       #!/bin/sh
       imgname="/tmp/screenshot-ocr-$(date +%Y%m%d%H%M%S).png"
