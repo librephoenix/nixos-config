@@ -21,7 +21,7 @@
         magit magit-file-icons magit-todos
         undo-fu undo-fu-session
         org-roam org-node org-node-fakeroam
-        vterm sudo-edit
+        vterm vterm-toggle sudo-edit
         direnv
         gdscript-mode
         nix-mode
