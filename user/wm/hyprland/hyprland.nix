@@ -62,6 +62,7 @@ in
       exec-once = protonmail-bridge --noninteractive
       #exec-once = waybar
       exec-once = eww open-many bar:first bar:second bar:third --arg first:monitor=0 --arg second:monitor=1 --arg third:monitor=2
+      exec-once = hyprland-monitor-attached ~/.local/bin/eww-reload-bars
       exec-once = emacs --daemon
 
       exec-once = hypridle
@@ -425,6 +426,7 @@ in
   };
 
   home.packages = (with pkgs; [
+    hyprland-monitor-attached
     caffeine-ng
     alacritty
     kitty
@@ -537,7 +539,12 @@ in
       if pgrep -x nixos-rebuild > /dev/null || pgrep -x home-manager > /dev/null || pgrep -x kdenlive > /dev/null || pgrep -x FL64.exe > /dev/null || pgrep -x blender > /dev/null || pgrep -x flatpak > /dev/null;
       then echo "Shouldn't suspend"; sleep 10; else echo "Should suspend"; systemctl suspend; fi
     '')
-    ]);
+  ]);
+  home.file.".local/bin/eww-reload-bars.sh" = {
+    text = ''#!/bin/sh
+             eww open-many bar:first bar:second bar:third --arg first:monitor=0 --arg second:monitor=1 --arg third:monitor=2;'';
+    executable = true;
+  };
   home.file.".config/hypr/hypridle.conf".text = ''
     general {
       lock_cmd = pgrep hyprlock || hyprlock
