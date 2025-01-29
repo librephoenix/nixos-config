@@ -305,6 +305,7 @@
   (evil-define-key 'insert org-mode-map (kbd "<tab>") 'org-demote-subtree)
   (evil-define-key 'insert org-mode-map (kbd "<backtab>") 'org-promote-subtree)
   (evil-define-key 'motion org-mode-map (kbd "<leader>mll") 'org-insert-link)
+  (evil-define-key 'motion org-mode-map (kbd "<leader>mt") 'org-todo)
   
   (global-set-key (kbd "C-j") 'evil-window-down)
   (global-set-key (kbd "C-k") 'evil-window-up)
@@ -488,11 +489,18 @@
             ("\\*poporg.*\\*"      :regexp t :select t                          :other t               )
             ("\\`\\*helm.*?\\*\\'"   :regexp t                                    :size 0.3  :align t    )
             ("*Calendar*"                  :select t                          :size 0.3  :align below)
-            ("*info*"                      :select t   :inhibit-window-quit t                         :same t)
+            ("*info*"                      :select t   :inhibit-window-quit t                         :popup t)
+            ("*Org todo*"                      :select t   :inhibit-window-quit t  :same t                        :popup t)
             (magit-status-mode             :select t   :inhibit-window-quit t                         :same t)
             (magit-log-mode                :select t   :inhibit-window-quit t                         :same t)
             ))
-    (shackle-mode 1)))
+    (shackle-mode 1))
+    (add-to-list 'display-buffer-alist '("\\*Org todo\\*"
+                                         (display-buffer-at-bottom)
+                                         (side . bottom)
+                                         (slot . 4)
+                                         (window-height . shrink-window-if-larger-than-buffer)
+                                         (dedicated . t))))
 
 ;; Completion
 (use-package hotfuzz)
