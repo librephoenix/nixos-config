@@ -302,6 +302,8 @@
 
   (evil-define-key 'insert org-mode-map (kbd "<C-return>") '+org/insert-item-below)
   (evil-define-key 'insert org-mode-map (kbd "<C-S-return>") '+org/insert-item-above)
+  (evil-define-key 'motion org-mode-map (kbd "<C-return>") '+org/insert-item-below)
+  (evil-define-key 'motion org-mode-map (kbd "<C-S-return>") '+org/insert-item-above)
   (evil-define-key 'insert org-mode-map (kbd "<tab>") 'org-demote-subtree)
   (evil-define-key 'insert org-mode-map (kbd "<backtab>") 'org-promote-subtree)
   (evil-define-key 'motion org-mode-map (kbd "<leader>mll") 'org-insert-link)
