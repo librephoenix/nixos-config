@@ -62,7 +62,7 @@ in
       exec-once = protonmail-bridge --noninteractive
       #exec-once = waybar
       exec-once = eww open-many bar:first bar:second bar:third --arg first:monitor=0 --arg second:monitor=1 --arg third:monitor=2
-      exec-once = hyprland-monitor-attached ~/.local/bin/eww-reload-bars
+      exec-once = hyprland-monitor-attached ~/.local/bin/eww-reload-bars.sh
       exec-once = emacs --daemon
 
       exec-once = hypridle
