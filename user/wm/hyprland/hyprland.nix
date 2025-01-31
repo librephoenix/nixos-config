@@ -121,12 +121,12 @@ in
        bind=CTRLALT,Delete,exec,hyprctl kill
        bind=SUPERSHIFT,K,exec,hyprctl kill
 
-       bind=,code:172,exec,lollypop -t
-       bind=,code:208,exec,lollypop -t
-       bind=,code:209,exec,lollypop -t
-       bind=,code:174,exec,lollypop -s
-       bind=,code:171,exec,lollypop -n
-       bind=,code:173,exec,lollypop -p
+       bind=,code:172,exec,mpc toggle
+       bind=,code:208,exec,mpc toggle
+       bind=,code:209,exec,mpc toggle
+       bind=,code:174,exec,mpc stop
+       bind=,code:171,exec,mpc next
+       bind=,code:173,exec,mpc prev
 
        bind = SUPER,R,pass,^(com\.obsproject\.Studio)$
        bind = SUPERSHIFT,R,pass,^(com\.obsproject\.Studio)$
@@ -215,7 +215,7 @@ in
        exec-once = alacritty --class scratch_term
        exec-once = kitty --class scratch_ranger -e ranger
        exec-once = alacritty --class scratch_numbat -e numbat
-       exec-once = lollypop
+       exec-once = kitty --class scratch_music -e ncmpcpp
        exec-once = alacritty --class scratch_btm -e btm
        exec-once = element-desktop
        exec-once = pavucontrol
@@ -226,7 +226,7 @@ in
        bind=SUPER,F,togglespecialworkspace,scratch_ranger
        bind=SUPER,N,exec,if hyprctl clients | grep scratch_numbat; then echo "scratch_ranger respawn not needed"; else alacritty --class scratch_numbat -e numbat; fi
        bind=SUPER,N,togglespecialworkspace,scratch_numbat
-       bind=SUPER,M,exec,if hyprctl clients | grep lollypop; then echo "scratch_ranger respawn not needed"; else lollypop; fi
+       bind=SUPER,M,exec,if hyprctl clients | grep scratch_music; then echo "scratch_music respawn not needed"; else kitty --class scratch_music -e ncmpcpp; fi
        bind=SUPER,M,togglespecialworkspace,scratch_music
        bind=SUPER,B,exec,if hyprctl clients | grep scratch_btm; then echo "scratch_ranger respawn not needed"; else alacritty --class scratch_btm -e btm; fi
        bind=SUPER,B,togglespecialworkspace,scratch_btm
@@ -240,7 +240,7 @@ in
        $scratch_term = class:^(scratch_term)$
        windowrulev2 = float,$scratch_term
        windowrulev2 = $scratchpadsize,$scratch_term
-       windowrulev2 = workspace special:scratch_term ,$scratch_term
+       windowrulev2 = workspace special:scratch_term silent ,$scratch_term
        windowrulev2 = center,$scratch_term
 
        $float_term = class:^(float_term)$
@@ -270,10 +270,11 @@ in
        windowrulev2 = workspace special:scratch_element silent,class:^(Element)$
        windowrulev2 = center,class:^(Element)$
 
-       windowrulev2 = float,class:^(lollypop)$
-       windowrulev2 = size 85% 90%,class:^(lollypop)$
-       windowrulev2 = workspace special:scratch_music silent,class:^(lollypop)$
-       windowrulev2 = center,class:^(lollypop)$
+       $scratch_music = class:^(scratch_music)$
+       windowrulev2 = float,$scratch_music
+       windowrulev2 = $scratchpadsize,$scratch_music
+       windowrulev2 = workspace special:scratch_music silent,$scratch_music
+       windowrulev2 = center,$scratch_music
 
        $savetodisk = title:^(Save to Disk)$
        windowrulev2 = float,$savetodisk
@@ -325,7 +326,6 @@ in
        windowrulev2 = opacity 1.0,class:^(org.qutebrowser.qutebrowser),fullscreen:1
        windowrulev2 = opacity 0.85,class:^(Element)$
        windowrulev2 = opacity 0.85,class:^(Logseq)$
-       windowrulev2 = opacity 0.85,class:^(lollypop)$
        windowrulev2 = opacity 1.0,class:^(Brave-browser),fullscreen:1
        windowrulev2 = opacity 1.0,class:^(librewolf),fullscreen:1
        windowrulev2 = opacity 0.85,title:^(My Local Dashboard Awesome Homepage - qutebrowser)$
