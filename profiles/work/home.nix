@@ -129,7 +129,7 @@
     (pkgs-stable.lollypop.override { youtubeSupport = false; })
     vlc
     mpv
-    yt-dlp
+    yt-dlp_git
     blender-hip
     freecad
     libresprite

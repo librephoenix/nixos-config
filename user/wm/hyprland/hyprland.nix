@@ -476,9 +476,6 @@ in
     libsForQt5.qt5.qtwayland
     qt6.qtwayland
     xdg-utils
-    xdg-desktop-portal
-    xdg-desktop-portal-gtk
-    xdg-desktop-portal-hyprland
     wlsunset
     pavucontrol
     pamixer
