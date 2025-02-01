@@ -54,6 +54,7 @@
     # Office
     nextcloud-client
     (pkgs-stable.libreoffice-fresh)
+    geary
     mate.atril
     openboard
     xournalpp
@@ -126,9 +127,10 @@
     pinta
     inkscape
     godot_4
-    (pkgs-stable.lollypop.override { youtubeSupport = false; })
     vlc
     mpv
+    ncmpcpp
+    mpc
     yt-dlp_git
     blender-hip
     freecad
@@ -204,6 +206,26 @@
     enable = true;
     startInBackground = true;
   };
+
+  services.mpd = rec {
+    enable = true;
+    musicDirectory = config.xdg.userDirs.music+"/Songs";
+    playlistDirectory = config.xdg.userDirs.music+"/Playlists";
+    dbFile = musicDirectory+"/mpd.db";
+    extraConfig = ''
+    audio_output {
+        type            "pipewire"
+        name            "PipeWire Sound Server"
+    }
+    '';
+  };
+
+  programs.ncmpcpp.bindings = [
+    { key = "j"; command = "scroll_down"; }
+    { key = "k"; command = "scroll_up"; }
+    { key = "J"; command = [ "select_item" "scroll_down" ]; }
+    { key = "K"; command = [ "select_item" "scroll_up" ]; }
+  ];
 
   xdg.enable = true;
   xdg.userDirs = {
