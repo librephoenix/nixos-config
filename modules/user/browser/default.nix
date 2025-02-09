@@ -1,0 +1,30 @@
+{ config, lib, pkgs, ... }:
+
+let
+  browser = config.userSettings.browser;
+in {
+  options = {
+    userSettings.browser = lib.mkOption {
+      default = "brave";
+      description = "Default browser";
+      type = lib.types.enum [ "brave" "qutebrowser" "librewolf" ];
+    };
+    userSettings.spawnBrowser = lib.mkOption {
+      default = "brave";
+      description = "Default browser spawn command";
+      type = lib.types.str;
+    };
+  };
+
+  config = {
+    userSettings.brave.enable = lib.mkIf (browser == "brave") true;
+    userSettings.librewolf.enable = lib.mkIf (browser == "librewolf") true;
+    userSettings.qutebrowser.enable = lib.mkIf (browser == "qutebrowser") true;
+
+    userSettings.spawnBrowser = lib.mkMerge [
+      (lib.mkIf ((browser == "brave") || (browser == "librewolf")) browser)
+      (lib.mkIf (!(config.userSettings.hyprland.hyprprofiles.enable) && (browser == "qutebrowser")) "qutebrowser --qt-flag ignore-gpu-blacklist --qt-flag enable-gpu-rasterization --qt-flag enable-native-gpu-memory-buffers --qt-flag enable-accelerated-2d-canvas --qt-flag num-raster-threads=4")
+      (lib.mkIf config.userSettings.hyprland.hyprprofiles.enable "qutebrowser-hyprprofile")
+    ];
+  };
+}

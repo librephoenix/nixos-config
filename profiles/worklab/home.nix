@@ -1,5 +1,0 @@
-{ ... }:
-
-{
-  imports = [ ../homelab/home.nix ];
-}

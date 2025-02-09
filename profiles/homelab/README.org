@@ -1,3 +1,0 @@
-#+title: Homelab Template
-
-This is a template system configuration to be installed as a homelab/server!

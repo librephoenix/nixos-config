@@ -1,0 +1,44 @@
+{ config, lib, pkgs, ... }:
+
+{
+  config = {
+
+    userSettings = {
+      # setup
+      shell = {
+        enable = true;
+        apps.enable = true;
+        extraApps.enable = true;
+      };
+      xdg.enable = true;
+
+      # programs
+      browser = "qutebrowser";
+      brave.enable = true;
+      editor = "emacs";
+      ranger.enable = true;
+      git.enable = true;
+      engineering.enable = true;
+      art.enable = true;
+      flatpak.enable = false;
+      godot.enable = true;
+      keepass.enable = true;
+      media.enable = true;
+      music.enable = true;
+      office.enable = true;
+      recording.enable = true;
+      virtualization = {
+        virtualMachines.enable = true;
+      };
+
+      # wm
+      hyprland.enable = true;
+
+      # style
+      stylix.enable = true;
+
+      # hardware
+      bluetooth.enable = true;
+    };
+  };
+}
