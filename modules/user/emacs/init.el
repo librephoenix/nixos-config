@@ -139,7 +139,7 @@
 
 (use-package line-wrapping-and-numbers
   :load-path "./lib"
-  :after (org markdown git-timemachine))
+  :after (org markdown git-timemachine nix-mode))
 
 (use-package ultra-scroll
   :init

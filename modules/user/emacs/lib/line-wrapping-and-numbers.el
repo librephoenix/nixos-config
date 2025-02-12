@@ -33,6 +33,8 @@
 (add-hook 'markdown-mode-hook 'visual-line-mode)
 (add-hook 'prog-mode-hook 'truncate-lines-on)
 (add-hook 'prog-mode-hook 'visual-line-mode-off)
+(add-hook 'nix-mode-hook 'truncate-lines-on)
+(add-hook 'nix-mode-hook 'visual-line-mode-off)
 (defun apply-proper-line-wrapping ()
   "Apply proper line wrapping and visual line mode settings according to whether or not the current mode derives from `prog-mode`."
   (if (derived-mode-p 'prog-mode)
