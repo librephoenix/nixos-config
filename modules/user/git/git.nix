@@ -16,7 +16,9 @@ in {
     programs.git.userEmail = config.userSettings.email;
     programs.git.extraConfig = {
       init.defaultBranch = "main";
-      safe.directory = [ osConfig.systemSettings.dotfilesDir (config.home.homeDirectory + "/.cache/nix/tarball-cache") ];
+      safe.directory = [ osConfig.systemSettings.dotfilesDir
+                         osConfig.systemSettings.secretsFlakeDir
+                         (config.home.homeDirectory + "/.cache/nix/tarball-cache") ];
     };
   };
 }

@@ -8,7 +8,7 @@ in {
     userSettings.editor = lib.mkOption {
       default = "emacs";
       description = "Default editor";
-      type = lib.types.enum [ "emacs" ];
+      type = lib.types.enum [ "emacs" "kate" ];
       # TODO add more editors
       #type = lib.types.enum [ "emacs" "vim" "nvim" "neovide" "nano" "micro" "vscodium" "kate" "pulsar" ];
     };
@@ -20,6 +20,8 @@ in {
 
   config = {
     userSettings.emacs.enable = lib.mkIf (config.userSettings.editor == "emacs") true;
+    home.packages = with pkgs;
+      lib.optionals (editor == "kate") [ kdePackages.kate];
     userSettings.spawnEditor = lib.mkMerge [
       (lib.mkIf (editor == "emacs") "emacsclient -c -a 'emacs'")
       (lib.mkIf (editor == "neovide") "neovide -- --listen /tmp/nvimsocket")

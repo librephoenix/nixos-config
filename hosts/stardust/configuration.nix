@@ -4,8 +4,8 @@
   config = {
     systemSettings = {
       # users
-      users = [ "emmet" ];
-      adminUsers = [ "emmet" ];
+      users = [ "corrina" ];
+      adminUsers = [ "corrina" ];
 
       # hardware
       cachy.enable = true;
@@ -18,14 +18,10 @@
       gaming.enable = true;
       virtualization = {
         docker.enable = true;
-        virtualMachines.enable = true;
       };
 
       # wm
-      hyprland.enable = true;
-
-      # dotfiles
-      dotfilesDir = "/etc/nixos";
+      plasma.enable = true;
 
       # security
       security = {
@@ -42,14 +38,13 @@
       # style
       stylix = {
         enable = true;
-        theme = "io";
+        theme = "eris";
       };
     };
 
-    users.users.emmet.description = "Emmet";
-    home-manager.users.emmet.userSettings = {
-      name = "Emmet";
-      email = "emmet@librephoenix.com";
+    users.users.corrina.description = "Corrina";
+    home-manager.users.corrina.userSettings = {
+      name = "Corrina";
     };
 
   };

@@ -51,6 +51,7 @@
               # host specific config
               { config.networking.hostName = host; }
               (./hosts + "/${host}")
+              (inputs.secrets.hostSecrets.${host})
 
               # my modules
               ./modules/system
@@ -123,6 +124,7 @@
 
     secrets = {
       url = "path:/etc/nixos.secrets";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 }

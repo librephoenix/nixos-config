@@ -2,10 +2,17 @@
 
 {
   options = {
-    systemSettings.dotfilesDir = lib.mkOption {
-      default = "/etc/nixos";
-      description = "Absolute path to the dotfiles directory";
-      type = lib.types.path;
+    systemSettings = {
+      dotfilesDir = lib.mkOption {
+        default = "/etc/nixos";
+        description = "Absolute path to the dotfiles directory";
+        type = lib.types.path;
+      };
+      secretsFlakeDir = lib.mkOption {
+        default = "/etc/nixos.secrets";
+        description = "Absolute path to my secrets flake";
+        type = lib.types.path;
+      };
     };
   };
 # TODO disabled for debugging

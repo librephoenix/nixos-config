@@ -15,7 +15,6 @@
 
       # software
       flatpak.enable = false;
-      gaming.enable = true;
       virtualization = {
         docker.enable = true;
         virtualMachines.enable = true;
@@ -42,16 +41,9 @@
       # style
       stylix = {
         enable = true;
-        theme = "io";
+        theme = "ayu-dark";
       };
     };
-
-    users.users.emmet.description = "Emmet";
-    home-manager.users.emmet.userSettings = {
-      name = "Emmet";
-      email = "emmet@librephoenix.com";
-    };
-
   };
   
 }

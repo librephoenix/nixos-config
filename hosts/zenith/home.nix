@@ -8,7 +8,6 @@
       shell = {
         enable = true;
         apps.enable = true;
-        extraApps.enable = true;
       };
       xdg.enable = true;
 
@@ -43,10 +42,21 @@
 
     wayland.windowManager.hyprland = lib.mkIf config.userSettings.hyprland.enable {
       settings = {
+        bind = [
+          ''SUPER,E,exec,if hyprctl clients | grep qutegmail; then echo "scratch_mail respawn not needed"; else qutebrowser --qt-flag enable-gpu-rasterization --qt-flag enable-native-gpu-memory-buffers --qt-flag num-raster-threads=4 -B ~/.browser/Teaching :'set input.mode_override passthrough -u mail.google.com' :'set window.title_format qutegmail' :'set tabs.show never' :'set statusbar.show never' https://mail.google.com; fi''
+          "SUPER,E,togglespecialworkspace,scratch_email"
+        ];
+
+        windowrulev2 = [
+          "float,title:^(qutegmail)$"
+          "size 80% 85%,title:^(qutegmail)$"
+          "workspace special:scratch_email ,title:^(qutegmail)$"
+          "center,title:^(qutegmail)$"
+        ];
+
         monitor = [
-          "eDP-1,1920x1080@300,900x1080,1"
-          "HDMI-A-1,1920x1080,1920x0,1"
-          "DP-1,1920x1080,0x0,1"
+          "eDP-1,1920x1080,1920x0,1"
+          "HDMI-A-1,1920x1080,0x0,1"
         ];
 
       };

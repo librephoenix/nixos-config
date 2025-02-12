@@ -26,10 +26,6 @@
       media.enable = true;
       music.enable = true;
       office.enable = true;
-      recording.enable = true;
-      virtualization = {
-        virtualMachines.enable = true;
-      };
 
       # wm
       hyprland.enable = true;
@@ -41,15 +37,5 @@
       bluetooth.enable = true;
     };
 
-    wayland.windowManager.hyprland = lib.mkIf config.userSettings.hyprland.enable {
-      settings = {
-        monitor = [
-          "eDP-1,1920x1080@300,900x1080,1"
-          "HDMI-A-1,1920x1080,1920x0,1"
-          "DP-1,1920x1080,0x0,1"
-        ];
-
-      };
-    };
   };
 }
