@@ -21,9 +21,6 @@ in {
         htop = "btm";
         fd = "fd -Lu";
         w3m = "w3m -no-cookie -v";
-        neofetch = "disfetch";
-        fetch = "disfetch";
-        gitfetch = "onefetch";
         "," = "comma";
         ",," = "comma-shell";
       };

@@ -42,5 +42,11 @@ in {
         };
       })
     ];
+
+    programs.zsh.shellAliases = {
+      neofetch = "disfetch";
+      fetch = "disfetch";
+      gitfetch = "onefetch";
+    };
   };
 }
