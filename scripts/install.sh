@@ -1,5 +1,8 @@
 #!/bin/sh
 
+## THIS DOESN'T WORK ANYMORE BTW
+
+# TODO update this..
 # Automated script to install my dotfiles
 
 # Clone dotfiles

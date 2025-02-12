@@ -1,4 +1,4 @@
-{config, lib, pkgs, ...}:
+{config, lib, pkgs, inputs, ...}:
 let
   cfg = config.userSettings.plasma;
 in {
@@ -7,6 +7,8 @@ in {
       enable = lib.mkEnableOption "Enable plasma with config";
     };
   };
+
+  imports = [ inputs.plasma-manager.homeManagerModules.plasma-manager ];
 
   config = lib.mkIf cfg.enable {
     programs.plasma = {

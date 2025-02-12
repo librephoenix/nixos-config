@@ -13,7 +13,7 @@ in
     };
   };
 
-  config = {
+  config = lib.mkIf cfg.enable {
     userSettings.alacritty.enable = true;
     userSettings.kitty.enable = true;
     userSettings.japanese.enable = true;

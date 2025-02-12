@@ -85,10 +85,7 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     hyprland = {
-      type = "git";
-      url = "https://code.hyprland.org/hyprwm/Hyprland.git";
-      submodules = true;
-      rev = "3fb47372b79265ebdabeeefdad10359d5b18377a"; #v0.45.0
+      url = "github:hyprwm/Hyprland/v0.47.2?submodules=true";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.hyprutils.follows = "hyprutils";
     };
@@ -96,7 +93,6 @@
     hyprutils = {
       type = "git";
       url = "https://code.hyprland.org/hyprwm/hyprutils.git";
-      rev = "3c895da64b0eb19870142196fa48c07090b441c4";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -106,6 +102,12 @@
       rev = "3d63d9b129d5def270bc8a2471347e6f97274e2b";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.hyprutils.follows = "hyprutils";
+    };
+
+    plasma-manager = {
+      url = "github:nix-community/plasma-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
     };
 
     stylix.url = "github:danth/stylix";
