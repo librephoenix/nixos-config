@@ -15,6 +15,7 @@ in {
       openscad
       kicad
       cura-appimage
+      arduino-ide
     ];
   };
 }
