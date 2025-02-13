@@ -19,12 +19,11 @@ in {
       ".config/kdeglobals".enable = lib.mkForce false;
       ".config/qt5ct/qt5ct.conf".enable = lib.mkForce false;
     };
+    stylix.targets.kde.enable = true;
     programs.plasma = {
       enable = true;
       workspace = {
         clickItemTo = "select";
-        lookAndFeel = "org.kde.breezedark.desktop";
-        iconTheme = "Breeze-Dark";
         wallpaper = config.stylix.image;
       };
       shortcuts = {

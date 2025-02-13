@@ -38,7 +38,7 @@
       # style
       stylix = {
         enable = true;
-        theme = "eris";
+        theme = "spaceduck";
       };
     };
 
