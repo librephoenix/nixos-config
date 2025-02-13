@@ -11,8 +11,22 @@ in {
   imports = [ inputs.plasma-manager.homeManagerModules.plasma-manager ];
 
   config = lib.mkIf cfg.enable {
+    stylix.targets.gtk.enable = lib.mkForce false;
+    qt.enable = false;
+    home.file = {
+      ".config/qt5ct/colors/oomox-current.conf".enable = lib.mkForce false;
+      ".config/Trolltech.conf".enable = lib.mkForce false;
+      ".config/kdeglobals".enable = lib.mkForce false;
+      ".config/qt5ct/qt5ct.conf".enable = lib.mkForce false;
+    };
     programs.plasma = {
       enable = true;
+      workspace = {
+        clickItemTo = "select";
+        lookAndFeel = "org.kde.breezedark.desktop";
+        iconTheme = "Breeze-Dark";
+        wallpaper = config.stylix.image;
+      };
       shortcuts = {
         "ActivityManager"."switch-to-activity-080837e2-f10a-45f7-84cb-a3022c9dc5d4" = [ ];
         "KDE Keyboard Layout Switcher"."Switch to Last-Used Keyboard Layout" = "Meta+Alt+L";

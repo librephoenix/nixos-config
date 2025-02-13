@@ -10,6 +10,7 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
+    systemSettings.tlp.enable = lib.mkForce false;
     services.xserver.enable = true;
     services.xserver = {
       layout = "us";
@@ -19,7 +20,6 @@ in {
     services.xserver.displayManager.sddm.enable = true;
     services.xserver.displayManager.sddm.wayland.enable = true;
     services.xserver.desktopManager.plasma6.enable = true;
-  
   
     services.printing.enable = true;
   
@@ -38,6 +38,6 @@ in {
     ];
   
     virtualisation.waydroid.enable = true;
-    services.avahi.nssmdns.enable = true;
+    services.avahi.nssmdns4 = true;
   };
 }
