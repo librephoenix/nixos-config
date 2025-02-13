@@ -12,7 +12,7 @@ in {
 
   config = lib.mkIf cfg.enable {
     stylix.targets.gtk.enable = lib.mkForce false;
-    qt.enable = false;
+    qt.enable = lib.mkForce false;
     home.file = {
       ".config/qt5ct/colors/oomox-current.conf".enable = lib.mkForce false;
       ".config/Trolltech.conf".enable = lib.mkForce false;
