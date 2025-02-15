@@ -44,6 +44,13 @@
         theme = "ayu-dark";
       };
     };
+
+    users.users.emmet.description = "Emmet";
+    home-manager.users.emmet.userSettings = {
+      name = "Emmet";
+      email = "emmet@librephoenix.com";
+    };
+
   };
   
 }
