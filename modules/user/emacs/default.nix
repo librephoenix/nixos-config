@@ -70,5 +70,6 @@ in {
         template = builtins.readFile ./lib/doom-stylix-theme.el.mustache;
         extension = ".el";
     };
+    wayland.windowManager.hyprland.settings.exec-once = lib.optionals config.wayland.windowManager.hyprland.enable [ "emacs --daemon" ];
   };
 }
