@@ -14,7 +14,6 @@ in {
       vlc
       #yt-dlp_git # TODO disabled for debugging
       mpv mpc
-      ncmpcpp
       ffmpeg
     ];
 
@@ -31,12 +30,16 @@ in {
       '';
     };
 
-    programs.ncmpcpp.bindings = [
-      { key = "j"; command = "scroll_down"; }
-      { key = "k"; command = "scroll_up"; }
-      { key = "J"; command = [ "select_item" "scroll_down" ]; }
-      { key = "K"; command = [ "select_item" "scroll_up" ]; }
-    ];
+    programs.ncmpcpp = {
+      package = (pkgs.ncmpcpp.override { visualizerSupport = true; });
+      enable = true;
+      bindings = [
+        { key = "j"; command = "scroll_down"; }
+        { key = "k"; command = "scroll_up"; }
+        { key = "J"; command = [ "select_item" "scroll_down" ]; }
+        { key = "K"; command = [ "select_item" "scroll_up" ]; }
+      ];
+    };
 
   };
 }
