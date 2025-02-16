@@ -108,7 +108,7 @@ let
 
       </html>
     '';
-  qute-containers = (pkgs.callPackage ({ lib, stdenv, fetchFromGitHub, dmenuCmd ? config.userSettings.dmenuScripts.dmenuCmd, ... }:
+  qute-containers = ({ lib, stdenv, fetchFromGitHub, dmenuCmd ? config.userSettings.dmenuScripts.dmenuCmd, ... }:
                            let name = "qute-containers";
                                version = "unstable";
                                dmenu = dmenuCmd;
@@ -140,7 +140,7 @@ let
                                  license = lib.licenses.mit;
                                  maintainers = [];
                                };
-                             }));
+                             });
 in {
   options = {
     userSettings.qutebrowser = {
@@ -150,11 +150,11 @@ in {
 
   config = lib.mkIf cfg.enable {
     home.packages = [ pkgs.qutebrowser
-                      #qute-containers # TODO disabled for debugging
+                      (pkgs.callPackage qute-containers {}) # TODO disabled for debugging
                     ];
 
-#        home.file.".config/qutebrowser/userscripts/container-open".source = "${qute-containers}/bin/container-open";
-#    home.file.".config/qutebrowser/userscripts/containers_config".source = "${qute-containers}/bin/containers_config";
+    home.file.".config/qutebrowser/userscripts/container-open".source = "${(pkgs.callPackage qute-containers {})}/bin/container-open";
+    home.file.".config/qutebrowser/userscripts/containers_config".source = "${(pkgs.callPackage qute-containers {})}/bin/containers_config";
   
     programs.qutebrowser.enable = true;
     programs.qutebrowser.extraConfig = ''
