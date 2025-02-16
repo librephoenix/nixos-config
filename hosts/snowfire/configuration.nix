@@ -4,7 +4,7 @@
   config = {
     systemSettings = {
       # users
-      users = [ "emmet" ];
+      users = [ "emmet" "corrina" ];
       adminUsers = [ "emmet" ];
 
       # hardware
@@ -50,6 +50,12 @@
     home-manager.users.emmet.userSettings = {
       name = "Emmet";
       email = "emmet@librephoenix.com";
+    };
+    users.users.corrina.description = "Corrina";
+    home-manager.users.corrina.userSettings = {
+      name = "Corrina";
+      email = "";
+      stylix.theme = "spaceduck";
     };
 
   };
