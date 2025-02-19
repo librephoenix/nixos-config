@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 
 let
   cfg = config.userSettings.media;
@@ -12,8 +12,8 @@ in {
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
       vlc
-      #yt-dlp_git # TODO disabled for debugging
       mpv mpc
+      yt-dlp_git
       ffmpeg
     ];
 

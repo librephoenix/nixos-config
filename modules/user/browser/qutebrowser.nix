@@ -150,7 +150,7 @@ in {
 
   config = lib.mkIf cfg.enable {
     home.packages = [ pkgs.qutebrowser
-                      (pkgs.callPackage qute-containers {}) # TODO disabled for debugging
+                      (pkgs.callPackage qute-containers {})
                     ];
 
     home.file.".config/qutebrowser/userscripts/container-open".source = "${(pkgs.callPackage qute-containers {})}/bin/container-open";

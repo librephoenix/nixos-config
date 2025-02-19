@@ -22,7 +22,7 @@
           allowUnfree = true;
           allowUnfreePredicate = (_: true);
         };
-        overlays = [ inputs.rust-overlay.overlays.default inputs.emacs-overlay.overlays.default ];
+        overlays = [ inputs.rust-overlay.overlays.default inputs.emacs-overlay.overlays.default inputs.chaotic.overlays.default ];
       };
 
       pkgs-stable = import inputs.nixpkgs-stable {
@@ -58,7 +58,8 @@
 
               # home manager
               inputs.home-manager.nixosModules.home-manager
-              { home-manager.extraSpecialArgs = {
+              {
+                home-manager.extraSpecialArgs = {
                   inherit pkgs;
                   inherit pkgs-stable;
                   inherit inputs;
