@@ -24,6 +24,7 @@ in
       (lib.mkIf (cfg.variant == "server") pkgs.linuxPackages_cachyos-server)
       (lib.mkIf (cfg.variant == "hardened") pkgs.linuxPackages_cachyos-hardened)
     ];
+    services.scx.enable = true;
     boot.consoleLogLevel = 0;
   };
 }
