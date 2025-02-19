@@ -13,8 +13,8 @@ in {
     services.tlp = {
       enable = true;
       settings = {
-        CPU_SCALING_GOVERNOR_ON_AC = "performance";
-        CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
+        CPU_SCALING_GOVERNOR_ON_AC = "interactive";
+        CPU_SCALING_GOVERNOR_ON_BAT = "ondemand";
         CPU_ENERGY_PERF_POLICY_ON_BAT = "balance";
         CPU_ENERGY_PERF_POLICY_ON_AC = "balance_performance";
         CPU_DRIVER_OPMODE_ON_AC = "active";
@@ -25,10 +25,10 @@ in {
         RUNTIME_PM_ON_AC = "auto";
         RUNTIME_PM_ON_BAT = "auto";
 
-        CPU_MIN_PERF_ON_AC = 10;
-        CPU_MAX_PERF_ON_AC = 90;
-        CPU_MIN_PERF_ON_BAT = 10;
-        CPU_MAX_PERF_ON_BAT = 50;
+        CPU_MIN_PERF_ON_AC = 0;
+        CPU_MAX_PERF_ON_AC = 100;
+        CPU_MIN_PERF_ON_BAT = 0;
+        CPU_MAX_PERF_ON_BAT = 70;
 
         CPU_BOOST_ON_AC = 1;
         CPU_BOOST_ON_BAT = 0;
@@ -41,8 +41,8 @@ in {
         MEM_SLEEP_ON_AC = "deep";
         MEM_SLEEP_ON_BAT = "deep";
 
-        PLATFORM_PROFILE_ON_AC = "performance";
-        PLATFORM_PROFILE_ON_BAT = "low-power";
+        PLATFORM_PROFILE_ON_AC = "quiet";
+        PLATFORM_PROFILE_ON_BAT = "quiet";
 
         RADEON_DPM_STATE_ON_AC = "performance";
         RADEON_DPM_STATE_ON_BAT = "battery";
