@@ -18,68 +18,81 @@
   config = {
     environment.systemPackages = with pkgs; [
       attic-client
-      # TODO rewrite this from scratch without wrappers
-      #(pkgs.writeScriptBin "phoenix" ''
-      #  if [ "$1" = "sync" ]; then
-      #    if [ "$#" = 1 ]; then
-      #      ${config.systemSettings.dotfilesDir}/scripts/sync.sh;
-      #      exit 0;
-      #    fi
-      #  elif [ "$1" = "refresh" ]; then
-      #    if [ "$#" -gt 1 ]; then
-      #      echo "Warning: The 'refresh' command has no subcommands (no $2 subcommand)";
-      #    fi
-      #    ${config.systemSettings.dotfilesDir}/scripts/sync-posthook.sh;
-      #    exit 0;
-      #  elif [ "$1" = "update" ]; then
-      #    ${config.systemSettings.dotfilesDir}/scripts/update.sh "''${@:2}";
-      #    exit 0;
-      #  elif [ "$1" = "upgrade" ]; then
-      #    if [ "$#" -gt 1 ]; then
-      #      echo "Warning: The 'upgrade' command has no subcommands (no $2 subcommand)";
-      #    fi
-      #    ${config.systemSettings.dotfilesDir}/scripts/upgrade.sh;
-      #    exit 0;
-      #  elif [ "$1" = "pull" ]; then
-      #    if [ "$#" -gt 1 ]; then
-      #      echo "Warning: The 'pull' command has no subcommands (no $2 subcommand)";
-      #    fi
-      #    ${config.systemSettings.dotfilesDir}/scripts/pull.sh;
-      #    exit 0;
-      #  elif [ "$1" = "build" ]; then
-      #    if [ "$#" -gt 1 ]; then
-      #      echo "Warning: The 'pull' command has no subcommands (no $2 subcommand)";
-      #    fi
-      #    ${config.systemSettings.dotfilesDir}/scripts/build.sh;
-      #    exit 0;
-      #  elif [ "$1" = "harden" ]; then
-      #    if [ "$#" -gt 1 ]; then
-      #      echo "Warning: The 'harden' command has no subcommands (no $2 subcommand)";
-      #    fi
-      #    ${config.systemSettings.dotfilesDir}/scripts/harden.sh;
-      #    exit 0;
-      #  elif [ "$1" = "soften" ]; then
-      #    if [ "$#" -gt 1 ]; then
-      #      echo "Warning: The 'soften' command has no subcommands (no $2 subcommand)";
-      #    fi
-      #    ${config.systemSettings.dotfilesDir}/scripts/soften.sh;
-      #    exit 0;
-      #  elif [ "$1" = "gc" ]; then
-      #    if [ "$#" -gt 2 ]; then
-      #      echo "Warning: The 'gc' command only accepts one argument (collect_older_than)";
-      #    fi
-      #    if [ "$2" = "full" ]; then
-      #      sudo nix-collect-garbage --delete-old;
-      #      nix-collect-garbage --delete-old;
-      #    elif [ "$2" ]; then
-      #      sudo nix-collect-garbage --delete-older-than $2;
-      #      nix-collect-garbage --delete-older-than $2;
-      #    else
-      #      sudo nix-collect-garbage --delete-older-than 30d;
-      #      nix-collect-garbage --delete-older-than 30d;
-      #    fi
-      #  fi
-      #'')
+      (pkgs.writeScriptBin "phoenix" ''
+        if [[ $EUID -ne 0 ]]; then
+          echo "Error: This script must be run as root" 1>&2
+          exit 1
+        fi
+        if [ "$1" = "sync" ]; then
+          if [ "$#" = 1 ]; then
+            exit 0;
+          fi
+        elif [ "$1" = "update" ]; then
+          if [ "$#" -gt 1 ]; then
+            echo "Warning: The 'update' command has no subcommands (no $2 subcommand)";
+          fi
+          pushd ${config.systemSettings.dotfilesDir} &> /dev/null;
+          nix flake update "''${@:2}";
+          popd &> /dev/null;
+          exit 0;
+        elif [ "$1" = "pull" ]; then
+          if [ "$#" -gt 1 ]; then
+            echo "Warning: The 'pull' command has no subcommands (no $2 subcommand)";
+          fi
+          exit 0;
+          pushd ${config.systemSettings.dotfilesDir} &> /dev/null;
+          git stash;
+          git pull;
+          git stash apply;
+          popd &> /dev/null;
+        elif [ "$1" = "build" ]; then
+          if [ "$#" -gt 1 ]; then
+            echo "Warning: The 'build' command has no subcommands (no $2 subcommand)";
+          fi
+          pushd ${config.systemSettings.dotfilesDir} &> /dev/null;
+          nixos-rebuild build --flake .#snowfire;
+          attic push emmet ./result;
+          rm ./result;
+          nixos-rebuild build --flake .#polarias;
+          attic push emmet ./result;
+          rm ./result;
+          nixos-rebuild build --flake .#zenith;
+          attic push emmet ./result;
+          rm ./result;
+          nixos-rebuild build --flake .#stardust;
+          attic push emmet ./result;
+          rm ./result;
+          nixos-rebuild build --flake .#ori;
+          attic push emmet ./result;
+          rm ./result;
+          exit 0;
+        elif [ "$1" = "lock" ]; then
+          if [ "$#" -gt 1 ]; then
+            echo "Warning: The 'lock' command has no subcommands (no $2 subcommand)";
+          fi
+          chown -R 0:0 ${config.systemSettings.dotfilesDir};
+          chown -R 0:0 ${config.systemSettings.secretsFlakeDir};
+          exit 0;
+        elif [ "$1" = "unlock" ]; then
+          if [ "$#" -gt 1 ]; then
+            echo "Warning: The 'unlock' command has no subcommands (no $2 subcommand)";
+          fi
+          chown -R $DOAS_USER:users ${config.systemSettings.dotfilesDir};
+          chown -R $DOAS_USER:users ${config.systemSettings.secretsFlakeDir};
+          exit 0;
+        elif [ "$1" = "gc" ]; then
+          if [ "$#" -gt 2 ]; then
+            echo "Warning: The 'gc' command only accepts one argument (collect_older_than)";
+          fi
+          if [ "$2" = "full" ]; then
+            nix-collect-garbage --delete-old;
+          elif [ "$2" ]; then
+            nix-collect-garbage --delete-older-than $2;
+          else
+            nix-collect-garbage --delete-older-than 30d;
+          fi
+        fi
+      '')
     ];
   };
 }
