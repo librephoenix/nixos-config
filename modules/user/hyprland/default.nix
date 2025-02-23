@@ -60,7 +60,6 @@ in
           "iio-hyprland"
           "hyprprofile Default"
           "ydotoold"
-          "sleep 10 && nextcloud"
           "sleep 13 && caffeine"
           "nm-applet"
           "blueman-applet"
@@ -422,8 +421,6 @@ in
       xdg-utils
       wlsunset
       pavucontrol
-      pamixer
-      tesseract4
       (pkgs.writeScriptBin "workspace-on-monitor" ''
       #!/bin/sh
       hyprctl monitors -j | jq ".[$1] | .activeWorkspace.id"
@@ -442,15 +439,6 @@ in
         hyprctl dispatch exec "[workspace $workspace]" -- "$command" "$file";
       fi
       hyprctl dispatch togglespecialworkspace scratch_ranger
-      '')
-      (pkgs.writeScriptBin "screenshot-ocr" ''
-        #!/bin/sh
-        imgname="/tmp/screenshot-ocr-$(date +%Y%m%d%H%M%S).png"
-        txtname="/tmp/screenshot-ocr-$(date +%Y%m%d%H%M%S)"
-        txtfname=$txtname.txt
-        grim -g "$(slurp)" $imgname;
-        tesseract $imgname $txtname;
-        wl-copy -n < $txtfname
       '')
       (pkgs.writeScriptBin "sct" ''
         #!/bin/sh
