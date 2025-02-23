@@ -40,6 +40,10 @@
       bluetooth.enable = true;
     };
 
+    home.sessionVariables = lib.mkIf config.userSettings.hyprland.enable {
+      AQ_DRM_DEVICES = lib.mkForce "/dev/dri/card0";
+    };
+
     wayland.windowManager.hyprland = lib.mkIf config.userSettings.hyprland.enable {
       settings = {
         bind = [
@@ -59,6 +63,12 @@
           "HDMI-A-1,1920x1080,0x0,1"
         ];
 
+      };
+    };
+
+    services.fnott.settings = {
+      main = {
+        output = "eDP-1"; # notifications only on main display
       };
     };
   };

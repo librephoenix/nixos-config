@@ -10,7 +10,7 @@
       # hardware
       cachy.enable = true;
       bluetooth.enable = true;
-      tlp.enable = true;
+      tlp.enable = false; # intel doesn't work with tlp
       printing.enable = true;
 
       # software
@@ -43,6 +43,10 @@
         enable = true;
         theme = "alph";
       };
+    };
+
+    home-manager.users.emmet.userSettings = {
+      name = "Emmet";
     };
   };
   

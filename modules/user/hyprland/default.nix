@@ -29,7 +29,7 @@ in
       XDG_CURRENT_DESKTOP = "Hyprland";
       XDG_SESSION_DESKTOP = "Hyprland";
       XDG_SESSION_TYPE = "wayland";
-      WLR_DRM_DEVICES = "/dev/dri/card2:/dev/dri/card1";
+      AQ_DRM_DEVICES = "/dev/dri/card2:/dev/dri/card1";
       GDK_BACKEND = "wayland,x11,*";
       QT_QPA_PLATFORM = "wayland;xcb";
       QT_QPA_PLATFORMTHEME = lib.mkForce "qt5ct";
@@ -51,6 +51,9 @@ in
       package = inputs.hyprland.packages.${pkgs.system}.hyprland;
       plugins = [ ];
       settings = {
+        env = [
+          "AQ_DRM_DEVICES,${config,home.sessionVariables.AQ_DRM_DEVICES}"
+        ];
         exec-once = [
           "hyprctl setcursor ${config.gtk.cursorTheme.name} ${builtins.toString config.gtk.cursorTheme.size}"
           "hyprpaper"
