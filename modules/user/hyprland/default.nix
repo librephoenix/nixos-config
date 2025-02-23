@@ -52,7 +52,7 @@ in
       plugins = [ ];
       settings = {
         env = [
-          "AQ_DRM_DEVICES,${config,home.sessionVariables.AQ_DRM_DEVICES}"
+          "AQ_DRM_DEVICES,${config.home.sessionVariables.AQ_DRM_DEVICES}"
         ];
         exec-once = [
           "hyprctl setcursor ${config.gtk.cursorTheme.name} ${builtins.toString config.gtk.cursorTheme.size}"
