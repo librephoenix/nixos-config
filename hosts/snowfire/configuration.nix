@@ -5,7 +5,7 @@
     systemSettings = {
       # users
       users = [ "emmet" "corrina" ];
-      adminUsers = [ "emmet" ];
+      adminUsers = [ "emmet" "corrina" ];
 
       # hardware
       cachy.enable = true;

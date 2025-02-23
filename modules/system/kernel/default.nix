@@ -25,6 +25,7 @@ in
       (lib.mkIf (cfg.variant == "hardened") pkgs.linuxPackages_cachyos-hardened)
     ];
     services.scx.enable = true;
+    services.scx.scheduler = "scx_lavd";
     boot.consoleLogLevel = 0;
   };
 }
