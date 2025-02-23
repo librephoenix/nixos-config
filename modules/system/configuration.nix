@@ -2,6 +2,9 @@
 
 {
   config = {
+    # Packages
+    environment.systemPackages = with pkgs; [ git ];
+
     # Journal
     services.journald.extraConfig = "SystemMaxUse=50M\nSystemMaxFiles=5";
     services.journald.rateLimitBurst = 500;

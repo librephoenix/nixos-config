@@ -45,7 +45,7 @@ in {
               pname = "ultra-scroll";
               version = "0.2.0";
             
-              src = fetchGit {
+              src = builtins.fetchGit {
                 url = "https://github.com/jdtsmith/ultra-scroll.git";
                 rev = "64ad7be02e11317576498dabb15c92cf31e2c04c";
                 ref = "main";
