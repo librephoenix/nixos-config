@@ -16,6 +16,7 @@ in {
       syntaxHighlighting.enable = true;
       enableCompletion = true;
       shellAliases = {
+        phoenix = "sudo phoenix";
         ls = "eza --icons -l -T -L=1";
         cat = "bat";
         htop = "btm";

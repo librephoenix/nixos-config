@@ -24,27 +24,46 @@
           exit 1
         fi
         if [ "$1" = "sync" ]; then
-          if [ "$#" = 1 ]; then
-            exit 0;
-          fi
-        elif [ "$1" = "update" ]; then
           if [ "$#" -gt 1 ]; then
-            echo "Warning: The 'update' command has no subcommands (no $2 subcommand)";
+            echo "Warning: The 'sync' command has no subcommands (no $2 subcommand)";
           fi
+          chown -R 0:0 ${config.systemSettings.dotfilesDir};
+          chown -R 0:0 ${config.systemSettings.secretsFlakeDir};
+          pushd ${config.systemSettings.dotfilesDir} &> /dev/null;
+          nix flake update secrets;
+          nixos-rebuild switch;
+          exit 0;
+          popd &> /dev/null;
+        elif [ "$1" = "update" ]; then
           pushd ${config.systemSettings.dotfilesDir} &> /dev/null;
           nix flake update "''${@:2}";
           popd &> /dev/null;
+          if [ "$#" -eq 1 ]; then
+            pushd ${config.systemSettings.secretsFlakeDir} &> /dev/null;
+            nix flake update;
+            popd &> /dev/null;
+          fi
           exit 0;
         elif [ "$1" = "pull" ]; then
           if [ "$#" -gt 1 ]; then
             echo "Warning: The 'pull' command has no subcommands (no $2 subcommand)";
           fi
           exit 0;
+          chown -R $DOAS_USER:users ${config.systemSettings.dotfilesDir};
+          chown -R $DOAS_USER:users ${config.systemSettings.secretsFlakeDir};
           pushd ${config.systemSettings.dotfilesDir} &> /dev/null;
-          git stash;
-          git pull;
-          git stash apply;
+          sudo -u $DOAS_USER git stash;
+          sudo -u $DOAS_USER git pull;
+          sudo -u $DOAS_USER git stash apply;
           popd &> /dev/null;
+          pushd ${config.systemSettings.secretsFlakeDir} &> /dev/null;
+          sudo -u $DOAS_USER git stash;
+          sudo -u $DOAS_USER git pull;
+          sudo -u $DOAS_USER git stash apply;
+          popd &> /dev/null;
+          chown -R 0:0 ${config.systemSettings.dotfilesDir};
+          chown -R 0:0 ${config.systemSettings.secretsFlakeDir};
+        # TODO allow specifying host with $2 in build subcommand
         elif [ "$1" = "build" ]; then
           if [ "$#" -gt 1 ]; then
             echo "Warning: The 'build' command has no subcommands (no $2 subcommand)";
