@@ -12,7 +12,7 @@ in {
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
       obs-studio
-      kdenlive
+      kdePackages.kdenlive
       tenacity
       ardour
     ];
