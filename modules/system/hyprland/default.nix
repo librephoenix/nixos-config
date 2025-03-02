@@ -44,7 +44,7 @@ in
       wayland.enable = true;
       enableHidpi = true;
       theme = "chili";
-      package = pkgs.kdePackages.sddm;
+      package = pkgs.libsForQt5.sddm;
     };
 
     # xwayland
