@@ -29,7 +29,7 @@ in
       XDG_CURRENT_DESKTOP = "Hyprland";
       XDG_SESSION_DESKTOP = "Hyprland";
       XDG_SESSION_TYPE = "wayland";
-      AQ_DRM_DEVICES = "/dev/dri/card2:/dev/dri/card1";
+      AQ_DRM_DEVICES = "/dev/dri/card1:/dev/dri/card0";
       GDK_BACKEND = "wayland,x11,*";
       QT_QPA_PLATFORM = "wayland;xcb";
       QT_QPA_PLATFORMTHEME = lib.mkForce "qt5ct";
