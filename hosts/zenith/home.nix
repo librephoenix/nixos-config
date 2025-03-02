@@ -71,5 +71,10 @@
         output = "eDP-1"; # notifications only on main display
       };
     };
+
+    services.nextcloud-client = {
+      enable = lib.mkForce false;
+      startInBackground = lib.mkForce false;
+    };
   };
 }

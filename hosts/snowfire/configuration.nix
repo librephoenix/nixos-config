@@ -57,6 +57,10 @@
       email = "";
       stylix.theme = "spaceduck";
     };
+    home-manager.users.corrina.services.nextcloud-client = {
+      enable = lib.mkForce false;
+      startInBackground = lib.mkForce false;
+    };
 
   };
   
