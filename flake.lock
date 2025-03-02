@@ -1141,14 +1141,17 @@
         ]
       },
       "locked": {
-        "lastModified": 1740835758,
-        "narHash": "sha256-NZC9yaZtCrp3dXIXcHKyhKb4vhY2UIJZeQV50kWfCTw=",
-        "path": "/etc/nixos.secrets",
-        "type": "path"
+        "lastModified": 1740839257,
+        "narHash": "sha256-rHEB0JnNyXJ1lvxUZZiRYV5elNil5hXO1792Fl807zc=",
+        "ref": "refs/heads/main",
+        "rev": "53406ca30dca3007caf57fdc940506e64f605f17",
+        "revCount": 20,
+        "type": "git",
+        "url": "file://path:/etc/nixos.secrets"
       },
       "original": {
-        "path": "/etc/nixos.secrets",
-        "type": "path"
+        "type": "git",
+        "url": "file://path:/etc/nixos.secrets"
       }
     },
     "stylix": {

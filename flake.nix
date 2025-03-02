@@ -127,6 +127,7 @@
 
     secrets = {
       url = "path:/etc/nixos.secrets";
+      type = "git";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
