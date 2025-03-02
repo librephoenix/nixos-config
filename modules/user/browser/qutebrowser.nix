@@ -256,6 +256,9 @@ c.url.searchengines = {'DEFAULT': 'https://search.brave.com/search?q={}&source=w
 config.set('completion.open_categories',["searchengines","quickmarks","bookmarks"])
 
 config.set('downloads.location.directory', '~/Downloads')
+config.set('downloads.location.prompt', False)
+config.set('downloads.position', 'bottom')
+config.set('downloads.remove_finished', 5000)
 
 config.set('fileselect.handler', 'external')
 config.set('fileselect.single_file.command', ['kitty','-e','ranger','--choosefile={}'])
