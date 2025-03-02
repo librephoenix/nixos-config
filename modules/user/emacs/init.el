@@ -303,8 +303,8 @@
   (evil-define-key 'insert org-mode-map (kbd "<C-S-return>") '+org/insert-item-above)
   (evil-define-key 'motion org-mode-map (kbd "<C-return>") '+org/insert-item-below)
   (evil-define-key 'motion org-mode-map (kbd "<C-S-return>") '+org/insert-item-above)
-  (evil-define-key 'insert org-mode-map (kbd "<tab>") 'org-demote-subtree)
-  (evil-define-key 'insert org-mode-map (kbd "<backtab>") 'org-promote-subtree)
+  (evil-define-key 'insert org-mode-map (kbd "<tab>") '+org-indent-maybe-h)
+  (evil-define-key 'insert org-mode-map (kbd "<backtab>") '+org-reverse-indent-maybe-h)
   (evil-define-key 'motion org-mode-map (kbd "<leader>mll") 'org-insert-link)
   (evil-define-key 'motion org-mode-map (kbd "<leader>mt") 'org-todo)
   
@@ -806,7 +806,69 @@
   (defun +org/insert-item-above (count)
     "Inserts a new heading, table cell or item above the current one."
     (interactive "p")
-    (dotimes (_ count) (+org--insert-item 'above))))
+    (dotimes (_ count) (+org--insert-item 'above)))
+
+  ;;;###autoload
+  (defun +org-indent-maybe-h ()
+    "Indent the current item (header or item), if possible.
+    Made for `org-tab-first-hook' in evil-mode."
+    (interactive)
+    (cond ((not (and (bound-and-true-p evil-local-mode)
+                     (evil-insert-state-p)))
+           nil)
+          ((and (bound-and-true-p org-cdlatex-mode)
+                (or (org-inside-LaTeX-fragment-p)
+                    (org-inside-latex-macro-p)))
+           nil)
+          ((org-at-item-p)
+           (org-indent-item-tree)
+           t)
+          ((org-at-heading-p)
+           (ignore-errors
+            (org-demote)
+           t)
+          ((org-in-src-block-p t)
+           (save-window-excursion
+             (org-babel-do-in-edit-buffer
+              (call-interactively #'indent-for-tab-command)))
+           t)
+          ((and (save-excursion
+                  (skip-chars-backward " \t")
+                  (bolp))
+                (org-in-subtree-not-table-p))
+           (call-interactively #'tab-to-tab-stop)
+           t)))
+
+  ;;;###autoload
+  (defun +org-reverse-indent-maybe-h ()
+    "Indent the current item (header or item), if possible.
+    Made for `org-tab-first-hook' in evil-mode."
+    (interactive)
+    (cond ((not (and (bound-and-true-p evil-local-mode)
+                     (evil-insert-state-p)))
+           nil)
+          ((and (bound-and-true-p org-cdlatex-mode)
+                (or (org-inside-LaTeX-fragment-p)
+                    (org-inside-latex-macro-p)))
+           nil)
+          ((org-at-item-p)
+            (org-outdent-item-tree)
+           t)
+          ((org-at-heading-p)
+           (ignore-errors
+            (org-promote)
+           t)
+          ((org-in-src-block-p t)
+           (save-window-excursion
+             (org-babel-do-in-edit-buffer
+              (call-interactively #'indent-for-tab-command)))
+           t)
+          ((and (save-excursion
+                  (skip-chars-backward " \t")
+                  (bolp))
+                (org-in-subtree-not-table-p))
+           (call-interactively #'tab-to-tab-stop)
+           t))))
 
 (use-package org-roam
   :after (org)
