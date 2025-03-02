@@ -30,10 +30,9 @@
           chown -R 0:0 ${config.systemSettings.dotfilesDir};
           chown -R 0:0 ${config.systemSettings.secretsFlakeDir};
           pushd ${config.systemSettings.dotfilesDir} &> /dev/null;
-          nix flake update secrets;
           nixos-rebuild switch;
-          exit 0;
           popd &> /dev/null;
+          exit 0;
         elif [ "$1" = "update" ]; then
           pushd ${config.systemSettings.dotfilesDir} &> /dev/null;
           nix flake update "''${@:2}";
@@ -48,7 +47,6 @@
           if [ "$#" -gt 1 ]; then
             echo "Warning: The 'pull' command has no subcommands (no $2 subcommand)";
           fi
-          exit 0;
           chown -R $DOAS_USER:users ${config.systemSettings.dotfilesDir};
           chown -R $DOAS_USER:users ${config.systemSettings.secretsFlakeDir};
           pushd ${config.systemSettings.dotfilesDir} &> /dev/null;
@@ -63,6 +61,7 @@
           popd &> /dev/null;
           chown -R 0:0 ${config.systemSettings.dotfilesDir};
           chown -R 0:0 ${config.systemSettings.secretsFlakeDir};
+          exit 0;
         # TODO allow specifying host with $2 in build subcommand
         elif [ "$1" = "build" ]; then
           if [ "$#" -gt 1 ]; then
@@ -110,6 +109,7 @@
           else
             nix-collect-garbage --delete-older-than 30d;
           fi
+          exit 0;
         fi
       '')
     ];
