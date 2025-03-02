@@ -41,6 +41,10 @@
       bluetooth.enable = true;
     };
 
+    home.sessionVariables = lib.mkIf config.userSettings.hyprland.enable {
+      AQ_DRM_DEVICES = lib.mkForce "/dev/dri/card0:/dev/dri/card1";
+    };
+
     wayland.windowManager.hyprland = lib.mkIf config.userSettings.hyprland.enable {
       settings = {
         monitor = [
