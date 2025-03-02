@@ -159,18 +159,10 @@
   (setq magit-display-buffer-function 'magit-display-buffer-fullframe-status-v1)
   (setq magit-bury-buffer-function 'magit-restore-window-configuration)
   (define-key magit-mode-map (kbd "SPC") nil)
-  (add-hook 'git-commit-mode-hook 'evil-insert-state))
+  (add-hook 'git-commit-mode-hook 'evil-insert-state)
+  :custom (magit-format-file-function #'magit-format-file-nerd-icons))
 
 (use-package git-timemachine)
-
-(use-package magit-file-icons
-  :after (magit nerd-icons)
-  :init
-  (magit-file-icons-mode 1)
-  :custom
-  (magit-file-icons-enable-diff-file-section-icons t)
-  (magit-file-icons-enable-untracked-icons t)
-  (magit-file-icons-enable-diffstat-icons t))
 
 (use-package magit-todos
   :after (magit)
@@ -837,7 +829,7 @@
                   (bolp))
                 (org-in-subtree-not-table-p))
            (call-interactively #'tab-to-tab-stop)
-           t)))
+           t))))
 
   ;;;###autoload
   (defun +org-reverse-indent-maybe-h ()
@@ -868,7 +860,7 @@
                   (bolp))
                 (org-in-subtree-not-table-p))
            (call-interactively #'tab-to-tab-stop)
-           t))))
+           t)))))
 
 (use-package org-roam
   :after (org)

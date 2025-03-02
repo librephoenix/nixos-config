@@ -28,7 +28,7 @@ in {
           treemacs-evil treemacs-nerd-icons
           treesit-grammars.with-all-grammars
           git-timemachine wgrep
-          magit magit-file-icons magit-todos
+          magit magit-todos
           undo-fu undo-fu-session
           org-roam org-node org-node-fakeroam
           vterm vterm-toggle sudo-edit
