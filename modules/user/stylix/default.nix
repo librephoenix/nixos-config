@@ -33,20 +33,20 @@ in
     stylix.fonts = {
       # TODO abstract fonts into an option
       monospace = {
-        name = "FiraCode Nerd Font";
-        package = pkgs.nerd-fonts.fira-code;
+        name = "Source Code Pro";
+        package = pkgs.source-code-pro;
       };
       serif = {
-        name = "FiraCode Nerd Font";
-        package = pkgs.nerd-fonts.fira-code;
+        name = "Source Serif Pro";
+        package = pkgs.source-serif-pro;
       };
       sansSerif = {
-        name = "FiraCode Nerd Font";
-        package = pkgs.nerd-fonts.fira-code;
+        name = "Source Sans Pro";
+        package = pkgs.source-sans-pro;
       };
       emoji = {
-        name = "Noto Color Emoji";
-        package = pkgs.noto-fonts-emoji-blob-bin;
+        name = "Twitter Color Emoji";
+        package = pkgs.twitter-color-emoji;
       };
       sizes = {
         terminal = 18;

@@ -13,7 +13,7 @@ in {
     home.packages = with pkgs; [
       (pkgs.emacsWithPackagesFromUsePackage {
         config = ./init.el;
-        package = pkgs.emacs-pgtk;
+        package = pkgs.emacs-git-pgtk;
         alwaysEnsure = false;
         extraEmacsPackages = epkgs: with epkgs; [
           org-modern olivetti

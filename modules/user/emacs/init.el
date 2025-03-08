@@ -413,16 +413,7 @@
   (setq doom-themes-enable-bold t
         doom-themes-enable-italic t
         custom-theme-directory "~/.config/emacs/themes")
-  (load-theme 'doom-stylix t)
-  ;; Heading styles
-  (set-face-attribute 'outline-1 nil :height 195 :foreground (nth 1 (nth 14 doom-themes--colors)))
-  (set-face-attribute 'outline-2 nil :height 188 :foreground (nth 1 (nth 15 doom-themes--colors)))
-  (set-face-attribute 'outline-3 nil :height 180 :foreground (nth 1 (nth 19 doom-themes--colors)))
-  (set-face-attribute 'outline-4 nil :height 173 :foreground (nth 1 (nth 23 doom-themes--colors)))
-  (set-face-attribute 'outline-5 nil :height 173 :foreground (nth 1 (nth 24 doom-themes--colors)))
-  (set-face-attribute 'outline-6 nil :height 165 :foreground (nth 1 (nth 16 doom-themes--colors)))
-  (set-face-attribute 'outline-7 nil :height 160 :foreground (nth 1 (nth 18 doom-themes--colors)))
-  (set-face-attribute 'outline-8 nil :height 155 :foreground (nth 1 (nth 11 doom-themes--colors))))
+  (load-theme 'doom-stylix t))
 
 (use-package doom-modeline
   :init (doom-modeline-mode 1)
