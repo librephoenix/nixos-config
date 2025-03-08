@@ -17,57 +17,25 @@
     enable32Bit = lib.mkDefault true;
   };
 
-  # my stupid usb hub crashes systemct suspend half of the time now
-  # https://wiki.archlinux.org/title/Power_management/Suspend_and_hibernate#Sleep_hooks
-  systemd.services.root-suspend = {
-    enable = true;
-    description = "Root systemd suspend prehook";
-    unitConfig = {
-      Description = "Root systemd suspend prehook";
-      Before = "sleep.target";
-    };
-    serviceConfig = {
-      Type = "simple";
-      ExecStart = "${pkgs.uhubctl}/bin/uhubctl -a off";
-    };
-    wantedBy = [ "sleep.target" ];
-  };
-  systemd.services.root-resume = {
-    enable = true;
-    description = "Root systemd suspend posthook";
-    unitConfig = {
-      Description = "Root systemd suspend posthook";
-      After = "suspend.target";
-    };
-    serviceConfig = {
-      Type = "simple";
-      ExecStart = "${pkgs.uhubctl}/bin/uhubctl -a on";
-    };
-    wantedBy = [ "suspend.target" ];
-  };
-
-  boot.initrd.availableKernelModules = [ "xhci_pci" "nvme" "rtsx_pci_sdmmc" "hid_generic" ];
+  boot.initrd.availableKernelModules = [ "xhci_pci" "nvme" "usbhid" "usb_storage" "sd_mod" "rtsx_pci_sdmmc" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/3618968f-1717-4c8e-b0d8-2556d18d2c4b";
+    { device = "/dev/disk/by-uuid/9982bd44-cfaa-4959-8e30-3341f728c29a";
       fsType = "ext4";
     };
 
-  boot.initrd.luks.devices."luks-06fa6e93-9bde-4703-830e-7ee1a7292a19".device = "/dev/disk/by-uuid/06fa6e93-9bde-4703-830e-7ee1a7292a19";
+  boot.initrd.luks.devices."luks-3165c377-6b98-498c-bd86-20a8fc530e9d".device = "/dev/disk/by-uuid/3165c377-6b98-498c-bd86-20a8fc530e9d";
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/E1BC-04BB";
+    { device = "/dev/disk/by-uuid/4DA8-3F95";
       fsType = "vfat";
       options = [ "fmask=0077" "dmask=0077" ];
     };
 
-  swapDevices =
-    [ { device = "/dev/disk/by-uuid/d52b7852-f35f-4325-9adc-24aa5d3da2a3";
-      }
-    ];
+  swapDevices = [ ];
 
   services.pipewire.enable = lib.mkForce false;
   hardware.pulseaudio.enable = true;

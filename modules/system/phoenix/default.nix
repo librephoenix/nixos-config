@@ -71,7 +71,7 @@
           nixos-rebuild build --flake .#snowfire;
           attic push emmet ./result;
           rm ./result;
-          nixos-rebuild build --flake .#polarias;
+          nixos-rebuild build --flake .#duskfall;
           attic push emmet ./result;
           rm ./result;
           nixos-rebuild build --flake .#zenith;

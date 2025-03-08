@@ -17,7 +17,7 @@
       flatpak.enable = false;
       virtualization = {
         docker.enable = true;
-        virtualMachines.enable = true;
+        virtualMachines.enable = false;
       };
 
       # wm
