@@ -557,18 +557,12 @@ appearance:
         ignore_dbus_inhibit = false
       }
 
-      #listener {
-      #  timeout = 150 # in seconds
-      #  on-timeout = hyprctl dispatch dpms off
-      #  on-resume = hyprctl dispatch dpms on
-      #}
       listener {
         timeout = 165 # in seconds
         on-timeout = loginctl lock-session
       }
       listener {
         timeout = 180 # in seconds
-        #timeout = 5400 # in seconds
         on-timeout = systemctl suspend
         on-resume = hyprctl dispatch dpms on
       }

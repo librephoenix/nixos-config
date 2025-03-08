@@ -46,6 +46,10 @@
 
     wayland.windowManager.hyprland = lib.mkIf config.userSettings.hyprland.enable {
       settings = {
+        animations = {
+          enabled = "no";
+        };
+
         bind = [
           ''SUPER,E,exec,if hyprctl clients | grep qutegmail; then echo "scratch_mail respawn not needed"; else qutebrowser --qt-flag enable-gpu-rasterization --qt-flag enable-native-gpu-memory-buffers --qt-flag num-raster-threads=4 -B ~/.browser/Teaching :'set input.mode_override passthrough -u mail.google.com' :'set window.title_format qutegmail' :'set tabs.show never' :'set statusbar.show never' https://mail.google.com; fi''
           "SUPER,E,togglespecialworkspace,scratch_email"
@@ -76,5 +80,24 @@
       enable = lib.mkForce false;
       startInBackground = lib.mkForce false;
     };
+
+    home.file.".config/hypr/hypridle.conf".text = lib.mkForce ''
+      general {
+        lock_cmd = pgrep hyprlock || hyprlock
+        before_sleep_cmd = loginctl lock-session
+        ignore_dbus_inhibit = false
+      }
+
+      listener {
+        timeout = 3000 # in seconds
+        on-timeout = loginctl lock-session
+      }
+      listener {
+        timeout = 3015 # in seconds
+        on-timeout = systemctl suspend
+        on-resume = hyprctl dispatch dpms on
+      }
+    '';
+
   };
 }

@@ -41,7 +41,7 @@
       # style
       stylix = {
         enable = true;
-        theme = "ayu-dark";
+        theme = "io";
       };
     };
 
