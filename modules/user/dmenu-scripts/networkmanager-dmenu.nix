@@ -5,7 +5,7 @@ let
   dmenuCmd = cfg.dmenuCmd;
 in {
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs; [ networkmanager_dmenu networkmanagerapplet ];
+    home.packages = with pkgs; [ networkmanager_dmenu ];
 
     home.file.".config/networkmanager-dmenu/config.ini".text = ''
       [dmenu]

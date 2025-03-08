@@ -56,15 +56,11 @@ in
         exec-once = [
           "hyprctl setcursor ${config.gtk.cursorTheme.name} ${builtins.toString config.gtk.cursorTheme.size}"
           "hyprpaper"
-          "eww open-many bar:first bar:second bar:third --arg first:monitor=0 --arg second:monitor=1 --arg third:monitor=2"
+          "ashell"
           "hypridle"
-          "hyprland-monitor-attached ~/.local/bin/eww-reload-bars.sh"
           "iio-hyprland"
           "hyprprofile Default"
           "ydotoold"
-          "sleep 13 && caffeine"
-          "nm-applet"
-          "blueman-applet"
           "GOMAXPROCS=1 syncthing --no-browser"
           "STEAM_FRAME_FORCE_CLOSE=1 steam -silent"
           "protonmail-bridge --noninteractive"
@@ -347,18 +343,18 @@ in
 
         layerrule = [
           "blur,waybar"
-          "blur,eww"
+          "blur,ashell"
           "blur,launcher # fuzzel"
           "blur,~nwggrid"
           "blur,gtk-layer-shell"
           "xray 1,waybar"
-          "xray 1,eww"
+          "xray 1,ashell"
           "xray 1,~nwggrid"
           "xray 1,gtk-layer-shell"
           "ignorezero, gtk-layer-shell"
-          "ignorezero, eww"
+          "ignorezero, ashell"
           "animation fade,~nwggrid"
-          "animation popin 80%, eww"
+          "animation popin 80%, ashell"
         ];
 
         blurls = [
@@ -380,12 +376,11 @@ in
 
     home.packages = (with pkgs; [
       hyprland-monitor-attached
-      caffeine-ng
       alacritty
       kitty
       killall
       polkit_gnome
-      eww
+      (inputs.ashell.defaultPackage.${system})
       nwg-launchers
       papirus-icon-theme
       (pkgs.writeScriptBin "nwggrid-wrapper" ''
@@ -503,11 +498,58 @@ in
         then echo "Shouldn't suspend"; sleep 10; else echo "Should suspend"; systemctl suspend; fi
       '')
     ]);
-    home.file.".local/bin/eww-reload-bars.sh" = {
-      text = ''#!/bin/sh
-               eww open-many bar:first bar:second bar:third --arg first:monitor=0 --arg second:monitor=1 --arg third:monitor=2;'';
-      executable = true;
-    };
+    home.file.".config/ashell.yml".text = ''
+outputs: All
+position: Top
+modules:
+  left:
+    - [ AppLauncher, SystemInfo ]
+  center:
+    - Workspaces
+  right:
+    - [Clock, Privacy, Settings, Tray]
+appLauncherCmd: "nwggrid-wrapper" # optional, default None
+truncateTitleAfterLength: 150 # optional, default 150
+workspaces:
+  visibilityMode: MonitorSpecific # optional, default All
+  enableWorkspaceFilling: true # optional, default false
+system:
+  cpuWarnThreshold: 80 # cpu indicator warning level (default 60)
+  cpuAlertThreshold: 95 # cpu indicator alert level (default 80)
+  memWarnThreshold: 50 # mem indicator warning level (default 70)
+  memAlertThreshold: 75 # mem indicator alert level (default 85)
+  tempWarnThreshold: 90 # temperature indicator warning level (default 60)
+  tempAlertThreshold: 95 # temperature indicator alert level (default 80)
+clock:
+  format: "%a %d %b %R" # optional, default: %a %d %b %R
+mediaPlayer:
+  maxTitleLength: 100 # optional, default 100
+settings:
+  lockCmd: "hyprlock &" # optional, default None
+  audioSinksMoreCmd: "pavucontrol -t 3" # optional default None
+  audioSourcesMoreCmd: "pavucontrol -t 4" # optional, default None
+  wifiMoreCmd: "nm-connection-editor" # optional, default None
+  vpnMoreCmd: "nm-connection-editor" # optional, default None
+  bluetoothMoreCmd: "blueman-manager" # optional, default None
+appearance:
+  backgroundColor: "#${config.lib.stylix.colors.base00}88" # used as a base background color for header module button
+  primaryColor: "#${config.lib.stylix.colors.base0B}" # used as a accent color
+  secondaryColor: "#${config.lib.stylix.colors.base01}" # used for darker background color
+  successColor: "#${config.lib.stylix.colors.base0A}" # used for success message or happy state
+  dangerColor: "#${config.lib.stylix.colors.base08}" # used for danger message or danger state (the weak version is used for the warning state
+  textColor: "#${config.lib.stylix.colors.base07}" # base default text color
+  # this is a list of color that will be used in the workspace module (one color for each monitor)
+  workspaceColors:
+    - "#${config.lib.stylix.colors.base0B}"
+    - "#${config.lib.stylix.colors.base0B}"
+  # this is a list of color that will be used in the workspace module
+  # for the special workspace (one color for each monitor)
+  # optional, default None
+  # without a value the workspaceColors list will be used
+  specialWorkspaceColors:
+    - "#${config.lib.stylix.colors.base0B}"
+    - "#${config.lib.stylix.colors.base0B}"
+    '';
     home.file.".config/hypr/hypridle.conf".text = ''
       general {
         lock_cmd = pgrep hyprlock || hyprlock
@@ -606,70 +648,10 @@ in
     '';
     services.swayosd.enable = true;
     services.swayosd.topMargin = 0.5;
-    services.cbatticon = {
-      enable = true;
-      iconType = "symbolic";
-    };
-    home.file.".config/eww/eww.yuck".source = ./eww/eww.yuck;
-    home.file = {
-      ".config/eww/eww.scss".source = config.lib.stylix.colors {
-        template = builtins.readFile ./eww/eww.scss.mustache;
-        extension = ".scss";
-      };
-    };
-    home.file.".config/nwg-launchers/nwggrid/style.css".text = ''
-      button, label, image {
-          background: none;
-          border-style: none;
-          box-shadow: none;
-          color: #${config.lib.stylix.colors.base07};
-          font-size: 20px;
-      }
-
-      button {
-          padding: 5px;
-          margin: 5px;
-          text-shadow: none;
-      }
-
-      button:hover {
-          background-color: rgba(${config.lib.stylix.colors.base07-rgb-r},${config.lib.stylix.colors.base07-rgb-g},${config.lib.stylix.colors.base07-rgb-b},0.15);
-      }
-
-      button:focus {
-          box-shadow: 0 0 10px;
-      }
-
-      button:checked {
-          background-color: rgba(${config.lib.stylix.colors.base07-rgb-r},${config.lib.stylix.colors.base07-rgb-g},${config.lib.stylix.colors.base07-rgb-b},0.15);
-      }
-
-      #searchbox {
-          background: none;
-          border-color: #${config.lib.stylix.colors.base07};
-          color: #${config.lib.stylix.colors.base07};
-          margin-top: 20px;
-          margin-bottom: 20px;
-          font-size: 20px;
-      }
-
-      #separator {
-          background-color: rgba(${config.lib.stylix.colors.base00-rgb-r},${config.lib.stylix.colors.base00-rgb-g},${config.lib.stylix.colors.base00-rgb-b},0.55);
-          color: #${config.lib.stylix.colors.base07};
-          margin-left: 500px;
-          margin-right: 500px;
-          margin-top: 10px;
-          margin-bottom: 10px
-      }
-
-      #description {
-          margin-bottom: 20px
-      }
-    '';
     home.file.".config/nwg-launchers/nwggrid/terminal".text = "alacritty -e";
 
     services.udiskie.enable = true;
-    services.udiskie.tray = "always";
+    services.udiskie.tray = "never";
     programs.fuzzel.enable = true;
     programs.fuzzel.package = pkgs.fuzzel;
     programs.fuzzel.settings = {
