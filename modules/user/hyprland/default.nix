@@ -89,6 +89,9 @@ in
         };
 
         decoration = {
+          shadow = {
+            enabled = true;
+          };
           rounding = 8;
           dim_special = 0.0;
           blur = {
@@ -209,6 +212,7 @@ in
           "SUPER,C,exec,wl-copy $(hyprpicker)"
           "SUPERSHIFT,S,exec,systemctl suspend"
           "SUPERCTRL,L,exec,loginctl lock-session"
+          "SUPERCTRL,G,exec,hyprgamemode"
           "SUPER,H,movefocus,l"
           "SUPER,J,movefocus,d"
           "SUPER,K,movefocus,u"
@@ -392,6 +396,31 @@ in
         else
           GDK_PIXBUF_MODULE_FILE=${pkgs.librsvg}/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache nwggrid-server -layer-shell-exclusive-zone -1 -g adw-gtk3 -o 0.55 -b ${config.lib.stylix.colors.base00}
         fi
+      '')
+      (pkgs.writeScriptBin "hyprgamemode" ''
+        #!/bin/sh
+        HYPRGAMEMODE=$(hyprctl getoption animations:enabled | awk 'NR==1{print $2}')
+        if [ "$HYPRGAMEMODE" = 1 ] ; then
+            hyprctl --batch "\
+                keyword animations:enabled 0;\
+                keyword decoration:shadow:enabled 0;\
+                keyword decoration:blur:enabled 0;\
+                keyword general:gaps_in 0;\
+                keyword general:gaps_out 0;\
+                keyword general:border_size 1;\
+                keyword decoration:rounding 0"
+            exit
+        else
+            hyprctl --batch "\
+                keyword animations:enabled ${builtins.toString config.wayland.windowManager.hyprland.settings.animations.enabled};\
+                keyword decoration:shadow:enabled ${builtins.toString config.wayland.windowManager.hyprland.settings.decoration.shadow.enabled};\
+                keyword decoration:blur:enabled ${builtins.toString config.wayland.windowManager.hyprland.settings.decoration.blur.enabled};\
+                keyword general:gaps_in ${builtins.toString config.wayland.windowManager.hyprland.settings.general.gaps_in};\
+                keyword general:gaps_out ${builtins.toString config.wayland.windowManager.hyprland.settings.general.gaps_out};\
+                keyword general:border_size ${builtins.toString config.wayland.windowManager.hyprland.settings.general.border_size};\
+                keyword decoration:rounding ${builtins.toString config.wayland.windowManager.hyprland.settings.decoration.rounding}"
+        fi
+        hyprctl reload
       '')
       libva-utils
       libinput-gestures
