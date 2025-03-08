@@ -16,7 +16,6 @@ in
   config = lib.mkIf cfg.enable {
     userSettings.alacritty.enable = true;
     userSettings.kitty.enable = true;
-    userSettings.japanese.enable = true;
     userSettings.dmenuScripts = {
       enable = true;
       dmenuCmd = "fuzzel -d";

@@ -18,7 +18,7 @@ in {
       ];
     };
     home.sessionVariables = {
-      GTK_IM_MODULE = lib.mkForce "wayland";
+      GTK_IM_MODULE = lib.mkForce "";
     };
     home.file.".config/fcitx5/config".text = ''
       [Hotkey]

@@ -47,7 +47,7 @@
     wayland.windowManager.hyprland = lib.mkIf config.userSettings.hyprland.enable {
       settings = {
         animations = {
-          enabled = "no";
+          enabled = lib.mkForce "no";
         };
 
         bind = [
