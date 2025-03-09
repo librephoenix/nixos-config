@@ -51,6 +51,11 @@
       email = "emmet@librephoenix.com";
     };
 
+    environment.systemPackages = with pkgs; [
+      libwacom
+    ];
+    services.xserver.wacom.enable = true;
+
   };
   
 }

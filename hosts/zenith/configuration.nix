@@ -48,6 +48,12 @@
     home-manager.users.emmet.userSettings = {
       name = "Emmet";
     };
+
+    environment.systemPackages = with pkgs; [
+      libwacom
+    ];
+    services.xserver.wacom.enable = true;
+
   };
   
 }

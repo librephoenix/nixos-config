@@ -50,6 +50,14 @@
           enabled = lib.mkForce "no";
         };
 
+        decoration = {
+          shadow.enabled = lib.mkForce false;
+          blur = {
+            size = lib.mkForce 10;
+            passes = lib.mkForce 1;
+          };
+        };
+
         bind = [
           ''SUPER,E,exec,if hyprctl clients | grep qutegmail; then echo "scratch_mail respawn not needed"; else qutebrowser --qt-flag enable-gpu-rasterization --qt-flag enable-native-gpu-memory-buffers --qt-flag num-raster-threads=4 -B ~/.browser/Teaching :'set input.mode_override passthrough -u mail.google.com' :'set window.title_format qutegmail' :'set tabs.show never' :'set statusbar.show never' https://mail.google.com; fi''
           "SUPER,E,togglespecialworkspace,scratch_email"

@@ -47,13 +47,25 @@
           enabled = lib.mkForce "no";
         };
 
+        decoration = {
+          shadow.enabled = lib.mkForce false;
+          blur = {
+            size = lib.mkForce 10;
+            passes = lib.mkForce 1;
+          };
+        };
+
+        input = {
+          repeat_delay = lib.mkForce 850;
+          repeat_rate = lib.mkForce 80;
+        };
+
         monitor = [
-          "eDP-1,1920x1080@60,0x0,1"
+          "eDP-1,1920x1080@60,0x0,1.25"
         ];
 
       };
     };
-
 
   };
 }
