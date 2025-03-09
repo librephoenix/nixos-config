@@ -395,6 +395,7 @@ in
         #!/bin/sh
         HYPRGAMEMODE=$(hyprctl getoption decoration:blur:enabled | awk 'NR==1{print $2}')
         if [ "$HYPRGAMEMODE" = 1 ] ; then
+            sync;
             hyprctl --batch "\
                 keyword animations:enabled 0;\
                 keyword decoration:shadow:enabled 0;\
@@ -402,8 +403,16 @@ in
                 keyword general:gaps_in 0;\
                 keyword general:gaps_out 0;\
                 keyword general:border_size 1;\
-                keyword decoration:rounding 0"
-            exit
+                keyword decoration:rounding 0";
+            pkill -STOP electron;
+            pkill -STOP syncthing;
+            pkill -STOP emacs;
+            pkill -STOP emacsclient;
+            systemctl --user stop mpd;
+            systemctl --user stop nextcloud-client;
+            pkill ashell;
+            pkill hypridle;
+            exit;
         else
             hyprctl --batch "\
                 keyword animations:enabled ${builtins.toString config.wayland.windowManager.hyprland.settings.animations.enabled};\
@@ -412,9 +421,17 @@ in
                 keyword general:gaps_in ${builtins.toString config.wayland.windowManager.hyprland.settings.general.gaps_in};\
                 keyword general:gaps_out ${builtins.toString config.wayland.windowManager.hyprland.settings.general.gaps_out};\
                 keyword general:border_size ${builtins.toString config.wayland.windowManager.hyprland.settings.general.border_size};\
-                keyword decoration:rounding ${builtins.toString config.wayland.windowManager.hyprland.settings.decoration.rounding}"
+                keyword decoration:rounding ${builtins.toString config.wayland.windowManager.hyprland.settings.decoration.rounding}";
+            pkill -CONT electron;
+            pkill -CONT syncthing;
+            pkill -CONT emacs;
+            pkill -CONT emacsclient;
+            systemctl --user start mpd;
+            systemctl --user start nextcloud-client;
+            ashell & disown;
+            hypridle & disown;
+            exit;
         fi
-        hyprctl reload
       '')
       libva-utils
       libinput-gestures
