@@ -24,7 +24,7 @@ in {
       ];
     programs.gamemode.enable = true;
     programs.gamescope.enable = true;
-    programs.gamescope.caSysNice = true;
+    programs.gamescope.capSysNice = true;
     programs.steam.gamescopeSession.enable = true;
     systemSettings.bluetooth.enable = true;
     hardware.bluetooth = {
