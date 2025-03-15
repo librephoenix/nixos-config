@@ -47,6 +47,8 @@ in
       package = pkgs.libsForQt5.sddm;
     };
 
+    services.upower.enable = true;
+
     # Define systemd service to run on boot to load avatars for sddm
     systemd.services."sddm-avatar" = {
       description = "Service to copy or update users Avatars at startup.";
