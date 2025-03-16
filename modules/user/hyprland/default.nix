@@ -61,7 +61,6 @@ in
           "hyprprofile Default"
           "ydotoold"
           "GOMAXPROCS=1 syncthing --no-browser"
-          "STEAM_FRAME_FORCE_CLOSE=1 steam -silent"
           "protonmail-bridge --noninteractive"
           "sleep 5 && libinput-gestures"
           "obs-notification-mute-daemon"

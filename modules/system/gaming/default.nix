@@ -12,6 +12,22 @@ in {
 
   config = lib.mkIf cfg.enable {
     nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [ "steam" "steam-unwrapped" ];
+    nixpkgs.config.packageOverrides = pkgs: {
+      steam = pkgs.steam.override {
+        extraPkgs = pkgs: with pkgs; [
+          xorg.libXcursor
+          xorg.libXi
+          xorg.libXinerama
+          xorg.libXScrnSaver
+          libpng
+          libpulseaudio
+          libvorbis
+          stdenv.cc.cc.lib
+          libkrb5
+          keyutils
+        ];
+      };
+    };
     hardware.opengl.driSupport32Bit = true;
     programs.steam.enable = true;
     environment.systemPackages = with pkgs;
@@ -24,8 +40,43 @@ in {
       ];
     programs.gamemode.enable = true;
     programs.gamescope.enable = true;
-    programs.gamescope.capSysNice = true;
-    programs.steam.gamescopeSession.enable = true;
+    programs.gamescope.capSysNice = false;
+    programs.steam.gamescopeSession = {
+      enable = true;
+      env = {
+        WLR_RENDERER = "vulkan";
+        DXVK_HDR = "1";
+        ENABLE_GAMESCOPE_WSI = "1";
+        WINE_FULLSCREEN_FSR = "1";
+        # Games allegedly prefer X11
+        #SDL_VIDEODRIVER = "x11";
+      };
+      args = [
+       "--xwayland-count 2"
+       "--expose-wayland"
+
+       "-e" # Enable steam integration
+       "--steam"
+
+       "--adaptive-sync"
+       "--hdr-enabled"
+       "--hdr-itm-enable"
+
+       # External monitor
+       "--prefer-output eDP-1"
+       "--output-width 1920"
+       "--output-height 1080"
+       # "-r 75"
+
+       # Laptop display
+       # "--prefer-output eDP-1"
+       # "--output-width 2560"
+       # "--output-height 1600"
+       # "-r 120"
+       
+       "--prefer-vk-device 1002:1638" # lspci -nn | grep VGA
+      ];
+    };
     systemSettings.bluetooth.enable = true;
     hardware.bluetooth = {
       enable = true;
