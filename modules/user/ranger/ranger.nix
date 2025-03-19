@@ -31,6 +31,20 @@ in {
           fi
         fi
       '')
+      (pkgs.writeScriptBin "gcode-stats" ''
+        #!/bin/sh
+        
+        filename="$1";
+        printtime=$(awk -F ":" '/;TIME:/{print $NF; exit}' "$filename");
+        actualprinttime=$(echo "scale=2; $printtime / 3600" | bc);
+        filamentused=$(awk -F ": " '/;Filament used:/{print $NF; exit}' "$filename");
+        bedtemp=$(awk -F " S" '/M140 S/{print $NF; exit}' "$filename");
+        exttemp=$(awk -F " S" '/M104 S/{print $NF; exit}' "$filename");
+        echo "Print Time: $actualprinttime""hr""
+Filament Used: $filamentused
+Bed Temp: $bedtemp""C
+Extruder Temp: $exttemp ""C" > /dev/stdout;
+      '')
     ];
 
     xdg.mimeApps.associations.added = {
