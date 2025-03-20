@@ -183,7 +183,7 @@ quickmarksHtmlFile.close()
 config.set('content.blocking.method','both')
 
 config.set('scrolling.smooth',True)
-config.set('qt.args',['ignore-gpu-blacklist','enable-gpu-rasterization','enable-accelerated-video-decode','enable-quic','enable-zero-copy','enable-native-gpu-memory-buffers','num-raster-threads=4','allow-file-access-from-files'])
+config.set('qt.args',['ignore-gpu-blacklist','enable-gpu-rasterization','enable-accelerated-video-decode','enable-quic','enable-zero-copy','enable-native-gpu-memory-buffers','num-raster-threads=4','allow-file-access-from-files','enable-features=VaapiVideoDecoder,VaapiIgnoreDriverChecks,Vulkan,DefaultANGLEVulkan,VulkanFromANGLE'])
 config.set('qt.workarounds.disable_accelerated_2d_canvas','never')
 config.load_autoconfig(True)
 
