@@ -37,6 +37,12 @@
       bluetooth.enable = true;
     };
 
+    home.packages = with pkgs; [
+      cage
+      gcompris
+      tuxpaint
+    ];
+
     home.sessionVariables = lib.mkIf config.userSettings.hyprland.enable {
       AQ_DRM_DEVICES = lib.mkForce "/dev/dri/card0";
     };
