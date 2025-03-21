@@ -37,6 +37,10 @@ in {
         inotify-tools
         protonup-qt
         (pkgs.writeScriptBin "steamgrab" ''chown -R $(pgrep -nf steam | xargs -r ps -o uname= -p):steam /opt/Steam;'')
+        (pkgs.writeScriptBin "steamos-session-select" ''
+          #!/bin/sh
+          steam -shutdown
+        '')
       ];
     programs.gamemode.enable = true;
     programs.gamescope.enable = true;
