@@ -55,6 +55,7 @@
       libwacom
     ];
     services.xserver.wacom.enable = true;
+    services.xserver.videoDrivers = [ "i915" ];
 
   };
   

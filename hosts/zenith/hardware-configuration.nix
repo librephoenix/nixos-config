@@ -9,7 +9,7 @@
     ];
 
   boot.initrd.availableKernelModules = [ "xhci_pci" "thunderbolt" "vmd" "ahci" "nvme" "usb_storage" "sd_mod" ];
-  boot.initrd.kernelModules = [ ];
+  boot.initrd.kernelModules = [ "i915" ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = with config.boot.kernelPackages; [ zenpower ];
 
@@ -23,6 +23,8 @@
     extraPackages = with pkgs; [
       intel-media-driver
       intel-vaapi-driver
+      vaapiIntel
+      vaapiVdpau
       libvdpau-va-gl
     ];
     extraPackages32 = with pkgs.driversi686Linux; [
@@ -31,6 +33,13 @@
       libvdpau-va-gl
     ];
   };
+
+  environment.sessionVariables = {
+    LIBVA_DRIVER_NAME = "iHD";
+  };
+
+  powerManagement.cpuFreqGovernor = "performance";
+  services.thermald.enable = true;
 
   fileSystems."/" =
     { device = "/dev/disk/by-uuid/548f7030-af4c-412a-b2ed-d842337aa336";

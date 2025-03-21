@@ -18,6 +18,8 @@
     extraPackages = with pkgs; [
       intel-media-driver
       intel-vaapi-driver
+      vaapiIntel
+      vaapiVdpau
       libvdpau-va-gl
     ];
     extraPackages32 = with pkgs.driversi686Linux; [
@@ -27,8 +29,15 @@
     ];
   };
 
+  environment.sessionVariables = {
+    LIBVA_DRIVER_NAME = "iHD";
+  };
+
+  powerManagement.cpuFreqGovernor = "performance";
+  services.thermald.enable = true;
+
   boot.initrd.availableKernelModules = [ "xhci_pci" "nvme" "usbhid" "usb_storage" "sd_mod" "rtsx_pci_sdmmc" ];
-  boot.initrd.kernelModules = [ ];
+  boot.initrd.kernelModules = [ "i915" ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 

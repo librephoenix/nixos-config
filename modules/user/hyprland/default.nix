@@ -112,6 +112,7 @@ in
           enable_swallow = true;
           swallow_regex = "(scratch_term)|(Alacritty)|(kitty)";
           font_family = font;
+          vfr = true;
         };
 
         bezier = [
@@ -522,7 +523,7 @@ modules:
   center:
     - Workspaces
   right:
-    - [Clock, Privacy, Settings, Tray]
+    - [Clock, Settings, Tray]
 appLauncherCmd: "nwggrid-wrapper" # optional, default None
 truncateTitleAfterLength: 150 # optional, default 150
 workspaces:
