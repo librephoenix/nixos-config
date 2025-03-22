@@ -10,7 +10,7 @@
       # hardware
       cachy.enable = true;
       bluetooth.enable = true;
-      tlp.enable = true;
+      tlp.enable = false;
       printing.enable = true;
 
       # software
@@ -45,6 +45,8 @@
         theme = "io";
       };
     };
+
+    services.thermald.enable = true;
 
     users.users.emmet.description = "Emmet";
     home-manager.users.emmet.userSettings = {

@@ -86,7 +86,7 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     hyprland = {
-      url = "github:hyprwm/Hyprland/v0.47.2?submodules=true";
+      url = "github:hyprwm/Hyprland/main?submodules=true";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.hyprutils.follows = "hyprutils";
     };
@@ -100,7 +100,6 @@
     hyprlock = {
       type = "git";
       url = "https://code.hyprland.org/hyprwm/hyprlock.git";
-      rev = "3d63d9b129d5def270bc8a2471347e6f97274e2b";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.hyprutils.follows = "hyprutils";
     };
