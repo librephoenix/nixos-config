@@ -113,6 +113,7 @@ in
           swallow_regex = "(scratch_term)|(Alacritty)|(kitty)";
           font_family = font;
           vfr = true;
+          focus_on_activate = true;
         };
 
         bezier = [
