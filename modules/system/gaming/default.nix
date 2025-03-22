@@ -51,6 +51,7 @@ in {
         WLR_RENDERER = "vulkan";
         DXVK_HDR = "1";
         ENABLE_GAMESCOPE_WSI = "1";
+        ENABLE_HDR_WSI = "1";
         WINE_FULLSCREEN_FSR = "1";
         # Games allegedly prefer X11
         #SDL_VIDEODRIVER = "x11";
