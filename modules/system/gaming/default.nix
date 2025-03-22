@@ -29,7 +29,25 @@ in {
       };
     };
     hardware.opengl.driSupport32Bit = true;
-    programs.steam.enable = true;
+    programs.steam = {
+      enable = true;
+      extest.enable = true;
+      remotePlay.openFirewall = true;
+      dedicatedServer.openFirewall = true;
+      localNetworkGameTransfers.openFirewall = true;
+      extraPackages = with pkgs; [
+        xorg.libXcursor
+        xorg.libXi
+        xorg.libXinerama
+        xorg.libXScrnSaver
+        libpng
+        libpulseaudio
+        libvorbis
+        stdenv.cc.cc.lib
+        libkrb5
+        keyutils
+      ];
+    };
     environment.systemPackages = with pkgs;
       [ steam
         gamemode
