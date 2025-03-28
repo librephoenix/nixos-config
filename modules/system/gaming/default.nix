@@ -75,28 +75,22 @@ in {
         #SDL_VIDEODRIVER = "x11";
       };
       args = [
-       "--xwayland-count 2"
-       "--expose-wayland"
+       "--xwayland-count 1"
+       #"--expose-wayland"
 
        "-e" # Enable steam integration
-       "--steam"
 
        "--adaptive-sync"
        "--hdr-enabled"
        "--hdr-itm-enable"
 
        # External monitor
+       "--fullscreen"
        "--prefer-output eDP-1"
        "--output-width 1920"
        "--output-height 1080"
-       # "-r 75"
-
-       # Laptop display
-       # "--prefer-output eDP-1"
-       # "--output-width 2560"
-       # "--output-height 1600"
-       # "-r 120"
-       
+       "--nested-width 1920"
+       "--nested-height 1080"
        "--prefer-vk-device 1002:1638" # lspci -nn | grep VGA
       ];
     };
@@ -141,5 +135,7 @@ in {
         "*/1 * * * * steamgrab"
       ];
     };
+    networking.firewall.allowedTCPPorts = [ 24872 ];
+    networking.firewall.allowedUDPPorts = [ 24872 ];
   };
 }

@@ -14,7 +14,7 @@
       printing.enable = true;
 
       # software
-      flatpak.enable = false;
+      flatpak.enable = true;
       gaming.enable = true;
       virtualization = {
         docker.enable = true;
