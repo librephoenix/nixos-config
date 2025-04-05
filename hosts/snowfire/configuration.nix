@@ -4,8 +4,8 @@
   config = {
     systemSettings = {
       # users
-      users = [ "emmet" "corrina" ];
-      adminUsers = [ "emmet" "corrina" ];
+      users = [ "emmet" ];
+      adminUsers = [ "emmet" ];
 
       # hardware
       cachy.enable = true;
@@ -53,16 +53,16 @@
       name = "Emmet";
       email = "emmet@librephoenix.com";
     };
-    users.users.corrina.description = "Corrina";
-    home-manager.users.corrina.userSettings = {
-      name = "Corrina";
-      email = "";
-      stylix.theme = "spaceduck";
-    };
-    home-manager.users.corrina.services.nextcloud-client = {
-      enable = lib.mkForce false;
-      startInBackground = lib.mkForce false;
-    };
+    #users.users.corrina.description = "Corrina";
+    #home-manager.users.corrina.userSettings = {
+    #  name = "Corrina";
+    #  email = "";
+    #  stylix.theme = "spaceduck";
+    #};
+    #home-manager.users.corrina.services.nextcloud-client = {
+    #  enable = lib.mkForce false;
+    #  startInBackground = lib.mkForce false;
+    #};
 
   };
   

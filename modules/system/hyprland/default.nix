@@ -25,17 +25,17 @@ in
 
     # Necessary packages
     environment.systemPackages = with pkgs; [
-        jq 
-        (sddm-chili-theme.override {
-          themeConfig = {
-            background = config.stylix.image;
-            ScreenWidth = 1920;
-            ScreenHeight = 1080;
-            blur = true;
-            recursiveBlurLoops = 3;
-            recursiveBlurRadius = 5;
-            # TODO fix icons with svgs patched from stylix colors
-          };})
+      jq
+      (sddm-astronaut.override {
+        themeConfig = {
+          # TODO Update Theme Config
+          # https://github.com/Keyitdev/sddm-astronaut-theme/blob/master/Themes/astronaut.conf
+          background = config.stylix.image;
+          ScreenWidth = 1920;
+          ScreenHeight = 1080;
+          blur = false;
+        };
+      })
     ];
 
     # Display manager
@@ -43,8 +43,16 @@ in
       enable = true;
       wayland.enable = true;
       enableHidpi = true;
-      theme = "chili";
-      package = pkgs.libsForQt5.sddm;
+      theme = "sddm-astronaut-theme";
+      package = pkgs.kdePackages.sddm;
+      extraPackages = with pkgs; [ 
+        (sddm-astronaut.override {
+          themeConfig = {
+            background = config.stylix.image;
+            ScreenWidth = 1920;
+            ScreenHeight = 1080;
+            blur = false;
+          };})];
     };
 
     services.upower.enable = true;

@@ -37,11 +37,11 @@
           pushd ${config.systemSettings.dotfilesDir} &> /dev/null;
           nix flake update "''${@:2}";
           popd &> /dev/null;
-          if [ "$#" -eq 1 ]; then
-            pushd ${config.systemSettings.secretsFlakeDir} &> /dev/null;
-            nix flake update;
-            popd &> /dev/null;
-          fi
+          #if [ "$#" -eq 1 ]; then
+          #  pushd ${config.systemSettings.secretsFlakeDir} &> /dev/null;
+          #  nix flake update;
+          #  popd &> /dev/null;
+          #fi
           exit 0;
         elif [ "$1" = "pull" ]; then
           if [ "$#" -gt 1 ]; then
