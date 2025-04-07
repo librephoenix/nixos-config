@@ -877,11 +877,16 @@
   (setq org-node-extra-id-dirs-exclude '("~/Notes/daily/"))
   (org-node-cache-mode)
   (org-node-complete-at-point-mode)
+  (setq org-node-datestamp-format "")
+  (setq org-node-slug-fn 'org-node-slugify-for-web)
   (setq org-roam-completion-everywhere nil)
   (setq org-node-filter-fn
       (lambda (node)
         (not (string-search "/daily/" (org-node-get-file node)))))
+  (setq org-node-renames-allowed-dirs '("~/Notes"))
+  (add-hook 'after-save-hook 'org-node-rename-file-by-title)
   (evil-define-key 'motion 'global (kbd "<leader>Ni") 'org-node-insert-link)
+  (evil-define-key 'motion 'global (kbd "<leader>Nt") 'org-node-add-tags)
   (evil-define-key 'motion 'global (kbd "<leader>NR") 'org-node-rewrite-links-ask))
 
 (use-package org-node-fakeroam
