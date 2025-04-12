@@ -22,7 +22,7 @@
           allowUnfree = true;
           allowUnfreePredicate = (_: true);
         };
-        overlays = [ inputs.rust-overlay.overlays.default inputs.emacs-overlay.overlays.default inputs.chaotic.overlays.default inputs.jovian.overlays.default ];
+        overlays = [ inputs.rust-overlay.overlays.default inputs.emacs-overlay.overlays.default inputs.chaotic.overlays.default ];
       };
 
       pkgs-stable = import inputs.nixpkgs-stable {
@@ -81,8 +81,6 @@
     nixpkgs.url = "nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "nixpkgs/nixos-24.11";
     chaotic.url = "github:chaotic-cx/nyx/5071a4037c634d41a57926521fef2e179abe3bd9";
-
-    jovian.url = "github:Jovian-Experiments/Jovian-NixOS";
 
     home-manager.url = "github:nix-community/home-manager/master";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";

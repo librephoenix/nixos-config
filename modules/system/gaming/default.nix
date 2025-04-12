@@ -4,10 +4,6 @@ let
   cfg = config.systemSettings.gaming;
 in {
 
-  imports = [
-    inputs.jovian.nixosModules.default
-  ];
-
   options = {
     systemSettings.gaming = {
       enable = lib.mkEnableOption "Enable Steam and games";
@@ -15,7 +11,7 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [ "steam" "steam-unwrapped" "steam-jupiter-unwrapped" ];
+    nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [ "steam" "steam-unwrapped" "steam-jupiter-unwrapped" "steamdeck-hw-theme" ];
     nixpkgs.config.packageOverrides = pkgs: {
       steam = pkgs.steam.override {
         extraPkgs = pkgs: with pkgs; [
@@ -67,8 +63,6 @@ in {
     programs.gamemode.enable = true;
     programs.gamescope.enable = true;
     programs.gamescope.capSysNice = false;
-    jovian.decky-loader.enable = true;
-    jovian.hardware.has.amd.gpu = true;
     programs.steam.gamescopeSession = {
       enable = true;
       env = {
