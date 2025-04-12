@@ -33,7 +33,7 @@ in {
           org-roam org-node org-node-fakeroam
           vterm vterm-toggle sudo-edit
           direnv
-          #gdscript-mode
+          gdscript-mode
           nix-mode
           python python-mode
           lsp-mode flycheck lsp-ui lsp-treemacs
