@@ -10,7 +10,7 @@
       # hardware
       cachy.enable = true;
       bluetooth.enable = true;
-      tlp.enable = true;
+      tlp.enable = false;
       printing.enable = true;
 
       # software
@@ -22,6 +22,7 @@
 
       # wm
       hyprland.enable = true;
+      gnome.enable = true;
 
       # dotfiles
       dotfilesDir = "/etc/nixos";
@@ -56,6 +57,9 @@
     ];
     services.xserver.wacom.enable = true;
     services.xserver.videoDrivers = [ "i915" ];
+
+    services.displayManager.execCmd = lib.mkForce "${pkgs.kdePackages.sddm}/bin/sddm";
+    services.displayManager.defaultSession = "gnome";
 
   };
   
