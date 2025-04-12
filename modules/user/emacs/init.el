@@ -408,7 +408,6 @@
 
 ;; Theme and modeline
 (use-package doom-themes
-  :after (org)
   :config
   (setq doom-themes-enable-bold t
         doom-themes-enable-italic t
@@ -939,11 +938,9 @@
     "l" 'dired-find-file
     " " 'nil)
 
-(use-package vterm
-  :after evil)
+(use-package vterm)
 
 (use-package vterm-toggle
-  :after vterm
   :config
   (setq vterm-toggle-fullscreen-p nil)
   (setq vterm-toggle-cd-auto-create-buffer nil)
