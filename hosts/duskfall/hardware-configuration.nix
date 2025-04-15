@@ -39,6 +39,7 @@
   boot.initrd.availableKernelModules = [ "xhci_pci" "nvme" "usbhid" "usb_storage" "sd_mod" "rtsx_pci_sdmmc" ];
   boot.initrd.kernelModules = [ "i915" ];
   boot.kernelModules = [ "kvm-intel" ];
+  boot.kernelParams = [ "psmouse.synaptics_intertouch=0" ];
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =

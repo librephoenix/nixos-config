@@ -4,7 +4,7 @@
   config = {
     systemSettings = {
       # users
-      users = [ "emmet" ];
+      users = [ "emmet" "ignatius" ];
       adminUsers = [ "emmet" ];
 
       # hardware
@@ -51,6 +51,7 @@
       name = "Emmet";
       email = "emmet@librephoenix.com";
     };
+    users.users.ignatius.description = "Ignatius";
 
     environment.systemPackages = with pkgs; [
       libwacom
@@ -58,7 +59,6 @@
     services.xserver.wacom.enable = true;
     services.xserver.videoDrivers = [ "i915" ];
 
-    services.displayManager.execCmd = lib.mkForce "${pkgs.kdePackages.sddm}/bin/sddm";
     services.displayManager.defaultSession = "gnome";
 
   };
