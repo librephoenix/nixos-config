@@ -790,67 +790,73 @@
     (interactive "p")
     (dotimes (_ count) (+org--insert-item 'above)))
 
-  ;;;###autoload
-  (defun +org-indent-maybe-h ()
-    "Indent the current item (header or item), if possible.
-    Made for `org-tab-first-hook' in evil-mode."
-    (interactive)
-    (cond ((not (and (bound-and-true-p evil-local-mode)
-                     (evil-insert-state-p)))
-           nil)
-          ((and (bound-and-true-p org-cdlatex-mode)
-                (or (org-inside-LaTeX-fragment-p)
-                    (org-inside-latex-macro-p)))
-           nil)
-          ((org-at-item-p)
-           (org-indent-item-tree)
-           t)
-          ((org-at-heading-p)
-           (ignore-errors
-            (org-demote)
-           t)
-          ((org-in-src-block-p t)
-           (save-window-excursion
-             (org-babel-do-in-edit-buffer
-              (call-interactively #'indent-for-tab-command)))
-           t)
-          ((and (save-excursion
-                  (skip-chars-backward " \t")
-                  (bolp))
-                (org-in-subtree-not-table-p))
-           (call-interactively #'tab-to-tab-stop)
-           t))))
+(defun +org-indent-maybe-h ()
+  "Indent the current item (header or item), if possible.
+Made for `org-tab-first-hook' in evil-mode."
+  (interactive)
+  (cond ((not (and (bound-and-true-p evil-local-mode)
+                   (evil-insert-state-p)))
+         nil)
+        ((and (bound-and-true-p org-cdlatex-mode)
+              (or (org-inside-LaTeX-fragment-p)
+                  (org-inside-latex-macro-p)))
+         nil)
+        ((org-at-item-p)
+         (if (eq this-command 'org-shifttab)
+             (org-outdent-item-tree)
+           (org-indent-item-tree))
+         t)
+        ((org-at-heading-p)
+         (ignore-errors
+           (if (eq this-command 'org-shifttab)
+               (org-promote)
+             (org-demote)))
+         t)
+        ((org-in-src-block-p t)
+         (save-window-excursion
+           (org-babel-do-in-edit-buffer
+            (call-interactively #'indent-for-tab-command)))
+         t)
+        ((and (save-excursion
+                (skip-chars-backward " \t")
+                (bolp))
+              (org-in-subtree-not-table-p))
+         (call-interactively #'tab-to-tab-stop)
+         t)))
 
-  ;;;###autoload
-  (defun +org-reverse-indent-maybe-h ()
-    "Indent the current item (header or item), if possible.
-    Made for `org-tab-first-hook' in evil-mode."
-    (interactive)
-    (cond ((not (and (bound-and-true-p evil-local-mode)
-                     (evil-insert-state-p)))
-           nil)
-          ((and (bound-and-true-p org-cdlatex-mode)
-                (or (org-inside-LaTeX-fragment-p)
-                    (org-inside-latex-macro-p)))
-           nil)
-          ((org-at-item-p)
-            (org-outdent-item-tree)
-           t)
-          ((org-at-heading-p)
-           (ignore-errors
-            (org-promote)
-           t)
-          ((org-in-src-block-p t)
-           (save-window-excursion
-             (org-babel-do-in-edit-buffer
-              (call-interactively #'indent-for-tab-command)))
-           t)
-          ((and (save-excursion
-                  (skip-chars-backward " \t")
-                  (bolp))
-                (org-in-subtree-not-table-p))
-           (call-interactively #'tab-to-tab-stop)
-           t)))))
+(defun +org-reverse-indent-maybe-h ()
+  "Indent the current item (header or item), if possible.
+Made for `org-tab-first-hook' in evil-mode."
+  (interactive)
+  (cond ((not (and (bound-and-true-p evil-local-mode)
+                   (evil-insert-state-p)))
+         nil)
+        ((and (bound-and-true-p org-cdlatex-mode)
+              (or (org-inside-LaTeX-fragment-p)
+                  (org-inside-latex-macro-p)))
+         nil)
+        ((org-at-item-p)
+         (if (eq this-command 'org-shifttab)
+             (org-outdent-item-tree)
+           (org-outdent-item-tree))
+         t)
+        ((org-at-heading-p)
+         (ignore-errors
+           (if (eq this-command 'org-shifttab)
+               (org-promote)
+             (org-promote)))
+         t)
+        ((org-in-src-block-p t)
+         (save-window-excursion
+           (org-babel-do-in-edit-buffer
+            (call-interactively #'indent-for-tab-command)))
+         t)
+        ((and (save-excursion
+                (skip-chars-forward " \t")
+                (bolp))
+              (org-in-subtree-not-table-p))
+         (call-interactively #'tab-to-tab-stop)
+         t))))
 
 (use-package org-roam
   :after (org)
