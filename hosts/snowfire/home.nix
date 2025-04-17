@@ -17,6 +17,7 @@
       brave.enable = true;
       editor = "emacs";
       ranger.enable = true;
+      yazi.enable = true;
       git.enable = true;
       engineering.enable = true;
       art.enable = true;
