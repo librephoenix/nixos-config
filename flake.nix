@@ -80,7 +80,7 @@
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "nixpkgs/nixos-24.11";
-    chaotic.url = "github:chaotic-cx/nyx/5071a4037c634d41a57926521fef2e179abe3bd9";
+    chaotic.url = "github:chaotic-cx/nyx";
 
     home-manager.url = "github:nix-community/home-manager/master";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";

@@ -15,7 +15,7 @@
   boot.kernelModules = [ "kvm-amd" "radeon" "zenpower" "8812au" ];
   boot.blacklistedKernelModules = [ "k10temp" ];
   boot.kernelParams = [ "amd_pstate=active" "acpi_osi=Linux" "acpi_wake=USB0" ];
-  boot.extraModulePackages = with config.boot.kernelPackages; [ zenpower rtl8812au ];
+  boot.extraModulePackages = with config.boot.kernelPackages; [ zenpower ];
   hardware.opengl.enable = true;
   hardware.opengl.extraPackages = [ pkgs.rocmPackages.clr.icd ];
   hardware.opengl.extraPackages32 = [ ];
