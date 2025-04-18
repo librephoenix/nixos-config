@@ -29,6 +29,7 @@
 
       # wm
       hyprland.enable = true;
+      gnome.enable = true;
 
       # style
       stylix.enable = true;
