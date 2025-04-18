@@ -52,6 +52,9 @@
       email = "emmet@librephoenix.com";
     };
     users.users.ignatius.description = "Ignatius";
+    home-manager.users.ignatius.userSettings = {
+      stylix.theme = "woodland";
+    };
 
     environment.systemPackages = with pkgs; [
       libwacom
