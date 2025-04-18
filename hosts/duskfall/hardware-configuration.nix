@@ -16,6 +16,7 @@
     enable = lib.mkDefault true;
     enable32Bit = lib.mkDefault true;
     extraPackages = with pkgs; [
+      vpl-gpu-rt
       intel-media-driver
       intel-vaapi-driver
       vaapiIntel
