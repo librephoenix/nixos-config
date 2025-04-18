@@ -5,7 +5,7 @@ let
 in
 {
   options = {
-    systemSettings.gnome = {
+    userSettings.gnome = {
       enable = lib.mkEnableOption "Enable gnome config";
     };
   };
