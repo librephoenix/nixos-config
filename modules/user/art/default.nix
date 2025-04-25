@@ -16,6 +16,7 @@ in {
       pinta
       inkscape
       libresprite
+      makehuman
     ];
     userSettings.blender.enable = true;
   };
