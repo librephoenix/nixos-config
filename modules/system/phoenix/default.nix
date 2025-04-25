@@ -67,6 +67,8 @@
           if [ "$#" -gt 1 ]; then
             echo "Warning: The 'build' command has no subcommands (no $2 subcommand)";
           fi
+          chown -R 0:0 ${config.systemSettings.dotfilesDir};
+          chown -R 0:0 ${config.systemSettings.secretsFlakeDir};
           pushd ${config.systemSettings.dotfilesDir} &> /dev/null;
           nixos-rebuild build --flake .#snowfire;
           attic push emmet ./result;
