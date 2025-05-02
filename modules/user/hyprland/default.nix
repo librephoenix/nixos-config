@@ -65,7 +65,7 @@ in
           "sleep 5 && libinput-gestures"
           "obs-notification-mute-daemon"
           "alacritty --class scratch_term"
-          "kitty --class scratch_ranger -e ranger"
+          "kitty --class scratch_yazi -e yazi"
           "alacritty --class scratch_numbat -e numbat"
           "kitty --class scratch_music -e ncmpcpp"
           "alacritty --class scratch_btm -e btm"
@@ -240,15 +240,15 @@ in
           "SUPERSHIFT,9,movetoworkspace,9"
           ''SUPER,Z,exec,if hyprctl clients | grep scratch_term; then echo "scratch_term respawn not needed"; else alacritty --class scratch_term; fi''
           "SUPER,Z,togglespecialworkspace,scratch_term"
-          ''SUPER,F,exec,if hyprctl clients | grep scratch_ranger; then echo "scratch_ranger respawn not needed"; else kitty --class scratch_ranger -e ranger; fi''
-          "SUPER,F,togglespecialworkspace,scratch_ranger"
-          ''SUPER,N,exec,if hyprctl clients | grep scratch_numbat; then echo "scratch_ranger respawn not needed"; else alacritty --class scratch_numbat -e numbat; fi''
+          ''SUPER,F,exec,if hyprctl clients | grep scratch_yazi; then echo "scratch_yazi respawn not needed"; else kitty --class scratch_yazi -e yazi; fi''
+          "SUPER,F,togglespecialworkspace,scratch_yazi"
+          ''SUPER,N,exec,if hyprctl clients | grep scratch_numbat; then echo "scratch_numbat respawn not needed"; else alacritty --class scratch_numbat -e numbat; fi''
           "SUPER,N,togglespecialworkspace,scratch_numbat"
           ''SUPER,M,exec,if hyprctl clients | grep scratch_music; then echo "scratch_music respawn not needed"; else kitty --class scratch_music -e ncmpcpp; fi''
           "SUPER,M,togglespecialworkspace,scratch_music"
-          ''SUPER,B,exec,if hyprctl clients | grep scratch_btm; then echo "scratch_ranger respawn not needed"; else alacritty --class scratch_btm -e btm; fi''
+          ''SUPER,B,exec,if hyprctl clients | grep scratch_btm; then echo "scratch_yazi respawn not needed"; else alacritty --class scratch_btm -e btm; fi''
           "SUPER,B,togglespecialworkspace,scratch_btm"
-          ''SUPER,D,exec,if hyprctl clients | grep Element; then echo "scratch_ranger respawn not needed"; else element-desktop; fi''
+          ''SUPER,D,exec,if hyprctl clients | grep Element; then echo "scratch_yazi respawn not needed"; else element-desktop; fi''
           "SUPER,D,togglespecialworkspace,scratch_element"
           ''SUPER,equal, exec, hyprctl keyword cursor:zoom_factor "$(hyprctl getoption cursor:zoom_factor | grep float | awk '{print $2 + 0.5}')"''
           ''SUPER,minus, exec, hyprctl keyword cursor:zoom_factor "$(hyprctl getoption cursor:zoom_factor | grep float | awk '{print $2 - 0.5}')"''
@@ -274,10 +274,10 @@ in
           "center,class:^(scratch_term)$"
           "float,class:^(float_term)$"
           "center,class:^(float_term)$"
-          "float,class:^(scratch_ranger)$"
-          "size 80% 85%,class:^(scratch_ranger)$"
-          "workspace special:scratch_ranger silent,class:^(scratch_ranger)$"
-          "center,class:^(scratch_ranger)$"
+          "float,class:^(scratch_yazi)$"
+          "size 80% 85%,class:^(scratch_yazi)$"
+          "workspace special:scratch_yazi silent,class:^(scratch_yazi)$"
+          "center,class:^(scratch_yazi)$"
           "float,class:^(scratch_numbat)$"
           "size 80% 85%,class:^(scratch_numbat)$"
           "workspace special:scratch_numbat silent,class:^(scratch_numbat)$"
@@ -477,13 +477,13 @@ in
       file="''${*:2}"
       file=''${file// /\\ }
       echo $file
-      workspace=$(hyprctl monitors -j | jq ".[] | select(.specialWorkspace.name == \"special:scratch_ranger\") | .activeWorkspace.id")
+      workspace=$(hyprctl monitors -j | jq ".[] | select(.specialWorkspace.name == \"special:scratch_yazi\") | .activeWorkspace.id")
       if [ -z "''${workspace}" ]; then
         hyprctl dispatch exec -- "$command";
       else
         hyprctl dispatch exec "[workspace $workspace]" -- "$command" "$file";
       fi
-      hyprctl dispatch togglespecialworkspace scratch_ranger
+      hyprctl dispatch togglespecialworkspace scratch_yazi
       '')
       (pkgs.writeScriptBin "sct" ''
         #!/bin/sh

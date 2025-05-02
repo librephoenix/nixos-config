@@ -16,6 +16,7 @@
       browser = "brave";
       editor = "kate";
       ranger.enable = true;
+      yazi.enable = true;
       git.enable = true;
       art.enable = true;
       flatpak.enable = false;
