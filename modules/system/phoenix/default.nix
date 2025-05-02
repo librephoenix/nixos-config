@@ -13,11 +13,18 @@
         description = "Absolute path to my secrets flake";
         type = lib.types.path;
       };
+      systemBuilder.enable = lib.mkEnableOption "Enable automatic config updater and builder";
+      systemBuilder.buildCronExpression = lib.mkOption {
+        default = "Sat *-*-* 02:00:00"; # Sat morning at 2am
+        description = "Cron expression for when the system should auto build config";
+        type = lib.types.str;
+      };
     };
   };
   config = {
     environment.systemPackages = with pkgs; [
       attic-client
+      git
       (pkgs.writeScriptBin "phoenix" ''
         if [[ $EUID -ne 0 ]]; then
           echo "Error: This script must be run as root" 1>&2
@@ -115,5 +122,31 @@
         fi
       '')
     ];
+    systemd.services."phoenix-system-builder" = lib.mkIf config.systemSettings.systemBuilder.enable {
+      script = ''
+        pushd /etc/nixos;
+        /run/current-system/sw/bin/git pull;
+        nix flake update;
+        /run/current-system/sw/bin/git stage *;
+        /run/current-system/sw/bin/git commit -m "Updated system";
+        /run/current-system/sw/bin/git push;
+        popd;
+        pushd /etc/nixos.secrets;
+        /run/current-system/sw/bin/git pull;
+        popd;
+        /run/current-system/sw/bin/phoenix build;
+      '';
+      serviceConfig = {
+        Type = "simple";
+        User = "root";
+      };
+    };
+    systemd.timers."phoenix-system-builder-auto" = lib.mkIf config.systemSettings.systemBuilder.enable {
+      wantedBy = [ "timers.target" ];
+      timerConfig = {
+        OnCalendar = config.systemSettings.systemBuilder.buildCronExpression;
+        Unit = "phoenix-system-builder.service";
+      };
+    };
   };
 }
