@@ -261,9 +261,9 @@ config.set('downloads.position', 'bottom')
 config.set('downloads.remove_finished', 5000)
 
 config.set('fileselect.handler', 'external')
-config.set('fileselect.single_file.command', ['kitty','-e','ranger','--choosefile={}'])
-config.set('fileselect.multiple_files.command', ['kitty','-e','ranger','--choosefiles={}'])
-config.set('fileselect.folder.command', ['kitty','-e','ranger','--choosedir={}'])
+config.set('fileselect.single_file.command', ['kitty','--class','filechoose_yazi','-e','yazi','--chooser-file={}'])
+config.set('fileselect.multiple_files.command', ['kitty','--class','filechoose_yazi','-e','yazi','--chooser-file={}'])
+config.set('fileselect.folder.command', ['kitty','--class','--filechoose_yazi','-e','yazi','--chooser-file={}']) # needs fixing upstream to work
 
 # bindings from doom emacs
 config.bind('<Alt-x>', 'cmd-set-text :')
