@@ -124,7 +124,7 @@
     ];
     systemd.services."phoenix-system-builder" = lib.mkIf config.systemSettings.systemBuilder.enable {
       path = with pkgs; [
-        openssh git nix
+        openssh git nix nixos-rebuild
       ];
       script = ''
         echo "navigating to /etc/nixos";
