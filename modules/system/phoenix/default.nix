@@ -136,8 +136,8 @@
         echo "running nix flake update";
         nix flake update;
         ${pkgs.git}/bin/git stage *;
-        ${pkgs.git}/bin/git commit -m "Updated system";
-        ${pkgs.git}/bin/git push;
+        ${pkgs.git}/bin/git commit -m "Updated system" || true;
+        ${pkgs.git}/bin/git push || true;
         cd ${config.systemSettings.secretsFlakeDir};
         ${pkgs.git}/bin/git pull;
         chown -R 0:0 ${config.systemSettings.dotfilesDir};
