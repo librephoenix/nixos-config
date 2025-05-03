@@ -558,11 +558,11 @@
         "xdph": "xdph"
       },
       "locked": {
-        "lastModified": 1746281222,
-        "narHash": "sha256-Q+t43sBvv0+iq/jatZ7a+GACptpQ/7hZ/9xY6ODN5zw=",
+        "lastModified": 1746291290,
+        "narHash": "sha256-96SpKoIyUsRas+h6RhnPcgbduyH2j2YrujWpsuKdK8Q=",
         "owner": "hyprwm",
         "repo": "Hyprland",
-        "rev": "cdf5736f1a5e6cc1c3bb8fd50501ab17189725ea",
+        "rev": "46ac115bd19ee3aff5c816033de0b1d55a74e33f",
         "type": "github"
       },
       "original": {
@@ -737,11 +737,11 @@
         "systems": "systems_2"
       },
       "locked": {
-        "lastModified": 1745997160,
-        "narHash": "sha256-gTFloyC0x68Uy4qLfGwZSu0YYR4ZeB/7YiBwoglkVOw=",
+        "lastModified": 1746281087,
+        "narHash": "sha256-9amK5DEpueAD+aobmBmjbV+C16RO7lcDOdf5ucJtNvM=",
         "ref": "refs/heads/main",
-        "rev": "0e3e7206bc248d154dbafb6f7acd7d6d3ad2ff93",
-        "revCount": 361,
+        "rev": "6c64630df81b52208b210f02476f55e4db56e6cf",
+        "revCount": 362,
         "type": "git",
         "url": "https://code.hyprland.org/hyprwm/hyprlock.git"
       },
