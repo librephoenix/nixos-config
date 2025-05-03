@@ -123,9 +123,15 @@
       '')
     ];
     systemd.services."phoenix-system-builder" = lib.mkIf config.systemSettings.systemBuilder.enable {
+      path = with pkgs; [
+        openssh git nix
+      ];
       script = ''
+        echo "navigating to /etc/nixos";
         cd ${config.systemSettings.dotfilesDir};
+        echo "running git pull";
         ${pkgs.git}/bin/git pull;
+        echo "running nix flake update";
         nix flake update;
         ${pkgs.git}/bin/git stage *;
         ${pkgs.git}/bin/git commit -m "Updated system";
