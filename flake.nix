@@ -104,10 +104,10 @@
       inputs.hyprutils.follows = "hyprutils";
     };
 
-    ashell = {
-      url = "github:librephoenix/ashell";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    #ashell = {
+    #  url = "github:librephoenix/ashell";
+    #  inputs.nixpkgs.follows = "nixpkgs";
+    #};
 
     plasma-manager = {
       url = "github:nix-community/plasma-manager";

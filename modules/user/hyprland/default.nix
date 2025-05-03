@@ -382,7 +382,8 @@ in
       kitty
       killall
       polkit_gnome
-      (inputs.ashell.defaultPackage.${system})
+      #(inputs.ashell.defaultPackage.${system})
+      ashell
       nwg-launchers
       papirus-icon-theme
       (pkgs.writeScriptBin "nwggrid-wrapper" ''
