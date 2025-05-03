@@ -127,6 +127,8 @@
         openssh git nix nixos-rebuild
       ];
       script = ''
+        set -euo pipefail
+	export NIX_PATH="nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos:nixos-config=/etc/nixos/configuration.nix"
         echo "navigating to /etc/nixos";
         cd ${config.systemSettings.dotfilesDir};
         echo "running git pull";
@@ -141,19 +143,19 @@
         chown -R 0:0 ${config.systemSettings.dotfilesDir};
         chown -R 0:0 ${config.systemSettings.secretsFlakeDir};
         cd ${config.systemSettings.dotfilesDir};
-        nixos-rebuild build --flake .#snowfire;
+        ${config.system.build.nixos-rebuild}/bin/nixos-rebuild build --flake .#snowfire;
         ${pkgs.attic-client}/bin/attic push emmet ./result;
         rm ./result;
-        nixos-rebuild build --flake .#duskfall;
+        ${config.system.build.nixos-rebuild}/bin/nixos-rebuild build --flake .#duskfall;
         ${pkgs.attic-client}/bin/attic push emmet ./result;
         rm ./result;
-        nixos-rebuild build --flake .#zenith;
+        ${config.system.build.nixos-rebuild}/bin/nixos-rebuild build --flake .#zenith;
         ${pkgs.attic-client}/bin/attic push emmet ./result;
         rm ./result;
-        nixos-rebuild build --flake .#stardust;
+        ${config.system.build.nixos-rebuild}/bin/nixos-rebuild build --flake .#stardust;
         ${pkgs.attic-client}/bin/attic push emmet ./result;
         rm ./result;
-        nixos-rebuild build --flake .#ori;
+        ${config.system.build.nixos-rebuild}/bin/nixos-rebuild build --flake .#ori;
         ${pkgs.attic-client}/bin/attic push emmet ./result;
         rm ./result;
       '';
