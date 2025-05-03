@@ -124,33 +124,31 @@
     ];
     systemd.services."phoenix-system-builder" = lib.mkIf config.systemSettings.systemBuilder.enable {
       script = ''
-        pushd /etc/nixos;
-        /run/current-system/sw/bin/git pull;
+        cd ${config.systemSettings.dotfilesDir};
+        ${pkgs.git}/bin/git pull;
         nix flake update;
-        /run/current-system/sw/bin/git stage *;
-        /run/current-system/sw/bin/git commit -m "Updated system";
-        /run/current-system/sw/bin/git push;
-        popd;
-        pushd /etc/nixos.secrets;
-        /run/current-system/sw/bin/git pull;
-        popd;
+        ${pkgs.git}/bin/git stage *;
+        ${pkgs.git}/bin/git commit -m "Updated system";
+        ${pkgs.git}/bin/git push;
+        cd ${config.systemSettings.secretsFlakeDir};
+        ${pkgs.git}/bin/git pull;
         chown -R 0:0 ${config.systemSettings.dotfilesDir};
         chown -R 0:0 ${config.systemSettings.secretsFlakeDir};
-        pushd ${config.systemSettings.dotfilesDir} &> /dev/null;
+        cd ${config.systemSettings.dotfilesDir};
         nixos-rebuild build --flake .#snowfire;
-        attic push emmet ./result;
+        ${pkgs.attic-client}/bin/attic push emmet ./result;
         rm ./result;
         nixos-rebuild build --flake .#duskfall;
-        attic push emmet ./result;
+        ${pkgs.attic-client}/bin/attic push emmet ./result;
         rm ./result;
         nixos-rebuild build --flake .#zenith;
-        attic push emmet ./result;
+        ${pkgs.attic-client}/bin/attic push emmet ./result;
         rm ./result;
         nixos-rebuild build --flake .#stardust;
-        attic push emmet ./result;
+        ${pkgs.attic-client}/bin/attic push emmet ./result;
         rm ./result;
         nixos-rebuild build --flake .#ori;
-        attic push emmet ./result;
+        ${pkgs.attic-client}/bin/attic push emmet ./result;
         rm ./result;
       '';
       serviceConfig = {
