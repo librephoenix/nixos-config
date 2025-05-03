@@ -134,7 +134,24 @@
         pushd /etc/nixos.secrets;
         /run/current-system/sw/bin/git pull;
         popd;
-        /run/current-system/sw/bin/phoenix build;
+        chown -R 0:0 ${config.systemSettings.dotfilesDir};
+        chown -R 0:0 ${config.systemSettings.secretsFlakeDir};
+        pushd ${config.systemSettings.dotfilesDir} &> /dev/null;
+        nixos-rebuild build --flake .#snowfire;
+        attic push emmet ./result;
+        rm ./result;
+        nixos-rebuild build --flake .#duskfall;
+        attic push emmet ./result;
+        rm ./result;
+        nixos-rebuild build --flake .#zenith;
+        attic push emmet ./result;
+        rm ./result;
+        nixos-rebuild build --flake .#stardust;
+        attic push emmet ./result;
+        rm ./result;
+        nixos-rebuild build --flake .#ori;
+        attic push emmet ./result;
+        rm ./result;
       '';
       serviceConfig = {
         Type = "simple";
