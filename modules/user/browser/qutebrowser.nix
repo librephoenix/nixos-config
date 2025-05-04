@@ -447,6 +447,7 @@ Youtube
 
     home.sessionVariables = lib.mkIf (config.userSettings.browser == "qutebrowser") {
       DEFAULT_BROWSER = "${pkgs.qutebrowser}/bin/qutebrowser";
+      QTWEBENGINE_CHROMIUM_FLAGS = "--disable-gpu"; # FIXME https://github.com/qutebrowser/qutebrowser/issues/8535
     };
 
   };
