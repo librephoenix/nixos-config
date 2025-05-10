@@ -382,7 +382,11 @@ in
       kitty
       killall
       polkit_gnome
-      (inputs.ashell.defaultPackage.${system})
+      (ashell.overrideAttrs (o: {
+          patches = (o.patches or [ ]) ++ [
+            ./ashell.patch
+          ];
+        }))
       nwg-launchers
       papirus-icon-theme
       (pkgs.writeScriptBin "nwggrid-wrapper" ''

@@ -86,14 +86,7 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     hyprland = {
-      url = "github:hyprwm/Hyprland/main?submodules=true";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.hyprutils.follows = "hyprutils";
-    };
-
-    hyprutils = {
-      type = "git";
-      url = "https://code.hyprland.org/hyprwm/hyprutils.git";
+      url = "github:hyprwm/Hyprland/v0.49.0?submodules=true";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -101,13 +94,6 @@
       type = "git";
       url = "https://code.hyprland.org/hyprwm/hyprlock.git";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.hyprutils.follows = "hyprutils";
-    };
-
-    ashell = {
-      url = "github:librephoenix/ashell";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.rust-overlay.follows = "rust-overlay";
     };
 
     plasma-manager = {
