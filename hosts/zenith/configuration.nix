@@ -22,7 +22,6 @@
 
       # wm
       hyprland.enable = true;
-      gnome.enable = true;
 
       # dotfiles
       dotfilesDir = "/etc/nixos";
@@ -55,6 +54,8 @@
     ];
     services.xserver.wacom.enable = true;
     services.xserver.videoDrivers = [ "i915" ];
+
+    services.displayManager.defaultSession = "hyprland";
 
   };
   

@@ -23,7 +23,6 @@
 
       # wm
       hyprland.enable = true;
-      gnome.enable = true;
 
       # dotfiles
       dotfilesDir = "/etc/nixos";
@@ -54,16 +53,8 @@
       name = "Emmet";
       email = "emmet@librephoenix.com";
     };
-    #users.users.corrina.description = "Corrina";
-    #home-manager.users.corrina.userSettings = {
-    #  name = "Corrina";
-    #  email = "";
-    #  stylix.theme = "spaceduck";
-    #};
-    #home-manager.users.corrina.services.nextcloud-client = {
-    #  enable = lib.mkForce false;
-    #  startInBackground = lib.mkForce false;
-    #};
+
+    services.displayManager.defaultSession = "hyprland";
 
   };
   
