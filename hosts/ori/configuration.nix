@@ -17,7 +17,7 @@
 
       # dotfiles
       dotfilesDir = "/etc/nixos";
-      systemBuilder.enable = true;
+      systemBuilder.enable = false;
 
       # security
       security = {
