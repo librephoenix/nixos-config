@@ -16,6 +16,7 @@ in {
       killall
       libnotify
       timer
+      pomodoro
       brightnessctl
       gnugrep
       bat eza fd bottom ripgrep
