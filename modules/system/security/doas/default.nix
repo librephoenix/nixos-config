@@ -17,6 +17,17 @@ in {
     security.doas.extraRules = [
       {
         users = adminUsers;
+        keepEnv = true;
+        persist = true;
+      }
+      {
+        users = adminUsers;
+        cmd = "phoenix";
+        noPass = true;
+        keepEnv = true;
+      }
+      {
+        users = adminUsers;
         cmd = "nix";
         noPass = true;
         keepEnv = true;
