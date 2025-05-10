@@ -55,7 +55,7 @@ in
         exec-once = [
           "hyprctl setcursor ${config.gtk.cursorTheme.name} ${builtins.toString config.gtk.cursorTheme.size}"
           "hyprpaper"
-          "ashell"
+          "WGPU_BACKEND=gl ashell"
           "hypridle"
           "iio-hyprland"
           "hyprprofile Default"
@@ -435,7 +435,7 @@ in
             pkill -CONT emacsclient;
             systemctl --user start mpd;
             systemctl --user start nextcloud-client;
-            ashell & disown;
+            WGPU_BACKEND=gl ashell & disown;
             hypridle & disown;
             exit;
         fi
