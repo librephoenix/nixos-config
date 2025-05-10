@@ -21,7 +21,6 @@
       };
 
       # wm
-      hyprland.enable = true;
       gnome.enable = true;
 
       # dotfiles

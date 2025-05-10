@@ -29,7 +29,6 @@
       office.enable = true;
 
       # wm
-      hyprland.enable = true;
       gnome.enable = true;
 
       # style
