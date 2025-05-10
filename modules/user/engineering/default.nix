@@ -17,6 +17,7 @@ in {
       cura-appimage
       arduino-ide
       graphviz
+      vscodium-fhs
     ];
     xdg.desktopEntries.cura = lib.mkForce {
       name = "Ultimaker Cura";
