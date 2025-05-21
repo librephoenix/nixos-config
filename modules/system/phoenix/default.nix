@@ -25,6 +25,7 @@
     environment.systemPackages = with pkgs; [
       attic-client
       git
+      nix-output-monitor
       (pkgs.writeScriptBin "phoenix" ''
         if [[ $EUID -ne 0 ]]; then
           echo "Error: This script must be run as root" 1>&2
@@ -37,7 +38,7 @@
           chown -R 0:0 ${config.systemSettings.dotfilesDir};
           chown -R 0:0 ${config.systemSettings.secretsFlakeDir};
           pushd ${config.systemSettings.dotfilesDir} &> /dev/null;
-          nixos-rebuild switch;
+          nixos-rebuild switch --fast;
           popd &> /dev/null;
           exit 0;
         elif [ "$1" = "update" ]; then
@@ -77,19 +78,19 @@
           chown -R 0:0 ${config.systemSettings.dotfilesDir};
           chown -R 0:0 ${config.systemSettings.secretsFlakeDir};
           pushd ${config.systemSettings.dotfilesDir} &> /dev/null;
-          nixos-rebuild build --flake .#snowfire;
+          nixos-rebuild build --fast --flake .#snowfire;
           attic push emmet ./result;
           rm ./result;
-          nixos-rebuild build --flake .#duskfall;
+          nixos-rebuild build --fast --flake .#duskfall;
           attic push emmet ./result;
           rm ./result;
-          nixos-rebuild build --flake .#zenith;
+          nixos-rebuild build --fast --flake .#zenith;
           attic push emmet ./result;
           rm ./result;
-          nixos-rebuild build --flake .#stardust;
+          nixos-rebuild build --fast --flake .#stardust;
           attic push emmet ./result;
           rm ./result;
-          nixos-rebuild build --flake .#ori;
+          nixos-rebuild build --fast --flake .#ori;
           attic push emmet ./result;
           rm ./result;
           exit 0;
