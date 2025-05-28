@@ -53,12 +53,6 @@
           "HDMI-A-1,1920x1080,1536x0,1.25,vrr,0"
           "DP-1,1920x1080,0x0,1.25,vrr,0"
         ];
-        misc = {
-          vrr = 1;
-        };
-        experimental = {
-          xx_color_management_v4 = true;
-        };
 
       };
     };
