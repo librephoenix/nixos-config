@@ -333,11 +333,14 @@
   :after (treemacs))
 
 (use-package lsp-mode
-  :custom
-  (lsp-keymap-prefix (kbd "SPC l"))
+  :config
+  (setq lsp-keymap-prefix "SPC l")
+  (evil-define-key 'normal lsp-mode-map (kbd "SPC l") lsp-command-map)
   (setq lsp-completion-provider :none)
-  :hook ((gdscript-mode . lsp-deferred)
-         (gdscript-ts-mode . lsp-deferred))
+  :hook
+  (lsp-mode . evil-normalize-keymaps)
+  (gdscript-mode . lsp-deferred)
+  (gdscript-ts-mode . lsp-deferred)
   :commands lsp-deferred)
 
 (use-package lsp-ui :commands lsp-ui-mode)

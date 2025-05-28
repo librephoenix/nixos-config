@@ -36,6 +36,7 @@ in
       CLUTTER_BACKEND = "wayland";
       GDK_PIXBUF_MODULE_FILE = "${pkgs.librsvg}/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache";
       GSK_RENDERER = "gl";
+      XCURSOR_THEME = config.gtk.cursorTheme.name;
     };
 
     gtk.cursorTheme = {
