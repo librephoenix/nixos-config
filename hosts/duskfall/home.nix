@@ -15,8 +15,7 @@
       # programs
       browser = "qutebrowser";
       brave.enable = true;
-      editor = "vscodium";
-      emacs.enable = true;
+      editor = "emacs";
       ranger.enable = true;
       yazi.enable = true;
       git.enable = true;
