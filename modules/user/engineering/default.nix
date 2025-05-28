@@ -17,8 +17,8 @@ in {
       cura-appimage
       arduino-ide
       graphviz
-      vscodium-fhs
     ];
+    userSettings.vscodium.enable = true;
     xdg.desktopEntries.cura = lib.mkForce {
       name = "Ultimaker Cura";
       genericName = "3D Printing Software";

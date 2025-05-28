@@ -6,9 +6,9 @@ let
 in {
   options = {
     userSettings.editor = lib.mkOption {
-      default = "emacs";
+      default = "vscodium";
       description = "Default editor";
-      type = lib.types.enum [ "emacs" "kate" ];
+      type = lib.types.enum [ "emacs" "kate" "vscodium" ];
       # TODO add more editors
       #type = lib.types.enum [ "emacs" "vim" "nvim" "neovide" "nano" "micro" "vscodium" "kate" "pulsar" ];
     };
@@ -20,13 +20,25 @@ in {
 
   config = {
     userSettings.emacs.enable = lib.mkIf (config.userSettings.editor == "emacs") true;
+    userSettings.vscodium.enable = lib.mkIf (config.userSettings.editor == "vscodium") true;
     home.packages = with pkgs;
       lib.optionals (editor == "kate") [ kdePackages.kate];
     userSettings.spawnEditor = lib.mkMerge [
       (lib.mkIf (editor == "emacs") "emacsclient -c -a 'emacs'")
       (lib.mkIf (editor == "neovide") "neovide -- --listen /tmp/nvimsocket")
+      (lib.mkIf (editor == "vscodium") "codium -n")
       (lib.mkIf (builtins.elem editor [ "vim" "nvim" "nano" "micro" ]) ("exec " + term + " -e " + editor))
-      (lib.mkIf (!(builtins.elem editor [ "emacs" "vim" "nvim" "neovide" "nano" "micro"])) editor)
+      (lib.mkIf (!(builtins.elem editor [ "emacs" "vim" "nvim" "neovide" "nano" "micro" "vscodium"])) editor)
     ];
+    home.sessionVariables = {
+      EDITOR =
+        lib.mkMerge [
+          (lib.mkIf (editor == "emacs") "emacsclient -c")
+          (lib.mkIf (editor == "neovide") "neovide -- --listen /tmp/nvimsocket")
+          (lib.mkIf (editor == "vscodium") "codium -n")
+          (lib.mkIf (builtins.elem editor [ "vim" "nvim" "nano" "micro" ]) ("exec " + term + " -e " + editor))
+          (lib.mkIf (!(builtins.elem editor [ "emacs" "vim" "nvim" "neovide" "nano" "micro" "vscodium" ])) editor)
+        ];
+    };
   };
 }

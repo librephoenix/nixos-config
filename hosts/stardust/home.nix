@@ -14,7 +14,7 @@
 
       # programs
       browser = "brave";
-      editor = "kate";
+      editor = "vscodium";
       ranger.enable = true;
       yazi.enable = true;
       git.enable = true;

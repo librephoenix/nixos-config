@@ -14,7 +14,8 @@
       # programs
       browser = "qutebrowser";
       brave.enable = true;
-      editor = "emacs";
+      editor = "vscodium";
+      emacs.enable = true;
       ranger.enable = true;
       yazi.enable = true;
       git.enable = true;
@@ -42,7 +43,7 @@
     };
 
     home.packages = with pkgs; [
-      openldap ldapvi
+      openldap ldapvi rclone teams-for-linux
     ];
 
     home.sessionVariables = lib.mkIf config.userSettings.hyprland.enable {
