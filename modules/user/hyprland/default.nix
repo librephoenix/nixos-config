@@ -111,7 +111,7 @@ in
           disable_hyprland_logo = true;
           mouse_move_enables_dpms = true;
           enable_swallow = true;
-          swallow_regex = "(scratch_term)|(Alacritty)|(kitty)";
+          swallow_regex = "(scratch_term)|(Alacritty)|(kitty)|(scratch_yazi)";
           font_family = font;
           focus_on_activate = true;
         };
