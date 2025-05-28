@@ -17,6 +17,7 @@ in {
       inkscape
       libresprite
       makehuman
+      upscayl
     ];
     userSettings.blender.enable = true;
   };
