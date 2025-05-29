@@ -17,10 +17,9 @@
 
 ;; use-package-ception
 (use-package use-package
-  :defer t
   :custom
   (use-package-always-ensure nil)
-  (usepackage-always-defer t))
+  (usepackage-always-defer nil))
 
 (use-package emacs
   :defer t
@@ -177,8 +176,7 @@
   (projectile-mode +1))
 
 ;; Being able to undo is nice...
-(use-package undo-fu
-  :commands (evil-undo evil-redo))
+(use-package undo-fu)
 
 (use-package undo-fu-session
   :after undo-fu
@@ -334,14 +332,16 @@
 
 (use-package lsp-mode
   :config
+  (setq lsp-completion-enable t)
   (setq lsp-keymap-prefix "SPC l")
   (evil-define-key 'normal lsp-mode-map (kbd "SPC l") lsp-command-map)
   (setq lsp-completion-provider :none)
+  (setq major-mode-remap-alist
+   '((gdscript-mode . gdscript-ts-mode)))
   :hook
   (lsp-mode . evil-normalize-keymaps)
   (gdscript-mode . lsp-deferred)
-  (gdscript-ts-mode . lsp-deferred)
-  :commands lsp-deferred)
+  (gdscript-ts-mode . lsp-deferred))
 
 (use-package lsp-ui :commands lsp-ui-mode)
 (use-package lsp-treemacs :commands lsp-treemacs-errors-list)
@@ -365,9 +365,9 @@
   ;; (corfu-preview-current nil)    ;; Disable current candidate preview
   (corfu-preselect 'prompt)      ;; Preselect the prompt
   (corfu-on-exact-match 'insert)     ;; Configure handling of exact matches
-  (corfu-auto t) ;; auto complete
-  (corfu-auto-delay 0.5)  ;; wait half a second though
-  (corfu-auto-prefix 3) ;; also only for words 3 or more
+  (corfu-auto nil) ;; auto complete
+  (corfu-auto-delay 1.2)  ;; wait half a second though
+  (corfu-auto-prefix 5) ;; also only for words 3 or more
   (defun corfu-lsp-setup ()
     (setq-local completion-styles '(orderless flex hotfuzz)
                 completion-category-defaults nil))
