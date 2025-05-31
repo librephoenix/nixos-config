@@ -24,7 +24,7 @@ in {
       enable = true;
       workspace = {
         clickItemTo = "select";
-        wallpaper = config.stylix.image;
+        wallpaper = builtins.toString config.stylix.image;
       };
       shortcuts = {
         "ActivityManager"."switch-to-activity-080837e2-f10a-45f7-84cb-a3022c9dc5d4" = [ ];
@@ -839,8 +839,7 @@ in {
         "khotkeysrc"."WM"."inactiveForeground" = "";
         "khotkeysrc"."WM"."inactiveForeground\x5b$d\x5d" = "";
         "kscreenlockerrc"."Daemon"."Autolock" = false;
-        "kscreenlockerrc"."Greeter/Wallpaper/org/kde/image/General"."Image" = config.stylix.image;
-        "kscreenlockerrc"."Greeter/Wallpaper/org/kde/image/General"."FillMode" = 1;
+        "kscreenlockerrc"."Greeter/Wallpaper/org/kde/image/General"."Image" = builtins.toString config.stylix.image;
         "ksplashrc"."KSplash"."Theme" = "";
         "kwalletrc"."Wallet"."First Use" = false;
         "kwinrc"."Desktops"."Id_1" = "7dfca09a-7b8f-4f7b-9acb-9b9e9eda8090";
@@ -877,7 +876,7 @@ in {
         "kwinrc"."org.kde.kdecoration2"."theme" = "Breeze";
         "plasma-localerc"."Formats"."LANG" = "en_US.UTF-8";
         "plasmarc"."Theme"."name" = "default";
-        "plasmarc"."Wallpapers"."usersWallpapers" = config.stylix.image;
+        "plasmarc"."Wallpapers"."usersWallpapers" = builtins.toString config.stylix.image;
         "systemsettingsrc"."KFileDialog Settings"."detailViewIconSize" = 16;
         "systemsettingsrc"."systemsettings_sidebar_mode"."HighlightNonDefaultSettings" = true;
       };
