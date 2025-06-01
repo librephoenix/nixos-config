@@ -47,6 +47,13 @@
     };
 
     services.thermald.enable = true;
+    services.asusd.enable = true;
+    services.supergfxd.enable = true;
+    environment.systemPackages = with pkgs; [
+      asusctl
+      supergfxctl
+    ];
+
 
     users.users.emmet.description = "Emmet";
     home-manager.users.emmet.userSettings = {
