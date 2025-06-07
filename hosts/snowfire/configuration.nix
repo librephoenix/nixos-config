@@ -54,7 +54,6 @@
       supergfxctl
     ];
 
-
     users.users.emmet.description = "Emmet";
     home-manager.users.emmet.userSettings = {
       name = "Emmet";

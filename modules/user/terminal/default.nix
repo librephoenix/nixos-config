@@ -10,7 +10,7 @@
   };
 
   config = {
-    userSettings.alacritty.enable = lib.mkDefault (config.userSettings.browser == "brave");
-    userSettings.kitty.enable = lib.mkDefault (config.userSettings.browser == "librewolf");
+    userSettings.alacritty.enable = lib.mkDefault (config.userSettings.terminal == "alacritty");
+    userSettings.kitty.enable = lib.mkDefault (config.userSettings.terminal == "kitty");
   };
 }

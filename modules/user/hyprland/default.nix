@@ -52,6 +52,7 @@ in
       settings = {
         env = [
           "AQ_DRM_DEVICES,${config.home.sessionVariables.AQ_DRM_DEVICES}"
+          "AW_NO_MODIFIERS,1"
         ];
         exec-once = [
           "hyprctl setcursor ${config.gtk.cursorTheme.name} ${builtins.toString config.gtk.cursorTheme.size}"
@@ -68,7 +69,7 @@ in
           "alacritty --class scratch_term"
           "kitty --class scratch_yazi -e yazi"
           "alacritty --class scratch_numbat -e numbat"
-          "kitty --class scratch_music -e ncmpcpp"
+          "kitty --class scratch_music -e kew"
           "alacritty --class scratch_btm -e btm"
           "element-desktop"
         ];
@@ -245,7 +246,7 @@ in
           "SUPER,F,togglespecialworkspace,scratch_yazi"
           ''SUPER,N,exec,if hyprctl clients | grep scratch_numbat; then echo "scratch_numbat respawn not needed"; else alacritty --class scratch_numbat -e numbat; fi''
           "SUPER,N,togglespecialworkspace,scratch_numbat"
-          ''SUPER,M,exec,if hyprctl clients | grep scratch_music; then echo "scratch_music respawn not needed"; else kitty --class scratch_music -e ncmpcpp; fi''
+          ''SUPER,M,exec,if hyprctl clients | grep scratch_music; then echo "scratch_music respawn not needed"; else kitty --class scratch_music -e kew; fi''
           "SUPER,M,togglespecialworkspace,scratch_music"
           ''SUPER,B,exec,if hyprctl clients | grep scratch_btm; then echo "scratch_yazi respawn not needed"; else alacritty --class scratch_btm -e btm; fi''
           "SUPER,B,togglespecialworkspace,scratch_btm"
@@ -384,6 +385,7 @@ in
 
     home.packages = (with pkgs; [
       hyprland-monitor-attached
+      kew
       alacritty
       kitty
       killall
