@@ -23,6 +23,7 @@ in {
       seahorse
       element-desktop
       openvpn
+      pomodoro-gtk
     ];
     services.syncthing.enable = true;
     services.nextcloud-client = {

@@ -84,6 +84,16 @@ in
           gaps_out = 7;
         };
 
+        group = {
+          "col.border_active" = "0xff${config.lib.stylix.colors.base08} 0xff${config.lib.stylix.colors.base09} 0xff${config.lib.stylix.colors.base0A} 0xff${config.lib.stylix.colors.base0B} 0xff${config.lib.stylix.colors.base0C} 0xff${config.lib.stylix.colors.base0D} 0xff${config.lib.stylix.colors.base0E} 0xff${config.lib.stylix.colors.base0F} 270deg";
+          "col.border_inactive" = "0xff${config.lib.stylix.colors.base02}";
+          groupbar = {
+            gradients = false;
+            "col.active" = "0xff${config.lib.stylix.colors.base0B}";
+            "col.inactive" = "0xff${config.lib.stylix.colors.base02}";
+          };
+        };
+
         decoration = {
           shadow = {
             enabled = true;
@@ -164,6 +174,9 @@ in
           "ALT,TAB,bringactivetotop"
           "ALTSHIFT,TAB,cyclenext,prev"
           "ALTSHIFT,TAB,bringactivetotop"
+          "SUPER,W,togglegroup"
+          "SUPER,TAB,changegroupactive,f"
+          "SUPERSHIFT,TAB,changegroupactive,b"
           ''SUPER,V,exec,wl-copy $(wl-paste | tr "\n" " ")''
           "SUPERSHIFT,T,exec,screenshot-ocr"
           "CTRLALT,Delete,exec,hyprctl kill"
