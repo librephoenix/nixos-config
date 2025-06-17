@@ -11,6 +11,12 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    # Power key should not shut off computer by defaultPower key shuts of
+    services.logind.extraConfig = ''
+      # Suspend when power button is pressed
+      HandlePowerKey=suspend
+    '';
+
     # Hyprland
     programs = {
       hyprland = {
