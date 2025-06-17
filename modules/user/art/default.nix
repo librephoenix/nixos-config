@@ -11,7 +11,6 @@ in {
 
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
-      gimp
       krita
       pinta
       inkscape
@@ -20,5 +19,8 @@ in {
       upscayl
     ];
     userSettings.blender.enable = true;
+    xdg.mimeApps.defaultApplications = lib.mkForce {
+      "image/svg+xml" = ["org.inkscape.Inkscape.desktop"];
+    };
   };
 }

@@ -15,7 +15,7 @@ in {
       enableZshIntegration = true;
       keymap.manager.prepend_keymap = 
         [
-          { run = "shell ' \"$0\"' --cursor=0 --interactive"; on = [ "@" ]; }
+          { run = "shell ' \"$@\"' --cursor=0 --interactive"; on = [ "@" ]; }
         ];
     };
   };
