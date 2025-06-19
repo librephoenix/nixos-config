@@ -10,6 +10,7 @@
       # hardware
       cachy.enable = true;
       bluetooth.enable = true;
+      powerprofiles.enable = true;
       tlp.enable = false;
       printing.enable = true;
 
