@@ -18,5 +18,7 @@ in
         ambient-enabled = false;
       };
     };
+    userSettings.alacritty.enable = true;
+    userSettings.kitty.enable = true;
   };
 }

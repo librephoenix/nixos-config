@@ -61,8 +61,6 @@
     services.xserver.wacom.enable = true;
     services.xserver.videoDrivers = [ "i915" ];
 
-    services.displayManager.defaultSession = "gnome";
-
   };
   
 }
