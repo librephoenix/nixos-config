@@ -24,7 +24,7 @@ in {
     home.packages = with pkgs;
       lib.optionals (editor == "kate") [ kdePackages.kate];
     userSettings.spawnEditor = lib.mkMerge [
-      (lib.mkIf (editor == "emacs") "emacsclient -c -a 'emacs'")
+      (lib.mkIf (editor == "emacs") "emacsclient -c -n -a 'emacs'")
       (lib.mkIf (editor == "neovide") "neovide -- --listen /tmp/nvimsocket")
       (lib.mkIf (editor == "vscodium") "codium -n")
       (lib.mkIf (builtins.elem editor [ "vim" "nvim" "nano" "micro" ]) ("exec " + term + " -e " + editor))
