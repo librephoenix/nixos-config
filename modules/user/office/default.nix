@@ -17,7 +17,6 @@ in {
       mate.atril
       xournalpp
       adwaita-icon-theme
-      newsflash
       foliate
       gnome-maps
       seahorse
