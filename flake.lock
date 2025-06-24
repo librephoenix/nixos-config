@@ -1093,11 +1093,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1746897014,
-        "narHash": "sha256-2f1EHQMxv361yLJC/KMNN0Uqx1esuSpf5rc0KqvUS+s=",
+        "lastModified": 1750789796,
+        "narHash": "sha256-SULb7v2sci2mt8XQeMPlbQLH0gBimfULO0whkSE5JFI=",
         "ref": "refs/heads/main",
-        "rev": "91ba604b210663353542b97d6498cc1631a22053",
-        "revCount": 29,
+        "rev": "e9f09e66faf9f521dd031dcb2d48f507fdc4c785",
+        "revCount": 30,
         "type": "git",
         "url": "file://path:/etc/nixos.secrets"
       },
