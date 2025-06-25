@@ -114,6 +114,7 @@ in
         };
 
         cursor = {
+          no_hardware_cursors = 1;
           no_warps = false;
           inactive_timeout = 30;
         };

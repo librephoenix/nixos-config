@@ -50,9 +50,9 @@
     wayland.windowManager.hyprland = lib.mkIf config.userSettings.hyprland.enable {
       settings = {
         monitor = [
-          "eDP-1,1920x1080@300,720x864,1.25,vrr,0"
-          "HDMI-A-1,1920x1080,1536x0,1.25,vrr,0"
-          "DP-1,1920x1080,0x0,1.25,vrr,0"
+          "eDP-1,1920x1080@60.00,720x864,1.25,vrr,0"
+          "HDMI-A-1,preferred,1536x0,1.25,vrr,0"
+          "DP-1,preferred,0x0,1.25,vrr,0"
         ];
 
       };
