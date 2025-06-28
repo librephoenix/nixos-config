@@ -10,7 +10,12 @@
         (import inputs.nixpkgs { inherit system; }).applyPatches {
           name = "nixpkgs-patched";
           src = inputs.nixpkgs;
-          patches = [ ];
+          patches = [
+            (builtins.fetchurl {
+              url = "https://patch-diff.githubusercontent.com/raw/NixOS/nixpkgs/pull/419713.patch";
+              sha256 = "sha256:16giri2vwqf6lb6l8fw10zgda1d3y13g3p6hm375f2i2dbip9s9b";
+            })
+          ];
         };
 
       # configure pkgs
