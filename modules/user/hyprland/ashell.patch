@@ -1,32 +1,39 @@
 diff --git a/src/modules/workspaces.rs b/src/modules/workspaces.rs
-index 806d499..3737a82 100644
+index 1bafb6d..c448b02 100644
 --- a/src/modules/workspaces.rs
 +++ b/src/modules/workspaces.rs
-@@ -41,6 +41,7 @@ fn get_workspaces(enable_workspace_filling: bool) -> Vec<Workspace> {
-     let mut workspaces = hyprland::data::Workspaces::get()
-         .map(|w| w.to_vec())
-         .unwrap_or_default();
-+    workspaces.retain(|w| w.id > 0);
+@@ -51,20 +51,20 @@ fn get_workspaces(config: &WorkspacesModuleConfig) -> Vec<Workspace> {
+     let (special, normal): (Vec<_>, Vec<_>) = workspaces.into_iter().partition(|w| w.id < 0);
  
-     workspaces.sort_by_key(|w| w.id);
+     // map special workspaces
+-    for w in special.iter() {
+-        result.push(Workspace {
+-            id: w.id,
+-            name: w
+-                .name
+-                .split(":")
+-                .last()
+-                .map_or_else(|| "".to_string(), |s| s.to_owned()),
+-            monitor_id: Some(w.monitor_id as usize),
+-            monitor: w.monitor.clone(),
+-            active: monitors.iter().any(|m| m.special_workspace.id == w.id),
+-            windows: w.windows,
+-        });
+-    }
++    //for w in special.iter() {
++    //    result.push(Workspace {
++    //        id: w.id,
++    //        name: w
++    //            .name
++    //            .split(":")
++    //            .last()
++    //            .map_or_else(|| "".to_string(), |s| s.to_owned()),
++    //        monitor_id: Some(w.monitor_id as usize),
++    //        monitor: w.monitor.clone(),
++    //        active: monitors.iter().any(|m| m.special_workspace.id == w.id),
++    //        windows: w.windows,
++    //    });
++    //}
  
-diff --git a/src/outputs.rs b/src/outputs.rs
-index adc616b..ce63b57 100644
---- a/src/outputs.rs
-+++ b/src/outputs.rs
-@@ -58,6 +58,7 @@ impl Outputs {
-             id,
-             size: Some((None, Some(HEIGHT))),
-             layer: Layer::Bottom,
-+	    namespace: String::from("ashell"),
-             pointer_interactivity: true,
-             keyboard_interactivity: KeyboardInteractivity::None,
-             exclusive_zone: HEIGHT as i32,
-@@ -77,6 +78,7 @@ impl Outputs {
-             id: menu_id,
-             size: Some((None, None)),
-             layer: Layer::Background,
-+	    namespace: String::from("ashell"),
-             pointer_interactivity: true,
-             keyboard_interactivity: KeyboardInteractivity::None,
-             output: wl_output.map_or(IcedOutput::Active, |wl_output| {
+     // map normal workspaces
+     for w in normal.iter() {

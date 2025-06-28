@@ -361,18 +361,18 @@ in
 
         layerrule = [
           "blur,waybar"
-          "blur,ashell"
+          "blur,ashell-main-layer"
           "blur,launcher # fuzzel"
           "blur,~nwggrid"
           "blur,gtk-layer-shell"
           "xray 1,waybar"
-          "xray 1,ashell"
+          "xray 1,ashell-main-layer"
           "xray 1,~nwggrid"
           "xray 1,gtk-layer-shell"
           "ignorezero, gtk-layer-shell"
-          "ignorezero, ashell"
+          "ignorezero, ashell-main-layer"
           "animation fade,~nwggrid"
-          "animation popin 80%, ashell"
+          "animation popin 80%, ashell-main-layer"
         ];
 
         blurls = [
@@ -406,11 +406,11 @@ in
       polkit_gnome
       (ashell.overrideAttrs (o: {
           patches = (o.patches or [ ]) ++ [
-            ./ashell.patch
+           ./ashell.patch
           ];
         }))
       nwg-launchers
-      papirus-icon-theme
+      (lib.hiPrio papirus-icon-theme)
       (pkgs.writeScriptBin "nwggrid-wrapper" ''
         #!/bin/sh
         if pgrep -x "nwggrid-server" > /dev/null
@@ -543,57 +543,52 @@ in
         then echo "Shouldn't suspend"; sleep 10; else echo "Should suspend"; systemctl suspend; fi
       '')
     ]);
-    home.file.".config/ashell.yml".text = ''
-outputs: All
-position: Top
-modules:
-  left:
-    - [ AppLauncher, SystemInfo ]
-  center:
-    - Workspaces
-  right:
-    - [Clock, Settings, Tray]
-appLauncherCmd: "nwggrid-wrapper" # optional, default None
-truncateTitleAfterLength: 150 # optional, default 150
-workspaces:
-  visibilityMode: MonitorSpecific # optional, default All
-  enableWorkspaceFilling: true # optional, default false
-system:
-  cpuWarnThreshold: 80 # cpu indicator warning level (default 60)
-  cpuAlertThreshold: 95 # cpu indicator alert level (default 80)
-  memWarnThreshold: 50 # mem indicator warning level (default 70)
-  memAlertThreshold: 75 # mem indicator alert level (default 85)
-  tempWarnThreshold: 90 # temperature indicator warning level (default 60)
-  tempAlertThreshold: 95 # temperature indicator alert level (default 80)
-clock:
-  format: "%a %d %b %R" # optional, default: %a %d %b %R
-mediaPlayer:
-  maxTitleLength: 100 # optional, default 100
-settings:
-  lockCmd: "hyprlock &" # optional, default None
-  audioSinksMoreCmd: "pavucontrol -t 3" # optional default None
-  audioSourcesMoreCmd: "pavucontrol -t 4" # optional, default None
-  wifiMoreCmd: "nm-connection-editor" # optional, default None
-  vpnMoreCmd: "nm-connection-editor" # optional, default None
-  bluetoothMoreCmd: "blueman-manager" # optional, default None
-appearance:
-  backgroundColor: "#${config.lib.stylix.colors.base00}88" # used as a base background color for header module button
-  primaryColor: "#${config.lib.stylix.colors.base0B}" # used as a accent color
-  secondaryColor: "#${config.lib.stylix.colors.base01}" # used for darker background color
-  successColor: "#${config.lib.stylix.colors.base0A}" # used for success message or happy state
-  dangerColor: "#${config.lib.stylix.colors.base08}" # used for danger message or danger state (the weak version is used for the warning state
-  textColor: "#${config.lib.stylix.colors.base07}" # base default text color
-  # this is a list of color that will be used in the workspace module (one color for each monitor)
-  workspaceColors:
-    - "#${config.lib.stylix.colors.base0B}"
-    - "#${config.lib.stylix.colors.base0B}"
-  # this is a list of color that will be used in the workspace module
-  # for the special workspace (one color for each monitor)
-  # optional, default None
-  # without a value the workspaceColors list will be used
-  specialWorkspaceColors:
-    - "#${config.lib.stylix.colors.base0B}"
-    - "#${config.lib.stylix.colors.base0B}"
+    home.file.".config/ashell/config.toml".text = ''
+outputs = "All"
+position = "Top"
+app_launcher_cmd = "nwggrid-wrapper"
+truncate_title_after_length = 150
+[modules]
+left = [ "AppLauncher", "SystemInfo" ]
+center = [ "Workspaces" ]
+right = [ "Clock", "Settings", "Tray" ]
+[workspaces]
+visibility_mode = "MonitorSpecific"
+enable_workspace_filling = true
+[system.cpu]
+warn_threshold = 80
+alert_threshold = 95
+[system.mem]
+warn_threshold = 50
+alert_threshold = 75
+[system.temp]
+warn_threshold = 90
+alert_threshold = 95
+[clock]
+format = "%a %d %b %R"
+[mediaPlayer]
+max_title_length = 100
+[settings]
+lockCmd = "hyprlock &"
+audio_sinks_more_cmd = "pavucontrol -t 3"
+audio_sources_more_cmd = "pavucontrol -t 4"
+wifi_more_cmd = "nm-connection-editor"
+vpn_more_cmd = "nm-connection-editor"
+bluetooth_more_cmd = "blueman-manager"
+[appearance]
+style = "Solid"
+opacity = 0.7
+background_color = "#${config.lib.stylix.colors.base00}88"
+primary_color = "#${config.lib.stylix.colors.base0B}"
+secondary_color = "#${config.lib.stylix.colors.base01}"
+success_color = "#${config.lib.stylix.colors.base0A}"
+danger_color = "#${config.lib.stylix.colors.base08}"
+text_color = "#${config.lib.stylix.colors.base07}"
+workspace_colors = [ "#${config.lib.stylix.colors.base0B}", "#${config.lib.stylix.colors.base0B}" ]
+specialWorkspaceColors = [ "#${config.lib.stylix.colors.base0B}", "#${config.lib.stylix.colors.base0B}" ]
+[appearance.menu]
+opacity = 0.7
+backdrop = 0.0
     '';
     home.file.".config/hypr/hypridle.conf".text = ''
       general {
