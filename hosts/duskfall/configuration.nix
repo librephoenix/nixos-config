@@ -21,7 +21,7 @@
       };
 
       # wm
-      gnome.enable = true;
+      hyprland.enable = true;
 
       # dotfiles
       dotfilesDir = "/etc/nixos";

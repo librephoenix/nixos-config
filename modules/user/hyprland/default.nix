@@ -10,6 +10,11 @@ in
   options = {
     userSettings.hyprland = {
       enable = lib.mkEnableOption "Enable hyprland";
+      performanceOptimizations = lib.mkOption {
+        default = false;
+        type = lib.types.bool;
+        description = "Enable performance optimizations";
+      };
     };
   };
 
@@ -25,18 +30,52 @@ in
 
     home.sessionVariables = {
       NIXOS_OZONE_WL = 1;
+      ELECTRON_OZONE_PLATFORM_HINT = "wayland";
       XDG_CURRENT_DESKTOP = "Hyprland";
       XDG_SESSION_DESKTOP = "Hyprland";
       XDG_SESSION_TYPE = "wayland";
       GDK_BACKEND = "wayland,x11,*";
       QT_QPA_PLATFORM = "wayland;xcb";
       QT_QPA_PLATFORMTHEME = lib.mkForce "qt5ct";
-      QT_AUTO_SCREEN_SCALE_FACTOR = 1;
+      QT_AUTO_SCREEN_SCALE_FACTOR = "1.25";
       QT_WAYLAND_DISABLE_WINDOWDECORATION = 1;
       CLUTTER_BACKEND = "wayland";
-      GDK_PIXBUF_MODULE_FILE = "${pkgs.librsvg}/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache";
-      GSK_RENDERER = "gl";
+      #GDK_PIXBUF_MODULE_FILE = "${pkgs.librsvg}/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache";
+      #GSK_RENDERER = "gl";
       XCURSOR_THEME = config.gtk.cursorTheme.name;
+      GDK_DEBUG = "portals";
+      GTK_USE_PORTALS = 1;
+    };
+
+    xdg.portal =
+    {
+      enable = true;
+      extraPortals = with pkgs;
+      [
+        xdg-desktop-portal-wlr
+        xdg-desktop-portal-termfilechooser
+      ];
+    };
+    
+    xdg.portal.config.common = {
+      default = [ "hyprland" ];
+      "org.freedesktop.impl.portal.FileChooser" = "termfilechooser";
+    };
+    xdg.portal.config.hyprland = {
+      default = [ "hyprland" ];
+      "org.freedesktop.impl.portal.FileChooser" = "termfilechooser";
+    };
+    
+    home.sessionVariables.TERMCMD = "kitty --class=filechoose_yazi";
+    
+    xdg.configFile."xdg-desktop-portal-termfilechooser/config" =
+    {
+      force = true;
+      text =
+      ''
+        [filechooser]
+        cmd=${pkgs.xdg-desktop-portal-termfilechooser}/share/xdg-desktop-portal-termfilechooser/yazi-wrapper.sh
+      '';
     };
 
     gtk.cursorTheme = {
@@ -76,17 +115,17 @@ in
 
         general = {
           layout = "master";
-          border_size = 5;
-          "col.active_border" = "0xff${config.lib.stylix.colors.base08} 0xff${config.lib.stylix.colors.base09} 0xff${config.lib.stylix.colors.base0A} 0xff${config.lib.stylix.colors.base0B} 0xff${config.lib.stylix.colors.base0C} 0xff${config.lib.stylix.colors.base0D} 0xff${config.lib.stylix.colors.base0E} 0xff${config.lib.stylix.colors.base0F} 270deg";
+          border_size = 3;
+          "col.active_border" = if config.userSettings.hyprland.performanceOptimizations then "0xff${config.lib.stylix.colors.base0B}" else "0xff${config.lib.stylix.colors.base08} 0xff${config.lib.stylix.colors.base09} 0xff${config.lib.stylix.colors.base0A} 0xff${config.lib.stylix.colors.base0B} 0xff${config.lib.stylix.colors.base0C} 0xff${config.lib.stylix.colors.base0D} 0xff${config.lib.stylix.colors.base0E} 0xff${config.lib.stylix.colors.base0F} 270deg";
           "col.inactive_border" = "0xff${config.lib.stylix.colors.base02}";
           resize_on_border = true;
-          gaps_in = 7;
-          gaps_out = 7;
+          gaps_in = 6;
+          gaps_out = 6;
         };
 
         group = {
-          "col.border_active" = "0xff${config.lib.stylix.colors.base08} 0xff${config.lib.stylix.colors.base09} 0xff${config.lib.stylix.colors.base0A} 0xff${config.lib.stylix.colors.base0B} 0xff${config.lib.stylix.colors.base0C} 0xff${config.lib.stylix.colors.base0D} 0xff${config.lib.stylix.colors.base0E} 0xff${config.lib.stylix.colors.base0F} 270deg";
-          "col.border_inactive" = "0xff${config.lib.stylix.colors.base02}";
+          "col.border_active" = config.wayland.windowManager.hyprland.settings.general."col.active_border";
+          "col.border_inactive" = config.wayland.windowManager.hyprland.settings.general."col.inactive_border";
           groupbar = {
             gradients = false;
             "col.active" = "0xff${config.lib.stylix.colors.base0B}";
@@ -96,20 +135,20 @@ in
 
         decoration = {
           shadow = {
-            enabled = true;
+            enabled = (!config.userSettings.hyprland.performanceOptimizations);
           };
           rounding = 8;
           dim_special = 0.0;
           blur = {
-            enabled = true;
+            enabled = (!config.userSettings.hyprland.performanceOptimizations);
             size = 5;
             passes = 2;
             ignore_opacity = true;
             contrast = 1.17;
             brightness = (if (config.stylix.polarity == "dark") then "0.65" else "1.45");
-            xray = true;
-            special = true;
-            popups = true;
+            xray = (!config.userSettings.hyprland.performanceOptimizations);
+            special = (!config.userSettings.hyprland.performanceOptimizations);
+            popups = (!config.userSettings.hyprland.performanceOptimizations);
           };
         };
 
@@ -128,7 +167,7 @@ in
           focus_on_activate = true;
         };
 
-        bezier = [
+        bezier = lib.optionals (!config.userSettings.hyprland.performanceOptimizations) [
           "wind, 0.05, 0.9, 0.1, 1.05"
           "winIn, 0.1, 1.1, 0.1, 1.0"
           "winOut, 0.3, -0.3, 0, 1"
@@ -137,8 +176,8 @@ in
         ];
 
         animations = {
-          enabled = "yes";
-          animation = [
+          enabled = (!config.userSettings.hyprland.performanceOptimizations);
+          animation = lib.optionals (!config.userSettings.hyprland.performanceOptimizations) [
             "windowsIn, 1, 6, winIn, popin"
             "windowsOut, 1, 5, winOut, popin"
             "windowsMove, 1, 5, wind, slide"
@@ -316,17 +355,11 @@ in
           "float,title:^(Save to Disk)$"
           "size 70% 75%,title:^(Save to Disk)$"
           "center,title:^(Save to Disk)$"
-          "opacity 0.80,class:^(org.pulseaudio.pavucontrol)$"
           "float,class:^(pokefinder)$"
           "float,class:^(Waydroid)$"
           "float,title:(Blender Render)"
           "size 86% 85%,title:(Blender Render)"
           "center,title:(Blender Render)"
-          #"float,class:^(org.inkscape.Inkscape)$"
-          #"float,class:^(pinta)$"
-          #"float,class:^(krita)$"
-          #"float,class:^(Gimp)"
-          #"float,class:^(Gimp)"
           "float,class:^(libresprite)$"
           "float,title:(Open Images)"
           "size 86% 85%,title:(Open Images)"
@@ -342,10 +375,9 @@ in
           "size 70% 70%,title:(Resource)"
           "center,title:(Resource)"
           "tile,title:(Godot)"
-          "opacity 0.80,title:ORUI"
           "suppressevent maximize,class:^(steam)$"
-          #"float,class:^(steam)$"
-          #"fullscreen,class:^(steam)$"
+        ] ++ lib.optionals (!config.userSettings.hyprland.performanceOptimizations) [
+          "opacity 0.80,class:^(org.pulseaudio.pavucontrol)$"
           "opacity 1.0,class:^(org.qutebrowser.qutebrowser),fullscreen:1"
           "opacity 0.85,class:^(Element)$"
           "opacity 0.85,class:^(Logseq)$"
@@ -357,9 +389,10 @@ in
           "opacity 0.85,class:^(org.gnome.Nautilus)$"
           "opacity 0.85,class:^(org.gnome.Nautilus)$"
           "opacity 0.85,initialTitle:^(Notes)$,initialClass:^(Brave-browser)$"
+
         ];
 
-        layerrule = [
+        layerrule = lib.optionals (!config.userSettings.hyprland.performanceOptimizations) [
           "blur,waybar"
           "blur,ashell-main-layer"
           "blur,launcher # fuzzel"
@@ -375,7 +408,7 @@ in
           "animation popin 80%, ashell-main-layer"
         ];
 
-        blurls = [
+        blurls = lib.optionals (!config.userSettings.hyprland.performanceOptimizations) [
           "waybar"
           "launcher # fuzzel"
           "~nwggrid"
@@ -418,6 +451,7 @@ in
           nwggrid -client
         else
           GDK_PIXBUF_MODULE_FILE=${pkgs.librsvg}/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache nwggrid-server -layer-shell-exclusive-zone -1 -g adw-gtk3 -o 0.55 -b ${config.lib.stylix.colors.base00}
+          sleep 0.5 && nwggrid -client
         fi
       '')
       (pkgs.writeScriptBin "hyprgamemode" ''
@@ -577,7 +611,7 @@ vpn_more_cmd = "nm-connection-editor"
 bluetooth_more_cmd = "blueman-manager"
 [appearance]
 style = "Solid"
-opacity = 0.7
+opacity = ${if config.userSettings.hyprland.performanceOptimizations then "1.0" else "0.7"}
 background_color = "#${config.lib.stylix.colors.base00}88"
 primary_color = "#${config.lib.stylix.colors.base0B}"
 secondary_color = "#${config.lib.stylix.colors.base01}"
@@ -587,7 +621,7 @@ text_color = "#${config.lib.stylix.colors.base07}"
 workspace_colors = [ "#${config.lib.stylix.colors.base0B}", "#${config.lib.stylix.colors.base0B}" ]
 specialWorkspaceColors = [ "#${config.lib.stylix.colors.base0B}", "#${config.lib.stylix.colors.base0B}" ]
 [appearance.menu]
-opacity = 0.7
+opacity = ${if config.userSettings.hyprland.performanceOptimizations then "1.0" else "0.7"}
 backdrop = 0.0
     '';
     home.file.".config/hypr/hypridle.conf".text = ''

@@ -29,7 +29,8 @@
       office.enable = true;
 
       # wm
-      gnome.enable = true;
+      hyprland.enable = true;
+      hyprland.performanceOptimizations = true;
 
       # style
       stylix.enable = true;
