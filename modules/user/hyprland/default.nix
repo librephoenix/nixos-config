@@ -5,6 +5,7 @@ let
   term = config.userSettings.terminal;
   spawnEditor = config.userSettings.spawnEditor;
   spawnBrowser = config.userSettings.spawnBrowser;
+  performance = config.userSettings.hyprland.performanceOptimizations;
 in
 {
   options = {
@@ -20,7 +21,10 @@ in
 
   config = lib.mkIf cfg.enable {
     userSettings.alacritty.enable = true;
+    programs.alacritty.settings.window.opacity = lib.mkOverride 40 (if performance then 1.0 else 0.85);
     userSettings.kitty.enable = true;
+    programs.kitty.settings.background_opacity = lib.mkOverride 40 (if performance then "1.0" else "0.85");
+    userSettings.emacs.opacity = lib.mkOverride 40 (if performance then 100 else 85);
     userSettings.dmenuScripts = {
       enable = true;
       dmenuCmd = "fuzzel -d";
@@ -450,8 +454,8 @@ in
         then
           nwggrid -client
         else
-          GDK_PIXBUF_MODULE_FILE=${pkgs.librsvg}/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache nwggrid-server -layer-shell-exclusive-zone -1 -g adw-gtk3 -o 0.55 -b ${config.lib.stylix.colors.base00}
-          sleep 0.5 && nwggrid -client
+          GDK_PIXBUF_MODULE_FILE=${pkgs.librsvg}/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache nwggrid-server -layer-shell-exclusive-zone -1 -g adw-gtk3 -o 0.55 -b ${config.lib.stylix.colors.base00} &
+          sleep 0.6 && nwggrid -client
         fi
       '')
       (pkgs.writeScriptBin "hyprgamemode" ''

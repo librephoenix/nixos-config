@@ -6,6 +6,11 @@ in {
   options = {
     userSettings.emacs = {
       enable = lib.mkEnableOption "Enable emacs";
+      opacity = lib.mkOption {
+        default = 85;
+        type = lib.types.number;
+        description = "Emacs' percentage opacity as a whole number";
+      };
     };
   };
 
@@ -70,6 +75,9 @@ in {
         template = builtins.readFile ./lib/doom-stylix-theme.el.mustache;
         extension = ".el";
     };
+    home.file.".config/emacs/sysvars.el".text = ''
+    (setq systemOpacity ${builtins.toString config.userSettings.emacs.opacity})
+'';
     wayland.windowManager.hyprland.settings.exec-once = lib.optionals config.wayland.windowManager.hyprland.enable [ "emacs --daemon" ];
   };
 }

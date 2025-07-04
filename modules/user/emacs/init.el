@@ -14,6 +14,7 @@
 
 ;; organize everything with use-package
 (require 'use-package)
+(load (expand-file-name "~/.config/emacs/sysvars.el"))
 
 ;; use-package-ception
 (use-package use-package
@@ -28,9 +29,9 @@
   (setq inhibit-startup-message t)
   
   ;; Transparent background
-  (set-frame-parameter nil 'alpha-background 85)
-  (add-to-list 'default-frame-alist '(alpha-background . 85))
-  (add-to-list 'default-frame-alist '(inhibit-double-buffering . t))
+  (set-frame-parameter nil 'alpha-background systemOpacity)
+  (add-to-list 'default-frame-alist '(alpha-background . systemOpacity))
+  ;;(add-to-list 'default-frame-alist '(inhibit-double-buffering . t))
   
   ;; I want declarative config, no custom
   (setq custom-file "/dev/null")
