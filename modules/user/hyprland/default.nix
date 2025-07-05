@@ -112,7 +112,6 @@ in
           "alacritty --class scratch_term"
           "kitty --class scratch_yazi -e yazi"
           "alacritty --class scratch_numbat -e numbat"
-          "kitty --class scratch_music -e kew"
           "alacritty --class scratch_btm -e btm"
           "element-desktop"
         ];
@@ -166,7 +165,7 @@ in
           disable_hyprland_logo = true;
           mouse_move_enables_dpms = true;
           enable_swallow = true;
-          swallow_regex = "(scratch_term)|(Alacritty)|(kitty)|(scratch_yazi)";
+          swallow_regex = "(scratch_term)|(Alacritty)|(kitty)";
           font_family = font;
           focus_on_activate = true;
         };
@@ -303,8 +302,6 @@ in
           "SUPER,F,togglespecialworkspace,scratch_yazi"
           ''SUPER,N,exec,if hyprctl clients | grep scratch_numbat; then echo "scratch_numbat respawn not needed"; else alacritty --class scratch_numbat -e numbat; fi''
           "SUPER,N,togglespecialworkspace,scratch_numbat"
-          ''SUPER,M,exec,if hyprctl clients | grep scratch_music; then echo "scratch_music respawn not needed"; else kitty --class scratch_music -e kew; fi''
-          "SUPER,M,togglespecialworkspace,scratch_music"
           ''SUPER,B,exec,if hyprctl clients | grep scratch_btm; then echo "scratch_yazi respawn not needed"; else alacritty --class scratch_btm -e btm; fi''
           "SUPER,B,togglespecialworkspace,scratch_btm"
           ''SUPER,D,exec,if hyprctl clients | grep Element; then echo "scratch_yazi respawn not needed"; else element-desktop; fi''
@@ -352,10 +349,6 @@ in
           "size 85% 90%,class:^(Element)$"
           "workspace special:scratch_element silent,class:^(Element)$"
           "center,class:^(Element)$"
-          "float,class:^(scratch_music)$"
-          "size 80% 85%,class:^(scratch_music)$"
-          "workspace special:scratch_music silent,class:^(scratch_music)$"
-          "center,class:^(scratch_music)$"
           "float,title:^(Save to Disk)$"
           "size 70% 75%,title:^(Save to Disk)$"
           "center,title:^(Save to Disk)$"
@@ -436,7 +429,6 @@ in
 
     home.packages = (with pkgs; [
       hyprland-monitor-attached
-      kew
       alacritty
       kitty
       killall
