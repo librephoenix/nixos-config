@@ -30,7 +30,7 @@
   
   ;; Transparent background
   (set-frame-parameter nil 'alpha-background systemOpacity)
-  (add-to-list 'default-frame-alist '(alpha-background . systemOpacity))
+  (add-to-list 'default-frame-alist `(alpha-background . ,systemOpacity))
   ;;(add-to-list 'default-frame-alist '(inhibit-double-buffering . t))
   
   ;; I want declarative config, no custom

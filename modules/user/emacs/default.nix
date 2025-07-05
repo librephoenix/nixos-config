@@ -76,7 +76,19 @@ in {
         extension = ".el";
     };
     home.file.".config/emacs/sysvars.el".text = ''
-    (setq systemOpacity ${builtins.toString config.userSettings.emacs.opacity})
+      ;;; sysvars.el --- imported variables from nixos config -*- lexical-binding: t; no-byte-compile: t; -*-
+      ;;
+      ;; Author: Emmet K <https://gitlab.com/librephoenix>
+      ;; Maintainer: Emmet K <https://gitlab.com/librephoenix>
+      ;;
+      ;;; Commentary:
+      ;;
+      ;; Emacs variables imported from my NixOS config.
+      ;;
+      ;;; Code:
+      (setq systemOpacity ${builtins.toString config.userSettings.emacs.opacity})
+
+      ;;; sysvars.el ends here
 '';
     wayland.windowManager.hyprland.settings.exec-once = lib.optionals config.wayland.windowManager.hyprland.enable [ "emacs --daemon" ];
   };

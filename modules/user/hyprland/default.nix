@@ -119,7 +119,7 @@ in
         general = {
           layout = "master";
           border_size = 3;
-          "col.active_border" = if config.userSettings.hyprland.performanceOptimizations then "0xff${config.lib.stylix.colors.base0B}" else "0xff${config.lib.stylix.colors.base08} 0xff${config.lib.stylix.colors.base09} 0xff${config.lib.stylix.colors.base0A} 0xff${config.lib.stylix.colors.base0B} 0xff${config.lib.stylix.colors.base0C} 0xff${config.lib.stylix.colors.base0D} 0xff${config.lib.stylix.colors.base0E} 0xff${config.lib.stylix.colors.base0F} 270deg";
+          "col.active_border" = if performance then "0xff${config.lib.stylix.colors.base0B}" else "0xff${config.lib.stylix.colors.base08} 0xff${config.lib.stylix.colors.base09} 0xff${config.lib.stylix.colors.base0A} 0xff${config.lib.stylix.colors.base0B} 0xff${config.lib.stylix.colors.base0C} 0xff${config.lib.stylix.colors.base0D} 0xff${config.lib.stylix.colors.base0E} 0xff${config.lib.stylix.colors.base0F} 270deg";
           "col.inactive_border" = "0xff${config.lib.stylix.colors.base02}";
           resize_on_border = true;
           gaps_in = 6;
@@ -138,20 +138,20 @@ in
 
         decoration = {
           shadow = {
-            enabled = (!config.userSettings.hyprland.performanceOptimizations);
+            enabled = (!performance);
           };
           rounding = 8;
           dim_special = 0.0;
           blur = {
-            enabled = (!config.userSettings.hyprland.performanceOptimizations);
+            enabled = (!performance);
             size = 5;
             passes = 2;
             ignore_opacity = true;
             contrast = 1.17;
             brightness = (if (config.stylix.polarity == "dark") then "0.65" else "1.45");
-            xray = (!config.userSettings.hyprland.performanceOptimizations);
-            special = (!config.userSettings.hyprland.performanceOptimizations);
-            popups = (!config.userSettings.hyprland.performanceOptimizations);
+            xray = (!performance);
+            special = (!performance);
+            popups = (!performance);
           };
         };
 
@@ -170,7 +170,7 @@ in
           focus_on_activate = true;
         };
 
-        bezier = lib.optionals (!config.userSettings.hyprland.performanceOptimizations) [
+        bezier = lib.optionals (!performance) [
           "wind, 0.05, 0.9, 0.1, 1.05"
           "winIn, 0.1, 1.1, 0.1, 1.0"
           "winOut, 0.3, -0.3, 0, 1"
@@ -179,8 +179,8 @@ in
         ];
 
         animations = {
-          enabled = (!config.userSettings.hyprland.performanceOptimizations);
-          animation = lib.optionals (!config.userSettings.hyprland.performanceOptimizations) [
+          enabled = (!performance);
+          animation = lib.optionals (!performance) [
             "windowsIn, 1, 6, winIn, popin"
             "windowsOut, 1, 5, winOut, popin"
             "windowsMove, 1, 5, wind, slide"
@@ -224,12 +224,6 @@ in
           "SUPERSHIFT,T,exec,screenshot-ocr"
           "CTRLALT,Delete,exec,hyprctl kill"
           "SUPERSHIFT,K,exec,hyprctl kill"
-          ",code:172,exec,mpc toggle"
-          ",code:208,exec,mpc toggle"
-          ",code:209,exec,mpc toggle"
-          ",code:174,exec,mpc stop"
-          ",code:171,exec,mpc next"
-          ",code:173,exec,mpc prev"
           "SUPER,R,pass,^(com\.obsproject\.Studio)$"
           "SUPERSHIFT,R,pass,^(com\.obsproject\.Studio)$"
           "SUPER,RETURN,exec,${term}"
@@ -373,7 +367,7 @@ in
           "center,title:(Resource)"
           "tile,title:(Godot)"
           "suppressevent maximize,class:^(steam)$"
-        ] ++ lib.optionals (!config.userSettings.hyprland.performanceOptimizations) [
+        ] ++ lib.optionals (!performance) [
           "opacity 0.80,class:^(org.pulseaudio.pavucontrol)$"
           "opacity 1.0,class:^(org.qutebrowser.qutebrowser),fullscreen:1"
           "opacity 0.85,class:^(Element)$"
@@ -389,7 +383,7 @@ in
 
         ];
 
-        layerrule = lib.optionals (!config.userSettings.hyprland.performanceOptimizations) [
+        layerrule = lib.optionals (!performance) [
           "blur,waybar"
           "blur,ashell-main-layer"
           "blur,launcher # fuzzel"
@@ -405,7 +399,7 @@ in
           "animation popin 80%, ashell-main-layer"
         ];
 
-        blurls = lib.optionals (!config.userSettings.hyprland.performanceOptimizations) [
+        blurls = lib.optionals (!performance) [
           "waybar"
           "launcher # fuzzel"
           "~nwggrid"
@@ -467,7 +461,6 @@ in
             pkill -STOP syncthing;
             pkill -STOP emacs;
             pkill -STOP emacsclient;
-            systemctl --user stop mpd;
             systemctl --user stop nextcloud-client;
             pkill ashell;
             pkill hypridle;
@@ -485,7 +478,6 @@ in
             pkill -CONT syncthing;
             pkill -CONT emacs;
             pkill -CONT emacsclient;
-            systemctl --user start mpd;
             systemctl --user start nextcloud-client;
             WGPU_BACKEND=gl ashell & disown;
             hypridle & disown;
@@ -607,7 +599,7 @@ vpn_more_cmd = "nm-connection-editor"
 bluetooth_more_cmd = "blueman-manager"
 [appearance]
 style = "Solid"
-opacity = ${if config.userSettings.hyprland.performanceOptimizations then "1.0" else "0.7"}
+opacity = ${if performance then "1.0" else "0.7"}
 background_color = "#${config.lib.stylix.colors.base00}88"
 primary_color = "#${config.lib.stylix.colors.base0B}"
 secondary_color = "#${config.lib.stylix.colors.base01}"
@@ -617,7 +609,7 @@ text_color = "#${config.lib.stylix.colors.base07}"
 workspace_colors = [ "#${config.lib.stylix.colors.base0B}", "#${config.lib.stylix.colors.base0B}" ]
 specialWorkspaceColors = [ "#${config.lib.stylix.colors.base0B}", "#${config.lib.stylix.colors.base0B}" ]
 [appearance.menu]
-opacity = ${if config.userSettings.hyprland.performanceOptimizations then "1.0" else "0.7"}
+opacity = ${if performance then "1.0" else "0.7"}
 backdrop = 0.0
     '';
     home.file.".config/hypr/hypridle.conf".text = ''
@@ -726,7 +718,7 @@ backdrop = 0.0
         terminal = "${pkgs.alacritty}/bin/alacritty";
       };
       colors = {
-        background = config.lib.stylix.colors.base00 + "bf";
+        background = config.lib.stylix.colors.base00 + (if performance then "ff" else "bf");
         text = config.lib.stylix.colors.base07 + "ff";
         match = config.lib.stylix.colors.base05 + "ff";
         selection = config.lib.stylix.colors.base08 + "ff";
