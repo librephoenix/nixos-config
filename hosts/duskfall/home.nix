@@ -51,6 +51,10 @@
 
     wayland.windowManager.hyprland = lib.mkIf config.userSettings.hyprland.enable {
       settings = {
+        misc = {
+          vfr = true;
+        };
+
         animations = {
           enabled = lib.mkForce "no";
         };
@@ -63,13 +67,13 @@
           };
         };
 
-        input = {
-          repeat_delay = lib.mkForce 850;
-          repeat_rate = lib.mkForce 80;
-        };
+        #input = {
+        #  repeat_delay = lib.mkForce 850;
+        #  repeat_rate = lib.mkForce 80;
+        #};
 
         monitor = [
-          "eDP-1,1920x1080@60,0x0,1.25"
+          "eDP-1,1920x1080@48,0x0,1"
         ];
 
       };
