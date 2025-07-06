@@ -11,10 +11,10 @@
           name = "nixpkgs-patched";
           src = inputs.nixpkgs;
           patches = [
-            (builtins.fetchurl {
-              url = "https://patch-diff.githubusercontent.com/raw/NixOS/nixpkgs/pull/419713.patch";
-              sha256 = "sha256:0i9kij1vgv4x3bgnydlzn76pbjx6s8fvxm1agjs100ry931jizyv";
-            })
+            #(builtins.fetchurl {
+            #  url = "https://patch-diff.githubusercontent.com/raw/NixOS/nixpkgs/pull/419713.patch";
+            #  sha256 = "sha256:0i9kij1vgv4x3bgnydlzn76pbjx6s8fvxm1agjs100ry931jizyv";
+            #})
           ];
         };
 
