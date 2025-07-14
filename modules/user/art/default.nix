@@ -16,6 +16,8 @@ in {
       inkscape
       libresprite
       upscayl
+      google-fonts
+      fontforge-gtk
     ];
     userSettings.blender.enable = true;
     xdg.mimeApps.defaultApplications = lib.mkForce {
