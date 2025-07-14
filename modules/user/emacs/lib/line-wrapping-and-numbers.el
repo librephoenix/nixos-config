@@ -27,13 +27,13 @@
   "Disable `visual-line-mode` in current buffer."
   (interactive)
   (visual-line-mode 0))
-(add-hook 'org-mode-hook 'truncate-lines-off)
-(add-hook 'markdown-mode-hook 'truncate-lines-off)
+(add-hook 'org-mode-hook 'truncate-lines-on)
+(add-hook 'markdown-mode-hook 'truncate-lines-on)
 (add-hook 'org-mode-hook 'visual-line-mode)
 (add-hook 'markdown-mode-hook 'visual-line-mode)
-(add-hook 'prog-mode-hook 'truncate-lines-on)
+(add-hook 'prog-mode-hook 'truncate-lines-off)
 (add-hook 'prog-mode-hook 'visual-line-mode-off)
-(add-hook 'nix-mode-hook 'truncate-lines-on)
+(add-hook 'nix-mode-hook 'truncate-lines-off)
 (add-hook 'nix-mode-hook 'visual-line-mode-off)
 (defun apply-proper-line-wrapping ()
   "Apply proper line wrapping and visual line mode settings according to whether or not the current mode derives from `prog-mode`."

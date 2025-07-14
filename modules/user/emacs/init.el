@@ -35,6 +35,9 @@
   
   ;; I want declarative config, no custom
   (setq custom-file "/dev/null")
+
+  ;; Auto save errors are annoying
+  (setq auto-save-default nil)
   
   ;; Disable the menu bar
   (menu-bar-mode -1)
@@ -75,7 +78,7 @@
                  (36 . ".\\(?:>\\)")
                  (37 . ".\\(?:\\(?:%%\\)\\|%\\)")
                  (38 . ".\\(?:\\(?:&&\\)\\|&\\)")
-                 (42 . ".\\(?:\\(?:\\*\\*/\\)\\|\\(?:\\*[*/]\\)\\|[*/>]\\)")
+                 ;;(42 . ".\\(?:\\(?:\\*\\*/\\)\\|\\(?:\\*[*/]\\)\\|[*/>]\\)")
                  (43 . ".\\(?:\\(?:\\+\\+\\)\\|[+>]\\)")
                  (45 . ".\\(?:\\(?:-[>-]\\|<<\\|>>\\)\\|[<>}~-]\\)")
                  (46 . ".\\(?:\\(?:\\.[.<]\\)\\|[.=-]\\)")
@@ -320,13 +323,15 @@
   (global-flycheck-mode))
 
 (use-package treemacs
+  :after (evil)
   :config
   (defun treemacs-display-current-project-exclusively-silently ()
+    (interactive)
     "Display current project exclusively in treemacs without switching to treemacs buffer."
     (let ((buffer (current-buffer)))
       (treemacs-add-and-display-current-project-exclusively)
       (switch-to-buffer buffer)))
-  (add-hook 'projectile-after-switch-project-hook 'treemacs-display-current-project-exclusively-silently))
+  (evil-define-key 'normal 'global (kbd "<leader>ot") 'treemacs-add-and-display-current-project-exclusively))
 
 (use-package treemacs-evil
   :after (treemacs))
@@ -341,11 +346,15 @@
    '((gdscript-mode . gdscript-ts-mode)))
   :hook
   (lsp-mode . evil-normalize-keymaps)
+  (nix-mode . lsp-deferred)
   (gdscript-mode . lsp-deferred)
   (gdscript-ts-mode . lsp-deferred))
 
 (use-package lsp-ui :commands lsp-ui-mode)
-(use-package lsp-treemacs :commands lsp-treemacs-errors-list)
+(use-package lsp-treemacs
+  :after (evil)
+  :config
+  (evil-define-key 'normal 'global (kbd "<leader>os") 'lsp-treemacs-symbols))
 
 (use-package treesit
   :config
