@@ -29,6 +29,7 @@ in {
       ];
       shellAliases = {
         phoenix = "sudo phoenix";
+        ranger = "yazi";
         ls = "eza --icons -l -T -L=1";
         cat = "bat";
         htop = "btm";

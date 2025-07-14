@@ -13,10 +13,8 @@
       xdg.enable = true;
 
       # programs
-      browser = "qutebrowser";
-      brave.enable = true;
+      browser = "brave";
       editor = "emacs";
-      ranger.enable = true;
       yazi.enable = true;
       git.enable = true;
       engineering.enable = true;
