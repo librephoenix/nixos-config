@@ -62,14 +62,6 @@
     services.xserver.wacom.enable = true;
     services.xserver.videoDrivers = [ "i915" ];
 
-    services.undervolt = {
-      enable = true;
-      coreOffset = -100;
-      uncoreOffset = -100;
-      analogioOffset = -100;
-      gpuOffset = -100;
-    };
-
   };
   
 }

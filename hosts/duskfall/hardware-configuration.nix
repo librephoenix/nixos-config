@@ -12,6 +12,14 @@
 
   services.xserver.videoDrivers = lib.mkDefault [ "modesetting" ];
 
+  services.undervolt = {
+    enable = true;
+    coreOffset = -100;
+    uncoreOffset = -100;
+    analogioOffset = -100;
+    gpuOffset = -100;
+  };
+
   hardware.graphics = {
     enable = lib.mkDefault true;
     enable32Bit = lib.mkDefault true;
