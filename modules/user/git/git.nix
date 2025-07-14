@@ -20,5 +20,6 @@ in {
                          osConfig.systemSettings.secretsFlakeDir
                          (config.home.homeDirectory + "/.cache/nix/tarball-cache") ];
     };
+    programs.git.lfs.enable = true;
   };
 }
