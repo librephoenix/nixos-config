@@ -10,7 +10,7 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = [ pkgs.git ];
+    home.packages = [ pkgs.git pkgs.openssh ];
     programs.git.enable = true;
     programs.git.userName = config.userSettings.name;
     programs.git.userEmail = config.userSettings.email;
@@ -21,5 +21,6 @@ in {
                          (config.home.homeDirectory + "/.cache/nix/tarball-cache") ];
     };
     programs.git.lfs.enable = true;
+    services.ssh-agent.enable = true;
   };
 }
