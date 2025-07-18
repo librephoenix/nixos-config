@@ -16,6 +16,7 @@ in {
       inkscape
       libresprite
       upscayl
+      material-maker
       google-fonts
       fontforge-gtk
     ];
