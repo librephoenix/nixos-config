@@ -18,6 +18,7 @@
       vscodium.enable = true;
       yazi.enable = true;
       git.enable = true;
+      ai.enable = true;
       engineering.enable = true;
       art.enable = true;
       flatpak.enable = false;
