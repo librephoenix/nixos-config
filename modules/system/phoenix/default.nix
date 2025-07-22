@@ -38,7 +38,7 @@
           chown -R 0:0 ${config.systemSettings.dotfilesDir};
           chown -R 0:0 ${config.systemSettings.secretsFlakeDir};
           pushd ${config.systemSettings.dotfilesDir} &> /dev/null;
-          nixos-rebuild switch --fast;
+          nixos-rebuild switch;
           popd &> /dev/null;
           exit 0;
         elif [ "$1" = "update" ]; then
@@ -78,19 +78,19 @@
           chown -R 0:0 ${config.systemSettings.dotfilesDir};
           chown -R 0:0 ${config.systemSettings.secretsFlakeDir};
           pushd ${config.systemSettings.dotfilesDir} &> /dev/null;
-          nixos-rebuild build --fast --flake .#snowfire;
+          nixos-rebuild build --flake .#snowfire;
           attic push emmet ./result;
           rm ./result;
-          nixos-rebuild build --fast --flake .#duskfall;
+          nixos-rebuild build --flake .#duskfall;
           attic push emmet ./result;
           rm ./result;
-          nixos-rebuild build --fast --flake .#zenith;
+          nixos-rebuild build --flake .#zenith;
           attic push emmet ./result;
           rm ./result;
-          nixos-rebuild build --fast --flake .#stardust;
+          nixos-rebuild build --flake .#stardust;
           attic push emmet ./result;
           rm ./result;
-          nixos-rebuild build --fast --flake .#ori;
+          nixos-rebuild build --flake .#ori;
           attic push emmet ./result;
           rm ./result;
           exit 0;
