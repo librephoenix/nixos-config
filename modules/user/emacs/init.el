@@ -27,6 +27,10 @@
   :config
   ;; No startup screen
   (setq inhibit-startup-message t)
+
+  ;; Truncate lines is annoying
+  (setq truncate-lines nil)
+  (setq truncate-partial-width-windows nil)
   
   ;; Transparent background
   (set-frame-parameter nil 'alpha-background systemOpacity)
@@ -141,8 +145,8 @@
 ;; Packages
 
 (use-package line-wrapping-and-numbers
-  :load-path "./lib"
-  :after (org markdown git-timemachine nix-mode))
+  :load-path "lib/"
+  :after (org git-timemachine nix-mode))
 
 (use-package ultra-scroll
   :init
@@ -336,6 +340,9 @@
 (use-package treemacs-evil
   :after (treemacs))
 
+(use-package nix-mode)
+(use-package gdscript-mode)
+
 (use-package lsp-mode
   :config
   (setq lsp-completion-enable t)
@@ -349,6 +356,9 @@
   (nix-mode . lsp-deferred)
   (gdscript-mode . lsp-deferred)
   (gdscript-ts-mode . lsp-deferred))
+
+(use-package lsp-nix
+  :after (lsp-mode))
 
 (use-package lsp-ui :commands lsp-ui-mode)
 (use-package lsp-treemacs
@@ -944,13 +954,13 @@ Made for `org-tab-first-hook' in evil-mode."
 
 ;; Olivetti
 (use-package olivetti
-  :commands (org-mode markdown-mode)
   :custom
   (olivetti-style 'fancy)
   (olivetti-margin-width 100)
   :config
   (setq-default olivetti-body-width 100)
-  (add-hook 'org-mode-hook 'olivetti-mode))
+  (add-hook 'org-mode-hook 'olivetti-mode)
+  (add-hook 'markdown-mode-hook 'olivetti-mode))
 
 (evil-collection-define-key 'normal 'dired-mode-map
     "h" 'dired-up-directory

@@ -71,6 +71,7 @@ in {
       nil
     ];
     home.file.".config/emacs/init.el".source = ./init.el;
+    home.file.".config/emacs/lib".source = ./lib;
     home.file.".config/emacs/themes/doom-stylix-theme.el".source = config.lib.stylix.colors {
         template = builtins.readFile ./lib/doom-stylix-theme.el.mustache;
         extension = ".el";
@@ -89,7 +90,7 @@ in {
       (setq systemOpacity ${builtins.toString config.userSettings.emacs.opacity})
 
       ;;; sysvars.el ends here
-'';
+    '';
     wayland.windowManager.hyprland.settings.exec-once = lib.optionals config.wayland.windowManager.hyprland.enable [ "emacs --daemon" ];
   };
 }

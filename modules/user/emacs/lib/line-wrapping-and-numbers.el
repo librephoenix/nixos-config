@@ -15,43 +15,35 @@
 ;;; Code:
 
 ;; Line wrapping management
-(defun truncate-lines-off ()
+(defun activate-writing-lines ()
   "Stop truncating lines in current buffer."
   (interactive)
-  (toggle-truncate-lines 0))
-(defun truncate-lines-on ()
+  (setq-local truncate-lines nil)
+  (setq visual-line-mode t)
+  (display-line-numbers-mode 0))
+(defun activate-coding-lines ()
   "Truncate lines in current buffer."
   (interactive)
-  (toggle-truncate-lines 1))
-(defun visual-line-mode-off ()
-  "Disable `visual-line-mode` in current buffer."
-  (interactive)
-  (visual-line-mode 0))
-(add-hook 'org-mode-hook 'truncate-lines-on)
-(add-hook 'markdown-mode-hook 'truncate-lines-on)
-(add-hook 'org-mode-hook 'visual-line-mode)
-(add-hook 'markdown-mode-hook 'visual-line-mode)
-(add-hook 'prog-mode-hook 'truncate-lines-off)
-(add-hook 'prog-mode-hook 'visual-line-mode-off)
-(add-hook 'nix-mode-hook 'truncate-lines-off)
-(add-hook 'nix-mode-hook 'visual-line-mode-off)
+  (setq-local truncate-lines t)
+  (setq visual-line-mode nil)
+  (display-line-numbers-mode 1))
+(add-hook 'org-mode-hook 'activate-writing-lines)
+(add-hook 'markdown-mode-hook 'activate-writing-lines)
+(add-hook 'prog-mode-hook 'activate-coding-lines)
 (defun apply-proper-line-wrapping ()
-  "Apply proper line wrapping and visual line mode settings according to whether or not the current mode derives from `prog-mode`."
+  "Apply proper line wrapping and visual line mode
+  settings according to whether or not the current
+  mode derives from `prog-mode`."
   (if (derived-mode-p 'prog-mode)
     (progn
-      (display-line-numbers-mode)
       (truncate-lines-on)
-      (visual-line-mode-off)
-      (display-line-numbers-mode 1))
+      )
     (progn
       (truncate-lines-off)
-      (visual-line-mode)
       (display-line-numbers-mode 0))))
-(add-hook 'prog-mode-hook 'apply-proper-line-wrapping)
-(add-hook 'org-mode-hook 'apply-proper-line-wrapping)
-(if (featurep 'markdown-mode)
-  (add-hook 'markdown-mode-hook 'apply-proper-line-wrapping))
 (if (featurep 'git-timemachine)
-  (add-hook 'git-timemachine-mode-hook 'apply-proper-line-wrapping))
+    (add-hook 'git-timemachine-mode-hook 'apply-proper-line-wrapping))
+
+(provide 'line-wrapping-and-numbers)
 
 ;;; line-wrapping.el ends here
