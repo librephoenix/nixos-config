@@ -22,7 +22,8 @@ in {
     userSettings.qutebrowser.enable = lib.mkIf (browser == "qutebrowser") true;
 
     userSettings.spawnBrowser = lib.mkMerge [
-      (lib.mkIf ((browser == "brave") || (browser == "librewolf")) browser)
+      (lib.mkIf (browser == "brave") "brave --new-window")
+      (lib.mkIf (browser == "librewolf") browser)
       (lib.mkIf (!(config.userSettings.hyprland.hyprprofiles.enable) && (browser == "qutebrowser")) "qutebrowser --qt-flag ignore-gpu-blacklist --qt-flag enable-gpu-rasterization --qt-flag enable-native-gpu-memory-buffers --qt-flag enable-accelerated-2d-canvas --qt-flag num-raster-threads=4")
       (lib.mkIf (config.userSettings.hyprland.hyprprofiles.enable && (browser == "qutebrowser")) "qutebrowser-hyprprofile")
       (lib.mkIf (browser == null) "")

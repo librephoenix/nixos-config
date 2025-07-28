@@ -2,7 +2,6 @@
 
 {
   config = {
-
     userSettings = {
       # setup
       shell = {
@@ -53,7 +52,6 @@
           "HDMI-A-1,preferred,1536x0,1.25,vrr,0"
           "DP-1,preferred,0x0,1.25,vrr,0"
         ];
-
       };
     };
   };

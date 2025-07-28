@@ -240,7 +240,7 @@ in
           "SUPER,T,togglefloating"
           ",code:148,exec,${term} -e numbat"
           '',code:107,exec,grim -g "$(slurp)"''
-          ''SHIFT,code:107,exec,grim -g "$(slurp -o)''
+          ''SHIFT,code:107,exec,grim -g "$(slurp -o)"''
           "SUPER,code:107,exec,grim"
           ''CTRL,code:107,exec,grim -g "$(slurp)" - | wl-copy''
           ''SHIFTCTRL,code:107,exec,grim -g "$(slurp -o)" - | wl-copy''
