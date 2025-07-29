@@ -12,8 +12,8 @@
           src = inputs.nixpkgs;
           patches = [
             #(builtins.fetchurl {
-            #  url = "https://patch-diff.githubusercontent.com/raw/NixOS/nixpkgs/pull/419713.patch";
-            #  sha256 = "sha256:0i9kij1vgv4x3bgnydlzn76pbjx6s8fvxm1agjs100ry931jizyv";
+            #  url = "https://asdf1234.patch";
+            #  sha256 = "sha256:qwerty123456...";
             #})
           ];
         };
@@ -91,7 +91,7 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     hyprland = {
-      url = "github:hyprwm/Hyprland/v0.49.0?submodules=true";
+      url = "github:hyprwm/Hyprland/v0.50.1?submodules=true";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
