@@ -27,9 +27,16 @@
   (setq-local truncate-lines t)
   (setq visual-line-mode nil)
   (display-line-numbers-mode 1))
+(defun activate-coding-lines-without-numbers ()
+  "Truncate lines in current buffer."
+  (interactive)
+  (setq-local truncate-lines t)
+  (setq visual-line-mode nil)
+  (display-line-numbers-mode 0))
 (add-hook 'org-mode-hook 'activate-writing-lines)
 (add-hook 'markdown-mode-hook 'activate-writing-lines)
 (add-hook 'prog-mode-hook 'activate-coding-lines)
+(add-hook 'treemacs-mode-hook 'activate-coding-lines-without-numbers)
 (defun apply-proper-line-wrapping ()
   "Apply proper line wrapping and visual line mode
   settings according to whether or not the current

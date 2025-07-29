@@ -25,6 +25,9 @@
 (use-package emacs
   :defer t
   :config
+  ;; Org mode scratch buffers
+  (setq initial-major-mode 'org-mode)
+
   ;; No startup screen
   (setq inhibit-startup-message t)
 
@@ -146,7 +149,7 @@
 
 (use-package line-wrapping-and-numbers
   :load-path "lib/"
-  :after (org git-timemachine nix-mode))
+  :after (org git-timemachine nix-mode treemacs))
 
 (use-package ultra-scroll
   :init
@@ -233,7 +236,16 @@
   (evil-define-key 'motion 'global (kbd "j") 'evil-next-visual-line)
   (evil-define-key 'motion 'global (kbd "k") 'evil-previous-visual-line)
 
+  (defun scratch-plus-toggle ()
+    (interactive)
+    (if (projectile-project-p)
+      (progn
+        (select-window (scratch-plus-switch-project nil)))
+      (progn
+        (select-window (scratch-plus-switch nil)))))
+
   ;; File and buffer  keybinds
+  (evil-define-key 'motion 'global (kbd "<leader>x") 'scratch-plus-toggle)
   (evil-define-key 'motion 'global (kbd "<leader>.") 'find-file)
   (evil-define-key 'motion 'global (kbd "<leader>bi") 'ibuffer)
   (evil-define-key 'motion 'global (kbd "<leader>bd") 'evil-delete-buffer)
@@ -296,6 +308,9 @@
   (evil-define-key 'motion 'global (kbd "<leader>wk") 'evil-window-up)
   (evil-define-key 'motion 'global (kbd "<leader>wh") 'evil-window-left)
   (evil-define-key 'motion 'global (kbd "<leader>wl") 'evil-window-right)
+
+  (evil-define-key 'motion scratch-plus-minor-mode-map (kbd "q") 'quit-window)
+  (evil-define-key 'normal scratch-plus-minor-mode-map (kbd "q") 'quit-window)
 
   (evil-define-key 'insert org-mode-map (kbd "<C-return>") '+org/insert-item-below)
   (evil-define-key 'insert org-mode-map (kbd "<C-S-return>") '+org/insert-item-above)
@@ -361,8 +376,11 @@
   :after (lsp-mode))
 
 (use-package lsp-ui :commands lsp-ui-mode)
+
 (use-package lsp-treemacs
   :after (evil)
+  :custom
+  (lsp-treemacs-theme "nerd-icons-ext")
   :config
   (evil-define-key 'normal 'global (kbd "<leader>os") 'lsp-treemacs-symbols))
 
@@ -413,6 +431,11 @@
   :after (nerd-icons treemacs)
   :config
   (treemacs-load-theme "nerd-icons"))
+
+(use-package lsp-treemacs-nerd-icons
+  :after (lsp-treemacs)
+  :init (with-eval-after-load 'lsp-treemacs
+          (require 'lsp-treemacs-nerd-icons)))
 
 (use-package nerd-icons-dired
   :after (nerd-icons dired)
@@ -995,7 +1018,19 @@ Made for `org-tab-first-hook' in evil-mode."
   (evil-define-key 'insert 'global (kbd "M-z") 'vterm-toggle-cd-force)
   (evil-define-key 'motion vterm-mode-map (kbd "M-z") 'vterm-toggle-hide)
   (evil-define-key 'insert vterm-mode-map (kbd "M-z") 'vterm-toggle-hide)
-)
+  )
+
+(use-package scratch-plus
+  :custom
+  (initial-major-mode 'org-mode)
+  (scratch-plus-save-directory (file-truename "~/.config/emacs/scratch"))
+  (scratch-plus-project-subdir ".scratch")
+  (scratch-plus-restore-type 'demand)
+  (scratch-plus-force-restore t)
+  (scratch-plus-idle-save 2)
+  (scratch-plus-initial-message "Scratchpad")
+  :init
+  (add-hook 'after-init-hook #'scratch-plus-mode))
 
 (provide 'init)
 ;;; init.el ends here

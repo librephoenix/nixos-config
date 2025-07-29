@@ -64,6 +64,54 @@ in {
               };
             }
           ) {})
+          (epkgs.callPackage (
+            { lib, fetchurl, trivialBuild }:
+            
+            trivialBuild {
+              pname = "lsp-treemacs-nerd-icons";
+              version = "2efa09a-unstable";
+            
+              src = builtins.fetchGit {
+                url = "https://github.com/Velnbur/lsp-treemacs-nerd-icons.git";
+                rev = "2efa09a701b8b455bfb66529454f27c30f7462dc";
+                ref = "master";
+              };
+
+              buildInputs = with pkgs.emacsPackages; [
+                lsp-treemacs
+                treemacs
+                nerd-icons
+              ];
+            
+              meta = with lib; {
+                description = "Use nerd icons for lsp-mode and lsp-treemacs";
+                homepage = "https://github.com/Velnbur/lsp-treemacs-nerd-icons";
+                license = licenses.gpl3;
+                platforms = platforms.all;
+              };
+            }
+          ) {})
+          (epkgs.callPackage (
+            { lib, fetchurl, trivialBuild }:
+            
+            trivialBuild {
+              pname = "scratch-plus";
+              version = "2efa09a-unstable";
+            
+              src = builtins.fetchGit {
+                url = "https://git.sr.ht/~swflint/scratch-plus";
+                rev = "b794901f968000f6e338808307385b683b79ec8b";
+                ref = "main";
+              };
+            
+              meta = with lib; {
+                description = "Better scratch buffers";
+                homepage = "https://git.sr.ht/~swflint/scratch-plus";
+                license = licenses.gpl3;
+                platforms = platforms.all;
+              };
+            }
+          ) {})
         ];
       })
       fira-code
