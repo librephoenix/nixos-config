@@ -422,6 +422,7 @@ in
     };
 
     home.packages = (with pkgs; [
+      networkmanagerapplet
       hyprland-monitor-attached
       alacritty
       kitty
