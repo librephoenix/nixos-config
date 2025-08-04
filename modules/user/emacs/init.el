@@ -1027,7 +1027,6 @@ Made for `org-tab-first-hook' in evil-mode."
   (scratch-plus-project-subdir ".scratch")
   (scratch-plus-restore-type 'demand)
   (scratch-plus-force-restore t)
-  (scratch-plus-idle-save 2)
   (scratch-plus-initial-message "Scratchpad")
   :init
   (add-hook 'after-init-hook #'scratch-plus-mode))
