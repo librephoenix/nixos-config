@@ -575,10 +575,12 @@ in
       /*
        * Grayscale
        */
+      #version 300 es
       
       precision highp float;
-      varying vec2 v_texcoord;
+      in vec2 v_texcoord;
       uniform sampler2D tex;
+      out vec4 fragColor;
       
       // Enum for type of grayscale conversion
       const int LUMINOSITY = 0;
@@ -623,7 +625,7 @@ in
           }
           vec3 grayscale = vec3(gray);
       
-          gl_FragColor = vec4(grayscale, pixColor.a);
+          fragColor = vec4(grayscale, pixColor.a);
       }
     '';
     home.file.".config/ashell/config.toml".text = ''
