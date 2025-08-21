@@ -8,49 +8,27 @@
     [ (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
-  boot.initrd.availableKernelModules = [ "xhci_pci" "thunderbolt" "vmd" "ahci" "nvme" "usb_storage" "sd_mod" ];
-  boot.initrd.kernelModules = [ "i915" ];
-  boot.kernelModules = [ "kvm-intel" ];
+  boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "thunderbolt" "usb_storage" "sd_mod" "rtsx_pci_sdmmc" ];
+  boot.initrd.kernelModules = [ ];
+  boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = with config.boot.kernelPackages; [ zenpower ];
 
   services.fstrim.enable = true;
 
   services.xserver.videoDrivers = lib.mkDefault [ "modesetting" ];
 
-  hardware.graphics = {
-    enable = lib.mkDefault true;
-    enable32Bit = lib.mkDefault true;
-    extraPackages = with pkgs; [
-      vpl-gpu-rt
-      intel-media-driver
-      intel-vaapi-driver
-      vaapiIntel
-      vaapiVdpau
-      libvdpau-va-gl
-    ];
-    extraPackages32 = with pkgs.driversi686Linux; [
-      intel-media-driver
-      intel-vaapi-driver
-      libvdpau-va-gl
-    ];
-  };
-
-  environment.sessionVariables = {
-    LIBVA_DRIVER_NAME = "iHD";
-  };
-
   powerManagement.cpuFreqGovernor = "performance";
   services.thermald.enable = true;
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/548f7030-af4c-412a-b2ed-d842337aa336";
+    { device = "/dev/disk/by-uuid/41b254d6-96aa-4498-91d3-939f1722fff1";
       fsType = "ext4";
     };
 
-  boot.initrd.luks.devices."luks-50f310ae-545b-4f09-84b6-e69b5ecacaae".device = "/dev/disk/by-uuid/50f310ae-545b-4f09-84b6-e69b5ecacaae";
+  boot.initrd.luks.devices."luks-759bd464-2cda-4c25-b7c0-800d4265314b".device = "/dev/disk/by-uuid/759bd464-2cda-4c25-b7c0-800d4265314b";
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/F691-DA8C";
+    { device = "/dev/disk/by-uuid/3212-E58F";
       fsType = "vfat";
       options = [ "fmask=0077" "dmask=0077" ];
     };
@@ -62,9 +40,9 @@
   # still possible to use this option, but it's recommended to use it in conjunction
   # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
   networking.useDHCP = lib.mkDefault true;
-  # networking.interfaces.wlp0s20f3.useDHCP = lib.mkDefault true;
+  # networking.interfaces.enp1s0.useDHCP = lib.mkDefault true;
+  # networking.interfaces.wlp2s0.useDHCP = lib.mkDefault true;
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-  hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
-
+  hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }

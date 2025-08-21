@@ -62,20 +62,8 @@
           };
         };
 
-        bind = [
-          ''SUPER,E,exec,if hyprctl clients | grep qutegmail; then echo "scratch_mail respawn not needed"; else qutebrowser --qt-flag enable-gpu-rasterization --qt-flag enable-native-gpu-memory-buffers --qt-flag num-raster-threads=4 -B ~/.browser/Teaching :'set input.mode_override passthrough -u mail.google.com' :'set window.title_format qutegmail' :'set tabs.show never' :'set statusbar.show never' https://mail.google.com; fi''
-          "SUPER,E,togglespecialworkspace,scratch_email"
-        ];
-
-        windowrulev2 = [
-          "float,title:^(qutegmail)$"
-          "size 80% 85%,title:^(qutegmail)$"
-          "workspace special:scratch_email ,title:^(qutegmail)$"
-          "center,title:^(qutegmail)$"
-        ];
-
         monitor = [
-          "eDP-1,1920x1080,1536x0,1.25"
+          "eDP-1,1920x1200,1536x0,1.25"
           "HDMI-A-1,1920x1080,0x0,1.25"
         ];
 
