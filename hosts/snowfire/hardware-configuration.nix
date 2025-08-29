@@ -16,6 +16,7 @@
   boot.blacklistedKernelModules = [ "k10temp" ];
   boot.kernelParams = [ "amd_pstate=active" "acpi_osi=Linux" "acpi_wake=USB0" ];
   boot.extraModulePackages = with config.boot.kernelPackages; [ zenpower ];
+  networking.wireguard.enable = true;
   hardware.opengl.enable = true;
   hardware.opengl.extraPackages = [ pkgs.rocmPackages.clr.icd ];
   hardware.opengl.extraPackages32 = [ ];
