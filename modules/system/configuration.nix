@@ -83,6 +83,10 @@
 
     # Remove bloat
     programs.nano.enable = lib.mkForce false;
+
+    # Localsend is helpful for setting up new systems or quickly transferring files
+    programs.localsend.enable = true;
+    programs.localsend.openFirewall = true;
   };
 
 }
