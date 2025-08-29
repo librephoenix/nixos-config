@@ -40,7 +40,7 @@ in
       XDG_SESSION_TYPE = "wayland";
       GDK_BACKEND = "wayland,x11,*";
       QT_QPA_PLATFORM = "wayland;xcb";
-      QT_QPA_PLATFORMTHEME = lib.mkForce "qt5ct";
+      #QT_QPA_PLATFORMTHEME = lib.mkForce "qt5ct";
       QT_AUTO_SCREEN_SCALE_FACTOR = "1.25";
       QT_WAYLAND_DISABLE_WINDOWDECORATION = 1;
       CLUTTER_BACKEND = "wayland";
@@ -513,8 +513,7 @@ in
       wev
       grim
       slurp
-      libsForQt5.qt5.qtwayland
-      qt6.qtwayland
+      kdePackages.qtwayland
       xdg-utils
       wlsunset
       hyprshade

@@ -109,13 +109,13 @@ in
       ".config/qt5ct/qt5ct.conf".text = pkgs.lib.mkBefore (builtins.readFile ./qt5ct.conf);
     };
     home.packages = with pkgs; [
-       libsForQt5.qt5ct pkgs.libsForQt5.breeze-qt5 libsForQt5.breeze-icons pkgs.noto-fonts-monochrome-emoji
+       kdePackages.breeze kdePackages.breeze-icons pkgs.noto-fonts-monochrome-emoji
     ];
     qt = {
-      enable = true;
-      style.package = pkgs.libsForQt5.breeze-qt5;
+      #enable = true;
+      style.package = pkgs.kdePackages.breeze;
       style.name = "breeze-dark";
-      platformTheme = "kde";
+      platformTheme.name = "kde";
     };
 
     fonts.fontconfig.defaultFonts = {
