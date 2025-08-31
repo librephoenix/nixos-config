@@ -10,8 +10,16 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = [ pkgs.brave ];
-
+    programs.brave.enable = true;
+    programs.brave.package = pkgs.brave;
+    programs.brave.extensions = [
+      { id = "cjpalhdlnbpafiamejdnhcphjbkeiagm"; }
+      { id = "oboonakemofpalcgghocfoadofidjkkk"; }
+    ];
+    programs.brave.commandLineArgs = [
+      "--password-store=gnome-libsecret"
+      "--enable-accelerated-video-decode"
+    ];
     xdg.mimeApps.defaultApplications = lib.mkIf (config.userSettings.browser == "brave" ) {
       "text/html" = "brave-browser.desktop";
       "x-scheme-handler/http" = "brave-browser.desktop";

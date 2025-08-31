@@ -20,6 +20,7 @@
         docker.enable = true;
         virtualMachines.enable = false;
       };
+      brave.enable = true;
 
       # wm
       hyprland.enable = true;

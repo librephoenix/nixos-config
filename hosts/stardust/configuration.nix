@@ -19,6 +19,7 @@
       virtualization = {
         docker.enable = true;
       };
+      brave.enable = true;
 
       # wm
       plasma.enable = true;
