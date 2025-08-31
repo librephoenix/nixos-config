@@ -12,7 +12,7 @@ in {
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
       shared-mime-info
-      nautilus
+      kdePackages.dolphin
       libreoffice-still
       mate.atril
       xournalpp

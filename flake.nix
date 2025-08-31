@@ -107,7 +107,7 @@
       inputs.home-manager.follows = "home-manager";
     };
 
-    stylix.url = "github:danth/stylix";
+    stylix.url = "github:nix-community/stylix";
 
     emacs-overlay = {
       url = "github:nix-community/emacs-overlay";

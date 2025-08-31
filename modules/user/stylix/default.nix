@@ -92,6 +92,8 @@ in
     stylix.targets.kitty.enable = true;
 
     stylix.targets.gtk.enable = true;
+    stylix.targets.kde.enable = true;
+    stylix.targets.qt.enable = true;
 
     home.file = {
       ".config/qt5ct/colors/oomox-current.conf".source = config.lib.stylix.colors {
@@ -106,17 +108,10 @@ in
         template = builtins.readFile ./Trolltech.conf.mustache;
         extension = "";
       };
-      ".config/qt5ct/qt5ct.conf".text = pkgs.lib.mkBefore (builtins.readFile ./qt5ct.conf);
     };
     home.packages = with pkgs; [
        kdePackages.breeze kdePackages.breeze-icons pkgs.noto-fonts-monochrome-emoji
     ];
-    qt = {
-      #enable = true;
-      style.package = pkgs.kdePackages.breeze;
-      style.name = "breeze-dark";
-      platformTheme.name = "kde";
-    };
 
     fonts.fontconfig.defaultFonts = {
       monospace = [ config.stylix.fonts.monospace.name ];
