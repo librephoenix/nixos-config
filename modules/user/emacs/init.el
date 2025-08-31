@@ -244,8 +244,30 @@
       (progn
         (select-window (scratch-plus-switch nil)))))
 
+  (defun scratch-plus-only ()
+    (interactive)
+    (if (projectile-project-p)
+      (progn
+        (select-window (scratch-plus-switch-project nil)))
+      (progn
+        (select-window (scratch-plus-switch nil))))
+    (delete-other-windows))
+
+  (defun scratch-plus-main-toggle ()
+    (interactive)
+    (select-window (scratch-plus-switch nil)))
+
+
+  (defun scratch-plus-main-only ()
+    (interactive)
+    (select-window (scratch-plus-switch nil))
+    (delete-other-windows))
+
   ;; File and buffer  keybinds
   (evil-define-key 'motion 'global (kbd "<leader>x") 'scratch-plus-toggle)
+  (evil-define-key 'motion 'global (kbd "<leader>X") 'scratch-plus-main-toggle)
+  (evil-define-key 'motion 'global (kbd "<leader>z") 'scratch-plus-only)
+  (evil-define-key 'motion 'global (kbd "<leader>Z") 'scratch-plus-main-only)
   (evil-define-key 'motion 'global (kbd "<leader>.") 'find-file)
   (evil-define-key 'motion 'global (kbd "<leader>bi") 'ibuffer)
   (evil-define-key 'motion 'global (kbd "<leader>bd") 'evil-delete-buffer)
