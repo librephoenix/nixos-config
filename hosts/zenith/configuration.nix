@@ -46,6 +46,9 @@
       };
     };
 
+    programs.localsend.enable = true;
+    programs.localsend.openFirewall = true;
+
     home-manager.users.emmet.userSettings = {
       name = "Emmet";
     };

@@ -26,6 +26,7 @@
       music.enable = true;
       office.enable = true;
       recording.enable = true;
+      remote.enable = true;
       virtualization = {
         virtualMachines.enable = true;
       };
@@ -41,11 +42,11 @@
     };
 
     home.packages = with pkgs; [
-      openldap ldapvi rclone teams-for-linux
+      openldap ldapvi rclone teams-for-linux rpi-imager freerdp tigervnc unixtools.xxd
     ];
 
     home.sessionVariables = lib.mkIf config.userSettings.hyprland.enable {
-      AQ_DRM_DEVICES = lib.mkForce "/dev/dri/card0";
+      AQ_DRM_DEVICES = lib.mkForce "/dev/dri/card1";
     };
 
     wayland.windowManager.hyprland = lib.mkIf config.userSettings.hyprland.enable {
