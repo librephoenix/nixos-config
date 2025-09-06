@@ -41,7 +41,7 @@
     };
 
     home.sessionVariables = lib.mkIf config.userSettings.hyprland.enable {
-      AQ_DRM_DEVICES = lib.mkForce "/dev/dri/card0:/dev/dri/card1";
+      AQ_DRM_DEVICES = lib.mkForce "/dev/dri/card1:/dev/dri/card2";
     };
 
     wayland.windowManager.hyprland = lib.mkIf config.userSettings.hyprland.enable {
