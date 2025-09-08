@@ -92,13 +92,12 @@
 
     hyprland = {
       url = "github:hyprwm/Hyprland/v0.50.1?submodules=true";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     hyprlock = {
       type = "git";
       url = "https://code.hyprland.org/hyprwm/hyprlock.git";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "hyprland/nixpkgs";
     };
 
     plasma-manager = {

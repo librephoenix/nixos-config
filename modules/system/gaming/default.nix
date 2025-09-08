@@ -11,7 +11,7 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [ "steam" "steam-unwrapped" "steam-jupiter-unwrapped" "steamdeck-hw-theme" ];
+    nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [ "steam" "steam-unwrapped" "steam-jupiter-unwrapped" "steamdeck-hw-theme" "xow_dongle-firmware" ];
     nixpkgs.config.packageOverrides = pkgs: {
       steam = pkgs.steam.override {
         extraPkgs = pkgs: with pkgs; [
@@ -108,9 +108,13 @@ in {
         FastConnectable = true;
       };
     };
-    hardware.xpadneo.enable = true;
+    # FIXME https://github.com/NixOS/nixpkgs/issues/378447
+    hardware.xone.enable = true;
+    #hardware.xpadneo.enable = true;
     boot = {
-      extraModulePackages = with config.boot.kernelPackages; [ xpadneo ];
+      # FIXME https://github.com/NixOS/nixpkgs/issues/378447
+      extraModulePackages = with config.boot.kernelPackages; [ xone ];
+      #extraModulePackages = with config.boot.kernelPackages; [ xpadneo ];
       extraModprobeConfig = ''
         options bluetooth disable_ertm=Y
       '';
