@@ -195,8 +195,16 @@
 
 ;; Projectile
 (use-package projectile
+  :custom
+  (projectile-switch-project-action 'magit-status)
   :init
-  (projectile-mode +1))
+  (projectile-mode +1)
+  ;; Project keybinds
+  (defun projectile-switch-project-commander ()
+    (interactive)
+    (projectile-switch-project t))
+  (def-projectile-commander-method ?g "Open magit status" (magit-status))
+  (def-projectile-commander-method ?/ "Grep through project" (projectile-grep)))
 
 ;; Being able to undo is nice...
 (use-package undo-fu)
@@ -309,8 +317,8 @@
       (progn (dired-omit-mode 1) (setq dired-show-dotfiles nil))))
   (evil-define-key 'normal dired-mode-map (kbd "H") 'toggle-dired-omit-mode)
 
-  ;; Project keybinds
-  (evil-define-key 'motion 'global (kbd "<leader>pp") 'projectile-switch-project)
+  (evil-define-key 'motion 'global (kbd "<leader>pp") 'projectile-switch-project-commander)
+  (evil-define-key 'motion 'global (kbd "<leader>pg") 'projectile-switch-project)
   (evil-define-key 'motion 'global (kbd "<leader>pf") 'projectile-find-file)
   (evil-define-key 'motion 'global (kbd "<leader>pa") 'projectile-add-known-project)
   (evil-define-key 'motion 'global (kbd "<leader>/") 'projectile-grep)
