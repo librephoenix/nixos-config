@@ -38,6 +38,27 @@ in {
           org-roam org-node org-node-fakeroam
           vterm vterm-toggle sudo-edit
           direnv
+          (epkgs.callPackage (
+            { lib, fetchurl, trivialBuild }:
+            
+            trivialBuild {
+              pname = "web-mode";
+              version = "17.3.20";
+            
+              src = builtins.fetchGit {
+                url = "https://github.com/fxbois/web-mode.git";
+                rev = "0c83581d1e93d1d802c730a1d5e90cd1c740e1b2";
+                ref = "main";
+              };
+            
+              meta = with lib; {
+                description = "web template editing mode for emacs";
+                homepage = "https://web-mode.org/";
+                license = licenses.gpl3;
+                platforms = platforms.all;
+              };
+            }
+          ) {})
           gdscript-mode
           nix-mode
           python python-mode
