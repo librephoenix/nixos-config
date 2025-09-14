@@ -60,6 +60,9 @@
   hardware.amdgpu.initrd.enable = true;
   hardware.amdgpu.opencl.enable = true;
   hardware.amdgpu.amdvlk.enable = true;
+  environment.sessionVariables = {
+    VK_ICD_FILENAMES = "/run/opengl-driver/share/vulkan/icd.d/radeon_icd.x86_64.json"; # fix for godot
+  };
 
   # makes disk io not freeze the computer
   services.udev.extraRules = ''
@@ -71,8 +74,8 @@
       rocmEnv = pkgs.symlinkJoin {
         name = "rocm-combined";
         paths = with pkgs.rocmPackages; [
-          #rocblas
-          #hipblas
+          rocblas
+          hipblas
           clr
         ];
       };
