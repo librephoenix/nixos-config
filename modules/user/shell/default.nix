@@ -57,7 +57,7 @@ in {
     home.packages = with pkgs; [
       gnugrep gnused w3m
       bat eza bottom fd bc
-      direnv nix-direnv
+      direnv nix-direnv devenv
     ];
 
     programs.neovim = {
