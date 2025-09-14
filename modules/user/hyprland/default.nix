@@ -114,6 +114,7 @@ in
           "alacritty --class scratch_numbat -e numbat"
           "alacritty --class scratch_btm -e btm"
           "element-desktop"
+          "sleep 5 && hyprctl keyword bind SUPER,S,exec,${spawnBrowser}"
         ];
 
         general = {
@@ -231,7 +232,6 @@ in
           "SUPER,RETURN,exec,${term}"
           "SUPERSHIFT,RETURN,exec,${term} --class float_term"
           "SUPER,A,exec,${spawnEditor}"
-          "SUPER,S,exec,${spawnBrowser}"
           "SUPERCTRL,S,exec,container-open"
           "SUPERCTRL,P,pin"
           "SUPER,code:47,exec,fuzzel"
@@ -308,6 +308,7 @@ in
           "SUPER,P,exec,keepmenu"
           "SUPERSHIFT,P,exec,hyprprofile-dmenu"
           "SUPERCTRL,R,exec,phoenix refresh"
+          "SUPER,S,exec,${spawnBrowser}"
         ];
 
         bindm = [
@@ -766,6 +767,7 @@ backdrop = 0.0
         valign = center
       }
     '';
+    services.hyprpolkitagent.enable = true;
     services.swayosd.enable = true;
     services.swayosd.topMargin = 0.5;
     home.file.".config/nwg-launchers/nwggrid/terminal".text = "alacritty -e";
