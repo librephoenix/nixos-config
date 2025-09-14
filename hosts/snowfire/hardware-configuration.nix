@@ -17,7 +17,38 @@
   boot.kernelParams = [ "amd_pstate=active" "acpi_osi=Linux" "acpi_wake=USB0" ];
   boot.extraModulePackages = with config.boot.kernelPackages; [ zenpower ];
   networking.wireguard.enable = true;
-  hardware.opengl.enable = true;
+  # https://wiki.nixos.org/wiki/Mesa
+  hardware = {
+    graphics =
+      let
+        fn = oa: {
+          nativeBuildInputs = oa.nativeBuildInputs ++ [ pkgs.glslang ];
+          mesonFlags = oa.mesonFlags ++ [ "-Dvulkan-layers=device-select,overlay" ];
+          # patches = oa.patches ++ [ ./mesa-vulkan-layer-nvidia.patch ]; See below 
+          postInstall = oa.postInstall + ''
+              mv $out/lib/libVkLayer* $drivers/lib
+
+              #Device Select layer
+              layer=VkLayer_MESA_device_select
+              substituteInPlace $drivers/share/vulkan/implicit_layer.d/''${layer}.json \
+                --replace "lib''${layer}" "$drivers/lib/lib''${layer}"
+
+              #Overlay layer
+              layer=VkLayer_MESA_overlay
+              substituteInPlace $drivers/share/vulkan/explicit_layer.d/''${layer}.json \
+                --replace "lib''${layer}" "$drivers/lib/lib''${layer}"
+            '';
+        };
+      in
+      with pkgs; {
+        enable = true;
+        enable32Bit = true;
+        package = (mesa.overrideAttrs fn).drivers;
+        package32 = (pkgsi686Linux.mesa.overrideAttrs fn).drivers;
+        extraPackages = with pkgs; [ amdvlk ];
+        extraPackages32 = with pkgs; [ driversi686Linux.amdvlk ];
+      };
+  };
   hardware.opengl.extraPackages = [ pkgs.rocmPackages.clr.icd ];
   hardware.opengl.extraPackages32 = [ ];
 
@@ -25,11 +56,6 @@
   environment.systemPackages = with pkgs.rocmPackages; [ hipcc hip-common hiprand hipfft hipcub hipify ];
 
   services.xserver.videoDrivers = lib.mkDefault [ "modesetting" ];
-
-  hardware.graphics = {
-    enable = lib.mkDefault true;
-    enable32Bit = lib.mkDefault true;
-  };
 
   hardware.amdgpu.initrd.enable = true;
   hardware.amdgpu.opencl.enable = true;
