@@ -118,12 +118,12 @@ in
 
         general = {
           layout = "master";
-          border_size = 3;
+          border_size = 0;
           "col.active_border" = if performance then "0xff${config.lib.stylix.colors.base0B}" else "0xff${config.lib.stylix.colors.base08} 0xff${config.lib.stylix.colors.base09} 0xff${config.lib.stylix.colors.base0A} 0xff${config.lib.stylix.colors.base0B} 0xff${config.lib.stylix.colors.base0C} 0xff${config.lib.stylix.colors.base0D} 0xff${config.lib.stylix.colors.base0E} 0xff${config.lib.stylix.colors.base0F} 270deg";
           "col.inactive_border" = "0xff${config.lib.stylix.colors.base02}";
           resize_on_border = true;
-          gaps_in = 6;
-          gaps_out = 6;
+          gaps_in = 14;
+          gaps_out = 14;
         };
 
         group = {
@@ -140,12 +140,14 @@ in
           shadow = {
             enabled = (!performance);
           };
-          rounding = 8;
+          rounding = 0;
           dim_special = 0.0;
+          dim_inactive = true;
+          dim_strength = 0.15;
           blur = {
             enabled = (!performance);
-            size = 5;
-            passes = 2;
+            size = 10;
+            passes = 3;
             ignore_opacity = true;
             contrast = 1.17;
             brightness = (if (config.stylix.polarity == "dark") then "0.65" else "1.45");
@@ -789,8 +791,8 @@ backdrop = 0.0
         border = config.lib.stylix.colors.base08 + "ff";
       };
       border = {
-        width = 3;
-        radius = 7;
+        width = 0;
+        radius = 0;
       };
     };
     services.fnott.enable = true;
