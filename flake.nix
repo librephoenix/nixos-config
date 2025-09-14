@@ -91,7 +91,7 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     hyprland = {
-      url = "github:hyprwm/Hyprland/v0.50.1?submodules=true";
+      url = "github:hyprwm/Hyprland/v0.51.0?submodules=true";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
