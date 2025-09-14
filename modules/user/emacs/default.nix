@@ -38,6 +38,9 @@ in {
           org-roam org-node org-node-fakeroam
           vterm vterm-toggle sudo-edit
           direnv
+          svelte-mode
+          typescript-mode
+          sass-mode
           (epkgs.callPackage (
             { lib, fetchurl, trivialBuild }:
             

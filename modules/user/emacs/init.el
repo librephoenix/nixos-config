@@ -166,13 +166,16 @@
   :mode
   (("\\.phtml\\'" . web-mode)
    ("\\.php\\'" . web-mode)
-   ("\\.svelte\\'" . web-mode)
    ("\\.tpl\\'" . web-mode)
    ("\\.[agj]sp\\'" . web-mode)
    ("\\.as[cp]x\\'" . web-mode)
    ("\\.erb\\'" . web-mode)
    ("\\.mustache\\'" . web-mode)
    ("\\.djhtml\\'" . web-mode)))
+
+(use-package svelte-mode)
+(use-package typescript-mode)
+(use-package sass-mode)
 
 ;; Magit
 (use-package magit
