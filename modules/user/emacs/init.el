@@ -958,7 +958,7 @@ Made for `org-tab-first-hook' in evil-mode."
   (setq org-roam-capture-templates '(("d" "default" plain "%?" :unnarrowed t :target (file+head
  				    "${slug}-%<%Y%m%d%H%M%S>.org" "#+title: ${title}"))))
   (evil-define-key 'motion 'global (kbd "<leader>N.") 'org-node-find)
-  (evil-define-key 'motion 'global (kbd "<leader>Nr") 'org-roam-refile)
+  (evil-define-key 'motion 'global (kbd "<leader>Nr") 'org-node-refile)
   (evil-define-key 'motion 'global (kbd "<leader>Nb") 'org-roam-buffer-toggle)
   (evil-define-key 'motion 'global (kbd "<leader>nrdd") 'org-roam-dailies-goto-date)
   (evil-define-key 'motion 'global (kbd "<leader>nrdt") 'org-roam-dailies-goto-today)
@@ -968,6 +968,8 @@ Made for `org-tab-first-hook' in evil-mode."
 (use-package org-node
   :after (org org-roam)
   :config
+  (setq org-mem-do-sync-with-org-id t)
+  (org-mem-updater-mode)
   (setq org-node-extra-id-dirs '("~/Notes/"))
   (setq org-id-locations-file "~/Notes/.org-id-locations")
   (setq org-node-extra-id-dirs-exclude '("~/Notes/daily/"))
