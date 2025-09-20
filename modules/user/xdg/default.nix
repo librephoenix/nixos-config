@@ -31,9 +31,11 @@ in {
         XDG_BOOK_DIR = "${config.home.homeDirectory}/Media/Books";
         XDG_VM_DIR = "${config.home.homeDirectory}/Machines";
         XDG_NOTES_DIR = "${config.home.homeDirectory}/Notes";
+        XDG_KP_DIR = "${config.home.homeDirectory}/KP";
       };
     };
     xdg.mime.enable = true;
     xdg.mimeApps.enable = true;
+    home.file.External.source = config.lib.file.mkOutOfStoreSymlink "/run/media/" + config.home.username;
   };
 }
