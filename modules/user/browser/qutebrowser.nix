@@ -309,7 +309,6 @@ config.bind(',m', 'hint links spawn mpv {hint-url}')
 config.bind(',co', 'spawn container-open')
 config.bind(',cf', 'hint links userscript container-open')
 
-# TODO stylix user CSS
 # current_stylesheet_directory = '~/.config/qutebrowser/themes/'
 # current_stylesheet = base16_theme+'-all-sites.css'
 # current_stylesheet_path = current_stylesheet_directory + current_stylesheet
