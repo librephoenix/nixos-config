@@ -38,7 +38,7 @@
           chown -R 0:0 ${config.systemSettings.dotfilesDir};
           chown -R 0:0 ${config.systemSettings.secretsFlakeDir};
           pushd ${config.systemSettings.dotfilesDir} &> /dev/null;
-          nixos-rebuild switch;
+          systemd-inhibit --what sleep:idle:handle-lid-switch nixos-rebuild switch;
           popd &> /dev/null;
           exit 0;
         elif [ "$1" = "update" ]; then
@@ -78,21 +78,21 @@
           chown -R 0:0 ${config.systemSettings.dotfilesDir};
           chown -R 0:0 ${config.systemSettings.secretsFlakeDir};
           pushd ${config.systemSettings.dotfilesDir} &> /dev/null;
-          nixos-rebuild build --flake .#snowfire;
-          attic push emmet ./result;
-          rm ./result;
-          nixos-rebuild build --flake .#duskfall;
-          attic push emmet ./result;
-          rm ./result;
-          nixos-rebuild build --flake .#zenith;
-          attic push emmet ./result;
-          rm ./result;
-          nixos-rebuild build --flake .#stardust;
-          attic push emmet ./result;
-          rm ./result;
-          nixos-rebuild build --flake .#ori;
-          attic push emmet ./result;
-          rm ./result;
+          systemd-inhibit --what sleep:idle:handle-lid-switch nixos-rebuild build --flake .#snowfire;
+          systemd-inhibit --what sleep:idle:handle-lid-switch attic push emmet ./result;
+          systemd-inhibit --what sleep:idle:handle-lid-switch rm ./result;
+          systemd-inhibit --what sleep:idle:handle-lid-switch nixos-rebuild build --flake .#duskfall;
+          systemd-inhibit --what sleep:idle:handle-lid-switch attic push emmet ./result;
+          systemd-inhibit --what sleep:idle:handle-lid-switch rm ./result;
+          systemd-inhibit --what sleep:idle:handle-lid-switch nixos-rebuild build --flake .#zenith;
+          systemd-inhibit --what sleep:idle:handle-lid-switch attic push emmet ./result;
+          systemd-inhibit --what sleep:idle:handle-lid-switch rm ./result;
+          systemd-inhibit --what sleep:idle:handle-lid-switch nixos-rebuild build --flake .#stardust;
+          systemd-inhibit --what sleep:idle:handle-lid-switch attic push emmet ./result;
+          systemd-inhibit --what sleep:idle:handle-lid-switch rm ./result;
+          systemd-inhibit --what sleep:idle:handle-lid-switch nixos-rebuild build --flake .#ori;
+          systemd-inhibit --what sleep:idle:handle-lid-switch attic push emmet ./result;
+          systemd-inhibit --what sleep:idle:handle-lid-switch rm ./result;
           exit 0;
         elif [ "$1" = "lock" ]; then
           if [ "$#" -gt 1 ]; then
@@ -113,16 +113,18 @@
             echo "Warning: The 'gc' command only accepts one argument (collect_older_than)";
           fi
           if [ "$2" = "full" ]; then
-            nix-collect-garbage --delete-old;
+            systemd-inhibit --what sleep:idle:handle-lid-switch nix-collect-garbage --delete-old;
           elif [ "$2" ]; then
-            nix-collect-garbage --delete-older-than $2;
+            systemd-inhibit --what sleep:idle:handle-lid-switch nix-collect-garbage --delete-older-than $2;
           else
-            nix-collect-garbage --delete-older-than 30d;
+            systemd-inhibit --what sleep:idle:handle-lid-switch nix-collect-garbage --delete-older-than 30d;
           fi
           exit 0;
         fi
       '')
     ];
+
+    # FIXME this thing doesn't work at all
     systemd.services."phoenix-system-builder" = lib.mkIf config.systemSettings.systemBuilder.enable {
       path = with pkgs; [
         openssh git nix nixos-rebuild
