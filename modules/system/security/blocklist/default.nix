@@ -10,6 +10,7 @@ in {
     systemSettings.security.blocklist = {
       enable = lib.mkEnableOption "Enable basic host blocking for bad websites";
       allowedHosts = lib.mkOption {
+        default = [ ];
         description = "List of hosts to allow (remove from blocklist)";
         type = lib.types.listOf lib.types.str;
       };
