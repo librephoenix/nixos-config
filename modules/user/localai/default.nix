@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ...}:
+{ config, lib, pkgs, pkgs-stable, ...}:
 
 let
   cfg = config.userSettings.ai;
@@ -10,6 +10,13 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = [ pkgs.local-ai ];
+    home.packages = [ pkgs-stable.local-ai
+                      (pkgs.writeScriptBin "aid"
+                        ''
+                        # ai daemon
+                        pushd ~/.config/local-ai;
+                        local-ai &> /dev/null & disown;
+                        popd;'')
+                    ];
   };
 }

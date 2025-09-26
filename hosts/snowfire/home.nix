@@ -29,6 +29,7 @@
       virtualization = {
         virtualMachines.enable = true;
       };
+      ai.enable = true;
 
       # wm
       hyprland.enable = true;
