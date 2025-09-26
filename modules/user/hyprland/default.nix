@@ -211,8 +211,6 @@ in
         };
 
         bind = [
-          "SUPER,code:9,exec,nwggrid-wrapper"
-          "SUPER,code:66,exec,nwggrid-wrapper"
           "SUPER,SPACE,fullscreen,1"
           "SUPERSHIFT,F,fullscreen,0"
           "SUPER,Y,workspaceopt,allfloat"
@@ -247,20 +245,7 @@ in
           ''CTRL,code:107,exec,grim -g "$(slurp)" - | wl-copy''
           ''SHIFTCTRL,code:107,exec,grim -g "$(slurp -o)" - | wl-copy''
           "SUPERCTRL,code:107,exec,grim - | wl-copy"
-          ",code:122,exec,swayosd-client --output-volume lower"
-          ",code:123,exec,swayosd-client --output-volume raise"
-          ",code:121,exec,swayosd-client --output-volume mute-toggle"
-          ",code:256,exec,swayosd-client --output-volume mute-toggle"
-          "SHIFT,code:122,exec,swayosd-client --output-volume lower"
-          "SHIFT,code:123,exec,swayosd-client --output-volume raise"
-          ",code:232,exec,swayosd-client --brightness lower"
-          ",code:233,exec,swayosd-client --brightness raise"
-          ",code:237,exec,brightnessctl --device='asus::kbd_backlight' set 1-"
-          ",code:238,exec,brightnessctl --device='asus::kbd_backlight' set +1"
-          ",code:255,exec,airplane-mode"
           "SUPER,C,exec,wl-copy $(hyprpicker)"
-          "SUPERSHIFT,S,exec,systemctl suspend"
-          "SUPERCTRL,L,exec,loginctl lock-session"
           "SUPERCTRL,G,exec,hyprgamemode"
           "SUPER,H,movefocus,l"
           "SUPER,J,movefocus,d"
@@ -311,6 +296,10 @@ in
           "SUPER,S,exec,${spawnBrowser}"
         ];
 
+        bindr = [
+          "SUPER,SUPER_L,exec,nwggrid-wrapper"
+        ];
+
         bindm = [
           "SUPER,mouse:272,movewindow"
           "SUPER,mouse:273,resizewindow"
@@ -318,6 +307,19 @@ in
 
         bindl = [
           ",switch:on:Lid Switch,exec,loginctl lock-session"
+          "SUPERSHIFT,S,exec,systemctl suspend"
+          "SUPERCTRL,L,exec,loginctl lock-session"
+          ",code:122,exec,swayosd-client --output-volume lower"
+          ",code:123,exec,swayosd-client --output-volume raise"
+          ",code:121,exec,swayosd-client --output-volume mute-toggle"
+          ",code:256,exec,swayosd-client --output-volume mute-toggle"
+          "SHIFT,code:122,exec,swayosd-client --output-volume lower"
+          "SHIFT,code:123,exec,swayosd-client --output-volume raise"
+          ",code:232,exec,swayosd-client --brightness lower"
+          ",code:233,exec,swayosd-client --brightness raise"
+          ",code:237,exec,brightnessctl --device='asus::kbd_backlight' set 1-"
+          ",code:238,exec,brightnessctl --device='asus::kbd_backlight' set +1"
+          ",code:255,exec,airplane-mode"
         ];
 
         windowrulev2 = [
@@ -666,7 +668,7 @@ bluetooth_more_cmd = "blueman-manager"
 style = "Solid"
 opacity = ${if performance then "1.0" else "0.7"}
 background_color = "#${config.lib.stylix.colors.base00}88"
-primary_color = "#${config.lib.stylix.colors.base0B}"
+primary_color = "#${config.lib.stylix.colors.base0A}"
 secondary_color = "#${config.lib.stylix.colors.base01}"
 success_color = "#${config.lib.stylix.colors.base0A}"
 danger_color = "#${config.lib.stylix.colors.base08}"
