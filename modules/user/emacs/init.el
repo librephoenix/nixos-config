@@ -1078,5 +1078,7 @@ Made for `org-tab-first-hook' in evil-mode."
   :init
   (add-hook 'after-init-hook #'scratch-plus-mode))
 
+(use-package rainbow-mode)
+
 (provide 'init)
 ;;; init.el ends here

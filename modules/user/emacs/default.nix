@@ -41,6 +41,7 @@ in {
           svelte-mode
           typescript-mode
           sass-mode
+          rainbow-mode
           (epkgs.callPackage (
             { lib, fetchurl, trivialBuild }:
             
