@@ -10,7 +10,7 @@ in
       enable = lib.mkEnableOption "Enable stylix theming";
     };
     systemSettings.stylix.theme = lib.mkOption {
-      default = "io";
+      default = "orichalcum";
       type = lib.types.enum (builtins.attrNames (lib.filterAttrs (name: type: type == "directory") (builtins.readDir ../../themes)));
       description = "Theme for stylix to use system wide. A list of themes can be found in the `themes` directory.";
     };

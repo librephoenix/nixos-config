@@ -3,7 +3,7 @@
   slug = "io";
   author = "LibrePhoenix (https://github.com/librephoenix)";
   credits = "Forked from Fernando Marques (https://github.com/RakkiUwU) and Gabriel Fontes (https://github.com/Misterio77))";
-  description = "Flagship theme of the LibrePhoenix Channel, named after one of Jupiter's moons";
+  description = "Former flagship theme of the LibrePhoenix Channel, named after one of Jupiter's moons";
   polarity = "dark";
   backgroundUrl = "https://images.hdqwalls.com/wallpapers/aurora-s-embrace-a-borealis-beauty-in-anime-ub.jpg";
   backgroundSha256 = "sha256-GjM/Bu0zispdtPCFPzAk+zGlKYYg5XwTTxZ0TXOW9Fg=";

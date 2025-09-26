@@ -1,0 +1,8 @@
+#+title: Orichalcum
+#+author: Emmet
+
+"Orichalcum" theme, which is a fork of Uwunicorn originally by Fernando Marques ([[https://github.com/RakkiUwU]]) and Gabriel Fontes ([[https://github.com/Misterio77]]).
+
+[[https://raw.githubusercontent.com/librephoenix/nixos-config-screenshots/main/hyprland/uwunicorn.png]]
+
+[[https://wallpapers.com/images/hd/alluring-sunset-anime-scenery-r2gmgtcp8h9iwo9u.webp][Background Link]]

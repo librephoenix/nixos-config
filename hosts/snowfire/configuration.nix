@@ -44,7 +44,7 @@
       # style
       stylix = {
         enable = true;
-        theme = "io";
+        theme = "orichalcum";
       };
     };
 
