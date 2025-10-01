@@ -461,13 +461,13 @@ in
                 keyword decoration:blur:enabled 0;\
                 keyword general:gaps_in 0;\
                 keyword general:gaps_out 0;\
-                keyword general:border_size 1;\
+                keyword general:border_size 0;\
                 keyword decoration:rounding 0";
-            pkill -STOP electron;
-            pkill -STOP syncthing;
-            pkill -STOP emacs;
-            pkill -STOP emacsclient;
-            systemctl --user stop nextcloud-client;
+            #pkill -STOP electron;
+            #pkill -STOP syncthing;
+            #pkill -STOP emacs;
+            #pkill -STOP emacsclient;
+            #systemctl --user stop nextcloud-client;
             pkill ashell;
             pkill hypridle;
             exit;
@@ -480,11 +480,11 @@ in
                 keyword general:gaps_out ${builtins.toString config.wayland.windowManager.hyprland.settings.general.gaps_out};\
                 keyword general:border_size ${builtins.toString config.wayland.windowManager.hyprland.settings.general.border_size};\
                 keyword decoration:rounding ${builtins.toString config.wayland.windowManager.hyprland.settings.decoration.rounding}";
-            pkill -CONT electron;
-            pkill -CONT syncthing;
-            pkill -CONT emacs;
-            pkill -CONT emacsclient;
-            systemctl --user start nextcloud-client;
+            #pkill -CONT electron;
+            #pkill -CONT syncthing;
+            #pkill -CONT emacs;
+            #pkill -CONT emacsclient;
+            #systemctl --user start nextcloud-client;
             WGPU_BACKEND=gl ashell & disown;
             hypridle & disown;
             exit;
