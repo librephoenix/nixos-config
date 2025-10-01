@@ -9,6 +9,8 @@
     ];
 
   services.fstrim.enable = true;
+  services.lact.enable = true;
+  #services.lact.settings = {};
 
   boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "usbhid" "usb_storage" "sd_mod" "radeon" ];
   boot.initrd.kernelModules = [ "radeon" ];
@@ -45,8 +47,8 @@
         enable32Bit = true;
         package = (mesa.overrideAttrs fn).drivers;
         package32 = (pkgsi686Linux.mesa.overrideAttrs fn).drivers;
-        extraPackages = with pkgs; [ amdvlk ];
-        extraPackages32 = with pkgs; [ driversi686Linux.amdvlk ];
+        #extraPackages = with pkgs; [ amdvlk ];
+        #extraPackages32 = with pkgs; [ driversi686Linux.amdvlk ];
       };
   };
   hardware.opengl.extraPackages = [ pkgs.rocmPackages.clr.icd ];
@@ -59,7 +61,8 @@
 
   hardware.amdgpu.initrd.enable = true;
   hardware.amdgpu.opencl.enable = true;
-  hardware.amdgpu.amdvlk.enable = true;
+  #hardware.amdgpu.amdvlk.enable = true;
+  #hardware.amdgpu.overdrive.enable = true;
   environment.sessionVariables = {
     VK_ICD_FILENAMES = "/run/opengl-driver/share/vulkan/icd.d/radeon_icd.x86_64.json"; # fix for godot
   };
