@@ -1022,6 +1022,12 @@ Made for `org-tab-first-hook' in evil-mode."
   :init
   (global-org-modern-mode))
 
+;; Markdown setup for quartz
+(use-package markdown-mode
+  :custom
+  (markdown-enable-wiki-links t)
+  (markdown-wiki-link-alias-first nil))
+
 ;; Olivetti
 (use-package olivetti
   :custom
