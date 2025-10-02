@@ -1,15 +1,11 @@
-#+title: System Profiles
+#+title: Machines
 
-This directory contains various system profiles which can easily be set in [[../flake.nix][my flake.nix]] by setting the =profile= variable. Each profile directory contains a =configuration.nix= for system-level configuration and a =home.nix= for user-level configuration. Setting the =profile= variable in [[../flake.nix][my flake]] will automatically source the correct =configuration.nix= and =home.nix=.
+This directory contains config for each of my machines. 
 
-Current profiles I have available are:
-- [[./personal][Personal]] - What I would run on a personal laptop/desktop*
-- [[./work][Work]] - What I would run on my work laptop/desktop*
-- [[./homelab][Homelab]] - What I would run on a server or homelab*
-- [[./worklab][Worklab]] - My homelab config with my work SSH keys preinstalled*
-- [[./wsl][WSL]] - Windows Subsystem for Emacs (uses [[https://github.com/nix-community/NixOS-WSL][NixOS-WSL]])
-- [[./nix-on-droid][Nix on Droid]] - So that I can run Emacs on my phone (uses [[https://github.com/nix-community/nix-on-droid][nix-on-droid]])
-
-*My [[./personal][personal]] and [[./work][work]] profiles are actually functionally identical (the [[./work][work]] profile is actually imported into the [[./personal][personal]] profile)! The only difference between them is that my [[./personal][personal]] profile has a few extra things like gaming and social apps.
-
-*My [[./homelab][homelab]] and [[./worklab][worklab]] profiles are similarly functionally identical (they both utilize the this [[./homelab/base.nix][base.nix]] file)! The only difference is that they have different preinstalled ssh keys.
+In this directory you'll find:
+- [[./snowfire][snowfire]] - My main machine (gaming laptop)
+- [[./duskfall][duskfall]] - An old thinkpad I use occasionally
+- [[./stardust][stardust]] - My wife's laptop
+- [[./zenith][zenith]] - My work laptop
+- [[./ori][ori]] - My homelab server host
+- [[./TEMPLATE][TEMPLATE]] - Template files to use for a new host

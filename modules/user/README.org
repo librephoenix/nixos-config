@@ -9,39 +9,4 @@ imports = [ import1.nix
           ];
 #+END_SRC
 
-My user-level Nix modules are organized into this directory:
-- [[./app][app]] - Apps or collections of apps bundled with my configs
-  - [[./app/browser][browser]] - Used to set default browser
-  - [[./app/dmenu-scripts][dmenu-scripts]]
-  - [[./app/doom-emacs][doom-emacs]]
-  - [[./app/flatpak][flatpak]] - Installs flatpak as a utility (flatpaks must be installed manually)
-  - [[./app/games][games]] - Gaming setup
-  - [[./app/git][git]]
-  - [[./app/keepass][keepass]]
-  - [[./app/ranger][ranger]]
-  - [[./app/terminal][terminal]] - Configuration for terminal emulators
-  - [[./app/virtualization][virtualization]] - Virtualization and compatability layers
-- [[./lang][lang]] - Various bundled programming languages
-  - I will probably get rid of this in favor of a shell.nix for every project, once I learn how that works
-- [[./pkgs][pkgs]] - "Package builds" for packages not in the Nix repositories
-  - [[./pkgs/pokemon-colorscripts.nix][pokemon-colorscripts]]
-  - [[./pkgs/rogauracore.nix][rogauracore]] - not working yet
-- [[./shell][shell]] - My default bash and zsh configs
-  - [[./shell/sh.nix][sh]] - bash and zsh configs
-  - [[./shell/cli-collection.nix][cli-collection]] - Curated useful CLI utilities
-- [[./style][style]] - Stylix setup (system-wide base16 theme generation)
-- [[./wm][wm]] - Window manager, compositor, wayland compositor, and/or desktop environment setups
-  - [[./wm/hyprland][hyprland]]
-  - [[./wm/xmonad][xmonad]]
-  - [[./wm/picom][picom]]
-
-** Variables imported from flake.nix
-Variables can be imported from [[../flake.nix][flake.nix]] by setting the =extraSpecialArgs= block inside the flake (see [[../flake.nix][my flake]] for more details).  This allows variables to merely be managed in one place ([[../flake.nix][flake.nix]]) rather than having to manage them in multiple locations.
-
-I use this to pass a few attribute sets:
-- =userSettings= - Settings for the normal user (see [[../flake.nix][flake.nix]] for more details)
-- =systemSettings= - Settings for the system (see [[../flake.nix][flake.nix]] for more details)
-- =inputs= - Flake inputs (see [[../flake.nix][flake.nix]] for more details)
-- =pkgs= - Set to unstable for client devices and stable for server devices
-- =pkgs-stable= - Allows me to include stable versions of packages along with (my default) unstable versions of packages
-- =pkgs-unstable= - Allows me to force unstable versions of packages on server devices
+Modules in this directory are used are user-level configurations.

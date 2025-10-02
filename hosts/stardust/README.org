@@ -1,3 +1,3 @@
-#+title: Just chillin'
+#+title: For my wife
 
-This is my profile for a personal computer. It is functionally identical to my [[../work]] profile, but includes extra things like games and social apps!
+This is a config for my wife's computer. She likes Plasma and she mainly uses it for her art work and some light gaming.

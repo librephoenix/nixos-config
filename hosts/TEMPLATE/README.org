@@ -1,0 +1,3 @@
+#+title: Just chillin'
+
+This is my profile for a personal computer. It is functionally identical to my [[../work]] profile, but includes extra things like games and social apps!

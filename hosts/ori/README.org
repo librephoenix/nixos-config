@@ -1,3 +1,7 @@
 #+title: Just chillin'
 
-This is my profile for a personal computer. It is functionally identical to my [[../work]] profile, but includes extra things like games and social apps!
+This is for my personal gaming laptop. Necessary and extra batteries included: office, engineering, development, media, recording, and gaming apps. Highly bloated system.
+
+Specs:
+- Asus ROG Strix G15 Advantage
+- Upgraded to 64GB of RAM + 1TB SSD

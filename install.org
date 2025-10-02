@@ -3,102 +3,14 @@
 
 These are just some simple install notes for myself (in-case I have to reinstall unexpectedly). You could also use these to try out my config in a VM.
 
-** Automated Install Script (Experimental)
-*** Install Directly From Git
-I wrote a quick automated install script at [[./install.sh][install.sh]]. It essentially just runs [[Manual Install Procedure][the manual install steps]] and additionally hardens the security of the system-level (root configuration) files using [[./harden.sh][harden.sh]].
-
-I'll eventually™ add the ability to supply arguments to this script as well.
-
-The quickest way to install is running the install script directly from the remote git repo using =nix run=, which is essentially just one of the following:
-#+BEGIN_SRC sh :noeval
-# Install from gitlab
-nix run gitlab:librephoenix/nixos-config
-
-# Or install from github
-nix run github:librephoenix/nixos-config
-
-# Or install from codeberg
-nix run git+https://codeberg.org/librephoenix/nixos-config
-#+END_SRC
-
-This will install the dotfiles to =~/.dotfiles=, but if you'd like to install to a custom directory, just supply it as a positional argument, i.e:
-#+BEGIN_SRC sh :noeval
-# Install from gitlab
-nix run gitlab:librephoenix/nixos-config -- /your/custom/directory
-#+END_SRC
-
-The script will ask for sudo permissions at certain points, /but you should not run the script as root/.
-
-If the above =nix run= command gives you an error, odds are you either don't have =git= installed, or you haven't enabled the experimental features in your Nix config (=nix-command= and =flakes=). To get the command to install properly, you can first enter a shell with =git= available using:
-#+begin_src sh :noeval
-nix-shell -p git
-#+end_src
-and then running:
-#+BEGIN_SRC sh :noeval
-nix run --experimental-features 'nix-command flakes' gitlab:librephoenix/nixos-config
-#+END_SRC
-
-And if you want a single copy-paste solution:
-#+begin_src sh :noeval
-nix-shell -p git --command "nix run --experimental-features 'nix-command flakes' gitlab:librephoenix/nixos-config"
-#+end_src
-
-This /should/ still work with a custom dotfiles directory too, i.e:
-#+begin_src sh :noeval
-nix-shell -p git --command "nix run --experimental-features 'nix-command flakes' gitlab:librephoenix/nixos-config -- /your/custom/directory"
-#+end_src
-
-At a certain point in the install script it will open =nano= (or whatever your $EDITOR is set to) and ask you to edit the =flake.nix=. You can edit as much or as little of the config variables as you like, and it will continue the install after you exit the editor.
-
-Potential Errors: I've only tested it working on UEFI with the default EFI mount point of =/boot=. I've added experimental legacy (BIOS) boot support, but it does rely on a quick and dirty script to find the grub device. If you are testing it using some weird boot configuration for whatever reason, try modifying =bootMountPath= (UEFI) or =grubDevice= (legacy BIOS) in =flake.nix= before install, or else it will complain about not being able to install the bootloader.
-
-Note: If you're installing this to a VM, Hyprland won't work unless 3D acceleration is enabled.
-
-Disclaimer: If you install my =homelab= or =worklab= profiles /CHANGE THE PUBLIC SSH KEYS UNLESS YOU WANT ME TO BE ABLE TO SSH INTO YOUR SERVER. YOU CAN CHANGE OR REMOVE THE SSH KEY IN THE RELEVANT CONFIGURATION.NIX/:
-- [[./profiles/homelab/configuration.nix][configuration.nix]] for homelab profile
-- [[./profiles/worklab/configuration.nix][configuration.nix]] for worklab profile
-
-*** Install From Local Git Clone
-The dotfiles can be installed after cloning the repo into =~/.dotfiles= using:
-#+BEGIN_SRC sh :noeval
-git clone https://gitlab.com/librephoenix/nixos-config.git ~/.dotfiles
-~/.dotfiles/install.sh
-#+END_SRC
-or with a custom directory:
-#+BEGIN_SRC sh :noeval
-git clone https://gitlab.com/librephoenix/nixos-config.git /your/custom/directory
-/your/custom/directory/install.sh
-#+END_SRC
-
-If you install to a custom directory, make sure to edit the =userSettings.dotfilesDir= in the [[./flake.nix][flake.nix]], or else my [[./system/bin/phoenix.nix][phoenix wrapper script]] won't work.
-
-At a certain point in the install script it will open =nano= (or whatever your =$EDITOR= is set to) and ask you to edit the =flake.nix=. You can edit as much or as little of the config variables as you like, and it will continue the install after you exit the editor.
-
-Potential Errors: I mainly only test this on UEFI, but I've added experimental legacy (BIOS) boot support. Keep in mind, it does rely on a quick and dirty script to find the grub device. If you are testing it using some weird boot configuration for whatever reason, try modifying =bootMountPath= (UEFI) or =grubDevice= (legacy BIOS) in =flake.nix= before install, or else it will complain about not being able to install the bootloader.
-
-Note: If you're installing this to a VM, Hyprland won't work unless 3D acceleration is enabled.
-
-Disclaimer: If you install my =homelab= or =worklab= profiles /CHANGE THE PUBLIC SSH KEYS UNLESS YOU WANT ME TO BE ABLE TO SSH INTO YOUR SERVER. YOU CAN CHANGE OR REMOVE THE SSH KEY IN THE RELEVANT CONFIGURATION.NIX/:
-- [[./profiles/homelab/configuration.nix][configuration.nix]] for homelab profile
-- [[./profiles/worklab/configuration.nix][configuration.nix]] for worklab profile
-
-*** Automatic Install Script Limitations
-At this time, this only works on an existing NixOS install. It also only works if the dotfiles are cloned into =~/.dotfiles=. It also only works on UEFI, not on BIOS :(
-
-Future upgrade plans:
-- [ ] Be able to install directly from NixOS iso
-- [ ] Be able to install just home-manager config to a non-NixOS Linux distro
-- [ ] Be able to detect EFI mount point for systemd-boot?
-- [X] +Be able to detect UEFI or BIOS and switch config as needed+
-- [ ] ??? (open up an issue if you think there is anything else I should try to figure out)
-
 ** Manual Install Procedure
-If you instead want to install this manually to see all the steps (kind of like an Arch install before the archinstall script existed), you can follow this following procedure:
+Currently, the only supported install method is installing manually. This way yuo can see all the steps (kind of like an Arch install before the archinstall script existed), you can follow this following procedure:
 
 *** Clone Repo and Modify Configuration
-Start by cloning the repo:
+Start by cloning the repo to =/etc/nixos=:
 #+BEGIN_SRC sh :noeval
-git clone https://gitlab.com/librephoenix/nixos-config.git ~/.dotfiles
+sudo mv /etc/nixos /etc/nixos.bkp
+git clone https://gitlab.com/librephoenix/nixos-config.git /etc/nixos
 #+END_SRC
 
 Any custom directory should also work:
@@ -106,50 +18,27 @@ Any custom directory should also work:
 git clone https://gitlab.com/librephoenix/nixos-config.git /your/custom/directory
 #+END_SRC
 
-If you install to a custom directory, make sure to edit the =userSettings.dotfilesDir= in the beginning [[./flake.nix][flake.nix]], or else my [[./system/bin/phoenix.nix][phoenix wrapper script]] won't work.
+If you install to a custom directory, make sure to edit =systemSettings.dotfilesDir= in the system configuration, or else the [[./system/bin/phoenix.nix][phoenix wrapper script]] won't work.
 #+BEGIN_SRC nix :noeval
-...
-let
-  ...
-  # ----- USER SETTINGS ----- #
-  dotfilesDir = "/your/custom/directory"; # username
-  ...
+# somewhere in system-level config:
+{ config, lib, pkgs, ...}:
+{
+  systemSettings.dotfilesDir = "/your/custom/directory";
+}
 #+END_SRC
 
-To get the hardware configuration on a new system, either copy from =/etc/nixos/hardware-configuration.nix= or run:
+To configure a new system, navigate to the [[./hosts][hosts]] directory and copy the [[./hosts/TEMPLATE][TEMPLATE]] directory. Name the copy whatever you want the new hostname to be (needs to match the hostname exactly).
+
+Next, configure the resulting =configuration.nix= and =home.nix= with the available options. Make sure to change all references to =USERNAME=, =NAME= and =EMAIL= for your desired user(s).
+
+Next, you must copy or generate the new system's hardware-config into your specific host's =hardware-configuration.nix=. To get the hardware configuration on a new system, either copy from =/etc/nixos.bkp/hardware-configuration.nix= or run:
 #+BEGIN_SRC sh :noeval
-sudo nixos-generate-config --show-hardware-config > ~/.dotfiles/system/hardware-configuration.nix
+sudo nixos-generate-config --show-hardware-config > /etc/nixos/hosts/YOURHOSTNAMEHERE/hardware-configuration.nix
 #+END_SRC
-
-Also, if you have a differently named user account than my default (=emmet=), you /must/ update the following lines in the let binding near the top of the [[./flake.nix][flake.nix]]:
-#+BEGIN_SRC nix :noeval
-...
-let
-  ...
-  # ----- USER SETTINGS ----- #
-  username = "YOURUSERNAME"; # username
-  name = "YOURNAME"; # name/identifier
-  ...
-#+END_SRC
-
-There are many more config options there that you may also want to change as well.
-
-The build will fail if you are booting from BIOS instead of UEFI, unless change some of the system settings of the flake. Change =bootMode= to "bios" and set the =grubDevice= appropriately for your system (i.e. =/dev/vda= or =/dev/sda=).
-#+begin_src nix :noeval
-...
-let
-  # ---- SYSTEM SETTINGS ---- #
-  ...
-    bootMode = "bios"; # uefi or bios
-    grubDevice = "/dev/vda"; # device identifier for grub; find this by running lsblk
-  ...
-#+end_src
 
 Note: If you're installing this to a VM, Hyprland won't work unless 3D acceleration is enabled.
 
-Disclaimer: If you install my =homelab= or =worklab= profiles /CHANGE THE PUBLIC SSH KEYS UNLESS YOU WANT ME TO BE ABLE TO SSH INTO YOUR SERVER. YOU CAN CHANGE OR REMOVE THE SSH KEY IN THE RELEVANT CONFIGURATION.NIX/:
-- [[./profiles/homelab/configuration.nix][configuration.nix]] for homelab profile
-- [[./profiles/worklab/configuration.nix][configuration.nix]] for worklab profile
+Disclaimer: If you copy my =ori= host config to setup a sever with NixOS, /MAKE SURE YOU CHANGE OR REMOVE THE PUBLIC SSH KEYS UNLESS YOU WANT ME TO BE ABLE TO SSH INTO YOUR SERVER. YOU CAN CHANGE OR REMOVE THE SSH KEY IN THE RELEVANT CONFIGURATION.NIX/ (see [[./hosts/ori/configuration.nix][configuration.nix]]).
 
 *** Rebuild and Switch System Config
 Once the variables are set, then switch into the system configuration by running:
@@ -161,42 +50,14 @@ or for your own custom directory:
 sudo nixos-rebuild switch --flake /your/custom/directory#system
 #+END_SRC
 
-*** Intall and Switch Home Manager Config
-Home manager can be installed and the configuration activated with:
+Subsequent rebuilds can now use my =phoenix= wrapper script to rebuild:
 #+BEGIN_SRC sh :noeval
-nix run home-manager/master -- switch --flake ~/.dotfiles#user
-#+END_SRC
-or for your own custom directory:
-#+BEGIN_SRC sh :noeval
-nix run home-manager/master -- switch --flake /your/custom/directory#user
+phoenix sync
 #+END_SRC
 
 ** FAQ
-*** =home-manager switch --flake .#user= Command Fails
-If it fails with something to the effect of "could not download {some image file}" then that just means that one of my themes is having trouble downloading the background image. To conserve on space in the repo, my themes download the relevant wallpapers directly from their source, but that also means that if the link is broken, =home-manager switch= fails.
-
-I have included a script in the [[./themes][themes directory]] named [[./themes/background-test.sh][background-test.sh]] which performs a rough test on every theme background url, reporting which are broken.
-
-If you're having this error, navigate to the [[./flake.nix][flake.nix]] and select any theme with a good background wallpaper link. As long as it is able to download the new wallpaper, it should be able to build.
-
-*** Do I have to put the configuration files in =~/.dotfiles=?
-No. You can put them in literally any directory you want. I just prefer to use =~/.dotfiles= as a convention. If you change the directory, do keep in mind that the above scripts must be modified, replacing =~/.dotfiles= with whatever directory you want to install them to. Also, you may want to modify the =dotfilesDir= variable in =flake.nix=.
-
-*** So I cloned these dotfiles into ~/.dotfiles, and now there are system-level files owned by my user account.. HOW IS THIS SECURE?!
-If you're worried about someone modifying your system-level (root configuration) files as your unpriveleged user, see [[./harden.sh][harden.sh]].
-
 *** I installed this to a VM and when I log in, it crashes and sends me back to the login manager (SDDM)?
 Enable 3D acceleration for your virtual machine. Hyprland doesn't work without it.
 
-*** It fails installing with some weird errors about grub or a bootloader?
-It will 100% fail if you test it with a non-default boot configuration. It might even give this error otherwise! If this is the case, try modifying =bootMountPath= (UEFI) or =grubDevice= (legacy BIOS) in =flake.nix= before installing again.
-
-*** The install seems to work, but when I login, I'm missing a lot of stuff (partial install)
-This can happen if you run the autoinstall script on a system that already has a desktop environment, or if any other (non-Nix-store-symlink) config files are in the way of the config files generated by home-manager. In these cases, home-manager refuses to build anything, even if there's just one file in the way. If you try running =nix run home-manager/master -- switch --flake ~/.dotfiles#user=, it should throw an error at the end with something like:
-#+begin_example
-Existing file '/home/user/.gtkrc-2.0' is in the way of '/nix/store/6p3hzdbzhad8ra5j1qf4b2b3hs6as6sf-home-manager-files/.gtkrc-2.0'
-Existing file '/home/user/.config/Trolltech.conf' is in the way of '/nix/store/6p3hzdbzhad8ra5j1qf4b2b3hs6as6sf-home-manager-files/.config/Trolltech.conf'
-Existing file '/home/user/.config/user-dirs.conf' is in the way of '/nix/store/6p3hzdbzhad8ra5j1qf4b2b3hs6as6sf-home-manager-files/.config/user-dirs.conf'
-...
-#+end_example
-The current solution to this is to delete or move the files mentioned so that home-manager can evaluate. Once the files are out of the way, just run =nix run home-manager/master -- switch --flake ~/.dotfiles#user= again and it should work!
+*** You used to have an auto-install script! Where did it go?
+My old [[https://www.youtube.com/watch?v=Dm11dcJ0vWY][auto-install script]] was kind of cool, but I found it wasn't really stable (even for me). I'll probably revisit this at some point (looking at you [[https://github.com/nix-community/nixos-anywhere][nixos-everywhere]] and [[https://github.com/nix-community/disko][disko]]).

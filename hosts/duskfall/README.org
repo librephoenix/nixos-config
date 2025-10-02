@@ -1,3 +1,3 @@
-#+title: Just chillin'
+#+title: Thinkpad go brrr...
 
-This is my profile for a personal computer. It is functionally identical to my [[../work]] profile, but includes extra things like games and social apps!
+This is my config for an old Thinkpad. It's /really/ slow, but it's nice since it has a touch screen and pen with palm rejection! I don't use it that often, and I'm considering connecting it to the TV and trying Kodi out on it.
