@@ -10,3 +10,5 @@ imports = [ import1.nix
 #+END_SRC
 
 Modules in this directory are used are system-level (root) configurations.
+
+# TODO add list of all options
