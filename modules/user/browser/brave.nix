@@ -13,8 +13,9 @@ in {
     programs.brave.enable = true;
     programs.brave.package = pkgs.brave;
     programs.brave.extensions = [
-      { id = "cjpalhdlnbpafiamejdnhcphjbkeiagm"; }
-      { id = "oboonakemofpalcgghocfoadofidjkkk"; }
+      { id = "cjpalhdlnbpafiamejdnhcphjbkeiagm"; } # ublock
+      { id = "oboonakemofpalcgghocfoadofidjkkk"; } # keepassxc
+      { id = "pnidmkljnhbjfffciajlcpeldoljnidn"; } # linkwarden
     ];
     programs.brave.commandLineArgs = [
       "--password-store=gnome-libsecret"
