@@ -49,6 +49,7 @@ in
       XCURSOR_THEME = config.gtk.cursorTheme.name;
       GDK_DEBUG = "portals";
       GTK_USE_PORTALS = 1;
+      GRIM_DEFAULT_DIR = config.xdg.userDirs.extraConfig.XDG_SCREENSHOT_DIR;
     };
 
     xdg.portal =

@@ -10,8 +10,13 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
+    programs.obs-studio.enable = true;
+    programs.obs-studio.plugins = with pkgs.obs-studio-plugins; [
+      obs-gstreamer
+      obs-vaapi
+      obs-scale-to-sound
+    ];
     home.packages = with pkgs; [
-      obs-studio
       kdePackages.kdenlive
       tenacity
       ardour
