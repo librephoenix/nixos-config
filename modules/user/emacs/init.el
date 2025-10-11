@@ -248,6 +248,14 @@
   (define-key evil-motion-state-map (kbd "RET") nil)
   (evil-mode 1))
 
+(use-package default-text-scale
+  :after (evil)
+  :config
+  ;; Zoom in/out keybinds
+  (evil-define-key nil 'global (kbd "C--") 'default-text-scale-decrease)
+  (evil-define-key nil 'global (kbd "C-+") 'default-text-scale-reset)
+  (evil-define-key nil 'global (kbd "C-=") 'default-text-scale-increase))
+
 (use-package evil-collection
   :after (evil)
   :custom
@@ -324,6 +332,7 @@
   (evil-define-key 'motion 'global (kbd "<leader>pg") 'projectile-switch-project)
   (evil-define-key 'motion 'global (kbd "<leader>pf") 'projectile-find-file)
   (evil-define-key 'motion 'global (kbd "<leader>pa") 'projectile-add-known-project)
+  (evil-define-key 'motion 'global (kbd "<leader>pr") 'projectile-remove-known-project)
   (evil-define-key 'motion 'global (kbd "<leader>/") 'projectile-grep)
   (evil-define-key 'motion 'global (kbd "<leader>gg") 'magit-status)
   (evil-define-key 'motion 'global (kbd "<leader>gt") 'git-timemachine-toggle)

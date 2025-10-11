@@ -42,6 +42,7 @@ in {
           typescript-mode
           sass-mode
           rainbow-mode
+          default-text-scale
           (epkgs.callPackage (
             { lib, fetchurl, trivialBuild }:
             
