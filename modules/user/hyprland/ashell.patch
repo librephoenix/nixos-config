@@ -1,11 +1,12 @@
 diff --git a/src/modules/workspaces.rs b/src/modules/workspaces.rs
-index 1bafb6d..c448b02 100644
+index a4e4bb8..803fdb0 100644
 --- a/src/modules/workspaces.rs
 +++ b/src/modules/workspaces.rs
-@@ -51,20 +51,20 @@ fn get_workspaces(config: &WorkspacesModuleConfig) -> Vec<Workspace> {
+@@ -48,22 +48,6 @@ fn get_workspaces(config: &WorkspacesModuleConfig) -> Vec<Workspace> {
+ 
      let (special, normal): (Vec<_>, Vec<_>) = workspaces.into_iter().partition(|w| w.id < 0);
  
-     // map special workspaces
+-    // map special workspaces
 -    for w in special.iter() {
 -        result.push(Workspace {
 -            id: w.id,
@@ -14,26 +15,68 @@ index 1bafb6d..c448b02 100644
 -                .split(":")
 -                .last()
 -                .map_or_else(|| "".to_string(), |s| s.to_owned()),
--            monitor_id: Some(w.monitor_id as usize),
+-            monitor_id: w.monitor_id,
 -            monitor: w.monitor.clone(),
 -            active: monitors.iter().any(|m| m.special_workspace.id == w.id),
 -            windows: w.windows,
 -        });
 -    }
-+    //for w in special.iter() {
-+    //    result.push(Workspace {
-+    //        id: w.id,
-+    //        name: w
-+    //            .name
-+    //            .split(":")
-+    //            .last()
-+    //            .map_or_else(|| "".to_string(), |s| s.to_owned()),
-+    //        monitor_id: Some(w.monitor_id as usize),
-+    //        monitor: w.monitor.clone(),
-+    //        active: monitors.iter().any(|m| m.special_workspace.id == w.id),
-+    //        windows: w.windows,
-+    //    });
-+    //}
- 
+-
      // map normal workspaces
      for w in normal.iter() {
+         let display_name = if w.id > 0 {
+diff --git a/src/theme.rs b/src/theme.rs
+index c0c647d..9f7df19 100644
+--- a/src/theme.rs
++++ b/src/theme.rs
+@@ -46,10 +46,10 @@ pub struct Radius {
+ impl Default for Radius {
+     fn default() -> Self {
+         Self {
+-            sm: 4,
+-            md: 8,
+-            lg: 16,
+-            xl: 32,
++            sm: 0,
++            md: 0,
++            lg: 0,
++            xl: 0,
+         }
+     }
+ }
+@@ -406,7 +406,7 @@ impl AshellTheme {
+                     bg_color
+                 })),
+                 border: Border {
+-                    width: if is_empty { 1.0 } else { 0.0 },
++                    width: 0.0,
+                     color: bg_color,
+                     radius: self.radius.lg.into(),
+                 },
+@@ -464,7 +464,7 @@ impl AshellTheme {
+             let mut base = text_input::Style {
+                 background: theme.palette().background.into(),
+                 border: Border {
+-                    width: 2.0,
++                    width: 0.0,
+                     radius: self.radius.xl.into(),
+                     color: theme.extended_palette().background.weak.color,
+                 },
+@@ -493,7 +493,7 @@ impl AshellTheme {
+             let mut base = button::Style {
+                 background: None,
+                 border: Border {
+-                    width: 2.0,
++                    width: 0.0,
+                     radius: self.radius.xl.into(),
+                     color: theme.extended_palette().background.weak.color,
+                 },
+@@ -532,7 +532,7 @@ impl AshellTheme {
+                         .into(),
+                 ),
+                 border: Border {
+-                    width: 2.0,
++                    width: 0.0,
+                     radius: self.radius.xl.into(),
+                     color: Color::TRANSPARENT,
+                 },

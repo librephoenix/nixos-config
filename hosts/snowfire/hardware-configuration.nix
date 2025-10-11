@@ -55,7 +55,7 @@
   hardware.opengl.extraPackages32 = [ ];
 
   #environment.systemPackages = with pkgs.rocmPackages; [ hipcc hip-common hiprand hipblas hipfft hipcub hipify ];
-  environment.systemPackages = with pkgs.rocmPackages; [ hipcc hip-common hiprand hipfft hipcub hipify ];
+  #environment.systemPackages = with pkgs.rocmPackages; [ hipcc hip-common hiprand hipfft hipcub hipify ];
 
   services.xserver.videoDrivers = lib.mkDefault [ "modesetting" ];
 
@@ -72,19 +72,19 @@
     ACTION=="add|change", SUBSYSTEM=="block", ENV{ID_SERIAL_SHORT}=="BTKA121225GP512A", ATTR{queue/scheduler}="bfq"
       '';
 
-  systemd.tmpfiles.rules = 
-    let
-      rocmEnv = pkgs.symlinkJoin {
-        name = "rocm-combined";
-        paths = with pkgs.rocmPackages; [
-          rocblas
-          hipblas
-          clr
-        ];
-      };
-    in [
-      "L+    /opt/rocm   -    -    -     -    ${rocmEnv}"
-    ];
+  #systemd.tmpfiles.rules = 
+  #  let
+  #    rocmEnv = pkgs.symlinkJoin {
+  #      name = "rocm-combined";
+  #      paths = with pkgs.rocmPackages; [
+  #        rocblas
+  #        hipblas
+  #        clr
+  #      ];
+  #    };
+  #  in [
+  #    "L+    /opt/rocm   -    -    -     -    ${rocmEnv}"
+  #  ];
 
   # my stupid usb hub crashes systemct suspend half of the time now
   # https://wiki.archlinux.org/title/Power_management/Suspend_and_hibernate#Sleep_hooks

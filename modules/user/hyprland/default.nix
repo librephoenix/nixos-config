@@ -651,10 +651,10 @@ alert_threshold = 95
 warn_threshold = 50
 alert_threshold = 75
 [system.temp]
-warn_threshold = 90
+warn_threshold = 85
 alert_threshold = 95
 [clock]
-format = "%a %d %b %R"
+format = "%a %d %b %H:%M:%S"
 [mediaPlayer]
 max_title_length = 100
 [settings]
@@ -665,6 +665,7 @@ wifi_more_cmd = "nm-connection-editor"
 vpn_more_cmd = "nm-connection-editor"
 bluetooth_more_cmd = "blueman-manager"
 [appearance]
+scale_factor = 1.25
 style = "Solid"
 opacity = ${if performance then "1.0" else "0.7"}
 background_color = "#${config.lib.stylix.colors.base00}88"
