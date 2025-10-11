@@ -20,6 +20,7 @@ in {
     programs.brave.commandLineArgs = [
       "--password-store=gnome-libsecret"
       "--enable-accelerated-video-decode"
+      "--disable-features=WaylandWpColorManagerV1"
     ];
     xdg.mimeApps.defaultApplications = lib.mkIf (config.userSettings.browser == "brave" ) {
       "text/html" = "brave-browser.desktop";
