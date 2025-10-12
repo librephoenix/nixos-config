@@ -24,7 +24,7 @@
   config = {
     environment.systemPackages = with pkgs; [
       attic-client
-      git
+      git git-lfs
       nix-output-monitor
       (pkgs.writeScriptBin "phoenix" ''
         if [[ $EUID -ne 0 ]]; then
