@@ -56,15 +56,15 @@
     # ip ban ai crawlers
     let createDropRulesForIpAddress = address:
       ''
-      iptables -C INPUT -s ${address} -j DROP || iptables -A INPUT -s ${address} -j DROP
-      iptables -C OUTPUT -s ${address} -j DROP || iptables -A OUTPUT -s ${address} -j DROP
-      iptables -C FORWARD -s ${address} -j DROP || iptables -A FORWARD -s ${address} -j DROP
-      iptables -C DOCKER -s ${address} -j DROP || iptables -A DOCKER -s ${address} -j DROP
-      iptables -C DOCKER-BRIDGE -s ${address} -j DROP || iptables -A DOCKER-BRIDGE -s ${address} -j DROP
-      iptables -C DOCKER-FORWARD -s ${address} -j DROP || iptables -A DOCKER-FORWARD -s ${address} -j DROP
-      iptables -C DOCKER-USER -s ${address} -j DROP || iptables -A DOCKER-USER -s ${address} -j DROP
-      iptables -C DOCKER-ISOLATION-STAGE-1 -s ${address} -j DROP || iptables -A DOCKER-ISOLATION-STAGE-1 -s ${address} -j DROP
-      iptables -C DOCKER-ISOLATION-STAGE-2 -s ${address} -j DROP || iptables -A DOCKER-ISOLATION-STAGE-2 -s ${address} -j DROP
+      iptables -A INPUT -s ${address} -j DROP
+      iptables -A OUTPUT -s ${address} -j DROP
+      iptables -A FORWARD -s ${address} -j DROP
+      iptables -A DOCKER -s ${address} -j DROP
+      iptables -A DOCKER-BRIDGE -s ${address} -j DROP
+      iptables -A DOCKER-FORWARD -s ${address} -j DROP
+      iptables -A DOCKER-USER -s ${address} -j DROP
+      iptables -A DOCKER-ISOLATION-STAGE-1 -s ${address} -j DROP
+      iptables -A DOCKER-ISOLATION-STAGE-2 -s ${address} -j DROP
       '';
       in
       ''
@@ -215,7 +215,6 @@
         ${createDropRulesForIpAddress "98.84.200.43"}
         ${createDropRulesForIpAddress "98.84.60.17"}
         ${createDropRulesForIpAddress "98.84.70.201"}
-        ${createDropRulesForIpAddress "172.24.0.21"}
     '';
     virtualisation.docker.extraOptions="--iptables=true";
   };
