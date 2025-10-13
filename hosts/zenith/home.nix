@@ -42,11 +42,11 @@
     };
 
     home.packages = with pkgs; [
-      openldap ldapvi rclone teams-for-linux rpi-imager freerdp pkgs-stable.tigervnc unixtools.xxd
+      openldap ldapvi rclone teams-for-linux rpi-imager freerdp pkgs-stable.tigervnc unixtools.xxd nodejs electron
     ];
 
     home.sessionVariables = lib.mkIf config.userSettings.hyprland.enable {
-      AQ_DRM_DEVICES = lib.mkForce "/dev/dri/card1";
+      AQ_DRM_DEVICES = lib.mkForce "/dev/dri/card1:/dev/dri/card0";
     };
 
     wayland.windowManager.hyprland = lib.mkIf config.userSettings.hyprland.enable {
