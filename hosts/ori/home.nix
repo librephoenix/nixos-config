@@ -9,7 +9,7 @@
         enable = true;
         apps.enable = true;
       };
-      xdg.enable = true;
+      xdg.enable = false;
 
       # programs
       ranger.enable = true;
