@@ -990,10 +990,10 @@
         ]
       },
       "locked": {
-        "lastModified": 1760201629,
-        "narHash": "sha256-Lw3ddEY25LYq40q2DJyPiITNbaPB0k9+2lljLBHKA+Y=",
+        "lastModified": 1760311935,
+        "narHash": "sha256-St7plbEQ4D1q71JSs4W4Iu9N8zR3d6QYY61ZGYIUprM=",
         "ref": "refs/heads/main",
-        "rev": "a4390896ddd6015e320e4dd8b8834797dcb1f071",
+        "rev": "c33c7651dacdeb929f72c64a56066a14338c9737",
         "revCount": 40,
         "type": "git",
         "url": "file:///etc/nixos.secrets"
