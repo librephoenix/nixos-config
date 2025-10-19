@@ -17,7 +17,7 @@
       # software
       flatpak.enable = false;
       virtualization = {
-        docker.enable = true;
+        docker.enable = false;
         virtualMachines.enable = false;
       };
       brave.enable = true;

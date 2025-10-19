@@ -20,6 +20,7 @@
       virtualization = {
         docker.enable = true;
         virtualMachines.enable = true;
+        winapps.enable = true;
       };
       brave.enable = true;
 
