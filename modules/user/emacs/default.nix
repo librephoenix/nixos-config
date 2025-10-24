@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, pkgs-stable, ... }:
 
 let
   cfg = config.userSettings.emacs;
@@ -15,10 +15,10 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs; [
+    home.packages = with pkgs-stable; [
       (pkgs.emacsWithPackagesFromUsePackage {
         config = ./init.el;
-        package = pkgs.emacs-git-pgtk;
+        package = pkgs-stable.emacs-pgtk;
         alwaysEnsure = false;
         extraEmacsPackages = epkgs: with epkgs; [
           org-modern olivetti

@@ -34,7 +34,7 @@ in
       # TODO abstract fonts into an option
       monospace = {
         name = "Fira Code Nerd Font";
-        package = pkgs.fira-code-nerdfont;
+        package = pkgs.nerd-fonts.fira-code;
       };
       serif = {
         name = "Fira";

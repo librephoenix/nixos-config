@@ -37,6 +37,5 @@ in {
     };
     xdg.mime.enable = true;
     xdg.mimeApps.enable = true;
-    home.file.External.source = config.lib.file.mkOutOfStoreSymlink "/run/media/" + config.home.username;
   };
 }

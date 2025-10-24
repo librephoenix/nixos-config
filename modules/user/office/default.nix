@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, pkgs-stable, ... }:
 
 let
   cfg = config.userSettings.office;
@@ -26,6 +26,7 @@ in {
     ];
     services.syncthing.enable = true;
     services.nextcloud-client = {
+      package = pkgs-stable.nextcloud-client;
       enable = true;
       startInBackground = true;
     };

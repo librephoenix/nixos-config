@@ -14,6 +14,7 @@
       # programs
       browser = "brave";
       editor = "emacs";
+      zed.enable = true;
       vscodium.enable = true;
       yazi.enable = true;
       git.enable = true;

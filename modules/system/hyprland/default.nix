@@ -125,13 +125,6 @@ in
       jack.enable = true;
     };
 
-    # Some fancy fonts
-    fonts.packages = with pkgs-stable; [
-      # Fonts
-      nerdfonts
-      powerline
-    ];
-
     # Auto rotate screen
     programs.iio-hyprland = {
       enable = true;

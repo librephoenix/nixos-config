@@ -84,7 +84,7 @@
 
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-unstable";
-    nixpkgs-stable.url = "nixpkgs/nixos-24.11";
+    nixpkgs-stable.url = "nixpkgs/nixos-25.05";
     chaotic.url = "github:chaotic-cx/nyx";
 
     home-manager.url = "github:nix-community/home-manager/master";
@@ -93,12 +93,19 @@
     hyprland = {
       url = "github:hyprwm/Hyprland/v0.51.0?submodules=true";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.hyprland-qtutils.follows = "hyprland-qtutils";
+    };
+
+    # FIXME tmp fix
+    hyprland-qtutils = {
+      url = "github:hyprwm/hyprland-qtutils/629b15c19fa4082e4ce6be09fdb89e8c3312aed7";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     hyprlock = {
       type = "git";
       url = "https://code.hyprland.org/hyprwm/hyprlock.git";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
     };
 
     plasma-manager = {
