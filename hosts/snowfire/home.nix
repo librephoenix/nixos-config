@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, ... }:
 
 {
   config = {
@@ -13,8 +13,8 @@
 
       # programs
       browser = "brave";
-      editor = "emacs";
-      zed.enable = true;
+      editor = "zed";
+      emacs.enable = true;
       vscodium.enable = true;
       yazi.enable = true;
       git.enable = true;

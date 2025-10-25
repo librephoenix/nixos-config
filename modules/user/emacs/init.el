@@ -78,8 +78,7 @@
   (set-face-background 'fringe (face-attribute 'default :background))
   
   ;; Fira and glyphs
-  (when (window-system)
-    (set-frame-font "FiraCode Nerd Font"))
+  (set-frame-font "FiraCode Nerd Font")
   (let ((alist '((33 . ".\\(?:\\(?:==\\|!!\\)\\|[!=]\\)")
                  (35 . ".\\(?:###\\|##\\|_(\\|[#(?[_{]\\)")
                  (36 . ".\\(?:>\\)")

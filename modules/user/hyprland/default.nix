@@ -374,6 +374,7 @@ in
           "tile,title:(Godot)"
           "suppressevent maximize,class:^(steam)$"
         ] ++ lib.optionals (!performance) [
+          "opacity 0.80,class:^(dev.zed.Zed)$"
           "opacity 0.80,class:^(org.pulseaudio.pavucontrol)$"
           "opacity 1.0,class:^(org.qutebrowser.qutebrowser),fullscreen:1"
           "opacity 0.85,class:^(Element)$"

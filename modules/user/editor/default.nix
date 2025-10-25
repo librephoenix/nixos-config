@@ -28,8 +28,9 @@ in {
       (lib.mkIf (editor == "emacs") "emacsclient -c -n -a 'emacs'")
       (lib.mkIf (editor == "neovide") "neovide -- --listen /tmp/nvimsocket")
       (lib.mkIf (editor == "vscodium") "codium -n")
+      (lib.mkIf (editor == "zed") "zeditor")
       (lib.mkIf (builtins.elem editor [ "vim" "nvim" "nano" "micro" ]) ("exec " + term + " -e " + editor))
-      (lib.mkIf (!(builtins.elem editor [ "emacs" "vim" "nvim" "neovide" "nano" "micro" "vscodium"])) editor)
+      (lib.mkIf (!(builtins.elem editor [ "emacs" "vim" "nvim" "neovide" "nano" "micro" "vscodium" "zed"])) editor)
     ];
     home.sessionVariables = {
       EDITOR =
