@@ -61,7 +61,7 @@ in
         xdg-desktop-portal-termfilechooser
       ];
     };
-    
+
     xdg.portal.config.common = {
       default = [ "hyprland" ];
       "org.freedesktop.impl.portal.FileChooser" = "termfilechooser";
@@ -70,9 +70,9 @@ in
       default = [ "hyprland" ];
       "org.freedesktop.impl.portal.FileChooser" = "termfilechooser";
     };
-    
+
     home.sessionVariables.TERMCMD = "kitty --class=filechoose_yazi";
-    
+
     xdg.configFile."xdg-desktop-portal-termfilechooser/config" =
     {
       force = true;
@@ -373,6 +373,9 @@ in
           "center,title:(Resource)"
           "tile,title:(Godot)"
           "suppressevent maximize,class:^(steam)$"
+          "float,title:^(Unlock Database - KeePassXC)$"
+          "size 80% 85%,title:^(Unlock Database - KeePassXC)$"
+          "center,title:^(Unlock Database - KeepassXC)$"
         ] ++ lib.optionals (!performance) [
           "opacity 0.80,class:^(dev.zed.Zed)$"
           "opacity 0.80,class:^(org.pulseaudio.pavucontrol)$"
@@ -582,36 +585,36 @@ in
        * Grayscale
        */
       #version 300 es
-      
+
       precision highp float;
       in vec2 v_texcoord;
       uniform sampler2D tex;
       out vec4 fragColor;
-      
+
       // Enum for type of grayscale conversion
       const int LUMINOSITY = 0;
       const int LIGHTNESS = 1;
       const int AVERAGE = 2;
-      
+
       /**
        * Type of grayscale conversion.
        */
       const int Type = LUMINOSITY;
-      
+
       // Enum for selecting luma coefficients
       const int PAL = 0;
       const int HDTV = 1;
       const int HDR = 2;
-      
+
       /**
        * Formula used to calculate relative luminance.
        * (Only applies to type = "luminosity".)
        */
       const int LuminosityType = HDR;
-      
+
       void main() {
           vec4 pixColor = texture2D(tex, v_texcoord);
-      
+
           float gray;
           if (Type == LUMINOSITY) {
               // https://en.wikipedia.org/wiki/Grayscale#Luma_coding_in_video_systems
@@ -630,7 +633,7 @@ in
               gray = (pixColor.r + pixColor.g + pixColor.b) / 3.0;
           }
           vec3 grayscale = vec3(gray);
-      
+
           fragColor = vec4(grayscale, pixColor.a);
       }
     '';
