@@ -1,4 +1,4 @@
-{ config, lib, pkgs, osConfig, ... }:
+{ config, lib, pkgs, pkgs-stable, osConfig, ... }:
 
 let
   cfg = config.userSettings.git;
@@ -10,7 +10,7 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = [ pkgs.git pkgs.openssh ];
+    home.packages = [ pkgs.git pkgs-stable.openssh ];
     programs.git.enable = true;
     programs.git.userName = config.userSettings.name;
     programs.git.userEmail = config.userSettings.email;

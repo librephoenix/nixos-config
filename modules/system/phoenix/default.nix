@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, pkgs-stable, ... }:
 
 {
   options = {
@@ -127,7 +127,7 @@
     # FIXME this thing doesn't work at all
     systemd.services."phoenix-system-builder" = lib.mkIf config.systemSettings.systemBuilder.enable {
       path = with pkgs; [
-        openssh git nix nixos-rebuild
+        pkgs-stable.openssh git nix nixos-rebuild
       ];
       script = ''
         set -euo pipefail
