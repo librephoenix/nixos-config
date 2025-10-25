@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, pkgs-stable, ... }:
 
 {
   config = {
@@ -39,7 +39,7 @@
 
     home.packages = with pkgs; [
       cage
-      gcompris
+      pkgs-stable.gcompris
       tuxpaint
     ];
 
