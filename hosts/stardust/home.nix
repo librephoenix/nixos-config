@@ -15,7 +15,6 @@
       # programs
       browser = "brave";
       editor = "vscodium";
-      ranger.enable = true;
       yazi.enable = true;
       git.enable = true;
       art.enable = true;
