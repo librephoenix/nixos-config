@@ -9,6 +9,7 @@
 
       # hardware
       cachy.enable = true;
+      cachy.variant = "lts";
       bluetooth.enable = true;
       tlp.enable = false; # intel doesn't work with tlp
       printing.enable = true;
@@ -62,5 +63,5 @@
     services.displayManager.defaultSession = "hyprland";
 
   };
-  
+
 }

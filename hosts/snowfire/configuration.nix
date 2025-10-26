@@ -9,6 +9,7 @@
 
       # hardware
       cachy.enable = true;
+      cachy.variant = "lts";
       bluetooth.enable = true;
       powerprofiles.enable = true;
       tlp.enable = false;
@@ -66,5 +67,5 @@
     services.displayManager.defaultSession = "hyprland";
 
   };
-  
+
 }

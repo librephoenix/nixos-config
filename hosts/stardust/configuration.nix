@@ -9,6 +9,7 @@
 
       # hardware
       cachy.enable = true;
+      cachy.variant = "lts";
       bluetooth.enable = true;
       tlp.enable = true;
       printing.enable = true;
@@ -49,5 +50,5 @@
     };
 
   };
-  
+
 }

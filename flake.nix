@@ -47,7 +47,7 @@
 
     in {
       # generate a nixos configuration for every host in ./hosts
-      nixosConfigurations = builtins.listToAttrs 
+      nixosConfigurations = builtins.listToAttrs
         (map (host: {
           name = host;
           value = lib.nixosSystem {
@@ -103,9 +103,8 @@
     };
 
     hyprlock = {
-      type = "git";
-      url = "https://code.hyprland.org/hyprwm/hyprlock.git";
-      inputs.nixpkgs.follows = "nixpkgs-stable";
+      url = "github:hyprwm/hyprlock/v0.9.2";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     plasma-manager = {
