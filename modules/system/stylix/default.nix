@@ -34,16 +34,16 @@ in
         package = pkgs.nerd-fonts.fira-code;
       };
       serif = {
-        name = "FiraCode Nerd Font";
-        package = pkgs.nerd-fonts.fira-code;
+        name = "Fira Sans";
+        package = pkgs.fira-sans;
       };
       sansSerif = {
-        name = "FiraCode Nerd Font";
-        package = pkgs.nerd-fonts.fira-code;
+        name = "Fira Sans";
+        package = pkgs.fira-sans;
       };
       emoji = {
-        name = "Noto Color Emoji";
-        package = pkgs.noto-fonts-emoji-blob-bin;
+        name = "Twitter Color Emoji";
+        package = pkgs.twitter-color-emoji;
       };
     };
 

@@ -33,12 +33,12 @@ in
     stylix.fonts = {
       # TODO abstract fonts into an option
       monospace = {
-        name = "Fira Code Nerd Font";
+        name = "FiraCode Nerd Font";
         package = pkgs.nerd-fonts.fira-code;
       };
       serif = {
-        name = "Fira";
-        package = pkgs.fira;
+        name = "Fira Sans";
+        package = pkgs.fira-sans;
       };
       sansSerif = {
         name = "Fira Sans";
@@ -110,7 +110,8 @@ in
       };
     };
     home.packages = with pkgs; [
-       kdePackages.breeze kdePackages.breeze-icons pkgs.noto-fonts-monochrome-emoji
+       kdePackages.breeze kdePackages.breeze-icons
+       nerd-fonts.fira-code fira-sans twitter-color-emoji
     ];
 
     fonts.fontconfig.defaultFonts = {
