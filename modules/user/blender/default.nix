@@ -9,7 +9,7 @@ in {
     };
   };
 
-  config = {
+  config = lib.mkIf cfg.enable {
     home.packages =
       [ pkgs.blender-hip
         (pkgs.writeScriptBin "declarative-blender-prefs"

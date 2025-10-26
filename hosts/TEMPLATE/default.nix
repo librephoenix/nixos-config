@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, ... }:
 
 {
   imports = [
@@ -8,7 +8,7 @@
 
   config = {
     home-manager.users = builtins.listToAttrs
-      (map (user: { name = user; value = 
-                      ({ imports = [ ./home.nix ../../modules/user ]; });}) config.systemSettings.users);
+      (map (user: { name = user; value =
+                      { imports = [ ./home.nix ../../modules/user ]; };}) config.systemSettings.users);
     };
 }

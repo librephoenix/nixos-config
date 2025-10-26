@@ -1,4 +1,4 @@
-{ inputs, pkgs, pkgs-stable, config, lib, ... }:
+{ inputs, pkgs, config, lib, ... }:
 
 let
   cfg = config.systemSettings.hyprland;
@@ -48,7 +48,7 @@ in
       enableHidpi = true;
       theme = "sddm-astronaut-theme";
       package = pkgs.kdePackages.sddm;
-      extraPackages = with pkgs; [ 
+      extraPackages = with pkgs; [
         (sddm-astronaut.override {
           themeConfig = {
             background = config.stylix.image;

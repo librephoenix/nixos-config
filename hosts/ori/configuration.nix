@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ pkgs, ... }:
 
 {
   config = {
@@ -218,5 +218,5 @@
     '';
     virtualisation.docker.extraOptions="--iptables=true";
   };
-  
+
 }

@@ -1,4 +1,4 @@
-{ inputs, pkgs, config, lib, ... }:
+{ config, lib, ... }:
 
 let
   cfg = config.userSettings.gnome;

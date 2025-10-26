@@ -22,7 +22,7 @@
   # https://wiki.nixos.org/wiki/Mesa
   hardware = {
     graphics =
-      with pkgs; {
+      {
         enable = true;
         enable32Bit = true;
       };

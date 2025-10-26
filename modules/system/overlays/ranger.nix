@@ -1,15 +1,15 @@
-{ config, lib, pkgs, ... }:
+{ lib, pkgs, ... }:
 
 {
   config = {
     nixpkgs.overlays = [
       (self: super:
         {
-          ranger = super.ranger.overrideAttrs (oldAttrs: rec {
+          ranger = super.ranger.overrideAttrs (oldAttrs: {
           preConfigure = ''
             substituteInPlace ranger/__init__.py \
               --replace "DEFAULT_PAGER = 'less'" "DEFAULT_PAGER = '${lib.getBin pkgs.bat}/bin/bat'"
-        
+
             # give image previews out of the box when building with w3m
             substituteInPlace ranger/config/rc.conf \
               --replace "set preview_images false" "set preview_images true"

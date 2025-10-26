@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ ... }:
 
 {
   config = {
@@ -57,5 +57,5 @@
     ## EXTRA CONFIG GOES HERE
 
   };
-  
+
 }
