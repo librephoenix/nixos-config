@@ -13,7 +13,8 @@
 
       # programs
       browser = "brave";
-      editor = "emacs";
+      editor = "zed";
+      emacs.enable = true;
       vscodium.enable = true;
       yazi.enable = true;
       git.enable = true;
