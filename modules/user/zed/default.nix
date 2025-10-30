@@ -100,6 +100,8 @@ in {
         context = "";
         bindings = {
           "alt-x" = "command_palette::Toggle";
+          "alt-z" = "terminal_panel::Toggle";
+          "alt-d" = "debug_panel::ToggleFocus";
         };
       }
       {
@@ -129,21 +131,37 @@ in {
           "ctrl-l" = "workspace::ActivatePaneRight";
           "ctrl-j" = "workspace::ActivatePaneDown";
           "ctrl-k" = "workspace::ActivatePaneUp";
-          "space w d" = "pane::CloseActiveItem";
+          "ctrl-w" = "pane::CloseActiveItem";
+          "space w d" = "pane::CloseAllItems";
+          "space b d" = "pane::CloseActiveItem";
           "space b p" = "panel::PreviousPanelTab";
           "space b n" = "panel::NextPanelTab";
+          "space b i" = "tab_switcher::ToggleAll";
+          "ctrl-i" = "tab_switcher::ToggleAll";
+          "alt-p" = [ "tab_switcher::Toggle" { "select_last" = true; }];
+          "alt-n" = "tab_switcher::Toggle";
           "alt-z" = "terminal_panel::Toggle";
+          "alt-d" = "debug_panel::ToggleFocus";
         };
       }
       {
          context = "Terminal";
          bindings = {
+           "ctrl-w" = "pane::CloseActiveItem";
            "alt-z" = "terminal_panel::Toggle";
+           "alt-d" = "debug_panel::ToggleFocus";
+           "ctrl-i" = "tab_switcher::ToggleAll";
+           "alt-p" = [ "tab_switcher::Toggle" { "select_last" = true; }];
+           "alt-n" = "tab_switcher::Toggle";
          };
       }
       {
         "context" = "Editor && vim_mode == insert";
-        "bindings" = {};
+        "bindings" = {
+          "ctrl-w" = "pane::CloseActiveItem";
+          "alt-z" = "terminal_panel::Toggle";
+          "alt-d" = "debug_panel::ToggleFocus";
+        };
       }
     ];
     programs.zed-editor.userTasks = [
