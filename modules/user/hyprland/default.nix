@@ -532,21 +532,6 @@ in
       #!/bin/sh
       hyprctl monitors -j | jq ".[$1] | .activeWorkspace.id"
       '')
-      (pkgs.writeScriptBin "open-under-ranger" ''
-      #!/bin/sh
-      command="$1"
-      echo $command
-      file="''${*:2}"
-      file=''${file// /\\ }
-      echo $file
-      workspace=$(hyprctl monitors -j | jq ".[] | select(.specialWorkspace.name == \"special:scratch_yazi\") | .activeWorkspace.id")
-      if [ -z "''${workspace}" ]; then
-        hyprctl dispatch exec -- "$command";
-      else
-        hyprctl dispatch exec "[workspace $workspace]" -- "$command" "$file";
-      fi
-      hyprctl dispatch togglespecialworkspace scratch_yazi
-      '')
       (pkgs.writeScriptBin "sct" ''
         #!/bin/sh
         killall wlsunset &> /dev/null;

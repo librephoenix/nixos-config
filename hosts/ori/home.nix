@@ -12,7 +12,6 @@
       xdg.enable = false;
 
       # programs
-      ranger.enable = true;
       yazi.enable = true;
       git.enable = true;
     };
