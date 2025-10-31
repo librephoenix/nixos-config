@@ -14,11 +14,13 @@ in {
     };
   };
 
-  config = lib.mkIf cfg.enable {
-    home.packages = with pkgs-stable; [
+  ## THIS IS BROKEN BECAUSE THEY CHANGED EMACS IN NIXPKGS I THINK
+  config = lib.mkIf false {
+  #config = lib.mkIf cfg.enable {
+    home.packages = with pkgs; [
       (pkgs.emacsWithPackagesFromUsePackage {
         config = ./init.el;
-        package = pkgs-stable.emacs-pgtk;
+        package = pkgs.emacs-pgtk;
         alwaysEnsure = false;
         extraEmacsPackages = epkgs: with epkgs; [
           org-modern olivetti

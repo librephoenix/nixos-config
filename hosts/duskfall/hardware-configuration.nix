@@ -27,8 +27,7 @@
       vpl-gpu-rt
       intel-media-driver
       intel-vaapi-driver
-      vaapiIntel
-      vaapiVdpau
+      libva-vdpau-driver
       libvdpau-va-gl
     ];
     extraPackages32 = with pkgs.driversi686Linux; [
