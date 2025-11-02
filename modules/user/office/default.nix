@@ -21,6 +21,8 @@ in {
       gnome-maps
       seahorse
       element-desktop
+      zulip
+      discord
       openvpn
       pomodoro-gtk
     ];

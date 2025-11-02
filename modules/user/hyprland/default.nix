@@ -115,6 +115,7 @@ in
           "alacritty --class scratch_numbat -e numbat"
           "alacritty --class scratch_btm -e btm"
           "element-desktop"
+          "zulip"
           "sleep 5 && hyprctl keyword bind SUPER,S,exec,${spawnBrowser}"
         ];
 
@@ -286,8 +287,10 @@ in
           "SUPER,N,togglespecialworkspace,scratch_numbat"
           ''SUPER,B,exec,if hyprctl clients | grep scratch_btm; then echo "scratch_yazi respawn not needed"; else alacritty --class scratch_btm -e btm; fi''
           "SUPER,B,togglespecialworkspace,scratch_btm"
-          ''SUPER,D,exec,if hyprctl clients | grep Element; then echo "scratch_yazi respawn not needed"; else element-desktop; fi''
-          "SUPER,D,togglespecialworkspace,scratch_element"
+          ''SUPER,D,exec,if hyprctl clients | grep Element; then echo "scratch_chat respawn not needed"; else element-desktop; fi''
+          ''SUPER,D,exec,if hyprctl clients | grep Zulip; then echo "scratch_chat respawn not needed"; else zulip; fi''
+          ''SUPER,D,exec,if hyprctl clients | grep discord; then echo "scratch_chat respawn not needed"; else discord; fi''
+          "SUPER,D,togglespecialworkspace,scratch_chat"
           ''SUPER,equal, exec, hyprctl keyword cursor:zoom_factor "$(hyprctl getoption cursor:zoom_factor | grep float | awk '{print $2 + 0.5}')"''
           ''SUPER,minus, exec, hyprctl keyword cursor:zoom_factor "$(hyprctl getoption cursor:zoom_factor | grep float | awk '{print $2 - 0.5}')"''
           "SUPER,I,exec,networkmanager_dmenu"
@@ -347,8 +350,16 @@ in
           "center,class:^(scratch_btm)$"
           "float,class:^(Element)$"
           "size 85% 90%,class:^(Element)$"
-          "workspace special:scratch_element silent,class:^(Element)$"
+          "workspace special:scratch_chat silent,class:^(Element)$"
           "center,class:^(Element)$"
+          "float,class:^(Zulip)$"
+          "size 85% 90%,class:^(Zulip)$"
+          "workspace special:scratch_chat silent,class:^(Zulip)$"
+          "center,class:^(Zulip)$"
+          "float,class:^(discord)$"
+          "size 85% 90%,class:^(discord)$"
+          "workspace special:scratch_chat silent,class:^(discord)$"
+          "center,class:^(discord)$"
           "float,title:^(Save to Disk)$"
           "size 70% 75%,title:^(Save to Disk)$"
           "center,title:^(Save to Disk)$"
@@ -381,6 +392,8 @@ in
           "opacity 0.80,class:^(org.pulseaudio.pavucontrol)$"
           "opacity 1.0,class:^(org.qutebrowser.qutebrowser),fullscreen:1"
           "opacity 0.85,class:^(Element)$"
+          "opacity 0.85,class:^(Zulip)$"
+          "opacity 0.85,class:^(discord)$"
           "opacity 0.85,class:^(Logseq)$"
           "opacity 1.0,class:^(Brave-browser),fullscreen:1"
           "opacity 1.0,class:^(librewolf),fullscreen:1"
