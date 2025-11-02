@@ -11,7 +11,7 @@ in {
 
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
-      gitu nixd
+      gitu
     ];
     stylix.targets.zed.enable = true;
     programs.zed-editor.enable = true;
