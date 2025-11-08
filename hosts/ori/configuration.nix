@@ -9,7 +9,7 @@
 
       # hardware
       cachy.enable = true;
-      cachy.variant = "server";
+      cachy.variant = "lts";
 
       virtualization = {
         docker.enable = true;
@@ -53,19 +53,19 @@
     programs.fuse.userAllowOther = true;
 
     networking.firewall.extraCommands =
-    # ip ban ai crawlers
-    let createDropRulesForIpAddress = address:
-      ''
-      iptables -A INPUT -s ${address} -j DROP
-      iptables -A OUTPUT -s ${address} -j DROP
-      iptables -A FORWARD -s ${address} -j DROP
-      iptables -A DOCKER -s ${address} -j DROP
-      iptables -A DOCKER-BRIDGE -s ${address} -j DROP
-      iptables -A DOCKER-FORWARD -s ${address} -j DROP
-      iptables -A DOCKER-USER -s ${address} -j DROP
-      iptables -A DOCKER-ISOLATION-STAGE-1 -s ${address} -j DROP
-      iptables -A DOCKER-ISOLATION-STAGE-2 -s ${address} -j DROP
-      '';
+      # ip ban ai crawlers
+      let
+        createDropRulesForIpAddress = address: ''
+          iptables -A INPUT -s ${address} -j DROP
+          iptables -A OUTPUT -s ${address} -j DROP
+          iptables -A FORWARD -s ${address} -j DROP
+          iptables -A DOCKER -s ${address} -j DROP
+          iptables -A DOCKER-BRIDGE -s ${address} -j DROP
+          iptables -A DOCKER-FORWARD -s ${address} -j DROP
+          iptables -A DOCKER-USER -s ${address} -j DROP
+          iptables -A DOCKER-ISOLATION-STAGE-1 -s ${address} -j DROP
+          iptables -A DOCKER-ISOLATION-STAGE-2 -s ${address} -j DROP
+        '';
       in
       ''
         ${createDropRulesForIpAddress "216.73.216.143"}
@@ -215,8 +215,8 @@
         ${createDropRulesForIpAddress "98.84.200.43"}
         ${createDropRulesForIpAddress "98.84.60.17"}
         ${createDropRulesForIpAddress "98.84.70.201"}
-    '';
-    virtualisation.docker.extraOptions="--iptables=true";
+      '';
+    virtualisation.docker.extraOptions = "--iptables=true";
   };
 
 }
