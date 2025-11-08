@@ -1,4 +1,10 @@
-{ config, lib, pkgs, pkgs-stable, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  pkgs-stable,
+  ...
+}:
 
 {
   config = {
@@ -43,7 +49,16 @@
     };
 
     home.packages = with pkgs; [
-      openldap ldapvi rclone teams-for-linux pkgs-stable.rpi-imager freerdp pkgs-stable.tigervnc unixtools.xxd nodejs electron
+      openldap
+      ldapvi
+      rclone
+      teams-for-linux
+      #rpi-imager # FIXME
+      freerdp
+      pkgs-stable.tigervnc
+      unixtools.xxd
+      nodejs
+      electron
     ];
 
     home.sessionVariables = lib.mkIf config.userSettings.hyprland.enable {
