@@ -1,4 +1,10 @@
-{ config, lib, pkgs, pkgs-stable, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  pkgs-stable,
+  ...
+}:
 
 {
   options = {
@@ -24,7 +30,8 @@
   config = {
     environment.systemPackages = with pkgs; [
       attic-client
-      git git-lfs
+      git
+      git-lfs
       nix-output-monitor
       (pkgs.writeScriptBin "phoenix" ''
         if [[ $EUID -ne 0 ]]; then
@@ -70,30 +77,28 @@
           chown -R 0:0 ${config.systemSettings.dotfilesDir};
           chown -R 0:0 ${config.systemSettings.secretsFlakeDir};
           exit 0;
-        # TODO allow specifying host with $2 in build subcommand
         elif [ "$1" = "build" ]; then
-          if [ "$#" -gt 1 ]; then
-            echo "Warning: The 'build' command has no subcommands (no $2 subcommand)";
-          fi
           chown -R 0:0 ${config.systemSettings.dotfilesDir};
           chown -R 0:0 ${config.systemSettings.secretsFlakeDir};
           pushd ${config.systemSettings.dotfilesDir} &> /dev/null;
-          systemd-inhibit --what sleep:idle:handle-lid-switch nixos-rebuild build --flake .#snowfire;
-          systemd-inhibit --what sleep:idle:handle-lid-switch attic push emmet ./result;
-          systemd-inhibit --what sleep:idle:handle-lid-switch rm ./result;
-          systemd-inhibit --what sleep:idle:handle-lid-switch nixos-rebuild build --flake .#duskfall;
-          systemd-inhibit --what sleep:idle:handle-lid-switch attic push emmet ./result;
-          systemd-inhibit --what sleep:idle:handle-lid-switch rm ./result;
-          systemd-inhibit --what sleep:idle:handle-lid-switch nixos-rebuild build --flake .#zenith;
-          systemd-inhibit --what sleep:idle:handle-lid-switch attic push emmet ./result;
-          systemd-inhibit --what sleep:idle:handle-lid-switch rm ./result;
-          systemd-inhibit --what sleep:idle:handle-lid-switch nixos-rebuild build --flake .#stardust;
-          systemd-inhibit --what sleep:idle:handle-lid-switch attic push emmet ./result;
-          systemd-inhibit --what sleep:idle:handle-lid-switch rm ./result;
-          systemd-inhibit --what sleep:idle:handle-lid-switch nixos-rebuild build --flake .#ori;
-          systemd-inhibit --what sleep:idle:handle-lid-switch attic push emmet ./result;
-          systemd-inhibit --what sleep:idle:handle-lid-switch rm ./result;
+          if [ "$#" -gt 1 ]; then
+            hoststobuild=("''${@:2}")
+            for i in "''${hoststobuild[@]}"
+            do
+              systemd-inhibit --what sleep:idle:handle-lid-switch nixos-rebuild build --flake .#$i;
+              systemd-inhibit --what sleep:idle:handle-lid-switch attic push emmet ./result;
+              systemd-inhibit --what sleep:idle:handle-lid-switch rm ./result;
+            done
+          else
+            hoststobuild=($(find ${config.systemSettings.dotfilesDir}/hosts -maxdepth 1 -type d \! \( -name TEMPLATE \) \! \( -name hosts \) -exec basename {} \; | xargs -d " "))
+            for i in "''${hoststobuild[@]}"
+            do
+              systemd-inhibit --what sleep:idle:handle-lid-switch nixos-rebuild build --flake .#$i;
+              systemd-inhibit --what sleep:idle:handle-lid-switch attic push emmet ./result;
+              systemd-inhibit --what sleep:idle:handle-lid-switch rm ./result;
+            done
           exit 0;
+          fi
         elif [ "$1" = "lock" ]; then
           if [ "$#" -gt 1 ]; then
             echo "Warning: The 'lock' command has no subcommands (no $2 subcommand)";
@@ -127,40 +132,43 @@
     # FIXME this thing doesn't work at all
     systemd.services."phoenix-system-builder" = lib.mkIf config.systemSettings.systemBuilder.enable {
       path = with pkgs; [
-        pkgs-stable.openssh git nix nixos-rebuild
+        pkgs-stable.openssh
+        git
+        nix
+        nixos-rebuild
       ];
       script = ''
-        set -euo pipefail
-	export NIX_PATH="nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos:nixos-config=/etc/nixos/configuration.nix"
-        echo "navigating to /etc/nixos";
-        cd ${config.systemSettings.dotfilesDir};
-        echo "running git pull";
-        ${pkgs.git}/bin/git pull;
-        echo "running nix flake update";
-        nix flake update;
-        ${pkgs.git}/bin/git stage *;
-        ${pkgs.git}/bin/git commit -m "Updated system" || true;
-        ${pkgs.git}/bin/git push || true;
-        cd ${config.systemSettings.secretsFlakeDir};
-        ${pkgs.git}/bin/git pull;
-        chown -R 0:0 ${config.systemSettings.dotfilesDir};
-        chown -R 0:0 ${config.systemSettings.secretsFlakeDir};
-        cd ${config.systemSettings.dotfilesDir};
-        ${config.system.build.nixos-rebuild}/bin/nixos-rebuild build --flake .#snowfire;
-        ${pkgs.attic-client}/bin/attic push emmet ./result;
-        rm ./result;
-        ${config.system.build.nixos-rebuild}/bin/nixos-rebuild build --flake .#duskfall;
-        ${pkgs.attic-client}/bin/attic push emmet ./result;
-        rm ./result;
-        ${config.system.build.nixos-rebuild}/bin/nixos-rebuild build --flake .#zenith;
-        ${pkgs.attic-client}/bin/attic push emmet ./result;
-        rm ./result;
-        ${config.system.build.nixos-rebuild}/bin/nixos-rebuild build --flake .#stardust;
-        ${pkgs.attic-client}/bin/attic push emmet ./result;
-        rm ./result;
-        ${config.system.build.nixos-rebuild}/bin/nixos-rebuild build --flake .#ori;
-        ${pkgs.attic-client}/bin/attic push emmet ./result;
-        rm ./result;
+                set -euo pipefail
+        	export NIX_PATH="nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos:nixos-config=/etc/nixos/configuration.nix"
+                echo "navigating to /etc/nixos";
+                cd ${config.systemSettings.dotfilesDir};
+                echo "running git pull";
+                ${pkgs.git}/bin/git pull;
+                echo "running nix flake update";
+                nix flake update;
+                ${pkgs.git}/bin/git stage *;
+                ${pkgs.git}/bin/git commit -m "Updated system" || true;
+                ${pkgs.git}/bin/git push || true;
+                cd ${config.systemSettings.secretsFlakeDir};
+                ${pkgs.git}/bin/git pull;
+                chown -R 0:0 ${config.systemSettings.dotfilesDir};
+                chown -R 0:0 ${config.systemSettings.secretsFlakeDir};
+                cd ${config.systemSettings.dotfilesDir};
+                ${config.system.build.nixos-rebuild}/bin/nixos-rebuild build --flake .#snowfire;
+                ${pkgs.attic-client}/bin/attic push emmet ./result;
+                rm ./result;
+                ${config.system.build.nixos-rebuild}/bin/nixos-rebuild build --flake .#duskfall;
+                ${pkgs.attic-client}/bin/attic push emmet ./result;
+                rm ./result;
+                ${config.system.build.nixos-rebuild}/bin/nixos-rebuild build --flake .#zenith;
+                ${pkgs.attic-client}/bin/attic push emmet ./result;
+                rm ./result;
+                ${config.system.build.nixos-rebuild}/bin/nixos-rebuild build --flake .#stardust;
+                ${pkgs.attic-client}/bin/attic push emmet ./result;
+                rm ./result;
+                ${config.system.build.nixos-rebuild}/bin/nixos-rebuild build --flake .#ori;
+                ${pkgs.attic-client}/bin/attic push emmet ./result;
+                rm ./result;
       '';
       serviceConfig = {
         Type = "simple";
