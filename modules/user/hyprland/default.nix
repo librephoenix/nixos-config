@@ -1,4 +1,10 @@
-{ config, lib, pkgs, inputs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  inputs,
+  ...
+}:
 let
   cfg = config.userSettings.hyprland;
   font = config.stylix.fonts.monospace.name;
@@ -23,7 +29,9 @@ in
     userSettings.alacritty.enable = true;
     programs.alacritty.settings.window.opacity = lib.mkOverride 40 (if performance then 1.0 else 0.85);
     userSettings.kitty.enable = true;
-    programs.kitty.settings.background_opacity = lib.mkOverride 40 (if performance then "1.0" else "0.85");
+    programs.kitty.settings.background_opacity = lib.mkOverride 40 (
+      if performance then "1.0" else "0.85"
+    );
     userSettings.emacs.opacity = lib.mkOverride 40 (if performance then 100 else 85);
     userSettings.dmenuScripts = {
       enable = true;
@@ -52,11 +60,9 @@ in
       GRIM_DEFAULT_DIR = config.xdg.userDirs.extraConfig.XDG_SCREENSHOT_DIR;
     };
 
-    xdg.portal =
-    {
+    xdg.portal = {
       enable = true;
-      extraPortals = with pkgs;
-      [
+      extraPortals = with pkgs; [
         xdg-desktop-portal-wlr
         xdg-desktop-portal-termfilechooser
       ];
@@ -73,11 +79,9 @@ in
 
     home.sessionVariables.TERMCMD = "kitty --class=filechoose_yazi";
 
-    xdg.configFile."xdg-desktop-portal-termfilechooser/config" =
-    {
+    xdg.configFile."xdg-desktop-portal-termfilechooser/config" = {
       force = true;
-      text =
-      ''
+      text = ''
         [filechooser]
         cmd=${pkgs.xdg-desktop-portal-termfilechooser}/share/xdg-desktop-portal-termfilechooser/yazi-wrapper.sh
       '';
@@ -122,7 +126,11 @@ in
         general = {
           layout = "master";
           border_size = 0;
-          "col.active_border" = if performance then "0xff${config.lib.stylix.colors.base0B}" else "0xff${config.lib.stylix.colors.base08} 0xff${config.lib.stylix.colors.base09} 0xff${config.lib.stylix.colors.base0A} 0xff${config.lib.stylix.colors.base0B} 0xff${config.lib.stylix.colors.base0C} 0xff${config.lib.stylix.colors.base0D} 0xff${config.lib.stylix.colors.base0E} 0xff${config.lib.stylix.colors.base0F} 270deg";
+          "col.active_border" =
+            if performance then
+              "0xff${config.lib.stylix.colors.base0B}"
+            else
+              "0xff${config.lib.stylix.colors.base08} 0xff${config.lib.stylix.colors.base09} 0xff${config.lib.stylix.colors.base0A} 0xff${config.lib.stylix.colors.base0B} 0xff${config.lib.stylix.colors.base0C} 0xff${config.lib.stylix.colors.base0D} 0xff${config.lib.stylix.colors.base0E} 0xff${config.lib.stylix.colors.base0F} 270deg";
           "col.inactive_border" = "0xff${config.lib.stylix.colors.base02}";
           resize_on_border = true;
           gaps_in = 14;
@@ -131,7 +139,8 @@ in
 
         group = {
           "col.border_active" = config.wayland.windowManager.hyprland.settings.general."col.active_border";
-          "col.border_inactive" = config.wayland.windowManager.hyprland.settings.general."col.inactive_border";
+          "col.border_inactive" =
+            config.wayland.windowManager.hyprland.settings.general."col.inactive_border";
           groupbar = {
             gradients = false;
             "col.active" = "0xff${config.lib.stylix.colors.base0B}";
@@ -289,7 +298,6 @@ in
           "SUPER,B,togglespecialworkspace,scratch_btm"
           ''SUPER,D,exec,if hyprctl clients | grep Element; then echo "scratch_chat respawn not needed"; else element-desktop; fi''
           ''SUPER,D,exec,if hyprctl clients | grep Zulip; then echo "scratch_chat respawn not needed"; else zulip; fi''
-          ''SUPER,D,exec,if hyprctl clients | grep discord; then echo "scratch_chat respawn not needed"; else discord; fi''
           "SUPER,D,togglespecialworkspace,scratch_chat"
           ''SUPER,equal, exec, hyprctl keyword cursor:zoom_factor "$(hyprctl getoption cursor:zoom_factor | grep float | awk '{print $2 + 0.5}')"''
           ''SUPER,minus, exec, hyprctl keyword cursor:zoom_factor "$(hyprctl getoption cursor:zoom_factor | grep float | awk '{print $2 - 0.5}')"''
@@ -387,7 +395,8 @@ in
           "float,title:^(Unlock Database - KeePassXC)$"
           "size 80% 85%,title:^(Unlock Database - KeePassXC)$"
           "center,title:^(Unlock Database - KeepassXC)$"
-        ] ++ lib.optionals (!performance) [
+        ]
+        ++ lib.optionals (!performance) [
           "opacity 0.80,class:^(dev.zed.Zed)$"
           "opacity 0.80,class:^(org.pulseaudio.pavucontrol)$"
           "opacity 1.0,class:^(org.qutebrowser.qutebrowser),fullscreen:1"
@@ -439,145 +448,150 @@ in
         };
 
       };
-      systemd.variables = ["--all"];
-      xwayland = { enable = true; };
+      systemd.variables = [ "--all" ];
+      xwayland = {
+        enable = true;
+      };
       systemd.enable = true;
     };
 
-    home.packages = (with pkgs; [
-      networkmanagerapplet
-      hyprland-monitor-attached
-      alacritty
-      kitty
-      killall
-      polkit_gnome
-      (ashell.overrideAttrs (o: {
+    home.packages = (
+      with pkgs;
+      [
+        networkmanagerapplet
+        hyprland-monitor-attached
+        alacritty
+        kitty
+        killall
+        polkit_gnome
+        (ashell.overrideAttrs (o: {
           patches = (o.patches or [ ]) ++ [
-           ./ashell.patch
+            ./ashell.patch
           ];
         }))
-      nwg-launchers
-      (lib.hiPrio papirus-icon-theme)
-      (pkgs.writeScriptBin "nwggrid-wrapper" ''
-        #!/bin/sh
-        if pgrep -x "nwggrid-server" > /dev/null
-        then
-          nwggrid -client
-        else
-          GDK_PIXBUF_MODULE_FILE=${pkgs.librsvg}/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache nwggrid-server -layer-shell-exclusive-zone -1 -g adw-gtk3 -o 0.55 -b ${config.lib.stylix.colors.base00} &
-          sleep 0.6 && nwggrid -client
-        fi
-      '')
-      (pkgs.writeScriptBin "hyprgamemode" ''
-        #!/bin/sh
-        HYPRGAMEMODE=$(hyprctl getoption decoration:blur:enabled | awk 'NR==1{print $2}')
-        if [ "$HYPRGAMEMODE" = 1 ] ; then
-            sync;
-            hyprctl --batch "\
-                keyword animations:enabled 0;\
-                keyword decoration:shadow:enabled 0;\
-                keyword decoration:blur:enabled 0;\
-                keyword general:gaps_in 0;\
-                keyword general:gaps_out 0;\
-                keyword general:border_size 0;\
-                keyword decoration:rounding 0";
-            #pkill -STOP electron;
-            #pkill -STOP syncthing;
-            #pkill -STOP emacs;
-            #pkill -STOP emacsclient;
-            #systemctl --user stop nextcloud-client;
-            pkill ashell;
-            pkill hypridle;
-            exit;
-        else
-            hyprctl --batch "\
-                keyword animations:enabled ${builtins.toString config.wayland.windowManager.hyprland.settings.animations.enabled};\
-                keyword decoration:shadow:enabled ${builtins.toString config.wayland.windowManager.hyprland.settings.decoration.shadow.enabled};\
-                keyword decoration:blur:enabled ${builtins.toString config.wayland.windowManager.hyprland.settings.decoration.blur.enabled};\
-                keyword general:gaps_in ${builtins.toString config.wayland.windowManager.hyprland.settings.general.gaps_in};\
-                keyword general:gaps_out ${builtins.toString config.wayland.windowManager.hyprland.settings.general.gaps_out};\
-                keyword general:border_size ${builtins.toString config.wayland.windowManager.hyprland.settings.general.border_size};\
-                keyword decoration:rounding ${builtins.toString config.wayland.windowManager.hyprland.settings.decoration.rounding}";
-            #pkill -CONT electron;
-            #pkill -CONT syncthing;
-            #pkill -CONT emacs;
-            #pkill -CONT emacsclient;
-            #systemctl --user start nextcloud-client;
-            WGPU_BACKEND=gl ashell & disown;
-            hypridle & disown;
-            exit;
-        fi
-      '')
-      libva-utils
-      libinput-gestures
-      gsettings-desktop-schemas
-      (pkgs.makeDesktopItem {
-        name = "nwggrid";
-        desktopName = "Application Launcher";
-        exec = "nwggrid-wrapper";
-        terminal = false;
-        type = "Application";
-        noDisplay = true;
-        icon = "${config.home.homeDirectory}/.local/share/pixmaps/hyprland-logo-stylix.svg";
-      })
-      hyprnome
-      wlr-randr
-      wtype
-      ydotool
-      wl-clipboard
-      hyprland-protocols
-      hyprpicker
-      inputs.hyprlock.packages.${pkgs.system}.default
-      hypridle
-      hyprpaper
-      fnott
-      keepmenu
-      pinentry-gnome3
-      wev
-      grim
-      slurp
-      kdePackages.qtwayland
-      xdg-utils
-      wlsunset
-      hyprshade
-      pavucontrol
-      (pkgs.writeScriptBin "workspace-on-monitor" ''
-      #!/bin/sh
-      hyprctl monitors -j | jq ".[$1] | .activeWorkspace.id"
-      '')
-      (pkgs.writeScriptBin "sct" ''
-        #!/bin/sh
-        killall wlsunset &> /dev/null;
-        if [ $# -eq 1 ]; then
-          temphigh=$(( $1 + 1 ))
-          templow=$1
-          wlsunset -t $templow -T $temphigh &> /dev/null &
-        else
-          killall wlsunset &> /dev/null;
-        fi
-      '')
-      (pkgs.writeScriptBin "scg" ''
-        #!/bin/sh
-        hyprshade toggle grayscale;
-      '')
-      (pkgs.writeScriptBin "obs-notification-mute-daemon" ''
-        #!/bin/sh
-        while true; do
-          if pgrep -x .obs-wrapped > /dev/null;
-            then
-              pkill -STOP fnott;
-            else
-              pkill -CONT fnott;
+        nwg-launchers
+        (lib.hiPrio papirus-icon-theme)
+        (pkgs.writeScriptBin "nwggrid-wrapper" ''
+          #!/bin/sh
+          if pgrep -x "nwggrid-server" > /dev/null
+          then
+            nwggrid -client
+          else
+            GDK_PIXBUF_MODULE_FILE=${pkgs.librsvg}/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache nwggrid-server -layer-shell-exclusive-zone -1 -g adw-gtk3 -o 0.55 -b ${config.lib.stylix.colors.base00} &
+            sleep 0.6 && nwggrid -client
           fi
-          sleep 10;
-        done
-      '')
-      (pkgs.writeScriptBin "suspend-unless-render" ''
-        #!/bin/sh
-        if pgrep -x nixos-rebuild > /dev/null || pgrep -x home-manager > /dev/null || pgrep -x kdenlive > /dev/null || pgrep -x FL64.exe > /dev/null || pgrep -x blender > /dev/null || pgrep -x flatpak > /dev/null;
-        then echo "Shouldn't suspend"; sleep 10; else echo "Should suspend"; systemctl suspend; fi
-      '')
-    ]);
+        '')
+        (pkgs.writeScriptBin "hyprgamemode" ''
+          #!/bin/sh
+          HYPRGAMEMODE=$(hyprctl getoption decoration:blur:enabled | awk 'NR==1{print $2}')
+          if [ "$HYPRGAMEMODE" = 1 ] ; then
+              sync;
+              hyprctl --batch "\
+                  keyword animations:enabled 0;\
+                  keyword decoration:shadow:enabled 0;\
+                  keyword decoration:blur:enabled 0;\
+                  keyword general:gaps_in 0;\
+                  keyword general:gaps_out 0;\
+                  keyword general:border_size 0;\
+                  keyword decoration:rounding 0";
+              #pkill -STOP electron;
+              #pkill -STOP syncthing;
+              #pkill -STOP emacs;
+              #pkill -STOP emacsclient;
+              #systemctl --user stop nextcloud-client;
+              pkill ashell;
+              pkill hypridle;
+              exit;
+          else
+              hyprctl --batch "\
+                  keyword animations:enabled ${builtins.toString config.wayland.windowManager.hyprland.settings.animations.enabled};\
+                  keyword decoration:shadow:enabled ${builtins.toString config.wayland.windowManager.hyprland.settings.decoration.shadow.enabled};\
+                  keyword decoration:blur:enabled ${builtins.toString config.wayland.windowManager.hyprland.settings.decoration.blur.enabled};\
+                  keyword general:gaps_in ${builtins.toString config.wayland.windowManager.hyprland.settings.general.gaps_in};\
+                  keyword general:gaps_out ${builtins.toString config.wayland.windowManager.hyprland.settings.general.gaps_out};\
+                  keyword general:border_size ${builtins.toString config.wayland.windowManager.hyprland.settings.general.border_size};\
+                  keyword decoration:rounding ${builtins.toString config.wayland.windowManager.hyprland.settings.decoration.rounding}";
+              #pkill -CONT electron;
+              #pkill -CONT syncthing;
+              #pkill -CONT emacs;
+              #pkill -CONT emacsclient;
+              #systemctl --user start nextcloud-client;
+              WGPU_BACKEND=gl ashell & disown;
+              hypridle & disown;
+              exit;
+          fi
+        '')
+        libva-utils
+        libinput-gestures
+        gsettings-desktop-schemas
+        (pkgs.makeDesktopItem {
+          name = "nwggrid";
+          desktopName = "Application Launcher";
+          exec = "nwggrid-wrapper";
+          terminal = false;
+          type = "Application";
+          noDisplay = true;
+          icon = "${config.home.homeDirectory}/.local/share/pixmaps/hyprland-logo-stylix.svg";
+        })
+        hyprnome
+        wlr-randr
+        wtype
+        ydotool
+        wl-clipboard
+        hyprland-protocols
+        hyprpicker
+        inputs.hyprlock.packages.${pkgs.system}.default
+        hypridle
+        hyprpaper
+        fnott
+        keepmenu
+        pinentry-gnome3
+        wev
+        grim
+        slurp
+        kdePackages.qtwayland
+        xdg-utils
+        wlsunset
+        hyprshade
+        pavucontrol
+        (pkgs.writeScriptBin "workspace-on-monitor" ''
+          #!/bin/sh
+          hyprctl monitors -j | jq ".[$1] | .activeWorkspace.id"
+        '')
+        (pkgs.writeScriptBin "sct" ''
+          #!/bin/sh
+          killall wlsunset &> /dev/null;
+          if [ $# -eq 1 ]; then
+            temphigh=$(( $1 + 1 ))
+            templow=$1
+            wlsunset -t $templow -T $temphigh &> /dev/null &
+          else
+            killall wlsunset &> /dev/null;
+          fi
+        '')
+        (pkgs.writeScriptBin "scg" ''
+          #!/bin/sh
+          hyprshade toggle grayscale;
+        '')
+        (pkgs.writeScriptBin "obs-notification-mute-daemon" ''
+          #!/bin/sh
+          while true; do
+            if pgrep -x .obs-wrapped > /dev/null;
+              then
+                pkill -STOP fnott;
+              else
+                pkill -CONT fnott;
+            fi
+            sleep 10;
+          done
+        '')
+        (pkgs.writeScriptBin "suspend-unless-render" ''
+          #!/bin/sh
+          if pgrep -x nixos-rebuild > /dev/null || pgrep -x home-manager > /dev/null || pgrep -x kdenlive > /dev/null || pgrep -x FL64.exe > /dev/null || pgrep -x blender > /dev/null || pgrep -x flatpak > /dev/null;
+          then echo "Shouldn't suspend"; sleep 10; else echo "Should suspend"; systemctl suspend; fi
+        '')
+      ]
+    );
     home.file.".config/hypr/shaders/grayscale.glsl".text = ''
       /*
        * Grayscale
@@ -636,52 +650,52 @@ in
       }
     '';
     home.file.".config/ashell/config.toml".text = ''
-outputs = "All"
-position = "Top"
-app_launcher_cmd = "nwggrid-wrapper"
-truncate_title_after_length = 150
-[modules]
-left = [ "AppLauncher", "SystemInfo" ]
-center = [ "Workspaces" ]
-right = [ "Clock", "Settings", "Tray" ]
-[workspaces]
-visibility_mode = "MonitorSpecific"
-enable_workspace_filling = true
-[system.cpu]
-warn_threshold = 80
-alert_threshold = 95
-[system.mem]
-warn_threshold = 50
-alert_threshold = 75
-[system.temp]
-warn_threshold = 85
-alert_threshold = 95
-[clock]
-format = "%a %d %b %H:%M:%S"
-[mediaPlayer]
-max_title_length = 100
-[settings]
-lockCmd = "hyprlock &"
-audio_sinks_more_cmd = "pavucontrol -t 3"
-audio_sources_more_cmd = "pavucontrol -t 4"
-wifi_more_cmd = "nm-connection-editor"
-vpn_more_cmd = "nm-connection-editor"
-bluetooth_more_cmd = "blueman-manager"
-[appearance]
-scale_factor = 1.25
-style = "Solid"
-opacity = ${if performance then "1.0" else "0.7"}
-background_color = "#${config.lib.stylix.colors.base00}88"
-primary_color = "#${config.lib.stylix.colors.base0A}"
-secondary_color = "#${config.lib.stylix.colors.base01}"
-success_color = "#${config.lib.stylix.colors.base0A}"
-danger_color = "#${config.lib.stylix.colors.base08}"
-text_color = "#${config.lib.stylix.colors.base07}"
-workspace_colors = [ "#${config.lib.stylix.colors.base0B}", "#${config.lib.stylix.colors.base0B}" ]
-specialWorkspaceColors = [ "#${config.lib.stylix.colors.base0B}", "#${config.lib.stylix.colors.base0B}" ]
-[appearance.menu]
-opacity = ${if performance then "1.0" else "0.7"}
-backdrop = 0.0
+      outputs = "All"
+      position = "Top"
+      app_launcher_cmd = "nwggrid-wrapper"
+      truncate_title_after_length = 150
+      [modules]
+      left = [ "AppLauncher", "SystemInfo" ]
+      center = [ "Workspaces" ]
+      right = [ "Clock", "Settings", "Tray" ]
+      [workspaces]
+      visibility_mode = "MonitorSpecific"
+      enable_workspace_filling = true
+      [system.cpu]
+      warn_threshold = 80
+      alert_threshold = 95
+      [system.mem]
+      warn_threshold = 50
+      alert_threshold = 75
+      [system.temp]
+      warn_threshold = 85
+      alert_threshold = 95
+      [clock]
+      format = "%a %d %b %H:%M:%S"
+      [mediaPlayer]
+      max_title_length = 100
+      [settings]
+      lockCmd = "hyprlock &"
+      audio_sinks_more_cmd = "pavucontrol -t 3"
+      audio_sources_more_cmd = "pavucontrol -t 4"
+      wifi_more_cmd = "nm-connection-editor"
+      vpn_more_cmd = "nm-connection-editor"
+      bluetooth_more_cmd = "blueman-manager"
+      [appearance]
+      scale_factor = 1.25
+      style = "Solid"
+      opacity = ${if performance then "1.0" else "0.7"}
+      background_color = "#${config.lib.stylix.colors.base00}88"
+      primary_color = "#${config.lib.stylix.colors.base0A}"
+      secondary_color = "#${config.lib.stylix.colors.base01}"
+      success_color = "#${config.lib.stylix.colors.base0A}"
+      danger_color = "#${config.lib.stylix.colors.base08}"
+      text_color = "#${config.lib.stylix.colors.base07}"
+      workspace_colors = [ "#${config.lib.stylix.colors.base0B}", "#${config.lib.stylix.colors.base0B}" ]
+      specialWorkspaceColors = [ "#${config.lib.stylix.colors.base0B}", "#${config.lib.stylix.colors.base0B}" ]
+      [appearance.menu]
+      opacity = ${if performance then "1.0" else "0.7"}
+      backdrop = 0.0
     '';
     home.file.".config/hypr/hypridle.conf".text = ''
       general {
