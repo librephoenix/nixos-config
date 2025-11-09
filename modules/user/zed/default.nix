@@ -1,8 +1,14 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   cfg = config.userSettings.zed;
-in {
+in
+{
   options = {
     userSettings.zed = {
       enable = lib.mkEnableOption "Enable zed editor";
@@ -58,7 +64,7 @@ in {
       disable_ai = true;
       agent = {
         button = false;
-        model_parameters = [];
+        model_parameters = [ ];
       };
       git_panel = {
         button = false;
@@ -138,22 +144,62 @@ in {
           "space b n" = "panel::NextPanelTab";
           "space b i" = "tab_switcher::ToggleAll";
           "ctrl-i" = "tab_switcher::ToggleAll";
-          "alt-p" = [ "tab_switcher::Toggle" { "select_last" = true; }];
-          "alt-n" = "tab_switcher::Toggle";
           "alt-z" = "terminal_panel::Toggle";
           "alt-d" = "debug_panel::ToggleFocus";
         };
       }
       {
-         context = "Terminal";
-         bindings = {
-           "ctrl-w" = "pane::CloseActiveItem";
-           "alt-z" = "terminal_panel::Toggle";
-           "alt-d" = "debug_panel::ToggleFocus";
-           "ctrl-i" = "tab_switcher::ToggleAll";
-           "alt-p" = [ "tab_switcher::Toggle" { "select_last" = true; }];
-           "alt-n" = "tab_switcher::Toggle";
-         };
+        context = "OutlinePanel";
+        bindings = {
+          "ctrl-h" = "workspace::ActivatePaneLeft";
+          "ctrl-l" = "workspace::ActivatePaneRight";
+          "ctrl-j" = "workspace::ActivatePaneDown";
+          "ctrl-k" = "workspace::ActivatePaneUp";
+        };
+      }
+      {
+        context = "OutlinePanel && not_editing";
+        bindings = {
+          "q" = "workspace::ToggleLeftDock";
+        };
+      }
+      {
+        context = "ProjectPanel";
+        bindings = {
+          "ctrl-h" = "workspace::ActivatePaneLeft";
+          "ctrl-l" = "workspace::ActivatePaneRight";
+          "ctrl-j" = "workspace::ActivatePaneDown";
+          "ctrl-k" = "workspace::ActivatePaneUp";
+        };
+      }
+      {
+        context = "ProjectPanel && not_editing";
+        bindings = {
+          "tab" = "project_panel::OpenPermanent";
+          "q" = "workspace::ToggleLeftDock";
+          "r" = "project_panel::Rename";
+          "D" = "project_panel::Delete";
+        };
+      }
+      {
+        context = "Terminal";
+        bindings = {
+          "ctrl-space w d" = "pane::CloseAllItems";
+          "ctrl-space b d" = "pane::CloseActiveItem";
+          "ctrl-space b p" = "panel::PreviousPanelTab";
+          "ctrl-space b n" = "panel::NextPanelTab";
+          "ctrl-space b i" = "tab_switcher::ToggleAll";
+          "ctrl-w" = "pane::CloseActiveItem";
+          "alt-z" = "terminal_panel::Toggle";
+          "alt-d" = "debug_panel::ToggleFocus";
+          "ctrl-i" = "tab_switcher::ToggleAll";
+          "alt-p" = [
+            "tab_switcher::Toggle"
+            { "select_last" = true; }
+          ];
+          "ctrl-p" = null;
+          "ctrl-n" = null;
+        };
       }
       {
         "context" = "Editor && vim_mode == insert";
