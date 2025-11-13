@@ -89,5 +89,8 @@ func _run():
 	apply_setting("filesystem/directories/default_project_path", "/home/emmet/Projects")
 	apply_setting("filesystem/import/blender/blender_path", "/home/emmet/.nix-profile/bin/blender")
 	apply_setting("text_editor/behavior/indent/size", 2)
+	apply_setting("text_editor/external/exec_path", "zeditor")
+	apply_setting("text_editor/external/exec_flags", "{project} {file}:{line}:{col}")
+	apply_setting("text_editor/external/use_external_editor", true)
 	apply_setting("editors/3d/navigation/emulate_numpad", false)
 	apply_setting("project_manager/directory_naming_convention", 2)
