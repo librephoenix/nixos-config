@@ -1,22 +1,22 @@
 {
   description = "Flake of LibrePhoenix";
 
-  outputs = inputs@{ self, ... }:
+  outputs =
+    inputs@{ self, ... }:
     let
       system = "x86_64-linux";
 
       # create patched nixpkgs
-      nixpkgs-patched =
-        (import inputs.nixpkgs { inherit system; }).applyPatches {
-          name = "nixpkgs-patched";
-          src = inputs.nixpkgs;
-          patches = [
-            #(builtins.fetchurl {
-            #  url = "https://asdf1234.patch";
-            #  sha256 = "sha256:qwerty123456...";
-            #})
-          ];
-        };
+      nixpkgs-patched = (import inputs.nixpkgs { inherit system; }).applyPatches {
+        name = "nixpkgs-patched";
+        src = inputs.nixpkgs;
+        patches = [
+          #(builtins.fetchurl {
+          #  url = "https://asdf1234.patch";
+          #  sha256 = "sha256:qwerty123456...";
+          #})
+        ];
+      };
 
       # configure pkgs
       # use nixpkgs if running a server (homelab or worklab profile)
@@ -27,7 +27,11 @@
           allowUnfree = true;
           allowUnfreePredicate = (_: true);
         };
-        overlays = [ inputs.rust-overlay.overlays.default inputs.emacs-overlay.overlays.default inputs.chaotic.overlays.default ];
+        overlays = [
+          inputs.rust-overlay.overlays.default
+          inputs.emacs-overlay.overlays.default
+          inputs.chaotic.overlays.default
+        ];
       };
 
       pkgs-stable = import inputs.nixpkgs-stable {
@@ -43,12 +47,17 @@
 
       # create a list of all directories inside of ./hosts
       # every directory in ./hosts has config for that machine
-      hosts = builtins.filter (x: x != null) (lib.mapAttrsToList (name: value: if (value == "directory") then name else null) (builtins.readDir ./hosts));
+      hosts = builtins.filter (x: x != null) (
+        lib.mapAttrsToList (name: value: if (value == "directory") then name else null) (
+          builtins.readDir ./hosts
+        )
+      );
 
-    in {
+    in
+    {
       # generate a nixos configuration for every host in ./hosts
-      nixosConfigurations = builtins.listToAttrs
-        (map (host: {
+      nixosConfigurations = builtins.listToAttrs (
+        map (host: {
           name = host;
           value = lib.nixosSystem {
             system = "x86_64-linux";
@@ -79,7 +88,8 @@
               inherit inputs;
             };
           };
-        }) hosts);
+        }) hosts
+      );
     };
 
   inputs = {
@@ -91,16 +101,16 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     hyprland = {
-      url = "github:hyprwm/Hyprland/v0.51.0?submodules=true";
+      url = "github:hyprwm/Hyprland/v0.52.1?submodules=true";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.hyprland-qtutils.follows = "hyprland-qtutils";
+      #  inputs.hyprland-qtutils.follows = "hyprland-qtutils";
     };
 
     # FIXME tmp fix
-    hyprland-qtutils = {
-      url = "github:hyprwm/hyprland-qtutils/629b15c19fa4082e4ce6be09fdb89e8c3312aed7";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    #hyprland-qtutils = {
+    #  url = "github:hyprwm/hyprland-qtutils/629b15c19fa4082e4ce6be09fdb89e8c3312aed7";
+    #  inputs.nixpkgs.follows = "nixpkgs";
+    #};
 
     hyprlock = {
       url = "github:hyprwm/hyprlock/v0.9.2";

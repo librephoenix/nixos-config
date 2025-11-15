@@ -1,8 +1,15 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  pkgs-stable,
+  ...
+}:
 
 let
   cfg = config.userSettings.recording;
-in {
+in
+{
   options = {
     userSettings.recording = {
       enable = lib.mkEnableOption "Enable studio recording and editing programs";
@@ -16,10 +23,9 @@ in {
       obs-vaapi
       obs-scale-to-sound
     ];
-    home.packages = with pkgs; [
+    home.packages = with pkgs-stable; [
       kdePackages.kdenlive
-      tenacity
-      ardour
+      #tenacity
     ];
   };
 }

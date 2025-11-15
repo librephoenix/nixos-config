@@ -391,7 +391,6 @@ in
           "size 70% 70%,title:(Resource)"
           "center,title:(Resource)"
           "tile,title:(Godot)"
-          "suppressevent maximize,class:^(steam)$"
           "float,title:^(Unlock Database - KeePassXC)$"
           "size 80% 85%,title:^(Unlock Database - KeePassXC)$"
           "center,title:^(Unlock Database - KeepassXC)$"

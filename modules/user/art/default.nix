@@ -1,8 +1,15 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  pkgs-stable,
+  ...
+}:
 
 let
   cfg = config.userSettings.art;
-in {
+in
+{
   options = {
     userSettings.art = {
       enable = lib.mkEnableOption "Enable art apps";
@@ -10,7 +17,7 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs; [
+    home.packages = with pkgs-stable; [
       krita
       pinta
       inkscape
@@ -22,7 +29,7 @@ in {
     ];
     userSettings.blender.enable = true;
     xdg.mimeApps.defaultApplications = lib.mkForce {
-      "image/svg+xml" = ["org.inkscape.Inkscape.desktop"];
+      "image/svg+xml" = [ "org.inkscape.Inkscape.desktop" ];
     };
   };
 }

@@ -1,4 +1,10 @@
-{ inputs, pkgs, config, lib, ... }:
+{
+  inputs,
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 
 let
   cfg = config.systemSettings.hyprland;
@@ -55,7 +61,9 @@ in
             ScreenWidth = 1920;
             ScreenHeight = 1080;
             blur = false;
-          };})];
+          };
+        })
+      ];
     };
 
     services.upower.enable = true;
@@ -90,7 +98,9 @@ in
     };
 
     # # Ensures SDDM starts after the service.
-    systemd.services.sddm = { after = [ "sddm-avatar.service" ]; };
+    systemd.services.sddm = {
+      after = [ "sddm-avatar.service" ];
+    };
 
     # xwayland
     services.xserver = {
@@ -122,7 +132,6 @@ in
       alsa.enable = true;
       alsa.support32Bit = true;
       pulse.enable = true;
-      jack.enable = true;
     };
 
     # Auto rotate screen

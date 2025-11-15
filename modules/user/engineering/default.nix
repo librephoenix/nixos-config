@@ -1,8 +1,15 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  pkgs-stable,
+  ...
+}:
 
 let
   cfg = config.userSettings.engineering;
-in {
+in
+{
   options = {
     userSettings.engineering = {
       enable = lib.mkEnableOption "Enable engineering programs";
@@ -10,7 +17,7 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs; [
+    home.packages = with pkgs-stable; [
       freecad
       openscad
       kicad
@@ -24,7 +31,23 @@ in {
       genericName = "3D Printing Software";
       icon = "cura-icon";
       exec = "cura -platformtheme gtk3 %u";
-      mimeType = [ "model/stl" "application/vnd.ms-3mfdocument" "application/prs.wavefront-obj" "image/bmp" "image/gif" "image/jpeg" "image/png" "text/x-gcode" "application/x-amf" "application/x-ply" "application/x-ctm" "model/vnd.collada+xml" "model/gltf-binary" "model/gltf+json" "model/vnd.collada+xml+zip" ];
+      mimeType = [
+        "model/stl"
+        "application/vnd.ms-3mfdocument"
+        "application/prs.wavefront-obj"
+        "image/bmp"
+        "image/gif"
+        "image/jpeg"
+        "image/png"
+        "text/x-gcode"
+        "application/x-amf"
+        "application/x-ply"
+        "application/x-ctm"
+        "model/vnd.collada+xml"
+        "model/gltf-binary"
+        "model/gltf+json"
+        "model/vnd.collada+xml+zip"
+      ];
       terminal = false;
       type = "Application";
       prefersNonDefaultGPU = true;

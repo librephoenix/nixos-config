@@ -1,8 +1,14 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   cfg = config.userSettings.music;
-in {
+in
+{
   options = {
     userSettings.music = {
       enable = lib.mkEnableOption "Enable apps for making music";
@@ -11,26 +17,24 @@ in {
 
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
-      ardour
       rosegarden
-      tenacity
       mediainfo
       easytag
       bottles
       # The following requires 64-bit FL Studio (FL64) to be installed to a bottle
       # With a bottle name of "FL Studio"
       (pkgs.writeShellScriptBin "flstudio" ''
-         #!/bin/sh
-         if [ -z "$1" ]
-           then
-             bottles-cli run -b "FL Studio" -p FL64
-             #flatpak run --command=bottles-cli com.usebottles.bottles run -b FL\ Studio -p FL64
-           else
-             filepath=$(winepath --windows "$1")
-             echo \'"$filepath"\'
-             bottles-cli run -b "FL Studio" -p "FL64" --args \'"$filepath"\'
-             #flatpak run --command=bottles-cli com.usebottles.bottles run -b FL\ Studio -p FL64 -args "$filepath"
-           fi
+        #!/bin/sh
+        if [ -z "$1" ]
+          then
+            bottles-cli run -b "FL Studio" -p FL64
+            #flatpak run --command=bottles-cli com.usebottles.bottles run -b FL\ Studio -p FL64
+          else
+            filepath=$(winepath --windows "$1")
+            echo \'"$filepath"\'
+            bottles-cli run -b "FL Studio" -p "FL64" --args \'"$filepath"\'
+            #flatpak run --command=bottles-cli com.usebottles.bottles run -b FL\ Studio -p FL64 -args "$filepath"
+          fi
       '')
       (pkgs.makeDesktopItem {
         name = "flstudio";
@@ -39,7 +43,7 @@ in {
         terminal = false;
         type = "Application";
         icon = "flstudio";
-        mimeTypes = ["application/octet-stream"];
+        mimeTypes = [ "application/octet-stream" ];
       })
       (stdenv.mkDerivation {
         name = "flstudio-icon";
