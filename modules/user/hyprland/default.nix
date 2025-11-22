@@ -459,6 +459,7 @@ in
     home.packages = (
       with pkgs;
       [
+        qpwgraph
         networkmanagerapplet
         hyprland-monitor-attached
         alacritty
