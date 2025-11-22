@@ -428,6 +428,8 @@ in
           "ignorezero, ashell-main-layer"
           "animation fade,~nwggrid"
           "animation popin 80%, ashell-main-layer"
+          "order 66,ashell-main-layer"
+          "abovelock 2,ashell-main-layer"
         ];
 
         blurls = lib.optionals (!performance) [

@@ -80,3 +80,16 @@ index c0c647d..9f7df19 100644
                      radius: self.radius.xl.into(),
                      color: Color::TRANSPARENT,
                  },
+diff --git a/src/outputs.rs b/src/outputs.rs
+index 40ba453..915479f 100644
+--- a/src/outputs.rs
++++ b/src/outputs.rs
+@@ -80,7 +80,7 @@ impl Outputs {
+             id,
+             namespace: "ashell-main-layer".to_string(),
+             size: Some((None, Some(height as u32))),
+-            layer: Layer::Bottom,
++            layer: Layer::Top,
+             pointer_interactivity: true,
+             keyboard_interactivity: KeyboardInteractivity::None,
+             exclusive_zone: height as i32,
