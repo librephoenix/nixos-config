@@ -71,6 +71,7 @@ in
       };
       project_panel = {
         starts_open = false;
+        auto_fold_dirs = false;
       };
       active_pane_modifiers = {
         border_size = 0.0;

@@ -115,6 +115,7 @@ in
           "sleep 5 && libinput-gestures"
           "obs-notification-mute-daemon"
           "alacritty --class scratch_term"
+          "blueman-tray"
           "kitty --class scratch_yazi -e yazi"
           "alacritty --class scratch_numbat -e numbat"
           "alacritty --class scratch_btm -e btm"
