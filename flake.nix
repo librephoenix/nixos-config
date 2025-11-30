@@ -94,7 +94,7 @@
 
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-unstable";
-    nixpkgs-stable.url = "nixpkgs/nixos-25.05";
+    nixpkgs-stable.url = "nixpkgs/nixos-25.11";
     chaotic.url = "github:chaotic-cx/nyx";
 
     home-manager.url = "github:nix-community/home-manager/master";
@@ -103,14 +103,7 @@
     hyprland = {
       url = "github:hyprwm/Hyprland/v0.52.1?submodules=true";
       inputs.nixpkgs.follows = "nixpkgs";
-      #  inputs.hyprland-qtutils.follows = "hyprland-qtutils";
     };
-
-    # FIXME tmp fix
-    #hyprland-qtutils = {
-    #  url = "github:hyprwm/hyprland-qtutils/629b15c19fa4082e4ce6be09fdb89e8c3312aed7";
-    #  inputs.nixpkgs.follows = "nixpkgs";
-    #};
 
     hyprlock = {
       url = "github:hyprwm/hyprlock/v0.9.2";
@@ -121,11 +114,6 @@
       url = "github:nix-community/plasma-manager";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
-    };
-
-    winapps = {
-      url = "github:winapps-org/winapps";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     stylix.url = "github:nix-community/stylix";

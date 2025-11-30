@@ -1,4 +1,9 @@
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   config = {
@@ -30,7 +35,7 @@
       virtualization = {
         virtualMachines.enable = true;
       };
-      ai.enable = true;
+      ai.enable = false; # local-ai broken in nixpkgs
 
       # wm
       hyprland.enable = true;
@@ -41,6 +46,10 @@
       # hardware
       bluetooth.enable = true;
     };
+
+    home.packages = with pkgs; [
+      freerdp
+    ];
 
     home.sessionVariables = lib.mkIf config.userSettings.hyprland.enable {
       AQ_DRM_DEVICES = lib.mkForce "/dev/dri/card2:/dev/dri/card1";
