@@ -27,12 +27,12 @@ in
 
   config = lib.mkIf cfg.enable {
     userSettings.alacritty.enable = true;
-    programs.alacritty.settings.window.opacity = lib.mkOverride 40 (if performance then 1.0 else 0.85);
+    programs.alacritty.settings.window.opacity = lib.mkOverride 40 (if performance then 1.0 else 0.80);
     userSettings.kitty.enable = true;
     programs.kitty.settings.background_opacity = lib.mkOverride 40 (
-      if performance then "1.0" else "0.85"
+      if performance then "1.0" else "0.80"
     );
-    userSettings.emacs.opacity = lib.mkOverride 40 (if performance then 100 else 85);
+    userSettings.emacs.opacity = lib.mkOverride 40 (if performance then 100 else 80);
     userSettings.dmenuScripts = {
       enable = true;
       dmenuCmd = "fuzzel -d";
@@ -400,18 +400,18 @@ in
           "opacity 0.80,class:^(dev.zed.Zed)$"
           "opacity 0.80,class:^(org.pulseaudio.pavucontrol)$"
           "opacity 1.0,class:^(org.qutebrowser.qutebrowser),fullscreen:1"
-          "opacity 0.85,class:^(Element)$"
-          "opacity 0.85,class:^(Zulip)$"
-          "opacity 0.85,class:^(discord)$"
-          "opacity 0.85,class:^(Logseq)$"
+          "opacity 0.80,class:^(Element)$"
+          "opacity 0.80,class:^(Zulip)$"
+          "opacity 0.80,class:^(discord)$"
+          "opacity 0.80,class:^(Logseq)$"
           "opacity 1.0,class:^(Brave-browser),fullscreen:1"
           "opacity 1.0,class:^(librewolf),fullscreen:1"
-          "opacity 0.85,title:^(My Local Dashboard Awesome Homepage - qutebrowser)$"
-          "opacity 0.85,title:\[.*\] - My Local Dashboard Awesome Homepage"
-          "opacity 0.85,class:^(org.keepassxc.KeePassXC)$"
-          "opacity 0.85,class:^(org.gnome.Nautilus)$"
-          "opacity 0.85,class:^(org.gnome.Nautilus)$"
-          "opacity 0.85,initialTitle:^(Notes)$,initialClass:^(Brave-browser)$"
+          "opacity 0.80,title:^(My Local Dashboard Awesome Homepage - qutebrowser)$"
+          "opacity 0.80,title:\[.*\] - My Local Dashboard Awesome Homepage"
+          "opacity 0.80,class:^(org.keepassxc.KeePassXC)$"
+          "opacity 0.80,class:^(org.gnome.Nautilus)$"
+          "opacity 0.80,class:^(org.gnome.Nautilus)$"
+          "opacity 0.80,initialTitle:^(Notes)$,initialClass:^(Brave-browser)$"
 
         ];
 

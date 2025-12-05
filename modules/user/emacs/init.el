@@ -79,6 +79,7 @@
   
   ;; Fira and glyphs
   (set-frame-font "FiraCode Nerd Font")
+  (add-to-list 'default-frame-alist '(font . "FiraCode Nerd Font"))
   (let ((alist '((33 . ".\\(?:\\(?:==\\|!!\\)\\|[!=]\\)")
                  (35 . ".\\(?:###\\|##\\|_(\\|[#(?[_{]\\)")
                  (36 . ".\\(?:>\\)")
@@ -1094,8 +1095,6 @@ Made for `org-tab-first-hook' in evil-mode."
   (add-hook 'after-init-hook #'scratch-plus-mode))
 
 (use-package rainbow-mode)
-
-(set-frame-font "FiraCode Nerd Font")
 
 (provide 'init)
 ;;; init.el ends here
