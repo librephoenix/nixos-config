@@ -1,8 +1,15 @@
-{ config, lib, pkgs, pkgs-stable, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  pkgs-stable,
+  ...
+}:
 
 let
   cfg = config.userSettings.office;
-in {
+in
+{
   options = {
     userSettings.office = {
       enable = lib.mkEnableOption "Enable my office programs";
@@ -21,7 +28,6 @@ in {
       gnome-maps
       seahorse
       element-desktop
-      zulip
       discord
       openvpn
       pomodoro-gtk

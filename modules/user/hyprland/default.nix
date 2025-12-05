@@ -120,7 +120,6 @@ in
           "alacritty --class scratch_numbat -e numbat"
           "alacritty --class scratch_btm -e btm"
           "element-desktop"
-          "zulip"
           "sleep 5 && hyprctl keyword bind SUPER,S,exec,${spawnBrowser}"
         ];
 
@@ -361,10 +360,6 @@ in
           "size 85% 90%,class:^(Element)$"
           "workspace special:scratch_chat silent,class:^(Element)$"
           "center,class:^(Element)$"
-          "float,class:^(Zulip)$"
-          "size 85% 90%,class:^(Zulip)$"
-          "workspace special:scratch_chat silent,class:^(Zulip)$"
-          "center,class:^(Zulip)$"
           "float,class:^(discord)$"
           "size 85% 90%,class:^(discord)$"
           "workspace special:scratch_chat silent,class:^(discord)$"
@@ -401,7 +396,6 @@ in
           "opacity 0.80,class:^(org.pulseaudio.pavucontrol)$"
           "opacity 1.0,class:^(org.qutebrowser.qutebrowser),fullscreen:1"
           "opacity 0.80,class:^(Element)$"
-          "opacity 0.80,class:^(Zulip)$"
           "opacity 0.80,class:^(discord)$"
           "opacity 0.80,class:^(Logseq)$"
           "opacity 1.0,class:^(Brave-browser),fullscreen:1"
