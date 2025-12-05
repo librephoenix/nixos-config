@@ -128,6 +128,12 @@ in
               "task_name" = "gitu";
             }
           ];
+          "space g G" = [
+            "task::Spawn"
+            {
+              "task_name" = "magit";
+            }
+          ];
           "space o d" = [
             "task::Spawn"
             {
@@ -215,6 +221,15 @@ in
       {
         label = "gitu";
         command = "gitu || {git init && gitu}";
+        reveal = "always";
+        reveal_target = "center";
+        allow_concurrent_runs = false;
+        use_new_terminal = false;
+        hide = "on_success";
+      }
+      {
+        label = "magit";
+        command = "emacsclient -c --eval '(magit-status)' &> /dev/null & disown; exit;";
         reveal = "always";
         reveal_target = "center";
         allow_concurrent_runs = false;

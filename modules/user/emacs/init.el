@@ -452,13 +452,14 @@
 ;; Enable corfu
 (use-package corfu
   :custom
+  (corfu-auto t)
   (corfu-cycle t)                ;; Enable cycling for `corfu-next/previous'
-  ;; (corfu-preview-current nil)    ;; Disable current candidate preview
+  (corfu-preview-current t)    ;; Disable current candidate preview
   (corfu-preselect 'prompt)      ;; Preselect the prompt
   (corfu-on-exact-match 'insert)     ;; Configure handling of exact matches
-  (corfu-auto nil) ;; auto complete
-  (corfu-auto-delay 1.2)  ;; wait half a second though
-  (corfu-auto-prefix 5) ;; also only for words 3 or more
+  (corfu-auto-delay 0.15)  ;; wait half a second though
+  (corfu-auto-prefix 2) ;; also only for words 2 or more
+  (corfu-min-width 120)
   (defun corfu-lsp-setup ()
     (setq-local completion-styles '(orderless flex hotfuzz)
                 completion-category-defaults nil))
@@ -1093,6 +1094,8 @@ Made for `org-tab-first-hook' in evil-mode."
   (add-hook 'after-init-hook #'scratch-plus-mode))
 
 (use-package rainbow-mode)
+
+(set-frame-font "FiraCode Nerd Font")
 
 (provide 'init)
 ;;; init.el ends here
