@@ -1,8 +1,14 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   cfg = config.userSettings.brave;
-in {
+in
+{
   options = {
     userSettings.brave = {
       enable = lib.mkEnableOption "Enable brave browser";
@@ -15,14 +21,14 @@ in {
     programs.brave.extensions = [
       { id = "cjpalhdlnbpafiamejdnhcphjbkeiagm"; } # ublock
       { id = "oboonakemofpalcgghocfoadofidjkkk"; } # keepassxc
-      { id = "pnidmkljnhbjfffciajlcpeldoljnidn"; } # linkwarden
+      { id = "kgcjekpmcjjogibpjebkhaanilehneje"; } # karakeep
     ];
     programs.brave.commandLineArgs = [
       "--password-store=gnome-libsecret"
       "--enable-accelerated-video-decode"
       "--disable-features=WaylandWpColorManagerV1"
     ];
-    xdg.mimeApps.defaultApplications = lib.mkIf (config.userSettings.browser == "brave" ) {
+    xdg.mimeApps.defaultApplications = lib.mkIf (config.userSettings.browser == "brave") {
       "text/html" = "brave-browser.desktop";
       "x-scheme-handler/http" = "brave-browser.desktop";
       "x-scheme-handler/https" = "brave-browser.desktop";
