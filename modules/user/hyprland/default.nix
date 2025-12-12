@@ -297,7 +297,6 @@ in
           ''SUPER,B,exec,if hyprctl clients | grep scratch_btm; then echo "scratch_yazi respawn not needed"; else alacritty --class scratch_btm -e btm; fi''
           "SUPER,B,togglespecialworkspace,scratch_btm"
           ''SUPER,D,exec,if hyprctl clients | grep Element; then echo "scratch_chat respawn not needed"; else element-desktop; fi''
-          ''SUPER,D,exec,if hyprctl clients | grep Zulip; then echo "scratch_chat respawn not needed"; else zulip; fi''
           "SUPER,D,togglespecialworkspace,scratch_chat"
           ''SUPER,equal, exec, hyprctl keyword cursor:zoom_factor "$(hyprctl getoption cursor:zoom_factor | grep float | awk '{print $2 + 0.5}')"''
           ''SUPER,minus, exec, hyprctl keyword cursor:zoom_factor "$(hyprctl getoption cursor:zoom_factor | grep float | awk '{print $2 - 0.5}')"''
