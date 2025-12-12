@@ -31,6 +31,8 @@ in
       discord
       openvpn
       pomodoro-gtk
+      hunspell
+      hunspellDicts.en_US
     ];
     services.syncthing.enable = true;
     services.nextcloud-client = {
