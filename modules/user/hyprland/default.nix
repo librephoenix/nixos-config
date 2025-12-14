@@ -244,8 +244,6 @@ in
           "SUPERCTRL,S,exec,container-open"
           "SUPERCTRL,P,pin"
           "SUPER,code:47,exec,fuzzel"
-          "SUPER,X,exec,fnottctl dismiss"
-          "SUPERSHIFT,X,exec,fnottctl dismiss all"
           "SUPER,Q,killactive"
           "SUPERSHIFT,Q,exit"
           "SUPER,T,togglefloating"
@@ -331,6 +329,8 @@ in
           ",code:237,exec,brightnessctl --device='asus::kbd_backlight' set 1-"
           ",code:238,exec,brightnessctl --device='asus::kbd_backlight' set +1"
           ",code:255,exec,airplane-mode"
+          "SUPER,X,exec,fnottctl dismiss"
+          "SUPERSHIFT,X,exec,fnottctl dismiss all"
         ];
 
         windowrulev2 = [
@@ -413,17 +413,23 @@ in
           "blur,ashell-main-layer"
           "blur,launcher # fuzzel"
           "blur,~nwggrid"
+          "blur,notifications"
           "blur,gtk-layer-shell"
           "xray 1,waybar"
           "xray 1,ashell-main-layer"
           "xray 1,~nwggrid"
           "xray 1,gtk-layer-shell"
+          "xray 1,notifications"
           "ignorezero, gtk-layer-shell"
           "ignorezero, ashell-main-layer"
+          "ignorezero,notifications"
           "animation fade,~nwggrid"
           "animation popin 80%, ashell-main-layer"
+          "animation popin 80%, notifications"
           "order 66,ashell-main-layer"
+          "order 67,notifications"
           "abovelock 2,ashell-main-layer"
+          "abovelock 2,notifications"
         ];
 
         blurls = lib.optionals (!performance) [
@@ -431,6 +437,8 @@ in
           "launcher # fuzzel"
           "~nwggrid"
           "gtk-layer-shell"
+          "ashell-main-layer"
+          "notifications"
         ];
 
         xwayland = {
@@ -818,10 +826,10 @@ in
       main = {
         anchor = "bottom-right";
         stacking-order = "top-down";
-        min-width = 400;
-        title-font = font + ":size=14";
-        summary-font = font + ":size=12";
-        body-font = font + ":size=11";
+        min-width = 520;
+        title-font = font + ":size=18";
+        summary-font = font + ":size=15";
+        body-font = font + ":size=14";
         border-size = 0;
       };
       low = {
@@ -830,8 +838,8 @@ in
         summary-color = config.lib.stylix.colors.base03 + "ff";
         body-color = config.lib.stylix.colors.base03 + "ff";
         idle-timeout = 150;
-        max-timeout = 30;
-        default-timeout = 8;
+        max-timeout = 4;
+        default-timeout = 2;
       };
       normal = {
         background = config.lib.stylix.colors.base00 + "e6";
@@ -839,8 +847,8 @@ in
         summary-color = config.lib.stylix.colors.base07 + "ff";
         body-color = config.lib.stylix.colors.base07 + "ff";
         idle-timeout = 150;
-        max-timeout = 30;
-        default-timeout = 8;
+        max-timeout = 5;
+        default-timeout = 3;
       };
       critical = {
         background = config.lib.stylix.colors.base00 + "e6";
