@@ -22,6 +22,8 @@ in
       { id = "cjpalhdlnbpafiamejdnhcphjbkeiagm"; } # ublock
       { id = "oboonakemofpalcgghocfoadofidjkkk"; } # keepassxc
       { id = "kgcjekpmcjjogibpjebkhaanilehneje"; } # karakeep
+      { id = "abbpaepbpakcpipajigmlpnhlnbennna"; } # yt music mode
+      { id = "gebbhagfogifgggkldgodflihgfeippi"; } # youtube dislikes
     ];
     programs.brave.commandLineArgs = [
       "--password-store=gnome-libsecret"
