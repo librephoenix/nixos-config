@@ -389,6 +389,8 @@ in
           "float,title:^(Unlock Database - KeePassXC)$"
           "size 80% 85%,title:^(Unlock Database - KeePassXC)$"
           "center,title:^(Unlock Database - KeepassXC)$"
+          "fullscreen,title:^(Steam Big Picture Mode)$"
+          "fullscreen,class:^(xfreerdp)$"
         ]
         ++ lib.optionals (!performance) [
           "opacity 0.80,class:^(dev.zed.Zed)$"
